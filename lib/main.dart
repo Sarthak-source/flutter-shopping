@@ -1,13 +1,27 @@
+import 'package:chucker_flutter/chucker_flutter.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:sutra_ecommerce/utils/api_constants.dart';
+import 'package:sutra_ecommerce/utils/network_dio.dart';
 
 import './models/item.dart';
 import './routes/route.dart' as route;
 import './screens/landing_screen.dart';
 import 'utils/custom_theme.dart';
 
-void main() {
+void main() async {
+  await Hive.initFlutter();
+  box = await Hive.openBox('Box');
+
+  if (kIsWeb) {
+    NetworkDioHttp.setDynamicHeaderWeb(endPoint: ApiAppConstants.apiEndPoint);
+  } else {
+    NetworkDioHttp.setDynamicHeader(endPoint: ApiAppConstants.apiEndPoint);
+  }
+
   runApp(const MyApp());
 }
 
@@ -24,6 +38,7 @@ class MyApp extends StatelessWidget {
           final customTheme = CustomTheme(constraints);
           return GetMaterialApp(
               title: 'Ecommerce',
+              navigatorObservers: [ChuckerFlutter.navigatorObserver],
               theme: ThemeData(
                 //primarySwatch: Colors.green,
                 primarySwatch: const MaterialColor(

@@ -1,14 +1,15 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sutra_ecommerce/assets/logo.dart';
+import 'package:sutra_ecommerce/screens/tab_screen.dart';
 import 'package:sutra_ecommerce/utils/network_repository.dart';
 
 import '../../utils/screen_utils.dart';
 import '../../widgets/custom_text_field.dart';
 import '../../widgets/option_button.dart';
 import '../signup_screen.dart';
-import '../tab_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   static const routeName = '/loginScreen';
@@ -20,32 +21,34 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  String phoneNumber = '';
+  TextEditingController phoneNumberController = TextEditingController(text: '');
   bool repeat = false;
   @override
   Widget build(BuildContext context) {
     ScreenUtils().init(context);
 
-    void handlePhoneNumberChange(String value) {
-      setState(() {
-        phoneNumber = value;
+    // void handlePhoneNumberChange(String value) {
+    //   setState(() {
+    //     phoneNumber.value = value;
 
-        // Check if the entered text is a 10-digit number
-        if (phoneNumber.length == 10 && int.tryParse(phoneNumber) != null) {
-          // Run your function here
-          log('Function triggered with phone number: $phoneNumber');
-          Navigator.of(context).pushNamed(TabScreen.routeName);
-        }
-      });
-    }
+    //     // Check if the entered text is a 10-digit number
+    //     if (phoneNumber.length == 10 && int.tryParse(phoneNumber) != null) {
+    //       // Run your function here
+    //       log('Function triggered with phone number: $phoneNumber');
+    //       Navigator.of(context).pushNamed(TabScreen.routeName);
+    //     }
+    //   });
+    // }
 
-    userExists(String phoneNumber) async {
-      await networkRepository.checkUser(number: phoneNumber).then(
+    userExists(String phoneNumberTyped) async {
+      log(phoneNumberTyped);
+      await networkRepository.checkUser(number: phoneNumberTyped).then(
             (value) => {
-              if (value[''] == '')
-                {
-                  Navigator.of(context).pushNamed(TabScreen.routeName),
-                }
+              log(value)
+              // if (value[''] == '')
+              //   {
+              //     Navigator.of(context).pushNamed(TabScreen.routeName),
+              //   }
             },
           );
     }
@@ -105,15 +108,27 @@ class _LoginScreenState extends State<LoginScreen> {
                     ],
                   ),
                   const Spacer(),
-                  const CustomTextField(
+                  CustomTextField(
                     hint: 'Phone number',
+                    controller: phoneNumberController,
                     //onChanged: handlePhoneNumberChange,
                   ),
                   SizedBox(
                     height: getProportionateScreenHeight(40),
                   ),
                   ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async{
+                      String phoneNumber = phoneNumberController.text;
+                      if (phoneNumber.length < 10) {
+                        // Handle the case where the phone number is too short
+                        Fluttertoast.showToast(
+                          msg: 'Enter a proper number',
+                          backgroundColor: Colors.red,
+                        );
+                      } else {
+                        log(phoneNumber);
+                        await userExists(phoneNumber);
+                      }
                       Navigator.of(context).pushNamed(TabScreen.routeName);
                     },
                     child: const Text('Continue'),

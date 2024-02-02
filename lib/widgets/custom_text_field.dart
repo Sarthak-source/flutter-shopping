@@ -8,13 +8,16 @@ class CustomTextField extends StatelessWidget {
     this.hint,
     this.icon,
     this.onChanged,
+    this.controller,
   });
   final String? hint;
   final Widget? icon;
   final void Function(String)? onChanged;
+  final TextEditingController? controller;
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: controller,
       onChanged: onChanged,
       decoration: InputDecoration(
         border: OutlineInputBorder(

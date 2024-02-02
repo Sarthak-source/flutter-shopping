@@ -25,7 +25,7 @@ class NetworkDioHttp {
   static NetworkRepository networkRepository = NetworkRepository();
 
   static Future<Map<String, String>> getHeaders() async {
-    final String? token = box!.get('token');
+    final String? token = box?.get('token');
     log("Token :- $token");
     if (token != null) {
       debugPrint(
@@ -52,6 +52,7 @@ class NetworkDioHttp {
 
     _dioCacheManager = DioCacheManager(CacheConfig());
     final token = await getHeaders();
+    log(token.toString());
     options.headers.addAll(token);
     _dio = Dio(options);
     _dio!.interceptors.add(_dioCacheManager!.interceptor);
@@ -91,7 +92,6 @@ class NetworkDioHttp {
         Response response = await _dio!
             .get(url, options: header ?? _cacheOptions)
             .onError((error, stackTrace) {
-          log(error.toString());
           throw error.toString();
         });
 

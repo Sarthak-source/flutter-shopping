@@ -21,7 +21,7 @@ var local = '192.168.1.18:8000';
 
 class ApiAppConstants {
   // static String apiEndPoint = "http://139.162.12.150/api/"; // Prod
-  static String apiEndPoint = "http://$ip/api/";
+  static String apiEndPoint = "http://192.168.1.27:8000/api/";
 
   static const String signup = 'app_user/';
   static const String otp = 'sendLoginOTP/';

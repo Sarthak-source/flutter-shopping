@@ -92,6 +92,7 @@ class NetworkRepository {
   }
 
   Future checkUser({required String number}) async {
+    log("${ApiAppConstants.apiEndPoint}${ApiAppConstants.checkParty}?username=$number");
     try {
       final apiResponse = await NetworkDioHttp.getDioHttpMethod(
         url:
@@ -101,9 +102,9 @@ class NetworkRepository {
 
       debugPrint('\x1b[97m checkSeller Response : $apiResponse');
 
-      final body = apiResponse['body'];
+      final body = apiResponse;
 
-      if (body != null &&
+      if (body.isEmpty &&
           body['error'] != null &&
           body['error'] == 'User not exist please sign up') {
         Fluttertoast.showToast(msg: body['error'].toString());
@@ -112,9 +113,9 @@ class NetworkRepository {
       return apiResponse;
     } catch (e) {
       dynamic er = e;
-      Fluttertoast.showToast(msg: er['body']['error']);
+      //Fluttertoast.showToast(msg: er['body']['error']);
 
-      return er['body']['error'].toString();
+      return er.toString();
     }
   }
 

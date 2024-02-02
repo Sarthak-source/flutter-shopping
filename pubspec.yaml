@@ -49,6 +49,7 @@ dependencies:
   hive: ^2.2.3
   geolocator: ^10.1.0
   flutter_otp_text_field: ^1.1.1
+  hive_flutter: ^1.1.0
 
 dev_dependencies:
   flutter_test:
