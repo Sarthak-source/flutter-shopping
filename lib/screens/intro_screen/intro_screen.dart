@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../constants/colors.dart';
 import '../../utils/screen_utils.dart';
@@ -103,7 +104,7 @@ class TextView extends StatelessWidget {
             const Spacer(),
             ElevatedButton(
               onPressed: () {
-                Navigator.of(context).pushNamed(LoginScreen.routeName);
+                Get.toNamed(LoginScreen.routeName);
               },
               child: const Text(
                 'Get Started',
@@ -170,7 +171,7 @@ class IllustrationPageView extends StatelessWidget {
               children: [
                 TextButton(
                   onPressed: () {
-                    Navigator.of(context).pushNamed(LoginScreen.routeName);
+                    Get.toNamed(LoginScreen.routeName);
                   },
                   child: Text(
                     'Skip',

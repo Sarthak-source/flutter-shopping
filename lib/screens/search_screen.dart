@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import './fruit_screen.dart';
 import '../screens/vegetable_screen.dart';
@@ -40,7 +41,7 @@ class SearchScreen extends StatelessWidget {
               TabTitle(
                 title: 'Featured Vegetables',
                 seeAll: () {
-                  Navigator.of(context).pushNamed(VegetableScreen.routeName);
+                  Get.toNamed(VegetableScreen.routeName);
                 },
               ),
               SizedBox(

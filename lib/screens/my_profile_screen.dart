@@ -6,7 +6,7 @@ import '../widgets/custom_app_bar.dart';
 import '../widgets/image_container.dart';
 
 class MyProfileScreen extends StatelessWidget {
-  static const routeName = 'myProfile';
+  static const routeName = '/myProfile';
 
   const MyProfileScreen({super.key});
   @override

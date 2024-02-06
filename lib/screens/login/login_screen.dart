@@ -2,7 +2,9 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:sutra_ecommerce/assets/logo.dart';
+import 'package:sutra_ecommerce/screens/login/verify_otp.dart';
 import 'package:sutra_ecommerce/screens/tab_screen.dart';
 import 'package:sutra_ecommerce/utils/network_repository.dart';
 
@@ -35,22 +37,34 @@ class _LoginScreenState extends State<LoginScreen> {
     //     if (phoneNumber.length == 10 && int.tryParse(phoneNumber) != null) {
     //       // Run your function here
     //       log('Function triggered with phone number: $phoneNumber');
-    //       Navigator.of(context).pushNamed(TabScreen.routeName);
+    //       Get.toNamed(TabScreen.routeName);
     //     }
     //   });
     // }
 
     userExists(String phoneNumberTyped) async {
       log(phoneNumberTyped);
-      await networkRepository.checkUser(number: phoneNumberTyped).then(
-            (value) => {
-              log(value)
-              // if (value[''] == '')
-              //   {
-              //     Navigator.of(context).pushNamed(TabScreen.routeName),
-              //   }
-            },
-          );
+
+      // Get.toNamed(
+      //     OtpScreen.routeName,
+      //     arguments: OtpScreenArguments(phoneNumber: phoneNumberTyped)
+      //   );
+
+      try {
+        var value = await networkRepository.checkUser(number: phoneNumberTyped);
+
+        log(value.toString());
+
+        if (value != null) {
+          await networkRepository.userLogin(number: phoneNumberTyped);
+          if (!context.mounted) return;
+          Get.toNamed(OtpScreen.routeName,
+              arguments: OtpScreenArguments(phoneNumber: phoneNumberTyped));
+        }
+      } catch (error) {
+        log('Error during user check: $error');
+        // Handle the error, show a message, or take appropriate action
+      }
     }
 
     return Scaffold(
@@ -114,24 +128,27 @@ class _LoginScreenState extends State<LoginScreen> {
                     //onChanged: handlePhoneNumberChange,
                   ),
                   SizedBox(
-                    height: getProportionateScreenHeight(40),
+                    height: getProportionateScreenHeight(30),
                   ),
-                  ElevatedButton(
-                    onPressed: () async{
-                      String phoneNumber = phoneNumberController.text;
-                      if (phoneNumber.length < 10) {
-                        // Handle the case where the phone number is too short
-                        Fluttertoast.showToast(
-                          msg: 'Enter a proper number',
-                          backgroundColor: Colors.red,
-                        );
-                      } else {
-                        log(phoneNumber);
-                        await userExists(phoneNumber);
-                      }
-                      Navigator.of(context).pushNamed(TabScreen.routeName);
-                    },
-                    child: const Text('Continue'),
+                  SizedBox(
+                    width: getProportionateScreenHeight(Get.width),
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        String phoneNumber = phoneNumberController.text;
+                        if (phoneNumber.length < 10) {
+                          // Handle the case where the phone number is too short
+                          Fluttertoast.showToast(
+                            msg: 'Enter a proper number',
+                            backgroundColor: Colors.red,
+                          );
+                        } else {
+                          log(phoneNumber);
+                          //userExists(phoneNumber);
+                          Get.toNamed(TabScreen.routeName);
+                        }
+                      },
+                      child: const Text('Continue'),
+                    ),
                   ),
                   const Spacer(
                     flex: 4,
@@ -140,7 +157,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     desc: 'Don\'t have an account? ',
                     method: 'Sign Up',
                     onPressHandler: () {
-                      Navigator.of(context).pushNamed(SignupScreen.routeName);
+                      Get.toNamed(SignupScreen.routeName);
                     },
                   ),
                   const Spacer(),
@@ -155,6 +172,8 @@ class _LoginScreenState extends State<LoginScreen> {
 }
 
 class BouncingLogo extends StatefulWidget {
+  const BouncingLogo({super.key});
+
   @override
   _BouncingLogoState createState() => _BouncingLogoState();
 }

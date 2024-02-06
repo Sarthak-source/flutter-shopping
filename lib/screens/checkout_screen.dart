@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../constants/colors.dart';
 import '../screens/order_success_screen.dart';
@@ -81,7 +82,7 @@ class CheckoutScreen extends StatelessWidget {
               ),
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.of(context).pushNamed(OrderSuccessScreen.routeName);
+                  Get.toNamed(OrderSuccessScreen.routeName);
                 },
                 child: const Text('Pay Now'),
               ),

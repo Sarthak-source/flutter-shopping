@@ -10,10 +10,6 @@ import '../../widgets/list_card.dart';
 import '../../widgets/tab_title.dart';
 
 class FavScreen extends StatelessWidget {
-  final Function()? setstateCallback;
-
-  const FavScreen(this.setstateCallback, {super.key});
-
   @override
   Widget build(BuildContext context) {
     List<Widget> emptyCartWidgets = [
@@ -62,7 +58,7 @@ class FavScreen extends StatelessWidget {
         height: getProportionateScreenHeight(16.0),
       ),
       ElevatedButton(
-        onPressed: setstateCallback,
+        onPressed: () {},
         child: const Text(
           'Start Shopping',
         ),

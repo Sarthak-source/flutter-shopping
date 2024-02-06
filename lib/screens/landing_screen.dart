@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 ///best practices
 import '../constants/colors.dart';
@@ -71,7 +72,7 @@ class IntroWidget extends StatelessWidget {
             const Spacer(),
             ElevatedButton(
               onPressed: () {
-                Navigator.of(context).pushNamed(IntroScreen.routeName);
+                Get.toNamed(IntroScreen.routeName);
               },
               child: const Text('Get Started'),
             ),

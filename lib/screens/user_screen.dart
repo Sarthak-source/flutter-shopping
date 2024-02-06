@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../constants/colors.dart';
 import '../screens/my_profile_screen.dart';
@@ -44,7 +45,7 @@ class UserScreen extends StatelessWidget {
               color: kAccentGreen,
               title: 'My profile',
               tapHandler: () {
-                Navigator.of(context).pushNamed(MyProfileScreen.routeName);
+                Get.toNamed(MyProfileScreen.routeName);
               },
             ),
             SizedBox(

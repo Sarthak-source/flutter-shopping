@@ -19,27 +19,15 @@ class TabScreenState extends State<TabScreen> {
   int curTab = 0;
   @override
   Widget build(BuildContext context) {
-    List<Map<String, Widget>> pages = [
-      {
-        'widget': const HomeScreen(),
-      },
-      {
-        'widget': FavScreen(() {
-          setState(() {
-            curTab = 0;
-          });
-        }),
-      },
-      {
-        'widget': const CartScreen(),
-      },
-      {
-        'widget': const UserScreen(),
-      },
+    List<Widget> pages = [
+      const HomeScreen(),
+       FavScreen(),
+      const CartScreen(),
+      const UserScreen(),
     ];
     return Scaffold(
       body: SafeArea(
-        child: pages[curTab]['widget']!,
+        child: pages[curTab],
       ),
       bottomNavigationBar: CustomNavBar((index) {
         setState(() {

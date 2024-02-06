@@ -6,7 +6,7 @@ import '../widgets/search_bar.dart' as s;
 import '../widgets/tab_title.dart';
 
 class SearchFruitScreen extends StatelessWidget {
-  static const routeName = 'searchFruit';
+  static const routeName = '/searchFruit';
 
   const SearchFruitScreen({super.key});
   @override

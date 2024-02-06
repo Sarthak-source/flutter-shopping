@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../constants/colors.dart';
 import '../screens/checkout_screen.dart';
@@ -81,7 +82,7 @@ class OrderSummaryScreen extends StatelessWidget {
               ),
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.of(context).pushNamed(CheckoutScreen.routeName);
+                  Get.toNamed(CheckoutScreen.routeName);
                 },
                 child: const Text('Checkout'),
               ),

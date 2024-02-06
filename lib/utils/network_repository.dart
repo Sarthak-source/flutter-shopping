@@ -102,7 +102,7 @@ class NetworkRepository {
 
       debugPrint('\x1b[97m checkSeller Response : $apiResponse');
 
-      final body = apiResponse;
+      final body = apiResponse['body'];
 
       if (body.isEmpty &&
           body['error'] != null &&
@@ -119,7 +119,7 @@ class NetworkRepository {
     }
   }
 
-  Future getCategories({required String level, String? parent}) async {
+ static Future getCategories({required String level, String? parent}) async {
     try {
       final apiResponse = await NetworkDioHttp.getDioHttpMethod(
         url:
@@ -140,17 +140,17 @@ class NetworkRepository {
       return apiResponse;
     } catch (e) {
       dynamic er = e;
-      Fluttertoast.showToast(msg: er['body']['error']);
+      //Fluttertoast.showToast(msg: er['body']['error']);
 
-      return er['body']['error'].toString();
+      return er.toString();
     }
   }
 
-  Future getProducts({String? category, String? staus, String? search}) async {
+  static getProducts({String? category, String? status, String? search, String? partyId,String? page}) async {
     try {
       final apiResponse = await NetworkDioHttp.getDioHttpMethod(
         url:
-            "${ApiAppConstants.apiEndPoint}${ApiAppConstants.products}?category=$category&status=$staus&search=$search",
+            "${ApiAppConstants.apiEndPoint}${ApiAppConstants.products}?category=$category&status=$status&search=$search&party=$partyId&page=$page",
         header: Options(headers: <String, String>{'authorization': auth}),
       );
 

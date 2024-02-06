@@ -28,8 +28,8 @@ class ApiAppConstants {
   static const String resendOTP = 'resendLogiOTP/';
   static const String verifyOTP = 'verifyLoginOTP/';
   static const String checkParty = 'check_party/';
-  static const String productCategories = 'product_categories/';
-  static const String products = 'product/products/';
+  static const String productCategories = 'product/product_categories/';
+  static const String products = 'products/';
 
   static const String addressListPost = 'addressListPost/';
 }

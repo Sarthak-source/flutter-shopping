@@ -7,17 +7,20 @@ class CustomTextField extends StatelessWidget {
   const CustomTextField({super.key, 
     this.hint,
     this.icon,
+    this.onTap,
     this.onChanged,
     this.controller,
   });
   final String? hint;
   final Widget? icon;
   final void Function(String)? onChanged;
+  final void Function()? onTap;
   final TextEditingController? controller;
   @override
   Widget build(BuildContext context) {
     return TextField(
       controller: controller,
+      onTap: onTap,
       onChanged: onChanged,
       decoration: InputDecoration(
         border: OutlineInputBorder(

@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:sutra_ecommerce/routes/route.dart';
 import 'package:sutra_ecommerce/utils/api_constants.dart';
 import 'package:sutra_ecommerce/utils/network_dio.dart';
 
 import './models/item.dart';
-import './routes/route.dart' as route;
 import './screens/landing_screen.dart';
 import 'utils/custom_theme.dart';
 
@@ -37,35 +37,38 @@ class MyApp extends StatelessWidget {
         builder: (context, constraints) {
           final customTheme = CustomTheme(constraints);
           return GetMaterialApp(
-              title: 'Ecommerce',
-              navigatorObservers: [ChuckerFlutter.navigatorObserver],
-              theme: ThemeData(
-                //primarySwatch: Colors.green,
-                primarySwatch: const MaterialColor(
-                  0xFF71C4ED,
-                  <int, Color>{
-                    50: Color(0xFFB3E0F8),
-                    100: Color(0xFF81CAEB),
-                    200: Color(0xFF4FB3DE),
-                    300: Color(0xFF1D9CCF),
-                    400: Color(0xFF007BBF),
-                    500: Color(0xFF0069A5),
-                    600: Color(0xFF00588A),
-                    700: Color(0xFF004770),
-                    800: Color(0xFF003655),
-                    900: Color(0xFF00253C),
-                  },
-                ),
-                textTheme: customTheme.nunito(),
-                elevatedButtonTheme: customTheme.elevatedButtonTheme(),
-                outlinedButtonTheme: customTheme.outlinedButtonTheme(),
-                textButtonTheme: customTheme.textButtonTheme(),
-                dividerTheme: customTheme.dividerTheme(),
+            title: 'Ecommerce',
+            navigatorObservers: [ChuckerFlutter.navigatorObserver],
+            theme: ThemeData(
+              //primarySwatch: Colors.green,
+              primarySwatch: const MaterialColor(
+                0xFF71C4ED,
+                <int, Color>{
+                  50: Color(0xFFB3E0F8),
+                  100: Color(0xFF81CAEB),
+                  200: Color(0xFF4FB3DE),
+                  300: Color(0xFF1D9CCF),
+                  400: Color(0xFF007BBF),
+                  500: Color(0xFF0069A5),
+                  600: Color(0xFF00588A),
+                  700: Color(0xFF004770),
+                  800: Color(0xFF003655),
+                  900: Color(0xFF00253C),
+                },
               ),
-              home: const LandingScreen(),
-              routes: route.Route().routes);
+              textTheme: customTheme.nunito(),
+              elevatedButtonTheme: customTheme.elevatedButtonTheme(),
+              outlinedButtonTheme: customTheme.outlinedButtonTheme(),
+              textButtonTheme: customTheme.textButtonTheme(),
+              dividerTheme: customTheme.dividerTheme(),
+            ),
+            getPages: pages,
+            home: const LandingScreen(),
+          );
         },
       ),
     );
   }
 }
+
+//1.4.2

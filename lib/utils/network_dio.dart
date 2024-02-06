@@ -4,7 +4,6 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
@@ -57,7 +56,7 @@ class NetworkDioHttp {
     _dio = Dio(options);
     _dio!.interceptors.add(_dioCacheManager!.interceptor);
     if (kDebugMode) {
-      _dio!.interceptors.add(ChuckerDioInterceptor());
+      //_dio!.interceptors.add(ChuckerDioInterceptor());
     }
   }
 
@@ -73,7 +72,7 @@ class NetworkDioHttp {
     _dio = Dio(options);
 
     if (kDebugMode) {
-      _dio!.interceptors.add(ChuckerDioInterceptor());
+      //_dio!.interceptors.add(ChuckerDioInterceptor());
     }
   }
 
