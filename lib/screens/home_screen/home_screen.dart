@@ -60,40 +60,40 @@ class HomeScreen extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
             child: SearchBar(
-  elevation: MaterialStateProperty.resolveWith<double?>(
-    (Set<MaterialState> states) {
-      // Define the elevation based on different states
-      if (states.contains(MaterialState.pressed)) {
-        return 10.0; // Elevation when pressed
-      }
-      return 5.0; // Default elevation
-    },
-  ),
-  hintText: 'Search...',
-  hintStyle: MaterialStateProperty.resolveWith<TextStyle?>(
-    (Set<MaterialState> states) {
-      // Define the TextStyle based on different states
-      if (states.contains(MaterialState.pressed)) {
-        return const TextStyle(
-          color: Colors.blue, // Change the text color when pressed
-          fontStyle: FontStyle.italic, // Change the font style when pressed
-          fontSize: 16, // Change the font size when pressed
-          // Add any other TextStyle properties you want to customize
-        );
-      }
-      return const TextStyle(
-        color: Colors.grey, // Default text color
-        fontStyle: FontStyle.normal, // Default font style
-        fontSize: 16, // Default font size
-        // Add any other TextStyle properties you want to customize
-      );
-    },
-  ),
-  onTap: () {
-    Get.toNamed(SearchScreen.routeName);
-  },
-),
-
+              elevation: MaterialStateProperty.resolveWith<double?>(
+                (Set<MaterialState> states) {
+                  // Define the elevation based on different states
+                  if (states.contains(MaterialState.pressed)) {
+                    return 10.0; // Elevation when pressed
+                  }
+                  return 5.0; // Default elevation
+                },
+              ),
+              hintText: 'Search...',
+              hintStyle: MaterialStateProperty.resolveWith<TextStyle?>(
+                (Set<MaterialState> states) {
+                  // Define the TextStyle based on different states
+                  if (states.contains(MaterialState.pressed)) {
+                    return const TextStyle(
+                      color: Colors.blue, // Change the text color when pressed
+                      fontStyle: FontStyle
+                          .italic, // Change the font style when pressed
+                      fontSize: 16, // Change the font size when pressed
+                      // Add any other TextStyle properties you want to customize
+                    );
+                  }
+                  return const TextStyle(
+                    color: Colors.grey, // Default text color
+                    fontStyle: FontStyle.normal, // Default font style
+                    fontSize: 16, // Default font size
+                    // Add any other TextStyle properties you want to customize
+                  );
+                },
+              ),
+              onTap: () {
+                Get.toNamed(SearchScreen.routeName);
+              },
+            ),
           ),
         ),
 
@@ -295,50 +295,56 @@ class HomeAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: getProportionateScreenWidth(
-          16,
-        ),
-      ),
-      child: InkWell(
-        onTap: () {
-          Get.toNamed(MapScreen.routeName);
-        },
-        child: Row(
-          children: [
-            const IconButton(
-                onPressed: null,
-                icon: Icon(
-                  CupertinoIcons.location_fill,
-                  color: kPrimaryBlue,
-                )),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Planet Namex 989',
-                    style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                          fontWeight: FontWeight.w700,
-                        ),
-                  ),
-                  Text(
-                    'Norristown, Pennsyvlvania, 19403',
-                    style: TextStyle(
-                      color: kTextColorAccent,
-                      fontSize: getProportionateScreenWidth(
-                        12,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+    return Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: getProportionateScreenWidth(
+              16,
             ),
-            
-          ],
+          ),
+          child: InkWell(
+            onTap: () {
+              Get.toNamed(MapScreen.routeName);
+            },
+            child: Row(
+              children: [
+                const IconButton(
+                    onPressed: null,
+                    icon: Icon(
+                      CupertinoIcons.location_fill,
+                      color: kPrimaryBlue,
+                    )),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Planet Namex 989',
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineMedium!
+                            .copyWith(
+                              fontWeight: FontWeight.w700,
+                            ),
+                      ),
+                      Text(
+                        'Norristown, Pennsyvlvania, 19403',
+                        style: TextStyle(
+                          color: kTextColorAccent,
+                          fontSize: getProportionateScreenWidth(
+                            12,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
-      ),
+      ],
     );
   }
 }

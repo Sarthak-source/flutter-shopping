@@ -118,107 +118,107 @@ class _IndiDealCardState extends State<IndiDealCard> {
                           ),
                         ),
                         Card(
-                            elevation: 0,
-                            shape: RoundedRectangleBorder(
-                              side: const BorderSide(
-                                color:
-                                    kPrimaryBlue, // Set your desired border color
-                                width: 1.0, // Set the border width
-                              ),
-                              borderRadius: BorderRadius.circular(
-                                  10.0), // Set the border radius
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                            side: const BorderSide(
+                              color:
+                                  kPrimaryBlue, // Set your desired border color
+                              width: 1.0, // Set the border width
                             ),
-                            child: SizedBox(
-                              height: 35,
-                              width: quantity == 0
-                                  ? 65
-                                  : (quantity.toString().length * 11) + 75,
-                              child: quantity == 0
-                                  ? OutlinedButton(
-                                      style: OutlinedButton.styleFrom(
-                                        side: const BorderSide(
-                                            color: kPrimaryBlue),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(
-                                              10.0), // Set your desired border radius
-                                        ),
+                            borderRadius: BorderRadius.circular(
+                                10.0), // Set the border radius
+                          ),
+                          child: SizedBox(
+                            height: 35,
+                            width: quantity == 0
+                                ? 65
+                                : (quantity.toString().length * 11) + 75,
+                            child: quantity == 0
+                                ? OutlinedButton(
+                                    style: OutlinedButton.styleFrom(
+                                      side:
+                                          const BorderSide(color: kPrimaryBlue),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(
+                                            10.0), // Set your desired border radius
                                       ),
-                                      onPressed: () {
-                                        setState(() {
-                                          quantity++;
-                                          print(quantity.toString());
-                                        });
-                                      },
-                                      child: const Text(
-                                        'Add',
-                                        style: TextStyle(
-                                            color: kPrimaryBlue, fontSize: 14),
-                                      ),
-                                    )
-                                  : Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      mainAxisSize: MainAxisSize.max,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Transform.translate(
-                                          offset: const Offset(-12, 0),
-                                          child: SizedBox(
-                                            width: 12,
-                                            child: IconButton(
-                                              padding: EdgeInsets.zero,
-                                              icon: const Icon(
-                                                Icons.remove,
-                                                color: kPrimaryBlue,
-                                                size: 20,
-                                              ),
-                                              onPressed: () {
-                                                setState(() {
-                                                  quantity--;
-                                                });
-                                              },
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          height: 35,
-                                          width: (quantity.toString().length *
-                                                  11) +
-                                              20,
-                                          color: kPrimaryBlue,
-                                          child: Center(
-                                            child: Text(
-                                              quantity.toString(),
-                                              style: const TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.white,
-                                                  fontSize: 14),
-                                            ),
-                                          ),
-                                        ),
-                                        Transform.translate(
-                                          offset: const Offset(3.5, 0),
-                                          child: SizedBox(
-                                            width: 12,
-                                            child: IconButton(
-                                              padding: EdgeInsets.zero,
-                                              icon: const Icon(
-                                                Icons.add,
-                                                color: kPrimaryBlue,
-                                                size: 20,
-                                              ),
-                                              onPressed: () {
-                                                setState(() {
-                                                  quantity++;
-                                                });
-                                              },
-                                            ),
-                                          ),
-                                        ),
-                                      ],
                                     ),
-                            )),
+                                    onPressed: () {
+                                      setState(() {
+                                        quantity++;
+                                        print(quantity.toString());
+                                      });
+                                    },
+                                    child: const Text(
+                                      'Add',
+                                      style: TextStyle(
+                                          color: kPrimaryBlue, fontSize: 14),
+                                    ),
+                                  )
+                                : Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    mainAxisSize: MainAxisSize.max,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Transform.translate(
+                                        offset: const Offset(-12, 0),
+                                        child: SizedBox(
+                                          width: 12,
+                                          child: IconButton(
+                                            padding: EdgeInsets.zero,
+                                            icon: const Icon(
+                                              Icons.remove,
+                                              color: kPrimaryBlue,
+                                              size: 20,
+                                            ),
+                                            onPressed: () {
+                                              setState(() {
+                                                quantity--;
+                                              });
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        height: 35,
+                                        width:
+                                            (quantity.toString().length * 11) +
+                                                20,
+                                        color: kPrimaryBlue,
+                                        child: Center(
+                                          child: Text(
+                                            quantity.toString(),
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white,
+                                                fontSize: 14),
+                                          ),
+                                        ),
+                                      ),
+                                      Transform.translate(
+                                        offset: const Offset(3.5, 0),
+                                        child: SizedBox(
+                                          width: 12,
+                                          child: IconButton(
+                                            padding: EdgeInsets.zero,
+                                            icon: const Icon(
+                                              Icons.add,
+                                              color: kPrimaryBlue,
+                                              size: 20,
+                                            ),
+                                            onPressed: () {
+                                              setState(() {
+                                                quantity++;
+                                              });
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                          ),
+                        ),
                       ],
                     )
                   ],

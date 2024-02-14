@@ -22,6 +22,9 @@ class CartScreen extends StatelessWidget {
                   'My Cart',
                   style: Theme.of(context).textTheme.displaySmall!.copyWith(
                         fontWeight: FontWeight.w700,
+                        fontSize: getProportionateScreenWidth(
+                        20,
+                      ),
                       ),
                 ),
                 const Spacer(),
@@ -41,7 +44,7 @@ class CartScreen extends StatelessWidget {
                   children: [
                     index == 0
                         ? const OrderCard(
-                            isSelected: true,
+                            
                           )
                         : const OrderCard(),
                     SizedBox(

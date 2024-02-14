@@ -71,7 +71,7 @@ class FavScreen extends StatelessWidget {
         padding: 0,
       ),
       SizedBox(
-        height: getProportionateScreenHeight(220),
+        height: getProportionateScreenHeight(240),
         child: Row(
           children: [
             const Expanded(
