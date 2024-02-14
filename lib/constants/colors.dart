@@ -19,6 +19,8 @@ const kFailColor = Color(0xFFFF4343);
 
 ///Text color
 const kTextColor = Color(0xFF22292E);
+const kTextBlackColor = Color(0xFF000000);
+const kTextGreenColor = Color(0xFF00FF00);
 const kTextColorAccent = Color(0xFF8A8A8E);
 const kTextColorThird = Color(0xFFC5C5C7);
 const kTextColorForth = Color(0xFFF8F8F8);

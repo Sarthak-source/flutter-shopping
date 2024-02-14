@@ -5,6 +5,7 @@ import '../constants/colors.dart';
 import '../screens/my_profile_screen.dart';
 import '../utils/screen_utils.dart';
 import '../widgets/image_container.dart';
+import 'myorders_screen.dart';
 
 class UserScreen extends StatelessWidget {
   const UserScreen({super.key});
@@ -71,6 +72,18 @@ class UserScreen extends StatelessWidget {
               image: 'assets/images/check_user.png',
               color: kAccentPurple,
               title: 'Help Center',
+            ),
+            SizedBox(
+              height: getProportionateScreenHeight(8.0),
+            ),
+             ProfileCard(
+              image: 'assets/images/arrow_user.png',
+              color: kAccentRed,
+              title: 'My Orders',
+              tapHandler: (){
+               // Navigator.of(context).pushNamed(MyOrders.routeName);
+                Get.toNamed(MyOrders.routeName);
+              },
             ),
             SizedBox(
               height: getProportionateScreenHeight(8.0),

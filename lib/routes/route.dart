@@ -10,6 +10,7 @@ import '../screens/intro_screen/intro_screen.dart';
 import '../screens/login/login_screen.dart';
 import '../screens/map_screen.dart';
 import '../screens/my_profile_screen.dart';
+import '../screens/myorders_screen.dart';
 import '../screens/order_success_screen.dart';
 import '../screens/order_summary_screen.dart';
 import '../screens/product_screen/produts_screen.dart';
@@ -45,4 +46,9 @@ List<GetPage> pages = [
   GetPage(name: OrderSuccessScreen.routeName, page: () => const OrderSuccessScreen()),
   GetPage(name: MyProfileScreen.routeName, page: () => const MyProfileScreen()),
   GetPage(name: OtpScreen.routeName, page: () => const OtpScreen()),
+  GetPage(name: MyOrders.routeName, page: () => const MyOrders()),
+
+ // MyOrders.routeName: (ctx) => const MyOrders(),
+
+
 ];
