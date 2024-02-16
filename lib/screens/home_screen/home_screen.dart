@@ -1,11 +1,9 @@
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:sutra_ecommerce/controllers/catagories_controller.dart';
 import 'package:sutra_ecommerce/screens/map_screen.dart';
-import 'package:sutra_ecommerce/utils/network_repository.dart';
 
 import '../../constants/colors.dart';
 import '../../models/category.dart';
@@ -100,7 +98,7 @@ class HomeScreen extends StatelessWidget {
         const SliverToBoxAdapter(
           child: DealsTab(),
         ),
-        const SliverToBoxAdapter(child: CategoryTab()),
+        SliverToBoxAdapter(child: CategoryTab()),
         SliverToBoxAdapter(
           child: TabTitle(
               title: 'Popular Deals',
@@ -175,24 +173,10 @@ class DealsTab extends StatelessWidget {
   }
 }
 
-class CategoryTab extends StatefulWidget {
-  const CategoryTab({
-    Key? key,
-  }) : super(key: key);
+class CategoryTab extends StatelessWidget {
+  final CategoriesController controller = Get.put(CategoriesController());
 
-  @override
-  State<CategoryTab> createState() => _CategoryTabState();
-}
-
-class _CategoryTabState extends State<CategoryTab> {
-  late Future<dynamic> _categoryFuture;
-
-  @override
-  void initState() {
-    super.initState();
-    _categoryFuture = NetworkRepository.getCategories(
-        level: '1', parent: ''); // Call your data fetching method here
-  }
+   CategoryTab({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -220,11 +204,9 @@ class _CategoryTabState extends State<CategoryTab> {
               )
             ],
           ),
-          FutureBuilder(
-            future: _categoryFuture,
-            builder: (context, snapshot) {
-              log(snapshot.toString());
-              if (snapshot.connectionState == ConnectionState.waiting) {
+          GetBuilder<CategoriesController>(
+            builder: (controller) {
+              if (controller.isLoading.value) {
                 return Shimmer.fromColors(
                   baseColor: Colors.grey[300]!,
                   highlightColor: Colors.grey[100]!,
@@ -237,44 +219,40 @@ class _CategoryTabState extends State<CategoryTab> {
                       itemBuilder: (context, index) {
                         return const Padding(
                           padding: EdgeInsets.only(right: 12.0),
-                          child:
-                              CategoryCardPlaceholder(), // Create a placeholder widget
+                          child: CategoryCardPlaceholder(),
                         );
                       },
                     ),
                   ),
                 );
-              } else if (snapshot.hasError) {
-                return Text('Error: ${snapshot.error}');
+              } else if (controller.hasError.value) {
+                return Text('Error: ${controller.errorMsg.value}');
               } else {
-                Map<String, dynamic> responseData = snapshot.data;
-                List categories = responseData['body']['results'];
-
-                log(categories.toString());
-
                 return SizedBox(
-                  height:
-                      100, // Set a fixed height or adjust according to your needs
+                  height: 100,
                   child: ListView.builder(
                     clipBehavior: Clip.none,
-                    scrollDirection:
-                        Axis.horizontal, // Set the scroll direction
-                    itemCount: categories.length,
+                    scrollDirection: Axis.horizontal,
+                    itemCount: controller.categories.length,
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: const EdgeInsets.only(right: 12.0),
                         child: InkWell(
                           onTap: () {
-                            Get.toNamed(PoductsListScreen.routeName,
-                                arguments: PoductsListArguments(
-                                    title: categories[index]['name'],
-                                    categoryId: categories[index]['id']));
+                            Get.toNamed(
+                              PoductsListScreen.routeName,
+                              arguments: PoductsListArguments(
+                                title: controller.categories[index]['name'],
+                                categoryId: controller.categories[index]['id'],
+                              ),
+                            );
                           },
                           child: CategoryCard(
                             Category(
-                                categories[index]['name'],
-                                categories[index]['categories_img'],
-                                Colors.amber),
+                              controller.categories[index]['name'],
+                              controller.categories[index]['categories_img'],
+                              Colors.amber,
+                            ),
                           ),
                         ),
                       );

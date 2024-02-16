@@ -27,14 +27,28 @@ class CategoryCardPlaceholder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 120,
-      height: 100,
-      margin: const EdgeInsets.only(right: 12.0),
-      decoration: BoxDecoration(
-        color: Colors.grey[300],
-        borderRadius: BorderRadius.circular(8.0),
-      ),
+    return Column(
+      children: [
+        Container(
+          width: 120,
+          height: 60,
+          margin: const EdgeInsets.only(right: 12.0),
+          decoration: BoxDecoration(
+            color: Colors.grey[300],
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+        ),
+        SizedBox(height: 10,),
+         Container(
+          width: 120,
+          height: 15,
+          margin: const EdgeInsets.only(right: 12.0),
+          decoration: BoxDecoration(
+            color: Colors.grey[300],
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+        ),
+      ],
     );
   }
 }
