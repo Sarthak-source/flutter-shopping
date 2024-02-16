@@ -5,7 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:sutra_ecommerce/assets/logo.dart';
 import 'package:sutra_ecommerce/screens/login/verify_otp.dart';
-import 'package:sutra_ecommerce/screens/tab_screen.dart';
+import 'package:sutra_ecommerce/screens/signup_screen.dart';
 import 'package:sutra_ecommerce/utils/network_repository.dart';
 
 import '../../utils/screen_utils.dart';
@@ -142,8 +142,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           );
                         } else {
                           log(phoneNumber);
-                          //userExists(phoneNumber);
-                          Get.toNamed(TabScreen.routeName);
+                          userExists(phoneNumber);
+                          //Get.toNamed(TabScreen.routeName);
                         }
                       },
                       child: const Text('Continue'),
@@ -157,7 +157,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     method: 'Sign Up',
                     onPressHandler: () {
                       userExists(phoneNumberController.text);
-                      //Get.toNamed(SignupScreen.routeName);
+                      Get.toNamed(SignupScreen.routeName);
                     },
                   ),
                   const Spacer(),
