@@ -11,7 +11,6 @@ import 'package:sutra_ecommerce/utils/network_repository.dart';
 import '../../utils/screen_utils.dart';
 import '../../widgets/custom_text_field.dart';
 import '../../widgets/option_button.dart';
-import '../signup_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   static const routeName = '/loginScreen';
@@ -104,7 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Transform.translate(
                       offset: const Offset(-60, -50),
                       child:
-                          Transform.scale(scale: 0.5, child: BouncingLogo())),
+                          Transform.scale(scale: 0.5, child: const BouncingLogo())),
 
                   SizedBox(
                     height: getProportionateScreenHeight(60),
@@ -157,7 +156,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     desc: 'Don\'t have an account? ',
                     method: 'Sign Up',
                     onPressHandler: () {
-                      Get.toNamed(SignupScreen.routeName);
+                      userExists(phoneNumberController.text);
+                      //Get.toNamed(SignupScreen.routeName);
                     },
                   ),
                   const Spacer(),

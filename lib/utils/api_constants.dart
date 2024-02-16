@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:hive/hive.dart';
 
-var auth = 'Basic ${base64Encode(utf8.encode('admin:admin123'))}'; // Prod
+var auth = 'Basic ${base64Encode(utf8.encode('gfg:gfgtech123'))}'; // Prod
 Box? box;
 // var auth = 'Basic ${base64Encode(utf8.encode('gfg:!gfgtech123#'))}';  // Dev
 // var ip = '139.162.12.150'; // Prod
@@ -21,7 +21,7 @@ var local = '192.168.1.18:8000';
 
 class ApiAppConstants {
   // static String apiEndPoint = "http://139.162.12.150/api/"; // Prod
-  static String apiEndPoint = "http://192.168.1.27:8000/api/";
+  static String apiEndPoint = "http://70.187.232.148/api/";
 
   static const String signup = 'app_user/';
   static const String otp = 'sendLoginOTP/';
