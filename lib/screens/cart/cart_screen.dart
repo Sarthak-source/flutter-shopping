@@ -12,6 +12,7 @@ class CartScreen extends StatelessWidget {
    final MyCartController controller = Get.put(MyCartController());
   @override
   Widget build(BuildContext context) {
+   
     return  GetBuilder<MyCartController>(
         builder: (controller) {
       return Center(

@@ -12,14 +12,17 @@ class CategoryCard extends StatelessWidget {
     return Column(
       children: [
         Image.network(
-          category.catIcon?? 
-          'https://scontent.fblr1-5.fna.fbcdn.net/v/t39.30808-1/298706965_3196362227304296_6589172397550841826_n.jpg?stp=cp0_dst-jpg_e15_p480x480_q65&_nc_cat=111&ccb=1-7&_nc_sid=4da83f&_nc_ohc=dCOYq0UOKxYAX-yFdLy&_nc_ht=scontent.fblr1-5.fna&oh=00_AfBVv9CbsdmMab3Hut_MqaSscKgIMQK4Ze9ESUx56F1-YA&oe=65D5F373',
+          category.catIcon ??
+              'http://170.187.232.148/static/images/dilicia.png',
           fit: BoxFit.fill,
           height: 100,
-          
         ),
-        const SizedBox(height: 10,),
-        Text(category.catName, )
+        const SizedBox(
+          height: 10,
+        ),
+        Text(
+          category.catName,
+        )
       ],
     );
   }
