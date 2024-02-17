@@ -8,8 +8,8 @@ import '../../widgets/order_card.dart';
 import '../add_address/add_address_screen.dart';
 
 class CartScreen extends StatelessWidget {
-   const CartScreen({super.key});
-  
+    CartScreen({super.key});
+   final MyCartController controller = Get.put(MyCartController());
   @override
   Widget build(BuildContext context) {
     return  GetBuilder<MyCartController>(
