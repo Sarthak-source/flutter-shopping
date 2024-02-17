@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sutra_ecommerce/controllers/add_to_card_controller.dart';
+import 'package:sutra_ecommerce/controllers/add_to_cart_controller.dart';
 
 import '../constants/colors.dart';
 

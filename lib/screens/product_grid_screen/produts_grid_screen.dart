@@ -18,7 +18,7 @@ class PoductsListArguments {
 }
 
 class PoductsListScreen extends StatefulWidget {
-  static const routeName = '/poducts_list_screen';
+  static const routeName = '/products_list_screen';
 
   const PoductsListScreen({super.key});
 
@@ -215,7 +215,7 @@ class _CustomStaggerGridState extends State<CustomStaggerGrid> {
                     itemCount: 10, // Use a placeholder count
                     itemBuilder: (context, index) {
                       return const Padding(
-                        padding: EdgeInsets.only(right: 12.0),
+                        padding: EdgeInsets.only(left: 16,bottom: 8),
                         child:
                             ProductCardPlaceholder(), // Create a placeholder widget
                       );

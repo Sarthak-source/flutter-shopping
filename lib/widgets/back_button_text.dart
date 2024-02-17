@@ -18,6 +18,7 @@ class BackButtonText extends StatelessWidget {
           const Icon(
             Icons.arrow_back_ios,
             color: kPrimaryBlue,
+            size: 16,
           ),
           Text(
             'Back',

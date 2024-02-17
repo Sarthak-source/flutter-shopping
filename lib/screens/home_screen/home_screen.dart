@@ -1,16 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sutra_ecommerce/controllers/add_to_card_controller.dart';
+import 'package:sutra_ecommerce/controllers/add_to_cart_controller.dart';
 import 'package:sutra_ecommerce/screens/home_screen/components/categories/categories.dart';
-import 'package:sutra_ecommerce/screens/home_screen/components/popular_deal/popular_deals.dart';
 import 'package:sutra_ecommerce/screens/map_screen.dart';
 
 import '../../constants/colors.dart';
 import '../../utils/screen_utils.dart';
 import '../../widgets/deal_card.dart';
 import '../../widgets/tab_title.dart';
-import '../product_screen/produts_screen.dart';
+import '../product_grid_screen/produts_grid_screen.dart';
 import '../search_screen/search_screen.dart';
 import '../special_deal_screen.dart';
 
@@ -83,7 +82,7 @@ class HomeScreen extends StatelessWidget {
                 Get.toNamed(PoductsListScreen.routeName);
               }),
         ),
-        const PopularDealTab(),
+        //const PopularDealTab(),
 
 
          

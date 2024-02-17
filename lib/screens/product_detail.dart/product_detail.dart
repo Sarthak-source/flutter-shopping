@@ -1,32 +1,46 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
-import '../constants/colors.dart';
-import '../screens/order_summary_screen.dart';
-import '../utils/screen_utils.dart';
-import '../widgets/custom_app_bar.dart';
-import '../widgets/custom_input_button.dart';
-import '../widgets/discount_text.dart';
-import '../widgets/fruit_title.dart';
-import '../widgets/image_placeholder.dart';
-import '../widgets/price_tag.dart';
-import '../widgets/product_card/product_card.dart';
-import '../widgets/quantity_input.dart';
-import '../widgets/tab_title.dart';
+import '../../constants/colors.dart';
+import '../../utils/screen_utils.dart';
+import '../../widgets/custom_app_bar.dart';
+import '../../widgets/custom_input_button.dart';
+import '../../widgets/discount_text.dart';
+import '../../widgets/fruit_title.dart';
+import '../../widgets/price_tag.dart';
+import '../../widgets/product_card/product_card.dart';
+import '../../widgets/quantity_input.dart';
+import '../../widgets/tab_title.dart';
+import '../order_summary_screen.dart';
 
-class DragonFruitScreen extends StatefulWidget {
-  static const routeName = '/dragonFruit';
+//arguments: ProductDetailArguments(phoneNumber: phoneNumberTyped)
 
-  const DragonFruitScreen({super.key});
+class ProductDetailArguments {
+  final Map<String, dynamic> productDetailData;
 
-  @override
-  DragonFruitScreenState createState() => DragonFruitScreenState();
+  ProductDetailArguments({required this.productDetailData});
 }
 
-class DragonFruitScreenState extends State<DragonFruitScreen> {
+class ProductDetailScreen extends StatefulWidget {
+  static const routeName = '/productDetail';
+
+  const ProductDetailScreen({super.key});
+
+  @override
+  ProductDetailScreenState createState() => ProductDetailScreenState();
+}
+
+class ProductDetailScreenState extends State<ProductDetailScreen> {
   final textController = TextEditingController(text: '1');
   bool isReviewTab = false;
+
   @override
   Widget build(BuildContext context) {
+    var args =
+        ModalRoute.of(context)?.settings.arguments as ProductDetailArguments;
+
+    log(args.productDetailData.toString());
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -37,18 +51,9 @@ class DragonFruitScreenState extends State<DragonFruitScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CustomAppBar(
-                      title:'Dragon Fruit',
-                    actions:  [
-                        SizedBox(
-                          width: getProportionateScreenWidth(24),
-                          child: Image.asset(
-                            'assets/images/cart_nav_fill.png',
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                        SizedBox(
-                          width: getProportionateScreenWidth(16),
-                        ),
+                      title: args.productDetailData['name'],
+                      marginBottom: 12,
+                      actions: [
                         const Icon(
                           Icons.share,
                           color: kPrimaryBlue,
@@ -64,7 +69,8 @@ class DragonFruitScreenState extends State<DragonFruitScreen> {
                     SizedBox(
                       height: getProportionateScreenHeight(300),
                       width: double.infinity,
-                      child: const ImagePlaceholder(),
+                      child:
+                          Image.network(args.productDetailData['product_img']),
                     ),
                     SizedBox(
                       height: getProportionateScreenHeight(10),
@@ -80,16 +86,18 @@ class DragonFruitScreenState extends State<DragonFruitScreen> {
                           SizedBox(
                             height: getProportionateScreenHeight(8),
                           ),
-                          const FruitTitle(title: 'Fruit\'s Bundle'),
+                          FruitTitle(title: args.productDetailData['name']),
                           SizedBox(
                             height: getProportionateScreenHeight(8),
                           ),
                           Text(
-                            '200gr',
-                            style:
-                                Theme.of(context).textTheme.headlineMedium!.copyWith(
-                                      color: kTextColorAccent,
-                                    ),
+                            args.productDetailData['price'].toString(),
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineMedium!
+                                .copyWith(
+                                  color: kTextColorAccent,
+                                ),
                           ),
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -191,12 +199,13 @@ class DragonFruitScreenState extends State<DragonFruitScreen> {
                           ),
                           !isReviewTab
                               ? Text(
-                                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation',
+                                  '${args.productDetailData['description']}',
                                   style: Theme.of(context)
                                       .textTheme
                                       .headlineMedium!
                                       .copyWith(
                                         color: kTextColorAccent,
+                                        fontSize: 16,
                                       ),
                                 )
                               : Column(

@@ -2,8 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sutra_ecommerce/controllers/add_to_card_controller.dart';
-import 'package:sutra_ecommerce/screens/dragon_fruit_screen.dart';
+import 'package:sutra_ecommerce/controllers/add_to_cart_controller.dart';
+import 'package:sutra_ecommerce/screens/product_detail.dart/product_detail.dart';
 
 import '../../constants/colors.dart';
 import '../../utils/screen_utils.dart';
@@ -31,235 +31,248 @@ class _ProductCardState extends State<ProductCard> {
   RxInt quantity =
       0.obs; // Initialize quantity as observable RxInt with value 0
 
+  @override
+  void initState() {
+    super.initState();
+
+    //if( widget.mycartItem["count"] != null){
+    print("count::: ${widget.product!["cart_count"].toString()}");
+    double d = double.parse(widget.product!["cart_count"].toString());
+    print('double count $d');
+    print('int count ${d.toInt()}');
+    quantity.value = d.toInt();
+    //}
+  }
+
   AddToCartController addToCartController = AddToCartController();
   @override
   Widget build(BuildContext context) {
-    //log(widget.product.toString());
+    log(widget.product.toString());
 
-    return Obx(
-      () {
-        return Padding(
-          padding: !widget.noPadding!
-              ? EdgeInsets.only(
-                  left: widget.isLeft! ? getProportionateScreenWidth(16.0) : 0,
-                  right: widget.isLeft! ? 0 : getProportionateScreenWidth(16.0),
-                )
-              : const EdgeInsets.all(0),
-          child: InkWell(
-            onTap: () {
-            
-                Get.toNamed(DragonFruitScreen.routeName);
-             
-            },
-            child: Container(
-              padding: EdgeInsets.all(
-                getProportionateScreenWidth(1.0),
+    return Obx(() {
+      return Padding(
+        padding: !widget.noPadding!
+            ? EdgeInsets.only(
+                left: widget.isLeft! ? getProportionateScreenWidth(16.0) : 0,
+                right: widget.isLeft! ? 0 : getProportionateScreenWidth(16.0),
+              )
+            : const EdgeInsets.all(0),
+        child: InkWell(
+          onTap: () {
+            Get.toNamed(ProductDetailScreen.routeName,
+                arguments:
+                    ProductDetailArguments(productDetailData: widget.product));
+          },
+          child: Container(
+            padding: EdgeInsets.all(
+              getProportionateScreenWidth(1.0),
+            ),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(
+                getProportionateScreenWidth(
+                  8,
+                ),
               ),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(
-                  getProportionateScreenWidth(
-                    8,
+              boxShadow: [
+                BoxShadow(
+                  color: kShadowColor,
+                  offset: Offset(
+                    getProportionateScreenWidth(3),
+                    getProportionateScreenWidth(3),
+                  ),
+                  blurRadius: 1,
+                )
+              ],
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  height: getProportionateScreenHeight(140.0),
+                  decoration: BoxDecoration(
+                    color: kGreyShade5,
+                    image: DecorationImage(
+                      image: NetworkImage(
+                          widget.product?['product_img'] ?? "Not given"),
+                      fit: BoxFit.cover, // Adjust the fit based on your needs
+                    ),
+                    borderRadius: BorderRadius.circular(
+                      getProportionateScreenWidth(10.0),
+                    ),
                   ),
                 ),
-                boxShadow: [
-                  BoxShadow(
-                    color: kShadowColor,
-                    offset: Offset(
-                      getProportionateScreenWidth(3),
-                      getProportionateScreenWidth(3),
-                    ),
-                    blurRadius: 1,
-                  )
-                ],
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    height: getProportionateScreenHeight(140.0),
-                    decoration: BoxDecoration(
-                      color: kGreyShade5,
-                      image: DecorationImage(
-                        image: NetworkImage(
-                            widget.product?['product_img'] ?? "Not given"),
-                        fit: BoxFit.cover, // Adjust the fit based on your needs
-                      ),
-                      borderRadius: BorderRadius.circular(
-                        getProportionateScreenWidth(10.0),
-                      ),
-                    ),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: getProportionateScreenWidth(10),
                   ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: getProportionateScreenWidth(10),
-                    ),
-                    child: SizedBox(
-                      height: getProportionateScreenHeight(80.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Spacer(
-                            flex: 2,
+                  child: SizedBox(
+                    height: getProportionateScreenHeight(80.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Spacer(
+                          flex: 2,
+                        ),
+                        Text(
+                          widget.product?['name'] ?? "Not given",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium
+                              ?.copyWith(
+                                  fontWeight: FontWeight.w700, fontSize: 13),
+                        ),
+                        const Spacer(),
+                        Text(
+                          '200gr',
+                          style: TextStyle(
+                            fontSize: getProportionateScreenWidth(12),
+                            color: kTextColorAccent,
                           ),
-                          Text(
-                            widget.product?['name'] ?? "Not given",
-                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                fontWeight: FontWeight.w700, fontSize: 13),
-                          ),
-                          const Spacer(),
-                          Text(
-                            '200gr',
-                            style: TextStyle(
-                              fontSize: getProportionateScreenWidth(12),
-                              color: kTextColorAccent,
+                        ),
+                        const Spacer(),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                '\$45',
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              ),
                             ),
-                          ),
-                          const Spacer(),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  '\$45',
-                                  style: Theme.of(context).textTheme.bodyMedium,
+                            Card(
+                              elevation: 0,
+                              shape: RoundedRectangleBorder(
+                                side: const BorderSide(
+                                  color:
+                                      kPrimaryBlue, // Set your desired border color
+                                  width: 1.0, // Set the border width
                                 ),
+                                borderRadius: BorderRadius.circular(
+                                    10.0), // Set the border radius
                               ),
-                              Card(
-                                elevation: 0,
-                                shape: RoundedRectangleBorder(
-                                  side: const BorderSide(
-                                    color:
-                                        kPrimaryBlue, // Set your desired border color
-                                    width: 1.0, // Set the border width
-                                  ),
-                                  borderRadius: BorderRadius.circular(
-                                      10.0), // Set the border radius
-                                ),
-                                child: SizedBox(
-                                  height: 35,
-                                  width: quantity.value == 0
-                                      ? 75
-                                      : (quantity.toString().length * 11) + 75,
-                                  child: quantity.value == 0
-                                      ? OutlinedButton(
-                                          style: OutlinedButton.styleFrom(
-                                            side: const BorderSide(
-                                                color: kPrimaryBlue),
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(
-                                                  10.0), // Set your desired border radius
-                                            ),
+                              child: SizedBox(
+                                height: 35,
+                                width: quantity.value == 0
+                                    ? 75
+                                    : (quantity.toString().length * 11) + 75,
+                                child: quantity.value == 0
+                                    ? OutlinedButton(
+                                        style: OutlinedButton.styleFrom(
+                                          side: const BorderSide(
+                                              color: kPrimaryBlue),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(
+                                                10.0), // Set your desired border radius
                                           ),
-                                          onPressed: () async {
-                                            log('20');
-                                            addToCartController.addToCart(
-                                                quantity.value,
-                                                widget.product['id'],
-                                                '1');
-                                          
-                                              quantity.value++;
-                                           
-                                            addToCartController.update();
-                                          },
-                                          child: Text(
-                                            'Add',
-                                            style: TextStyle(
-                                                color: kPrimaryBlue,
-                                                fontSize:
-                                                    getProportionateScreenWidth(
-                                                        14)),
-                                          ),
-                                        )
-                                      : Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          mainAxisSize: MainAxisSize.max,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            Transform.translate(
-                                              offset: const Offset(-12, 0),
-                                              child: SizedBox(
-                                                width: 12,
-                                                child: IconButton(
-                                                  padding: EdgeInsets.zero,
-                                                  icon: const Icon(
-                                                    Icons.remove,
-                                                    color: kPrimaryBlue,
-                                                    size: 20,
-                                                  ),
-                                                  onPressed: () {
-                                                   
-                                                      quantity.value--;
-                                                      addToCartController.addToCart(
-                                                          quantity.value,
-                                                          widget.product['id'],
-                                                          '1');
-                                                   
-                                                    addToCartController.update();
-                                                  },
-                                                ),
-                                              ),
-                                            ),
-                                            Container(
-                                              height: 35,
-                                              width: (quantity.value
-                                                          .toString()
-                                                          .length *
-                                                      11) +
-                                                  20,
-                                              color: kPrimaryBlue,
-                                              child: Center(
-                                                child: Text(
-                                                  quantity.value.toString(),
-                                                  style: const TextStyle(
-                                                      fontWeight: FontWeight.bold,
-                                                      color: Colors.white,
-                                                      fontSize: 14),
-                                                ),
-                                              ),
-                                            ),
-                                            Transform.translate(
-                                              offset: const Offset(3.5, 0),
-                                              child: SizedBox(
-                                                width: 12,
-                                                child: IconButton(
-                                                  padding: EdgeInsets.zero,
-                                                  icon: const Icon(
-                                                    Icons.add,
-                                                    color: kPrimaryBlue,
-                                                    size: 20,
-                                                  ),
-                                                  onPressed: () {
-                                                   
-                                                      quantity.value++;
-                                                      addToCartController.addToCart(
-                                                          quantity.value,
-                                                          widget.product['id'],
-                                                          '1');
-                                                   
-                                                    addToCartController.productCount=quantity;
-                                                    addToCartController.update();
-                                                  },
-                                                ),
-                                              ),
-                                            ),
-                                          ],
                                         ),
-                                ),
+                                        onPressed: () async {
+                                          log('20');
+                                          addToCartController.addToCart(
+                                              quantity.value,
+                                              widget.product['id'],
+                                              '1');
+
+                                          quantity.value++;
+
+                                          addToCartController.update();
+                                        },
+                                        child: Text(
+                                          'Add',
+                                          style: TextStyle(
+                                              color: kPrimaryBlue,
+                                              fontSize:
+                                                  getProportionateScreenWidth(
+                                                      14)),
+                                        ),
+                                      )
+                                    : Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        mainAxisSize: MainAxisSize.max,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Transform.translate(
+                                            offset: const Offset(-12, 0),
+                                            child: SizedBox(
+                                              width: 12,
+                                              child: IconButton(
+                                                padding: EdgeInsets.zero,
+                                                icon: const Icon(
+                                                  Icons.remove,
+                                                  color: kPrimaryBlue,
+                                                  size: 20,
+                                                ),
+                                                onPressed: () {
+                                                  quantity.value--;
+                                                  addToCartController.addToCart(
+                                                      quantity.value,
+                                                      widget.product['id'],
+                                                      '1');
+
+                                                  addToCartController.update();
+                                                },
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            height: 35,
+                                            width: (quantity.value
+                                                        .toString()
+                                                        .length *
+                                                    11) +
+                                                20,
+                                            color: kPrimaryBlue,
+                                            child: Center(
+                                              child: Text(
+                                                quantity.value.toString(),
+                                                style: const TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.white,
+                                                    fontSize: 14),
+                                              ),
+                                            ),
+                                          ),
+                                          Transform.translate(
+                                            offset: const Offset(3.5, 0),
+                                            child: SizedBox(
+                                              width: 12,
+                                              child: IconButton(
+                                                padding: EdgeInsets.zero,
+                                                icon: const Icon(
+                                                  Icons.add,
+                                                  color: kPrimaryBlue,
+                                                  size: 20,
+                                                ),
+                                                onPressed: () {
+                                                  quantity.value++;
+                                                  addToCartController.addToCart(
+                                                      quantity.value,
+                                                      widget.product['id'],
+                                                      '1');
+
+                                                  addToCartController
+                                                      .productCount = quantity;
+                                                  addToCartController.update();
+                                                },
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                               ),
-                            ],
-                          )
-                        ],
-                      ),
+                            ),
+                          ],
+                        )
+                      ],
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
-        );
-      }
-    );
+        ),
+      );
+    });
   }
 }

@@ -5,7 +5,7 @@ import '../constants/colors.dart';
 import '../screens/checkout_screen.dart';
 import '../utils/screen_utils.dart';
 import '../widgets/custom_app_bar.dart';
-import '../widgets/order_card.dart';
+import '../widgets/order_card/order_card.dart';
 import '../widgets/price_breakdown.dart';
 
 class OrderSummaryScreen extends StatelessWidget {

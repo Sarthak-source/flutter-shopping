@@ -4,7 +4,6 @@ import 'package:sutra_ecommerce/screens/login/verify_otp.dart';
 import '../screens/add_address/add_address_screen.dart';
 import '../screens/category_screen.dart';
 import '../screens/checkout_screen.dart';
-import '../screens/dragon_fruit_screen.dart';
 import '../screens/fruit_screen.dart';
 import '../screens/intro_screen/intro_screen.dart';
 import '../screens/login/login_screen.dart';
@@ -13,7 +12,8 @@ import '../screens/my_profile_screen.dart';
 import '../screens/myorders_screen.dart';
 import '../screens/order_success_screen.dart';
 import '../screens/order_summary_screen.dart';
-import '../screens/product_screen/produts_screen.dart';
+import '../screens/product_detail.dart/product_detail.dart';
+import '../screens/product_grid_screen/produts_grid_screen.dart';
 import '../screens/search_screen/search_fruit_screen.dart';
 import '../screens/search_screen/search_screen.dart';
 import '../screens/signup_screen.dart';
@@ -40,7 +40,7 @@ List<GetPage> pages = [
   GetPage(name: SpecialDealScreen.routeName, page: () => const SpecialDealScreen()),
   GetPage(name: SpecialDealChildScreen.routeName, page: () => const SpecialDealChildScreen()),
   GetPage(name: SearchFruitScreen.routeName, page: () => const SearchFruitScreen()),
-  GetPage(name: DragonFruitScreen.routeName, page: () => const DragonFruitScreen()),
+  GetPage(name: ProductDetailScreen.routeName, page: () => const ProductDetailScreen()),
   GetPage(name: OrderSummaryScreen.routeName, page: () => const OrderSummaryScreen()),
   GetPage(name: CheckoutScreen.routeName, page: () => const CheckoutScreen()),
   GetPage(name: OrderSuccessScreen.routeName, page: () => const OrderSuccessScreen()),

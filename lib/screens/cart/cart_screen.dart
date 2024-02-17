@@ -4,7 +4,7 @@ import 'package:sutra_ecommerce/controllers/mycart_controller.dart';
 
 import '../../constants/colors.dart';
 import '../../utils/screen_utils.dart';
-import '../../widgets/order_card.dart';
+import '../../widgets/order_card/order_card.dart';
 import '../add_address/add_address_screen.dart';
 
 class CartScreen extends StatelessWidget {
