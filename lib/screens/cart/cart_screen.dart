@@ -42,12 +42,18 @@ class CartScreen extends StatelessWidget {
               SizedBox(
                 height: getProportionateScreenHeight(16.0),
               ),
-             ListView.builder(
-               shrinkWrap: true,
-                 itemCount: controller.mycartItems.length,
-                 itemBuilder: (context,index) {
-               return  OrderCard(mycartItem:controller.mycartItems[index]);
-             })   ,
+             Expanded(
+               child: SingleChildScrollView(
+                 child: ListView.builder(
+                   shrinkWrap: true,
+                     physics: NeverScrollableScrollPhysics(),
+                     itemCount: controller.mycartItems.length,
+                     itemBuilder: (context,index) {
+
+                     return  OrderCard(mycartItem:controller.mycartItems[index]);
+                 }),
+               ),
+             )   ,
 
             /*  Column(
                 children: List.generate(
@@ -64,7 +70,7 @@ class CartScreen extends StatelessWidget {
                   ),
                 ),
               ),*/
-              const Spacer(),
+
               Row(
                 children: [
                   Expanded(

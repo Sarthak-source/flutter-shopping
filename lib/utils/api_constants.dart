@@ -32,6 +32,7 @@ class ApiAppConstants {
   static const String products = 'products/';
   static const String addToCart ='add_cart/';
   static const String mycart='cart';
+  static const String myaddress='inventory/address_list/';
 
   static const String addressListPost = 'addressListPost/';
 }
