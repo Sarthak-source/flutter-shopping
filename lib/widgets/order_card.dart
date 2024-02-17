@@ -27,8 +27,11 @@ class _OrderCardState extends State<OrderCard> {
 
   //if( widget.mycartItem["count"] != null){
     print("count::: ${widget.mycartItem["count"].toString()}");
-
-  //}
+  double d = double.parse(widget.mycartItem["count"].toString());
+  print('double count $d');
+  print('int count ${d.toInt()}');
+  quantity = d.toInt();
+    //}
   }
   @override
   Widget build(BuildContext context) {
