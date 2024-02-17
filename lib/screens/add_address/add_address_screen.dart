@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../constants/colors.dart';
 import '../../utils/screen_utils.dart';
@@ -16,99 +17,56 @@ class AddAddressScreen extends StatelessWidget {
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+         mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const BackButtonLS(),
-            Expanded(
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: getProportionateScreenWidth(16),
-                ),
-                child: Column(
+            Padding(
+              padding: EdgeInsets.all(
+                getProportionateScreenWidth(18),
+              ),
+              child: Container(
+              //  color: Colors.red,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
-                      children: [
-                        Text(
-                          'Add New Address',
-                          style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                                fontWeight: FontWeight.bold,
-                              ),
-                        ),
-                        const Spacer(),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.of(context)
-                                .pushNamed(MapScreen.routeName);
-                          },
-                          child: Image.asset('assets/images/map.png'),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: getProportionateScreenHeight(10),
-                    ),
-                    Row(
-                      children: [
-                        FittedBox(
-                          child: Text(
-                            'We will find a grocery near your home address',
-                            style: TextStyle(
-                              color: kTextColorAccent,
-                              fontSize: getProportionateScreenWidth(16),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: getProportionateScreenHeight(10),
-                    ),
-                    //SearchBar('Enter Address'),
-                    SizedBox(
-                      height: getProportionateScreenHeight(10),
-                    ),
-                    const Divider(),
-                    SizedBox(
-                      height: getProportionateScreenHeight(10),
-                    ),
-                    Expanded(
-                      child: ListTile(
-                        leading: Container(
-                          decoration: ShapeDecoration(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(
-                                getProportionateScreenWidth(8),
-                              ),
-                            ),
-                            color: kPrimaryBlue,
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.all(
-                              getProportionateScreenWidth(8),
-                            ),
-                            child: Icon(
-                              Icons.location_on_outlined,
-                              size: getProportionateScreenWidth(28),
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                        title: Text(
-                          'Current Location',
-                          style: TextStyle(
-                            fontSize: getProportionateScreenWidth(20),
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        subtitle: const Text(
-                          'Planet Namex Street 989',
-                        ),
+                    const BackButtonLS(),
+                    Text(
+                      'Add Your Address',
+                      style: TextStyle(
+                        fontSize: getProportionateScreenWidth(17),
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                   ],
                 ),
               ),
+            ),
+            Expanded(
+              child: SingleChildScrollView(
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: 15,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemBuilder: (context,index){
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child:ListTile(
+                          title:  Text("GoFlamingo"),
+                          subtitle: Column(
+                            children: [
+                              Text("No 101-E, 1st floor, Farah Winsford, 133, Infantry Rd, Shivaji Nagar, Bengaluru, Karnataka 560001"),
+                              Divider(),
+                            ],
+                          ),
+                          leading: Icon(Icons.add),
+                        ),
+
+
+                      );
+                    }),
+              ),
             )
-          ],
+          ]
+          ,
         ),
       ),
     );

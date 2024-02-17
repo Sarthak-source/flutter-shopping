@@ -45,6 +45,7 @@ class MyApp extends StatelessWidget {
         builder: (context, constraints) {
           final customTheme = CustomTheme(constraints);
           return GetMaterialApp(
+            debugShowCheckedModeBanner: false,
             title: 'Ecommerce',
             navigatorObservers: [ChuckerFlutter.navigatorObserver],
             theme: ThemeData(

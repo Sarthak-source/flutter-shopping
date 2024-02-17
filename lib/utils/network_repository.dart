@@ -146,6 +146,36 @@ class NetworkRepository {
     }
   }
 
+  static Future getMyCart({required String party}) async {
+    try {
+      final apiResponse = await NetworkDioHttp.getDioHttpMethod(
+        url:
+        "${ApiAppConstants.apiEndPoint}${ApiAppConstants.mycart}?party=$party",
+        header: Options(headers: <String, String>{'authorization': auth}),
+      );
+      print('mycartItems in repo++++$apiResponse');
+      debugPrint('\x1b[97m checkSeller Response : $apiResponse');
+
+      final body = apiResponse['body'];
+
+      if (body != null &&
+          body['error'] != null &&
+          body['error'] == 'User not exist please sign up') {
+        Fluttertoast.showToast(msg: body['error'].toString());
+      }
+
+      return apiResponse;
+    } catch (e) {
+      dynamic er = e;
+      //Fluttertoast.showToast(msg: er['body']['error']);
+
+      return er.toString();
+    }
+  }
+
+
+
+
   static getProducts({String? category, String? status, String? search, String? partyId,String? page}) async {
     try {
       final apiResponse = await NetworkDioHttp.getDioHttpMethod(

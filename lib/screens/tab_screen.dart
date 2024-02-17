@@ -22,7 +22,7 @@ class TabScreenState extends State<TabScreen> {
     List<Widget> pages = [
       const HomeScreen(),
        FavScreen(),
-      const CartScreen(),
+       CartScreen(),
       const UserScreen(),
     ];
     return Scaffold(

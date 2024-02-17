@@ -11,6 +11,7 @@ import 'package:sutra_ecommerce/utils/network_repository.dart';
 import '../../utils/screen_utils.dart';
 import '../../widgets/custom_text_field.dart';
 import '../../widgets/option_button.dart';
+import '../tab_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   static const routeName = '/loginScreen';
@@ -134,17 +135,20 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: ElevatedButton(
                       onPressed: () async {
                         String phoneNumber = phoneNumberController.text;
-                        if (phoneNumber.length < 10) {
+
+                        Get.toNamed(TabScreen.routeName);
+
+                /*        if (phoneNumber.length < 10) {
                           // Handle the case where the phone number is too short
                           Fluttertoast.showToast(
                             msg: 'Enter a proper number',
                             backgroundColor: Colors.red,
                           );
                         } else {
-                          log(phoneNumber);
-                          userExists(phoneNumber);
-                          //Get.toNamed(TabScreen.routeName);
-                        }
+                        //  log(phoneNumber);
+                       //   userExists(phoneNumber);
+
+                        }*/
                       },
                       child: const Text('Continue'),
                     ),

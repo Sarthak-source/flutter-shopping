@@ -131,7 +131,7 @@ class _IndiDealCardState extends State<IndiDealCard> {
                           child: SizedBox(
                             height: 35,
                             width: quantity == 0
-                                ? 65
+                                ? 75
                                 : (quantity.toString().length * 11) + 75,
                             child: quantity == 0
                                 ? OutlinedButton(
@@ -149,10 +149,10 @@ class _IndiDealCardState extends State<IndiDealCard> {
                                         print(quantity.toString());
                                       });
                                     },
-                                    child: const Text(
+                                    child:  Text(
                                       'Add',
                                       style: TextStyle(
-                                          color: kPrimaryBlue, fontSize: 14),
+                                          color: kPrimaryBlue, fontSize: getProportionateScreenWidth(12)),
                                     ),
                                   )
                                 : Row(
