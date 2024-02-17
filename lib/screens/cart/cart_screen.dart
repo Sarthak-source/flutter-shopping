@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sutra_ecommerce/controllers/mycart_controller.dart';
+import 'package:sutra_ecommerce/controllers/my_cart_controller.dart';
 
 import '../../constants/colors.dart';
 import '../../utils/screen_utils.dart';
@@ -8,8 +8,8 @@ import '../../widgets/order_card.dart';
 import '../add_address/add_address_screen.dart';
 
 class CartScreen extends StatelessWidget {
-   CartScreen({super.key});
-  final MyCartController controller = Get.put(MyCartController());
+   const CartScreen({super.key});
+  
   @override
   Widget build(BuildContext context) {
     return  GetBuilder<MyCartController>(

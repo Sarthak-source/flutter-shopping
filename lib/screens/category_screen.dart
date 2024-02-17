@@ -101,8 +101,8 @@ class CategoryScreen extends StatelessWidget {
               ),
               children: List.generate(
                 categories.length,
-                (index) => CategoryCard(
-                  categories[index],
+                (index) => CategoryCard(category: categories[index],
+                  
                 ),
               ),
             ))

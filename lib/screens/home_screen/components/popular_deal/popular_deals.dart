@@ -21,6 +21,7 @@ class PopularDealTab extends StatelessWidget {
           const ProductCard(
             isLeft: false,
           ),
+         
         ],
       ),
     );

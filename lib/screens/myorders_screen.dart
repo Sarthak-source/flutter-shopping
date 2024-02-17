@@ -1,7 +1,7 @@
 import 'package:easy_stepper/easy_stepper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sutra_ecommerce/controller/myorder_controller.dart';
+import 'package:sutra_ecommerce/controllers/my_order_controller.dart';
 
 import '../constants/colors.dart';
 import '../utils/screen_utils.dart';

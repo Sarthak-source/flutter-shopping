@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import './fruit_screen.dart';
-import '../screens/vegetable_screen.dart';
-import '../utils/screen_utils.dart';
-import '../widgets/custom_nav_bar.dart';
-import '../widgets/deal_card.dart';
-import '../widgets/product_card/product_card.dart';
-import '../widgets/search_bar.dart' as s;
-import '../widgets/tab_title.dart';
+import '../../utils/screen_utils.dart';
+import '../../widgets/custom_nav_bar.dart';
+import '../../widgets/deal_card.dart';
+import '../../widgets/product_card/product_card.dart';
+import '../../widgets/search_bar.dart' as search;
+import '../../widgets/tab_title.dart';
+import '../fruit_screen.dart';
+import '../vegetable_screen.dart';
 
 class SearchScreen extends StatelessWidget {
   static const routeName = '/search_screen';
@@ -117,7 +117,7 @@ class SearchTab extends StatelessWidget {
       child: Row(
         children: [
           const Expanded(
-            child: s.SearchBar('Search for Anything'),
+            child: search.SearchBar('Search for Anything'),
           ),
           SizedBox(
             width: getProportionateScreenWidth(10),

@@ -41,8 +41,8 @@ class PoductsListScreenState extends State<PoductsListScreen> {
             child: Column(
               children: [
                 CustomAppBar(
-                 title: args.title,
-             actions:     [
+                  title: args.title,
+                  actions: [
                     const Icon(
                       Icons.search,
                       color: kPrimaryBlue,

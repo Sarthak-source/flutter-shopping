@@ -10,14 +10,14 @@ class CustomAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.only(right:12.0 ,left: 12.0, bottom: 30.0,top: 16),
       child: Row(
         children: [
           const Expanded(child: BackButtonText()),
           Text(
             title,
             style: TextStyle(
-              fontSize: getProportionateScreenWidth(17),
+              fontSize: getProportionateScreenWidth(14),
               fontWeight: FontWeight.w600,
             ),
           ),

@@ -22,6 +22,7 @@ class CategoriesController extends GetxController {
       );
       List categoriesData = responseData['body']['results'];
       categories.assignAll(categoriesData);
+      update();
     } catch (e) {
       errorMsg.value = e.toString();
       hasError.value = true;

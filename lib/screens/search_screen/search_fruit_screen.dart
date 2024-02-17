@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../constants/colors.dart';
-import '../utils/screen_utils.dart';
-import '../widgets/search_bar.dart' as s;
-import '../widgets/tab_title.dart';
+import '../../constants/colors.dart';
+import '../../utils/screen_utils.dart';
+import '../../widgets/search_bar.dart' as s;
+import '../../widgets/tab_title.dart';
 
 class SearchFruitScreen extends StatelessWidget {
   static const routeName = '/searchFruit';
