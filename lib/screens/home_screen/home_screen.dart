@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sutra_ecommerce/controllers/add_to_card_controller.dart';
 import 'package:sutra_ecommerce/screens/home_screen/components/categories/categories.dart';
 import 'package:sutra_ecommerce/screens/home_screen/components/popular_deal/popular_deals.dart';
 import 'package:sutra_ecommerce/screens/map_screen.dart';
@@ -10,7 +11,7 @@ import '../../utils/screen_utils.dart';
 import '../../widgets/deal_card.dart';
 import '../../widgets/tab_title.dart';
 import '../product_screen/produts_screen.dart';
-import '../search_screen.dart';
+import '../search_screen/search_screen.dart';
 import '../special_deal_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -83,12 +84,10 @@ class HomeScreen extends StatelessWidget {
               }),
         ),
         const PopularDealTab(),
-        // SliverToBoxAdapter(
-        //   child: CustomPaint(
-        //     size: Size(36, 36),
-        //     painter: RPSCustomPainter(),
-        //   ),
-        // ),
+
+
+         
+       
       ],
     );
   }
@@ -179,6 +178,42 @@ class HomeAppBar extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+
+
+
+class MyWidget extends StatelessWidget {
+  const MyWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final AddToCartController addToCartController = Get.find();
+
+    return Scaffold(
+      body: Center(
+       
+          // Use Obx to reactively update the UI when addToCartList changes
+          child: GetBuilder<AddToCartController>(
+            init: AddToCartController(),
+            
+            builder: (context) {
+              return ListView.builder(
+                itemCount: addToCartController.addToCartList.length,
+                itemBuilder: (context, index) {
+                  // Access each item in the list
+                  var item = addToCartController.addToCartList[index];
+                  return ListTile(
+                    title: Text(item['count'].toString()), // Example assuming 'name' is a property of each item
+                  );
+                },
+              );
+            }
+          )
+        
+      ),
     );
   }
 }

@@ -23,7 +23,6 @@ void main() async {
   } else {
     NetworkDioHttp.setDynamicHeader(endPoint: ApiAppConstants.apiEndPoint);
   }
-  Get.put(AddToCartController());
 
   runApp(const MyApp());
 }
@@ -74,6 +73,9 @@ class MyApp extends StatelessWidget {
               dividerTheme: customTheme.dividerTheme(),
             ),
             getPages: pages,
+            initialBinding: BindingsBuilder(() {
+              Get.put(AddToCartController()); // Initialize AddToCartController
+            }),
             home: const LandingScreen(),
           );
         },
@@ -82,4 +84,3 @@ class MyApp extends StatelessWidget {
   }
 }
 
-//1.4.2

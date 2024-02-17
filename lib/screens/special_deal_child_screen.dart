@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import '../constants/colors.dart';
 //import 'package:flushbar/flushbar.dart';
 import '../screens/dragon_fruit_screen.dart';
-import '../screens/search_fruit_screen.dart';
 import '../utils/screen_utils.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/indi_deal_card_with_discount.dart';
+import 'search_screen/search_fruit_screen.dart';
 
 class SpecialDealChildScreen extends StatelessWidget {
   static const routeName = '/specialDealChild';

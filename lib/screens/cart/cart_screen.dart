@@ -8,8 +8,8 @@ import '../../widgets/order_card.dart';
 import '../add_address/add_address_screen.dart';
 
 class CartScreen extends StatelessWidget {
-   CartScreen({super.key});
-  final MyCartController controller = Get.put(MyCartController());
+   const CartScreen({super.key});
+  
   @override
   Widget build(BuildContext context) {
     return  GetBuilder<MyCartController>(
@@ -46,7 +46,7 @@ class CartScreen extends StatelessWidget {
                child: SingleChildScrollView(
                  child: ListView.builder(
                    shrinkWrap: true,
-                     physics: NeverScrollableScrollPhysics(),
+                     physics: const NeverScrollableScrollPhysics(),
                      itemCount: controller.mycartItems.length,
                      itemBuilder: (context,index) {
 

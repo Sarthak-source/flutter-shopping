@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sutra_ecommerce/utils/screen_utils.dart';
 
 import '../constants/colors.dart';
 
@@ -22,6 +23,7 @@ class BackButtonText extends StatelessWidget {
             'Back',
             style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                   color: kPrimaryBlue,
+                  fontSize: getProportionateScreenWidth(14),
                 ),
           ),
         ],

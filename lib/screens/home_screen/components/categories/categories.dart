@@ -26,7 +26,7 @@ class CategoryTab extends StatelessWidget {
               Expanded(
                 child: Text(
                   'Categories',
-                  style: Theme.of(context).textTheme.headlineSmall,
+                  style: Theme.of(context).textTheme.headlineSmall!.copyWith(fontSize: 18),
                 ),
               ),
               TextButton(
@@ -35,6 +35,7 @@ class CategoryTab extends StatelessWidget {
                 },
                 child: const Text(
                   'See All',
+                  style: TextStyle(fontSize: 18),
                 ),
               )
             ],
@@ -83,7 +84,7 @@ class CategoryTab extends StatelessWidget {
                             );
                           },
                           child: CategoryCard(
-                            Category(
+                           category: Category(
                               controller.categories[index]['name'],
                               controller.categories[index]['categories_img'],
                               Colors.amber,

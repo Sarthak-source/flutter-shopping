@@ -27,13 +27,14 @@ class TabTitle extends StatelessWidget {
           Expanded(
             child: Text(
               title!,
-              style: Theme.of(context).textTheme.headlineSmall,
+              style: Theme.of(context).textTheme.headlineSmall!.copyWith(fontSize: 18),
             ),
           ),
           TextButton(
             onPressed: seeAll,
             child: Text(
               actionText,
+              style: TextStyle(fontSize: 18),
             ),
           ),
         ],
