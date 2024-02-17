@@ -8,7 +8,7 @@ import 'package:sutra_ecommerce/utils/network_repository.dart';
 import '../../constants/colors.dart';
 import '../../utils/screen_utils.dart';
 import '../../widgets/custom_app_bar.dart';
-import '../../widgets/indi_deal_card.dart';
+import '../../widgets/product_card/product_card.dart';
 
 class PoductsListArguments {
   final String title;
@@ -41,8 +41,8 @@ class PoductsListScreenState extends State<PoductsListScreen> {
             child: Column(
               children: [
                 CustomAppBar(
-                  args.title,
-                  [
+                 title: args.title,
+             actions:     [
                     const Icon(
                       Icons.search,
                       color: kPrimaryBlue,
@@ -249,18 +249,18 @@ class _CustomStaggerGridState extends State<CustomStaggerGrid> {
               ),
               itemBuilder: (ctx, index) {
                 if (index % 2 != 0) {
-                  return IndiDealCard(
+                  return ProductCard(
                     isLeft: false,
                     product: products[index],
                   );
                 } else if (index == 0) {
-                  return IndiDealCard(
+                  return ProductCard(
                     isLeft: true,
                     addHandler: widget.addCallback,
                     product: products[index],
                   );
                 }
-                return IndiDealCard(
+                return ProductCard(
                   isLeft: true,
                   product: products[index],
                 );

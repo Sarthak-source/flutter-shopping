@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 
 import '../constants/colors.dart';
@@ -7,7 +9,7 @@ import 'myorders_screen.dart';
 
 class MyOrderDetail2 extends StatefulWidget {
   final OrdersList orderdetail;
-  MyOrderDetail2({
+  const MyOrderDetail2({super.key, 
     required this.orderdetail
   });
 
@@ -77,7 +79,7 @@ class _MyOrderDetail2State extends State<MyOrderDetail2> {
         child: Scaffold(
         body: Column(
           children: [
-            const CustomAppBar('Order Details', []),
+            const CustomAppBar(  title: 'Order Details', actions: [],),
             SizedBox(
               height: getProportionateScreenHeight(16.0),
             ),
@@ -99,20 +101,16 @@ class _MyOrderDetail2State extends State<MyOrderDetail2> {
                                 flex:1,
                                 child: Row(
                                   children: [
-                                    Container(
-                                      // color: Colors.green,
-                                        child: Text("#", style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                                          color: kTextColorAccent,
-                                        ))),
+                                    Text("#", style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                                      color: kTextColorAccent,
+                                    )),
                                     Expanded(
                                         child: Padding(
                                           padding: const EdgeInsets.only(left: 8.0),
-                                          child: Container(
-                                            // color: Colors.yellow,
-                                            child: Text(widget.orderdetail.orderid, style: const TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.bold),maxLines: 1,overflow: TextOverflow.ellipsis),),
+                                          child: Text(widget.orderdetail.orderid, style: const TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold),maxLines: 1,overflow: TextOverflow.ellipsis),
                                         )),
                                   ],
                                 )),
@@ -131,7 +129,7 @@ class _MyOrderDetail2State extends State<MyOrderDetail2> {
                       thickness: 0.3,
                       height: 1,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 16,
                     ),
                     Container(
@@ -143,11 +141,9 @@ class _MyOrderDetail2State extends State<MyOrderDetail2> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Container(
-                                  // color: Colors.green,
-                                    child: Text("Address:", style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                                      color: kTextColorAccent,
-                                    ))),
+                                Text("Address:", style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                                  color: kTextColorAccent,
+                                )),
                                 Container(
                                   //  color: Colors.yellow,
                                     child: Text(widget.orderdetail.address, style: const TextStyle(
@@ -160,14 +156,11 @@ class _MyOrderDetail2State extends State<MyOrderDetail2> {
                           ),
                           Expanded(
                             flex: 1,
-                            child: Container(
-                              //color: Colors.red,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  Text(("₹ ${widget.orderdetail.amount}")),
-                                ],
-                              ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Text(("₹ ${widget.orderdetail.amount}")),
+                              ],
                             ),
                           )
                         ],
@@ -210,71 +203,69 @@ class _MyOrderDetail2State extends State<MyOrderDetail2> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                 // color: Colors.red.shade50,
-                  child: Row(
-                    children: [
-                      Expanded(
-                        flex:1,
-                        child: Container(
-                            height:80,
-                            width: 80,
-                          //  color: Colors.red,
-                           // child: Image.network("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYPeQAtK8frgCvtzkLgzv513bMPi7yij6peQ&usqp=CAU",height: 50,width: 50,))
-                            child: Image.network(oddata.image,height: 50,width: 50,)),
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
+                Row(
+                  children: [
+                    Expanded(
+                      flex:1,
+                      child: SizedBox(
+                          height:80,
+                          width: 80,
+                        //  color: Colors.red,
+                         // child: Image.network("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYPeQAtK8frgCvtzkLgzv513bMPi7yij6peQ&usqp=CAU",height: 50,width: 50,))
+                          child: Image.network(oddata.image,height: 50,width: 50,)),
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
 
-                  Expanded(
-                    flex:1,
-                      child:
-                      Text(
-                          oddata.title,
-                          style:Theme.of(context).textTheme.headlineMedium!.copyWith(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                        overflow: TextOverflow.ellipsis,
-                        color: kTextBlackColor,
-                        ),
-                        maxLines: 3,
-                  )
-                  ),
-                      const SizedBox(
-                        width: 8,
+                Expanded(
+                  flex:1,
+                    child:
+                    Text(
+                        oddata.title,
+                        style:Theme.of(context).textTheme.headlineMedium!.copyWith(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                      overflow: TextOverflow.ellipsis,
+                      color: kTextBlackColor,
                       ),
-                      Expanded(
-                        flex:1,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            ODtile("Qty:",oddata.qty),
-                            ODtile("Price:",oddata.price),
-                          ],
-                        ),
+                      maxLines: 3,
+                )
+                ),
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    Expanded(
+                      flex:1,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ODtile("Qty:",oddata.qty),
+                          ODtile("Price:",oddata.price),
+                        ],
                       ),
-                      Expanded(
-                        flex:1,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            ODtile("Total:",oddata.total),
-                            ODtile("GST:",oddata.gst),
-                          ],
-                        ),
+                    ),
+                    Expanded(
+                      flex:1,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ODtile("Total:",oddata.total),
+                          ODtile("GST:",oddata.gst),
+                        ],
                       ),
-                      Expanded(
-                        flex:1,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            ODtile("SGST:",oddata.sgst),
-                            ODtile("",""),
-                          ],
-                        ),
+                    ),
+                    Expanded(
+                      flex:1,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          ODtile("SGST:",oddata.sgst),
+                          ODtile("",""),
+                        ],
                       ),
+                    ),
 
 
 
@@ -282,44 +273,41 @@ class _MyOrderDetail2State extends State<MyOrderDetail2> {
 
 
                 /*      Expanded(
-                          flex: 1,child: ODtile("Price","20")),
-                      Expanded(
-                          flex: 1,child: ODtile("Total","100")),
-                      Expanded(
-                          flex: 1,child: ODtile("GST","2")),
-                      Expanded(
-                          flex: 1,child: ODtile("SGST","2")),*/
-                    ],
-                  ),
+                        flex: 1,child: ODtile("Price","20")),
+                    Expanded(
+                        flex: 1,child: ODtile("Total","100")),
+                    Expanded(
+                        flex: 1,child: ODtile("GST","2")),
+                    Expanded(
+                        flex: 1,child: ODtile("SGST","2")),*/
+                  ],
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    child: Row(
-                      children: [
-                        Text("Total:",
-                      style:
-                          Theme.of(context).textTheme.headlineMedium!.copyWith(
-                                fontSize: 14,
-                                overflow: TextOverflow.ellipsis,
-                                color: kTextBlackColor,
-                              )),
-                  SizedBox(
-                    width: 16,
+                  child: Row(
+                    children: [
+                      Text("Total:",
+                    style:
+                        Theme.of(context).textTheme.headlineMedium!.copyWith(
+                              fontSize: 14,
+                              overflow: TextOverflow.ellipsis,
+                              color: kTextBlackColor,
+                            )),
+                  const SizedBox(
+                  width: 16,
                   ),
                   Expanded(
-                      child: Text("₹ ${oddata.total}",
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineMedium!
-                              .copyWith(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14,
-                                overflow: TextOverflow.ellipsis,
-                                color: kTextBlackColor,
-                              ))),
-                      ],
-                    ),
+                    child: Text("₹ ${oddata.total}",
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineMedium!
+                            .copyWith(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                              overflow: TextOverflow.ellipsis,
+                              color: kTextBlackColor,
+                            ))),
+                    ],
                   ),
                 ),
               ],
@@ -327,8 +315,8 @@ class _MyOrderDetail2State extends State<MyOrderDetail2> {
           );
   }
 
-  Container ODtile(String title,String subtitle) {
-    return Container(
+  SizedBox ODtile(String title,String subtitle) {
+    return SizedBox(
      // color: Colors.red.shade50,
       child: Row(
         children: [
@@ -340,7 +328,7 @@ class _MyOrderDetail2State extends State<MyOrderDetail2> {
               color: kTextBlackColor,
             )),
           ),
-          SizedBox(width: 6),
+          const SizedBox(width: 6),
           Expanded(
             flex:1,
             child: Text(subtitle,

@@ -6,7 +6,7 @@ import '../screens/vegetable_screen.dart';
 import '../utils/screen_utils.dart';
 import '../widgets/custom_nav_bar.dart';
 import '../widgets/deal_card.dart';
-import '../widgets/indi_deal_card.dart';
+import '../widgets/product_card/product_card.dart';
 import '../widgets/search_bar.dart' as s;
 import '../widgets/tab_title.dart';
 
@@ -49,7 +49,7 @@ class SearchScreen extends StatelessWidget {
                 child: Row(
                   children: [
                     const Expanded(
-                      child: IndiDealCard(
+                      child: ProductCard(
                         isLeft: true,
                       ),
                     ),
@@ -57,7 +57,7 @@ class SearchScreen extends StatelessWidget {
                       width: getProportionateScreenWidth(8.0),
                     ),
                     const Expanded(
-                      child: IndiDealCard(
+                      child: ProductCard(
                         isLeft: false,
                       ),
                     ),
@@ -78,7 +78,7 @@ class SearchScreen extends StatelessWidget {
                           Navigator.of(context)
                               .pushNamed(FruitScreen.routeName);
                         },
-                        child: const IndiDealCard(
+                        child: const ProductCard(
                           isLeft: true,
                         ),
                       ),
@@ -87,7 +87,7 @@ class SearchScreen extends StatelessWidget {
                       width: getProportionateScreenWidth(8.0),
                     ),
                     const Expanded(
-                      child: IndiDealCard(
+                      child: ProductCard(
                         isLeft: false,
                       ),
                     ),

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/list_card.dart';
 import '../constants/colors.dart';
 import '../utils/screen_utils.dart';
 import '../widgets/custom_app_bar.dart';
+import '../widgets/list_card.dart';
 
 class VegetableScreen extends StatelessWidget {
   static const routeName = '/vegetable_screen';
@@ -16,8 +16,8 @@ class VegetableScreen extends StatelessWidget {
         child: Column(
           children: [
             CustomAppBar(
-              'Featured Vegetables',
-              [
+              title:'Featured Vegetables',
+            actions:  [
                 const Icon(
                   Icons.search,
                   color: kPrimaryBlue,
@@ -25,7 +25,7 @@ class VegetableScreen extends StatelessWidget {
                 SizedBox(
                   width: getProportionateScreenWidth(16),
                 ),
-              ],
+              ], 
             ),
             SizedBox(
               height: getProportionateScreenHeight(10),

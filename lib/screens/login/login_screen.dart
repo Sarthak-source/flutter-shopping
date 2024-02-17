@@ -1,12 +1,7 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:sutra_ecommerce/assets/logo.dart';
-import 'package:sutra_ecommerce/screens/login/verify_otp.dart';
 import 'package:sutra_ecommerce/screens/signup_screen.dart';
-import 'package:sutra_ecommerce/utils/network_repository.dart';
 
 import '../../utils/screen_utils.dart';
 import '../../widgets/custom_text_field.dart';
@@ -42,31 +37,6 @@ class _LoginScreenState extends State<LoginScreen> {
     //   });
     // }
 
-    userExists(String phoneNumberTyped) async {
-      log(phoneNumberTyped);
-
-      // Get.toNamed(
-      //     OtpScreen.routeName,
-      //     arguments: OtpScreenArguments(phoneNumber: phoneNumberTyped)
-      //   );
-
-      try {
-        var value = await networkRepository.checkUser(number: phoneNumberTyped);
-
-        log(value.toString());
-
-        if (value != null) {
-          await networkRepository.userLogin(number: phoneNumberTyped);
-          if (!context.mounted) return;
-          Get.toNamed(OtpScreen.routeName,
-              arguments: OtpScreenArguments(phoneNumber: phoneNumberTyped));
-        }
-      } catch (error) {
-        log('Error during user check: $error');
-        // Handle the error, show a message, or take appropriate action
-      }
-    }
-
     return Scaffold(
         body: SafeArea(
       child: Column(
@@ -83,33 +53,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     height: getProportionateScreenHeight(30),
                   ),
-                  // Center(
-                  //   child: FutureBuilder(
-                  //     future: readJsonFile('assets/lotties/logo.json'),
-                  //     builder: (context, snapshot) {
-                  //       if (snapshot.connectionState == ConnectionState.done) {
-                  //         if (snapshot.hasError) {
-                  //           log('Error: ${snapshot.error}');
-                  //           return Text('Error: ${snapshot.error}');
-                  //         }
-                  //         String jsonContent = snapshot.data!;
-                  //         log(jsonContent);
-                  //         return Text(jsonContent);
-                  //       } else {
-                  //         return CircularProgressIndicator();
-                  //       }
-                  //     },
-                  //   ),
-                  // ),
                   Transform.translate(
                       offset: const Offset(-60, -50),
-                      child:
-                          Transform.scale(scale: 0.5, child: const BouncingLogo())),
-
+                      child: Transform.scale(
+                          scale: 0.5, child: const BouncingLogo())),
                   SizedBox(
                     height: getProportionateScreenHeight(60),
                   ),
-
                   Row(
                     children: [
                       Text(
@@ -138,6 +88,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
                         Get.toNamed(TabScreen.routeName);
 
+
+
                 /*        if (phoneNumber.length < 10) {
                           // Handle the case where the phone number is too short
                           Fluttertoast.showToast(
@@ -146,7 +98,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           );
                         } else {
                         //  log(phoneNumber);
-                       //   userExists(phoneNumber);
+                       //   LoginController.userExists(phoneNumber);
 
                         }*/
                       },
@@ -160,7 +112,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     desc: 'Don\'t have an account? ',
                     method: 'Sign Up',
                     onPressHandler: () {
-                      userExists(phoneNumberController.text);
                       Get.toNamed(SignupScreen.routeName);
                     },
                   ),

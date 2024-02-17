@@ -19,8 +19,8 @@ class SpecialDealScreen extends StatelessWidget {
         child: Column(
           children: [
             CustomAppBar(
-              'Special Deals for You',
-              [
+              
+            actions:  [
                 const Icon(
                   Icons.search,
                   color: kPrimaryBlue,
@@ -28,7 +28,7 @@ class SpecialDealScreen extends StatelessWidget {
                 SizedBox(
                   width: getProportionateScreenWidth(16),
                 ),
-              ],
+              ], title:'Special Deals for You',
             ),
             SizedBox(
               height: getProportionateScreenHeight(32),

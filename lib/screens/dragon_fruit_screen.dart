@@ -8,8 +8,8 @@ import '../widgets/custom_input_button.dart';
 import '../widgets/discount_text.dart';
 import '../widgets/fruit_title.dart';
 import '../widgets/image_placeholder.dart';
-import '../widgets/indi_deal_card.dart';
 import '../widgets/price_tag.dart';
+import '../widgets/product_card/product_card.dart';
 import '../widgets/quantity_input.dart';
 import '../widgets/tab_title.dart';
 
@@ -37,8 +37,8 @@ class DragonFruitScreenState extends State<DragonFruitScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CustomAppBar(
-                      'Dragon Fruit',
-                      [
+                      title:'Dragon Fruit',
+                    actions:  [
                         SizedBox(
                           width: getProportionateScreenWidth(24),
                           child: Image.asset(
@@ -222,7 +222,7 @@ class DragonFruitScreenState extends State<DragonFruitScreen> {
                             child: Row(
                               children: [
                                 const Expanded(
-                                  child: IndiDealCard(
+                                  child: ProductCard(
                                     noPadding: true,
                                   ),
                                 ),
@@ -230,7 +230,7 @@ class DragonFruitScreenState extends State<DragonFruitScreen> {
                                   width: getProportionateScreenWidth(8),
                                 ),
                                 const Expanded(
-                                  child: IndiDealCard(
+                                  child: ProductCard(
                                     noPadding: true,
                                   ),
                                 ),

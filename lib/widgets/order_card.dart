@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
 
 import '../constants/colors.dart';
 import '../utils/screen_utils.dart';

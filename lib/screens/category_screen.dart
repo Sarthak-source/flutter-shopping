@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../constants/colors.dart';
 import '../models/category.dart';
 import '../utils/screen_utils.dart';
-import '../widgets/category_card.dart';
+import '../widgets/category_card/category_card.dart';
 import '../widgets/custom_app_bar.dart';
 
 class CategoryScreen extends StatelessWidget {
@@ -80,8 +80,8 @@ class CategoryScreen extends StatelessWidget {
         child: Column(
           children: [
             CustomAppBar(
-              'Categories',
-              [
+              
+             actions: [
                 const Icon(
                   Icons.search,
                   color: kPrimaryBlue,
@@ -89,7 +89,7 @@ class CategoryScreen extends StatelessWidget {
                 SizedBox(
                   width: getProportionateScreenWidth(16),
                 ),
-              ],
+              ], title: 'Categories',
             ),
             SizedBox(
               height: getProportionateScreenHeight(50),

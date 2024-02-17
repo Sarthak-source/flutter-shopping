@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:sutra_ecommerce/controllers/add_to_card_controller.dart';
 import 'package:sutra_ecommerce/routes/route.dart';
 import 'package:sutra_ecommerce/utils/api_constants.dart';
 import 'package:sutra_ecommerce/utils/network_dio.dart';
@@ -22,6 +23,7 @@ void main() async {
   } else {
     NetworkDioHttp.setDynamicHeader(endPoint: ApiAppConstants.apiEndPoint);
   }
+  Get.put(AddToCartController());
 
   runApp(const MyApp());
 }

@@ -21,8 +21,8 @@ class TabScreenState extends State<TabScreen> {
   Widget build(BuildContext context) {
     List<Widget> pages = [
       const HomeScreen(),
-       FavScreen(),
-       CartScreen(),
+      const FavScreen(),
+      CartScreen(),
       const UserScreen(),
     ];
     return Scaffold(

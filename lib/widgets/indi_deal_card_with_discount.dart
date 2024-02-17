@@ -4,12 +4,12 @@ import '../constants/colors.dart';
 import '../utils/screen_utils.dart';
 import '../widgets/discount_text.dart';
 
-class IndiDealCardWithDiscount extends StatelessWidget {
+class ProductCardWithDiscount extends StatelessWidget {
   final bool? isLeft;
   final bool? isSelected;
   final  Function()? addHandler;
 
-  const IndiDealCardWithDiscount(
+  const ProductCardWithDiscount(
       {super.key, this.isLeft, this.isSelected, this.addHandler});
 
   @override

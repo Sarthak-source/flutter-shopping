@@ -24,8 +24,7 @@ class OrderSummaryScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     const CustomAppBar(
-                      'Order Summary',
-                      [],
+                       title: 'Order Summary', actions: [],
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(

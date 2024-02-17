@@ -1,4 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:sutra_ecommerce/controllers/add_to_card_controller.dart';
 
 import '../constants/colors.dart';
 
@@ -15,6 +19,10 @@ class CustomNavBar extends StatefulWidget {
 class CustomNavBarState extends State<CustomNavBar> {
   @override
   Widget build(BuildContext context) {
+    final AddToCartController addToCartController = Get.find();
+
+    log(addToCartController.productCount.value.toString());
+
     return BottomNavigationBar(
       onTap: (tabIndex) {
         widget.onTap(tabIndex);
@@ -37,9 +45,28 @@ class CustomNavBarState extends State<CustomNavBar> {
           label: 'Favorite',
         ),
         BottomNavigationBarItem(
-          icon: widget.curTabIndex == 2
-              ? const Icon(Icons.shopping_cart)
-              : const Icon(Icons.shopping_cart_outlined),
+          icon: Stack(
+            children: [
+              widget.curTabIndex == 2
+                  ? const Icon(Icons.shopping_cart)
+                  : const Icon(Icons.shopping_cart_outlined),
+              if (addToCartController.productCount.value > 0)
+                Positioned(
+                  right: 0,
+                  child: CircleAvatar(
+                    backgroundColor: Colors.red,
+                    radius: 6,
+                    child: Text(
+                      '${addToCartController.productCount.value}',
+                      style: const TextStyle(
+                        fontSize: 10,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+            ],
+          ),
           label: 'Cart',
         ),
         BottomNavigationBarItem(

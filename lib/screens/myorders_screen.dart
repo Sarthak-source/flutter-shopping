@@ -1,13 +1,8 @@
 import 'package:easy_stepper/easy_stepper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_state_manager/src/simple/get_state.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:sutra_ecommerce/controller/myorder_controller.dart';
-import 'package:sutra_ecommerce/screens/myorder_detail.dart';
 
-import '../config/common.dart';
 import '../constants/colors.dart';
 import '../utils/screen_utils.dart';
 import '../widgets/custom_app_bar.dart';
@@ -97,7 +92,7 @@ class _MyOrdersState extends State<MyOrders> {
           body: SafeArea(
             child: Column(
               children: [
-                const CustomAppBar('My Orders', []),
+                const CustomAppBar(  title: 'My Orders', actions: [],),
                 SizedBox(
                   height: getProportionateScreenHeight(16.0),
                 ),
@@ -105,7 +100,7 @@ class _MyOrdersState extends State<MyOrders> {
                  padding: const EdgeInsets.all(8.0),
                  child: Container(
                    //color: Colors.red,
-                   child: Text("No 101-E, 1st floor, Farah Winsford, 133, Infantry Rd, Shivaji Nagar, Bengaluru, Karnataka 560001",maxLines: 2,overflow: TextOverflow.ellipsis,),
+                   child: const Text("No 101-E, 1st floor, Farah Winsford, 133, Infantry Rd, Shivaji Nagar, Bengaluru, Karnataka 560001",maxLines: 2,overflow: TextOverflow.ellipsis,),
                  ),
                ),
                Obx(
@@ -153,7 +148,7 @@ class _MyOrdersState extends State<MyOrders> {
                       ],
                       onStepReached: (index) {
                          controller.selectedBtn.value = index;
-                         print('selected page indx ${index}');
+                         print('selected page indx $index');
                          controller.pageController.jumpToPage(index);
                       for (int i = 0;
                       i < controller.selectedFilter.length;
@@ -270,12 +265,10 @@ class MyOrderCards extends StatelessWidget {
                                     Expanded(
                                         child: Padding(
                                           padding: const EdgeInsets.only(left: 8.0),
-                                          child: Container(
-                                            // color: Colors.yellow,
-                                              child: Text(orderlist[index].orderid, style: const TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 12,
-                                              fontWeight: FontWeight.bold),maxLines: 1,overflow: TextOverflow.ellipsis),),
+                                          child: Text(orderlist[index].orderid, style: const TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 12,
+                                          fontWeight: FontWeight.bold),maxLines: 1,overflow: TextOverflow.ellipsis),
                                         )),
                                   ],
                                 )),
@@ -294,7 +287,7 @@ class MyOrderCards extends StatelessWidget {
                       thickness: 0.3,
                       height: 1,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 16,
                     ),
                     Container(
@@ -323,14 +316,11 @@ class MyOrderCards extends StatelessWidget {
                           ),
                           Expanded(
                             flex: 1,
-                            child: Container(
-                              //color: Colors.red,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  Text(("₹ ${orderlist[index].amount}")),
-                                ],
-                              ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Text(("₹ ${orderlist[index].amount}")),
+                              ],
                             ),
                           )
                         ],

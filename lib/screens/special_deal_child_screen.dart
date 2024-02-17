@@ -20,8 +20,8 @@ class SpecialDealChildScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CustomAppBar(
-              'Fruits',
-              [
+             title: 'Fruits',
+         actions:     [
                 GestureDetector(
                   onTap: () {
                     Navigator.of(context)
@@ -50,7 +50,7 @@ class SpecialDealChildScreen extends StatelessWidget {
                     Navigator.of(context)
                         .pushNamed(DragonFruitScreen.routeName);
                   },
-                  child: IndiDealCardWithDiscount(
+                  child: ProductCardWithDiscount(
                     isLeft: index % 2 == 0,
                     isSelected: index == 0,
                     addHandler: () {

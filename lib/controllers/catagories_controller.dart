@@ -17,7 +17,7 @@ class CategoriesController extends GetxController {
     try {
       // Assuming NetworkRepository.getCategories returns a Future<dynamic>
       var responseData = await NetworkRepository.getCategories(
-        level: '1',
+        level: '2',
         parent: '',
       );
       List categoriesData = responseData['body']['results'];

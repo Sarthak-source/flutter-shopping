@@ -5,11 +5,13 @@ import 'package:provider/provider.dart';
 import '../../constants/colors.dart';
 import '../../models/item.dart';
 import '../../utils/screen_utils.dart';
-import '../../widgets/indi_deal_card.dart';
 import '../../widgets/list_card.dart';
+import '../../widgets/product_card/product_card.dart';
 import '../../widgets/tab_title.dart';
 
 class FavScreen extends StatelessWidget {
+  const FavScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     List<Widget> emptyCartWidgets = [
@@ -75,7 +77,7 @@ class FavScreen extends StatelessWidget {
         child: Row(
           children: [
             const Expanded(
-              child: IndiDealCard(
+              child: ProductCard(
                 noPadding: true,
               ),
             ),
@@ -83,7 +85,7 @@ class FavScreen extends StatelessWidget {
               width: getProportionateScreenWidth(8),
             ),
             const Expanded(
-              child: IndiDealCard(
+              child: ProductCard(
                 noPadding: true,
               ),
             ),

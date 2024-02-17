@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../config/common.dart';
 import '../constants/colors.dart';
@@ -9,7 +10,7 @@ import 'myorders_screen.dart';
 class MyOrderDetail extends StatefulWidget {
   static const routeName = 'myOrderDetail';
   final OrdersList orderdetail;
-  MyOrderDetail({
+  const MyOrderDetail({super.key, 
     required this.orderdetail
 });
 
@@ -20,8 +21,8 @@ class MyOrderDetail extends StatefulWidget {
 class _MyOrderDetailState extends State<MyOrderDetail> {
   @override
   Widget build(BuildContext context) {
-    var deviceheight = MediaQuery.of(context).size.height;
-    var devicewidth = MediaQuery.of(context).size.width;
+    var deviceheight = Get.height;
+    var devicewidth = Get.width;
 
     final List<TableData> tdata = [
       TableData(
@@ -88,131 +89,130 @@ class _MyOrderDetailState extends State<MyOrderDetail> {
       body: SafeArea(
         child: Column(
           children: [
-            const CustomAppBar('Order Details', []),
+            const CustomAppBar(  title: 'Order Details', actions: [],),
             SizedBox(
               height: getProportionateScreenHeight(16.0),
             ),
-            Container(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                  child: Column(
-                    children: [
-                      orderDetailContainer("Order No :",widget.orderdetail.orderid),
-                      SizedBox(
-                        height: 16,
-                      ),
-                      orderDetailContainer("Order Date :",widget.orderdetail.date),
-                      SizedBox(
-                        height: 16,
-                      ),
-                      orderDetailContainer("Order Status :","Approved"),
-                      SizedBox(
-                        height: 16,
-                      ),
-                      orderDetailContainer("Delivery Expected date :",widget.orderdetail.date),
-                      SizedBox(
-                        height: 26,
-                      ),
-                      Table(
-                        border: TableBorder.all(color: black),
-                        children:
-                        List<TableRow>.generate(
-                            (tdata.length), (ind) {
-                          if (ind == 0) {
-                            return TableRow(
-                              children: [
-                                OdTableUi("Product Code"),
-                                OdTableUi("Product Qty"),
-                                OdTableUi("UOM"),
-                                OdTableUi("Rate"),
-                                OdTableUi("Total"),
-                              ],
-                            );
-                          }
-                          int lind = ind - 1;
-                          return TableRow(
-                              decoration: new BoxDecoration(
-                                  color: setTabColor(ind)
-                              ),
-                              children: [
-                                Padding(
-                              padding:
-                              const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                              child: Text(
-                                tdata[ind].prcode,
-                                textAlign: TextAlign.left,
-                                style: const TextStyle(fontSize: 12, color: Colors.black),
-                              ),
-                            ),
-                                Padding(
-                              padding:
-                              const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                              child: Text(
-                                tdata[ind].prqty,
-                                textAlign: TextAlign.center,
-                                style: const TextStyle(fontSize: 12, color: Colors.black),
-                              ),
-                            ),
-                                Padding(
-                              padding:
-                              const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                              child: Text(
-                                tdata[ind].pruom,
-                                textAlign: TextAlign.center,
-                                style: const TextStyle(fontSize: 12, color: Colors.black),
-                              ),
-                            ),
-                                Padding(
-                              padding:
-                              const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                              child: Text(
-                                tdata[ind].prrate,
-                                textAlign: TextAlign.center,
-                                style: const TextStyle(fontSize: 12, color: Colors.black),
-                              ),
-                            ),
-                                Padding(
-                              padding:
-                              const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                              child: Text(
-                                tdata[ind].prtotal,
-                                textAlign: TextAlign.center,
-                                style: const TextStyle(fontSize: 12, color: Colors.black),
-                              ),
-                            ),
-
-
-                          ]);
-                        }),
-                      ),
-                      SizedBox(
-                        height: 26,
-                      ),
-                      Container(
-                        width: devicewidth,
-                       // color: Colors.red.shade50,
-                        child: Row(
-                          children: [
-                            Expanded(
-                                child: Align(
-                                    alignment: Alignment.center,
-                                    child: Text("Total :", style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                                      fontWeight: FontWeight.bold,
-                                      color: kTextBlackColor,
-                                    )
-                                    )
-                                )
-                            ),
-                            Text("₹ 25000",style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                              fontWeight: FontWeight.bold,
-                              color: kTextBlackColor,
-                            ))
-                          ],
-                        ),
-                      )
-                    ],
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              child: Column(
+                children: [
+                  orderDetailContainer("Order No :",widget.orderdetail.orderid),
+                  const SizedBox(
+                    height: 16,
                   ),
-                )),
+                  orderDetailContainer("Order Date :",widget.orderdetail.date),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  orderDetailContainer("Order Status :","Approved"),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  orderDetailContainer("Delivery Expected date :",widget.orderdetail.date),
+                  const SizedBox(
+                    height: 26,
+                  ),
+                  Table(
+                    border: TableBorder.all(color: black),
+                    children:
+                    List<TableRow>.generate(
+                        (tdata.length), (ind) {
+                      if (ind == 0) {
+                        return TableRow(
+                          children: [
+                            OdTableUi("Product Code"),
+                            OdTableUi("Product Qty"),
+                            OdTableUi("UOM"),
+                            OdTableUi("Rate"),
+                            OdTableUi("Total"),
+                          ],
+                        );
+                      }
+                      int lind = ind - 1;
+                      return TableRow(
+                          decoration: BoxDecoration(
+                              color: setTabColor(ind)
+                          ),
+                          children: [
+                            Padding(
+                          padding:
+                          const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                          child: Text(
+                            tdata[ind].prcode,
+                            textAlign: TextAlign.left,
+                            style: const TextStyle(fontSize: 12, color: Colors.black),
+                          ),
+                        ),
+                            Padding(
+                          padding:
+                          const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                          child: Text(
+                            tdata[ind].prqty,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(fontSize: 12, color: Colors.black),
+                          ),
+                        ),
+                            Padding(
+                          padding:
+                          const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                          child: Text(
+                            tdata[ind].pruom,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(fontSize: 12, color: Colors.black),
+                          ),
+                        ),
+                            Padding(
+                          padding:
+                          const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                          child: Text(
+                            tdata[ind].prrate,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(fontSize: 12, color: Colors.black),
+                          ),
+                        ),
+                            Padding(
+                          padding:
+                          const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                          child: Text(
+                            tdata[ind].prtotal,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(fontSize: 12, color: Colors.black),
+                          ),
+                        ),
+
+
+                      ]);
+                    }),
+                  ),
+                  const SizedBox(
+                    height: 26,
+                  ),
+                  SizedBox(
+                    width: devicewidth,
+                   // color: Colors.red.shade50,
+                    child: Row(
+                      children: [
+                        Expanded(
+                            child: Align(
+                                alignment: Alignment.center,
+                                child: Text("Total :", style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: kTextBlackColor,
+                                )
+                                )
+                            )
+                        ),
+                        Text("₹ 25000",style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: kTextBlackColor,
+                        ))
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
           ],
         ),
       ),
@@ -240,30 +240,21 @@ class _MyOrderDetailState extends State<MyOrderDetail> {
                       children: [
                         Expanded(
                             flex:1,
-                            child: Container(
-                             // color: Colors.red,
-                              //style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                              //                                 fontWeight: FontWeight.bold,
-                             // child: Text(title,style:TextStyle(color: Colors.grey, fontSize: 12)),
-                              child: Text(
-                                title,
-                                style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                                  color: kTextColorAccent,
-                              ),),
-                            )),
-                        SizedBox(
+                            child: Text(
+                              title,
+                              style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                                color: kTextColorAccent,
+                            ),)),
+                        const SizedBox(
                           width: 16,
                         ),
                         Expanded(
                             flex:1,
-                            child: Container(
-                              //  color: Colors.yellow,
-                              //  child: Text(values,style:TextStyle(color: values == "Approved"?Colors.green:Colors.black, fontSize: 13,fontWeight: FontWeight.bold)))),
-                                child: Text(values,style:Theme.of(context).textTheme.headlineMedium!.copyWith(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                  color:  values == "Approved"?kTextGreenColor:kTextBlackColor,
-                                )))),
+                            child: Text(values,style:Theme.of(context).textTheme.headlineMedium!.copyWith(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color:  values == "Approved"?kTextGreenColor:kTextBlackColor,
+                            ))),
 
                       ],
                     );

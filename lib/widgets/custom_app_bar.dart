@@ -6,7 +6,7 @@ import '../widgets/back_button_text.dart';
 class CustomAppBar extends StatelessWidget {
   final String title;
   final List<Widget> actions;
-  const CustomAppBar(this.title, this.actions, {super.key});
+  const CustomAppBar({required this.title, required this.actions, super.key});
   @override
   Widget build(BuildContext context) {
     return Padding(

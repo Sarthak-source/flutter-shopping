@@ -20,8 +20,8 @@ class CheckoutScreen extends StatelessWidget {
         child: Column(
           children: [
             const CustomAppBar(
-              'Checkout',
-              [],
+             title: 'Checkout',
+          actions:    [],
             ),
             Expanded(
               child: Column(

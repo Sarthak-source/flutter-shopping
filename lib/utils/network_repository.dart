@@ -235,5 +235,33 @@ class NetworkRepository {
     }
   }
 
+
+  static Future addToCart(
+      {required String count,
+      required String product,
+      required String party,
+      }) async {
+    try {
+      var data = FormData.fromMap({
+        "count": count,
+        "product": product,
+        "party": party,
+      });
+      log("dataposted $data");
+      final apiResponse = await NetworkDioHttp.postDioHttpMethod(
+        url: "${ApiAppConstants.apiEndPoint}${ApiAppConstants.addToCart}",
+        header: Options(headers: <String, String>{'authorization': auth}),
+        data: data,
+      );
+      debugPrint('\x1b[97m  addressListPost  Response : $apiResponse');
+      return  await apiResponse['body'];
+    } catch (e) {
+      dynamic details = e;
+      log(e.toString());
+      Fluttertoast.showToast(msg: details["body"]["detail"].toString());
+      rethrow;
+    }
+  }
+
 // shipping from
 }

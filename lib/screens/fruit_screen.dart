@@ -41,8 +41,8 @@ class FruitScreenState extends State<FruitScreen> {
         child: Column(
           children: [
             CustomAppBar(
-              'Fruits bundle',
-              [
+            title:  'Fruits bundle',
+          actions:    [
                 SizedBox(
                   width: getProportionateScreenWidth(24),
                   child: Image.asset(
