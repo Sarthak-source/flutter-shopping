@@ -4,16 +4,13 @@ import '../constants/colors.dart';
 import '../utils/screen_utils.dart';
 
 class OrderCard extends StatefulWidget {
-  const OrderCard( {
-    Key? key,
-    this.isSelected = false,
-    this.onTapHandler,
-   this.mycartItem
-  }) : super(key: key);
+  const OrderCard(
+      {Key? key, this.isSelected = false, this.onTapHandler, this.mycartItem})
+      : super(key: key);
 
   final bool isSelected;
   final Function()? onTapHandler;
-final dynamic mycartItem;
+  final dynamic mycartItem;
   @override
   createState() => _OrderCardState();
 }
@@ -21,15 +18,16 @@ final dynamic mycartItem;
 class _OrderCardState extends State<OrderCard> {
   //final textController = TextEditingController(text: '1');
   int quantity = 0;
-@override
+  @override
   void initState() {
-  super.initState();
+    super.initState();
 
-  //if( widget.mycartItem["count"] != null){
+    //if( widget.mycartItem["count"] != null){
     print("count::: ${widget.mycartItem["count"].toString()}");
 
-  //}
+    //}
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -37,7 +35,9 @@ class _OrderCardState extends State<OrderCard> {
         children: [
           Container(
             width: getProportionateScreenWidth(80),
-            child: Image.network( widget.mycartItem["product"]["product_img"],),
+            child: Image.network(
+              widget.mycartItem["product"]["product_img"],
+            ),
           ),
           SizedBox(
             width: getProportionateScreenWidth(8),
@@ -52,7 +52,10 @@ class _OrderCardState extends State<OrderCard> {
                     Expanded(
                       child: Text(
                         widget.mycartItem["product"]["name"],
-                        style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineMedium
+                            ?.copyWith(
                               fontWeight: FontWeight.w700,
                               fontSize: getProportionateScreenWidth(14),
                             ),
@@ -130,7 +133,7 @@ class _OrderCardState extends State<OrderCard> {
                 Row(
                   children: [
                     Text(
-                      '₹ ${ widget.mycartItem["total_amount"].toString()}',
+                      '₹ ${widget.mycartItem["total_amount"].toString()}',
                       style: TextStyle(
                         fontSize: getProportionateScreenWidth(14),
                         fontWeight: FontWeight.w700,
@@ -141,8 +144,7 @@ class _OrderCardState extends State<OrderCard> {
                       elevation: 0,
                       shape: RoundedRectangleBorder(
                         side: const BorderSide(
-                          color:
-                              kPrimaryBlue, // Set your desired border color
+                          color: kPrimaryBlue, // Set your desired border color
                           width: 1.0, // Set the border width
                         ),
                         borderRadius: BorderRadius.circular(
@@ -200,8 +202,8 @@ class _OrderCardState extends State<OrderCard> {
                                   ),
                                   Container(
                                     height: 35,
-                                    width: (quantity.toString().length * 11) +
-                                        20,
+                                    width:
+                                        (quantity.toString().length * 11) + 20,
                                     color: kPrimaryBlue,
                                     child: Center(
                                       child: Text(

@@ -3,10 +3,8 @@ import 'package:get/get.dart';
 import 'package:sutra_ecommerce/controllers/add_address_controller.dart';
 
 import '../../constants/colors.dart';
-import '../../controllers/mycart_controller.dart';
 import '../../utils/screen_utils.dart';
 import '../../widgets/back_button_ls.dart';
-import '../map_screen.dart';
 
 class AddAddressScreen extends StatelessWidget {
   static const routeName = '/add_address_screen';
@@ -27,7 +25,7 @@ class AddAddressScreen extends StatelessWidget {
 
              onPressed: (){},
              backgroundColor: kPrimaryBlue,
-             child: Icon(Icons.add,color: Colors.white,)),
+             child: const Icon(Icons.add,color: Colors.white,)),
        ),
         body: SafeArea(
           child: Column(
@@ -44,7 +42,7 @@ class AddAddressScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const BackButtonLS(),
-                      SizedBox(width: 12),
+                      const SizedBox(width: 12),
                       Expanded(
                         child: Text(
                           'Add Your Address',
@@ -63,7 +61,7 @@ class AddAddressScreen extends StatelessWidget {
                   child: ListView.builder(
                       shrinkWrap: true,
                       itemCount: controller.myAddressItems.length,
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (context,index){
                         print('controller.myAddressItems lg.... ${controller.myAddressItems.length}');
 
@@ -75,7 +73,7 @@ class AddAddressScreen extends StatelessWidget {
                               controller.update();
                             },
                             child: Container(
-                              margin: EdgeInsets.all(8),
+                              margin: const EdgeInsets.all(8),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(5),
                                 color:controller.slectedIndex==index?kPrimaryBlue.withOpacity(0.2) :Colors.white,
@@ -100,10 +98,10 @@ class AddAddressScreen extends StatelessWidget {
                                     Text("GST : ${controller.myAddressItems[index]["gstin"]["gstin"]}", style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                                       fontSize: getProportionateScreenWidth(11),
                                     )),
-                                    Divider(),
+                                    const Divider(),
                                   ],
                                 ),
-                                leading: Icon(Icons.factory_outlined,size: 30,),
+                                leading: const Icon(Icons.factory_outlined,size: 30,),
                               ),
                             ),
                           ),

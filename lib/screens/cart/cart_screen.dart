@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sutra_ecommerce/controllers/my_cart_controller.dart';
+import 'package:sutra_ecommerce/controllers/mycart_controller.dart';
 
 import '../../constants/colors.dart';
 import '../../utils/screen_utils.dart';
@@ -46,7 +46,7 @@ class CartScreen extends StatelessWidget {
                child: SingleChildScrollView(
                  child: ListView.builder(
                    shrinkWrap: true,
-                     physics: NeverScrollableScrollPhysics(),
+                     physics: const NeverScrollableScrollPhysics(),
                      itemCount: controller.mycartItems.length,
                      itemBuilder: (context,index) {
 
