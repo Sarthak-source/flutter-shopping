@@ -16,6 +16,9 @@ class AddToCartController extends GetxController {
   RxList addToCartList = [].obs;
   RxInt productCount = 0.obs;
 
+
+  
+
   void addToCart(count, product, party) async {
     try {
       var responseData = await NetworkRepository.addToCart(
@@ -27,7 +30,7 @@ class AddToCartController extends GetxController {
       var addToCartData = responseData;
       addToCartList.add(addToCartData);
 
-      productCount.value = addToCartList.length; // Update productCount value
+      productCount.value = double.parse(responseData['count']).toInt() ; // Update productCount value
       log(productCount.value.toString());
       update(); // Notify observers about the change
     } catch (e) {

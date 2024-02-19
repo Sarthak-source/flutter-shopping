@@ -79,7 +79,7 @@ class CategoryTab extends StatelessWidget {
                               PoductsListScreen.routeName,
                               arguments: PoductsListArguments(
                                 title: controller.categories[index]['name'],
-                                categoryId: controller.categories[index]['id'],
+                                categoryId: controller.categories[index]['id'].toString(),
                               ),
                             );
                           },
