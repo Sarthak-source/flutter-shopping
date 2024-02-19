@@ -32,22 +32,22 @@ class _ProductCardState extends State<ProductCard> {
       0.obs; // Initialize quantity as observable RxInt with value 0
 
   @override
-void initState() {
-  super.initState();
+  void initState() {
+    super.initState();
 
-  if (widget.product != null && widget.product!["cart_count"] != null) {
-    print("count::: ${widget.product!["cart_count"].toString()}");
-    double? d = double.tryParse(widget.product!["cart_count"].toString());
-    if (d != null) {
-      print('double count $d');
-      print('int count ${d.toInt()}');
-      quantity.value = d.toInt();
+    if (widget.product != null && widget.product!["cart_count"] != null) {
+      print("count::: ${widget.product!["cart_count"].toString()}");
+      double? d = double.tryParse(widget.product!["cart_count"].toString());
+      if (d != null) {
+        print('double count $d');
+        print('int count ${d.toInt()}');
+        quantity.value = d.toInt();
+      }
     }
   }
-}
 
-
-    final AddToCartController addToCartController = Get.put(AddToCartController());
+  final AddToCartController addToCartController =
+      Get.put(AddToCartController());
   @override
   Widget build(BuildContext context) {
     log(widget.product.toString());
@@ -171,12 +171,15 @@ void initState() {
                                         ),
                                         onPressed: () async {
                                           log('20');
+                                          quantity.value++;
+                                          addToCartController
+                                                      .productCount++;
                                           addToCartController.addToCart(
                                               quantity.value,
                                               widget.product['id'],
                                               '1');
 
-                                          quantity.value++;
+                                          
 
                                           addToCartController.update();
                                         },
@@ -209,7 +212,8 @@ void initState() {
                                                 ),
                                                 onPressed: () {
                                                   quantity.value--;
-                                                  addToCartController.productCount++;
+                                                  addToCartController
+                                                      .productCount--;
                                                   addToCartController.addToCart(
                                                       quantity.value,
                                                       widget.product['id'],
@@ -251,7 +255,6 @@ void initState() {
                                                 ),
                                                 onPressed: () {
                                                   quantity.value++;
-                                                  addToCartController.productCount++;
                                                   addToCartController.addToCart(
                                                       quantity.value,
                                                       widget.product['id'],

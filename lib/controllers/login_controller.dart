@@ -5,27 +5,18 @@ import 'package:sutra_ecommerce/screens/login/verify_otp.dart';
 import 'package:sutra_ecommerce/utils/network_repository.dart';
 
 class LoginController extends GetxController {
-  @override
-  void onInit(){
-    // Get called when controller is created
-    super.onInit();
-  }
-  RxMap user = {}.obs;
+  var user = {}.obs;
 
-   void userExists(String phoneNumberTyped) async {
-    // Instantiate LoginController to access instance members
-    
-
+  void userExists(String phoneNumberTyped) async {
     try {
-      var value = await networkRepository.checkUser(number: phoneNumberTyped);
-      // Accessing user from the instance
-      log(value.toString());
-      user.value=value;
-      update();
-      log("user ${user.toString()}");
-      
+      var responseData =
+          await networkRepository.checkUser(number: phoneNumberTyped);
+      log(responseData.toString());
+      user.value = responseData;
 
-      if (value != null) {
+      log("user ${user.toString()}");
+
+      if (responseData != null) {
         var data = await networkRepository.userLogin(number: phoneNumberTyped);
         log(data.toString());
 

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -152,65 +150,108 @@ class HomeAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-LoginController loginController = Get.find<LoginController>();
-    log("here ${loginController.user.toString()}");
-     
-        return Obx(
-          () {
-            return Column(
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: getProportionateScreenWidth(
-                      16,
-                    ),
-                  ),
-                  child: InkWell(
-                    onTap: () {
-                      Get.toNamed(MapScreen.routeName);
-                    },
-                    child: Row(
+    final LoginController loginController = Get.put(LoginController());
+
+    return Obx(() {
+      return Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: getProportionateScreenWidth(
+                16,
+              ),
+            ),
+            child: InkWell(
+              onTap: () {
+                Get.toNamed(MapScreen.routeName);
+              },
+              child: Row(
+                children: [
+                  const IconButton(
+                      onPressed: null,
+                      icon: Icon(
+                        CupertinoIcons.location_fill,
+                        color: kPrimaryBlue,
+                      )),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const IconButton(
-                            onPressed: null,
-                            icon: Icon(
-                              CupertinoIcons.location_fill,
-                              color: kPrimaryBlue,
-                            )),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                loginController.user.toString(),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headlineMedium!
-                                    .copyWith(
-                                      fontWeight: FontWeight.w700,
-                                    ),
+                        Text(
+                          loginController.user.toString(),
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineMedium!
+                              .copyWith(
+                                fontWeight: FontWeight.w700,
                               ),
-                              Text(
-                                'Norristown, Pennsyvlvania, 19403',
-                                style: TextStyle(
-                                  color: kTextColorAccent,
-                                  fontSize: getProportionateScreenWidth(
-                                    12,
-                                  ),
-                                ),
-                              ),
-                            ],
+                        ),
+                        Text(
+                          'Norristown, Pennsyvlvania, 19403',
+                          style: TextStyle(
+                            color: kTextColorAccent,
+                            fontSize: getProportionateScreenWidth(
+                              12,
+                            ),
                           ),
                         ),
                       ],
                     ),
                   ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      );
+    });
+  }
+}
+
+class MyWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return CustomScrollView(
+      slivers: [
+        SliverToBoxAdapter(
+          child: Row(
+            children: [
+              Expanded(
+                child: SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (BuildContext context, int index) {
+                      return ListTile(
+                        title: Text('Item $index'),
+                      );
+                    },
+                    childCount: 10,
+                  ),
                 ),
-              ],
-            );
-          }
-        );
-    
-    
+              ),
+              Expanded(
+                child: SliverGrid(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 10.0,
+                    crossAxisSpacing: 10.0,
+                  ),
+                  delegate: SliverChildBuilderDelegate(
+                    (BuildContext context, int index) {
+                      return Container(
+                        color: Colors.blue[100 * (index % 9)],
+                        child: Center(
+                          child: Text('Grid Item $index'),
+                        ),
+                      );
+                    },
+                    childCount: 10,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 }

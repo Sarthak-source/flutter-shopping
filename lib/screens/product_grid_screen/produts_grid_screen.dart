@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:sutra_ecommerce/controllers/add_to_cart_controller.dart';
 import 'package:sutra_ecommerce/controllers/products_controller.dart';
+import 'package:sutra_ecommerce/screens/add_address/add_address_screen.dart';
 
 import '../../constants/colors.dart';
 import '../../utils/screen_utils.dart';
@@ -10,7 +13,7 @@ import '../../widgets/product_card/product_card.dart';
 
 class PoductsListArguments {
   final String title;
-  final int categoryId;
+  final String categoryId;
 
   PoductsListArguments({required this.title, required this.categoryId});
 }
@@ -31,86 +34,113 @@ class PoductsListScreenState extends State<PoductsListScreen> {
     ScreenUtils().init(context);
     var args =
         ModalRoute.of(context)?.settings.arguments as PoductsListArguments;
+    final AddToCartController addToCartController =
+        Get.put(AddToCartController());
 
-    return Scaffold(
-      body: Stack(
-        children: [
-          SafeArea(
-            child: Column(
-              children: [
-                CustomAppBar(
-                  title: args.title,
-                  actions: [
-                    const Icon(
-                      Icons.search,
-                      color: kPrimaryBlue,
-                    ),
-                    SizedBox(
-                      width: getProportionateScreenWidth(16),
-                    ),
-                  ],
-                ),
+    return Obx(() {
+      return Scaffold(
+        body: Stack(
+          children: [
+            SafeArea(
+              child: Column(
+                children: [
+                  CustomAppBar(
+                    title: args.title,
+                    actions: [
+                      const Icon(
+                        Icons.search,
+                        color: kPrimaryBlue,
+                      ),
+                      SizedBox(
+                        width: getProportionateScreenWidth(16),
+                      ),
+                    ],
+                  ),
 
-                //SizedBox(width: Get.width/4,child: Text('data')),
-                CustomStaggerGrid(
-                  addCallback: () {
-                    setState(() {
-                      isAdded = true;
-                    });
-                  },
-                  categoryId: args.categoryId,
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: !isAdded
-          ? RawMaterialButton(
-              fillColor: Colors.white,
-              shape: const StadiumBorder(),
-              elevation: 10.0,
-              onPressed: () {},
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                  vertical: getProportionateScreenHeight(8.0),
-                  horizontal: getProportionateScreenWidth(16.0),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const Icon(Icons.sort),
-                    Text(
-                      'Sort & Filter',
-                      style:
-                          Theme.of(context).textTheme.headlineMedium?.copyWith(
-                                fontWeight: FontWeight.w700,
-                              ),
-                    ),
-                  ],
-                ),
+                  //SizedBox(width: Get.width/4,child: Text('data')),
+                  CustomStaggerGrid(
+                    addCallback: () {
+                      setState(() {
+                        isAdded = true;
+                      });
+                    },
+                    categoryId: args.categoryId,
+                  ),
+                  SizedBox(height: 220,),
+                ],
               ),
-            )
-          : Container(),
-    );
+            ),
+          ],
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: (addToCartController.productCount > 0)
+            ? Padding(
+                padding: const EdgeInsets.only(left: 12, right: 12, bottom: 5),
+                child: RawMaterialButton(
+                  fillColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(
+                        20), // Adjust the radius as needed
+                  ),
+                  elevation: 10.0,
+                  onPressed: () {},
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      vertical: getProportionateScreenHeight(8.0),
+                      horizontal: getProportionateScreenWidth(16.0),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Expanded(
+                          flex: 2,
+                          child: ElevatedButton(
+                            style: ButtonStyle(
+                              shape: MaterialStateProperty.all<
+                                  RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(
+                                      20), // Adjust the radius as needed
+                                ),
+                              ),
+                              minimumSize: MaterialStateProperty.all(
+                                Size.fromHeight(
+                                  getProportionateScreenHeight(48),
+                                ),
+                              ),
+                            ),
+                            onPressed: () {
+                              Navigator.of(context)
+                                  .pushNamed(AddAddressScreen.routeName);
+                            },
+                            child: const Text('Buy Now'),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              )
+            : Container(),
+      );
+    });
   }
 }
 
 class CustomStaggerGrid extends StatelessWidget {
   final Function()? addCallback;
-  final int? categoryId;
+  final String? categoryId;
 
   const CustomStaggerGrid({
     this.addCallback,
-    required this.categoryId,
+    this.categoryId,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final ProductController controller = Get.put(ProductController(
-      categoryId: categoryId!,
+      categoryId: categoryId ?? '',
     ));
 
     return Expanded(
@@ -150,33 +180,50 @@ class CustomStaggerGrid extends StatelessWidget {
           // If the Future is complete with data, display the GridView
           List products = controller.products;
 
-          return GridView.builder(
-            itemCount: products.length,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: getProportionateScreenWidth(8),
-              mainAxisSpacing: getProportionateScreenHeight(5),
-              childAspectRatio: 0.81,
-            ),
-            itemBuilder: (ctx, index) {
-              if (index % 2 != 0) {
-                return ProductCard(
-                  isLeft: false,
-                  product: products[index],
-                );
-              } else if (index == 0) {
+          if (products.isEmpty) {
+            return Column(
+              children: [
+                Lottie.asset('assets/lotties/no-data.json',
+                    repeat: false,
+                    height: getProportionateScreenHeight(250.0),
+                    width: getProportionateScreenWidth(250.0)),
+                SizedBox(height: getProportionateScreenHeight(10.0)),
+                const Text(
+                  'No products found',
+                  style: TextStyle(
+                      fontWeight: FontWeight.w600, color: kPrimaryBlue),
+                ),
+              ],
+            );
+          } else {
+            return GridView.builder(
+              itemCount: products.length,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: getProportionateScreenWidth(8),
+                mainAxisSpacing: getProportionateScreenHeight(5),
+                childAspectRatio: 0.81,
+              ),
+              itemBuilder: (ctx, index) {
+                if (index % 2 != 0) {
+                  return ProductCard(
+                    isLeft: false,
+                    product: products[index],
+                  );
+                } else if (index == 0) {
+                  return ProductCard(
+                    isLeft: true,
+                    addHandler: addCallback,
+                    product: products[index],
+                  );
+                }
                 return ProductCard(
                   isLeft: true,
-                  addHandler: addCallback,
                   product: products[index],
                 );
-              }
-              return ProductCard(
-                isLeft: true,
-                product: products[index],
-              );
-            },
-          );
+              },
+            );
+          }
         }
       }),
     );
