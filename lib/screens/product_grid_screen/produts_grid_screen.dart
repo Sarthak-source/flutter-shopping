@@ -66,7 +66,7 @@ class PoductsListScreenState extends State<PoductsListScreen> {
                     },
                     categoryId: args.categoryId,
                   ),
-                  SizedBox(height: 220,),
+                  const SizedBox(height: 220,),
                 ],
               ),
             ),

@@ -5,7 +5,6 @@ import '../utils/screen_utils.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/indi_deal_card_with_discount.dart';
 //import 'package:flushbar/flushbar.dart';
-import 'product_detail.dart/product_detail.dart';
 import 'search_screen/search_fruit_screen.dart';
 
 class SpecialDealChildScreen extends StatelessWidget {
@@ -47,8 +46,8 @@ class SpecialDealChildScreen extends StatelessWidget {
                 ),
                 itemBuilder: (context, index) => GestureDetector(
                   onTap: () {
-                    Navigator.of(context)
-                        .pushNamed(ProductDetailScreen.routeName);
+                    /*Navigator.of(context)
+                        .pushNamed(ProductDetailScreen.routeName);*/
                   },
                   child: ProductCardWithDiscount(
                     isLeft: index % 2 == 0,

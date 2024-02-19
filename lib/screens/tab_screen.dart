@@ -20,7 +20,7 @@ class TabScreenState extends State<TabScreen> {
   @override
   Widget build(BuildContext context) {
     List<Widget> pages = [
-       HomeScreen(),
+      const HomeScreen(),
       const FavScreen(),
       CartScreen(),
       const UserScreen(),
@@ -37,5 +37,3 @@ class TabScreenState extends State<TabScreen> {
     );
   }
 }
-
-

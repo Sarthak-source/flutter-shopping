@@ -4,10 +4,10 @@ import '../constants/colors.dart';
 import '../screens/tab_screen.dart';
 import '../utils/screen_utils.dart';
 
-class OrderSuccessScreen extends StatelessWidget {
-  static const routeName = '/orderSuccess';
+class OrderSuccessScreenold extends StatelessWidget {
+  static const routeName = '/orderSuccessold';
 
-  const OrderSuccessScreen({super.key});
+  const OrderSuccessScreenold({super.key});
 
   @override
   Widget build(BuildContext context) {

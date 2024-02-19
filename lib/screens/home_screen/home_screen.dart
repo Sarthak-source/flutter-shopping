@@ -4,13 +4,14 @@ import 'package:get/get.dart';
 import 'package:sutra_ecommerce/controllers/get_deals_controller.dart';
 import 'package:sutra_ecommerce/controllers/user_controller.dart';
 import 'package:sutra_ecommerce/screens/home_screen/components/categories/categories.dart';
+import 'package:sutra_ecommerce/screens/home_screen/components/popular_deal/popular_deals.dart';
 import 'package:sutra_ecommerce/screens/map_screen.dart';
+import 'package:sutra_ecommerce/screens/product_grid_screen/produts_grid_screen.dart';
 
 import '../../constants/colors.dart';
 import '../../utils/screen_utils.dart';
 import '../../widgets/deal_card.dart';
 import '../../widgets/tab_title.dart';
-import '../product_grid_screen/produts_grid_screen.dart';
 import '../search_screen/search_screen.dart';
 import '../special_deal_screen.dart';
 
@@ -28,7 +29,6 @@ class HomeScreen extends StatelessWidget {
         const SliverToBoxAdapter(
           child: HomeAppBar(),
         ),
-
         SliverToBoxAdapter(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
@@ -73,13 +73,10 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
         ),
-
         SliverToBoxAdapter(child: CategoryTab()),
-
         SliverToBoxAdapter(
           child: DealsTab(),
         ),
-
         SliverToBoxAdapter(
           child: TabTitle(
             title: 'Popular Deals',
@@ -88,7 +85,7 @@ class HomeScreen extends StatelessWidget {
             },
           ),
         ),
-        //const PopularDealTab(),
+        const PopularDealTab(),
       ],
     );
   }

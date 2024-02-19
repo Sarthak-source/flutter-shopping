@@ -144,13 +144,11 @@ class _MyOrderDetail2State extends State<MyOrderDetail2> {
                                 Text("Address:", style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                                   color: kTextColorAccent,
                                 )),
-                                Container(
-                                  //  color: Colors.yellow,
-                                    child: Text(widget.orderdetail.address, style: const TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.bold),
-                                    )),
+                                Text(widget.orderdetail.address, style: const TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold),
+                                ),
                               ],
                             ),
                           ),

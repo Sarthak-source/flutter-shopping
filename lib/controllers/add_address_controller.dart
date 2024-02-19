@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:get/get.dart';
 import 'package:sutra_ecommerce/utils/network_repository.dart';
 
@@ -21,7 +23,7 @@ class AddAddressController extends GetxController {
       List myAddressData = responseData['body']['results'];
       myAddressItems.assignAll(myAddressData);
       update();
-      print('myAddressItems++++${myAddressItems.length}');
+      log('myAddressItems++++${myAddressItems.length}');
     } catch (e) {
       errorMsg.value = e.toString();
       hasError.value = true;

@@ -7,12 +7,12 @@
 // @pragma('vm:entry-point')
 // Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 //   if (kDebugMode) {
-//     print("Handling a background message: ${message.messageId}");
-//     print("Handling a background message: ${message.category}");
-//     print("Handling a background message: ${message.contentAvailable}");
-//     print("Handling a background message: ${message.data}");
-//     print("Handling a background message: ${message.from}");
-//     print("Handling a background message: ${message.notification}");
+//     log("Handling a background message: ${message.messageId}");
+//     log("Handling a background message: ${message.category}");
+//     log("Handling a background message: ${message.contentAvailable}");
+//     log("Handling a background message: ${message.data}");
+//     log("Handling a background message: ${message.from}");
+//     log("Handling a background message: ${message.notification}");
 //   }
 //   AndroidNotificationChannel channel = const AndroidNotificationChannel(
 //     'channel-01', // id
@@ -172,6 +172,6 @@
 //   });
 
 //   if (kDebugMode) {
-//     print('User granted permission: ${settings.authorizationStatus}');
+//     log('User granted permission: ${settings.authorizationStatus}');
 //   }
 // }

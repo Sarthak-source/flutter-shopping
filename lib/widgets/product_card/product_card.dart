@@ -36,11 +36,11 @@ class _ProductCardState extends State<ProductCard> {
     super.initState();
 
     if (widget.product != null && widget.product!["cart_count"] != null) {
-      print("count::: ${widget.product!["cart_count"].toString()}");
+      log("count::: ${widget.product!["cart_count"].toString()}");
       double? d = double.tryParse(widget.product!["cart_count"].toString());
       if (d != null) {
-        print('double count $d');
-        print('int count ${d.toInt()}');
+        log('double count $d');
+        log('int count ${d.toInt()}');
         quantity.value = d.toInt();
       }
     }
@@ -50,7 +50,7 @@ class _ProductCardState extends State<ProductCard> {
       Get.put(AddToCartController());
   @override
   Widget build(BuildContext context) {
-    log(widget.product.toString());
+    //log(widget.product.toString());
 
     return Obx(() {
       return Padding(
@@ -172,14 +172,11 @@ class _ProductCardState extends State<ProductCard> {
                                         onPressed: () async {
                                           log('20');
                                           quantity.value++;
-                                          addToCartController
-                                                      .productCount++;
+                                          addToCartController.productCount++;
                                           addToCartController.addToCart(
                                               quantity.value,
                                               widget.product['id'],
                                               '1');
-
-                                          
 
                                           addToCartController.update();
                                         },

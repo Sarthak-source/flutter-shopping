@@ -133,10 +133,10 @@ class BouncingLogo extends StatefulWidget {
   const BouncingLogo({super.key});
 
   @override
-  _BouncingLogoState createState() => _BouncingLogoState();
+  BouncingLogoState createState() => BouncingLogoState();
 }
 
-class _BouncingLogoState extends State<BouncingLogo>
+class BouncingLogoState extends State<BouncingLogo>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
