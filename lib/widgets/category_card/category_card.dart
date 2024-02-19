@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sutra_ecommerce/utils/screen_utils.dart';
 
 import '../../models/category.dart';
 
@@ -10,19 +11,23 @@ class CategoryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Image.network(
           category.catIcon ??
               'http://170.187.232.148/static/images/dilicia.png',
           fit: BoxFit.fill,
-          height: 100,
+          height: getProportionateScreenHeight(80),
         ),
-        const SizedBox(
-          height: 10,
-        ),
-        Text(
-          category.catName,
-          style: const TextStyle(fontSize: 14,fontWeight: FontWeight.w700),
+        const Spacer(),
+        SizedBox(
+          width: 80,
+          height: 40,
+          child: Text(
+            "${category.catName[0].toUpperCase()}${category.catName.substring(1,category.catName.length).toLowerCase()}",
+            style: const TextStyle(fontSize: 14,fontWeight: FontWeight.w700,),
+            textAlign: TextAlign.center,
+          ),
         )
       ],
     );

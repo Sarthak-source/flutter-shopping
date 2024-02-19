@@ -44,16 +44,16 @@ class SpecialDealScreen extends StatelessWidget {
                       Navigator.of(context)
                           .pushNamed(SpecialDealChildScreen.routeName);
                     },
-                    isHorizontalScrolling: false,
+                    isHorizontalScrolling: false, image: '',
                   ),
                   const DealCard(
-                    isHorizontalScrolling: false,
+                    isHorizontalScrolling: false, image: '',
                   ),
                   const DealCard(
-                    isHorizontalScrolling: false,
+                    isHorizontalScrolling: false, image: '',
                   ),
                   const DealCard(
-                    isHorizontalScrolling: false,
+                    isHorizontalScrolling: false, image: '',
                   ),
                 ],
               ),

@@ -16,7 +16,7 @@ class CustomAppBar extends StatelessWidget {
         children: [
           const Expanded(child: BackButtonText()),
           Text(
-            title,
+             "${title[0].toUpperCase()}${title.substring(1,title.length).toLowerCase()}",
             style: TextStyle(
               fontSize: getProportionateScreenWidth(16),
               fontWeight: FontWeight.w600,

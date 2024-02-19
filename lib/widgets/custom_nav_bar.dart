@@ -50,14 +50,14 @@ class CustomNavBarState extends State<CustomNavBar> {
                 widget.curTabIndex == 2
                     ? const Icon(Icons.shopping_cart)
                     : const Icon(Icons.shopping_cart_outlined),
-                if (addToCartController.productCount.value > 0)
+                if (addToCartController.productCount > 0)
                   Positioned(
                     right: 0,
                     child: CircleAvatar(
                       backgroundColor: Colors.red,
                       radius: 8,
                       child: Text(
-                        '${addToCartController.productCount.value}',
+                        '${addToCartController.productCount}',
                         style: const TextStyle(
                           fontSize: 10,
                           color: Colors.white,

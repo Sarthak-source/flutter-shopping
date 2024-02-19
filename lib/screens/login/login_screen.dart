@@ -1,6 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:sutra_ecommerce/assets/logo.dart';
+import 'package:sutra_ecommerce/controllers/login_controller.dart';
 import 'package:sutra_ecommerce/screens/signup_screen.dart';
 
 import '../../utils/screen_utils.dart';
@@ -19,6 +23,8 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController phoneNumberController = TextEditingController(text: '');
+  LoginController loginController = LoginController();
+
   bool repeat = false;
   @override
   Widget build(BuildContext context) {
@@ -90,17 +96,17 @@ class _LoginScreenState extends State<LoginScreen> {
 
 
 
-                /*        if (phoneNumber.length < 10) {
+                       if (phoneNumber.length < 10) {
                           // Handle the case where the phone number is too short
                           Fluttertoast.showToast(
                             msg: 'Enter a proper number',
                             backgroundColor: Colors.red,
                           );
                         } else {
-                        //  log(phoneNumber);
-                       //   LoginController.userExists(phoneNumber);
+                         log(phoneNumber);
+                         loginController.userExists(phoneNumber);
 
-                        }*/
+                        }
                       },
                       child: const Text('Continue'),
                     ),

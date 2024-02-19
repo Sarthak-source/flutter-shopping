@@ -23,7 +23,7 @@ class SearchFruitScreen extends StatelessWidget {
                 child: Row(
                   children: [
                     const Expanded(
-                      child: s.SearchBar('fruits'),
+                      child: s.SearchBar(hint: 'fruits'),
                     ),
                     TextButton(
                       style: ButtonStyle(

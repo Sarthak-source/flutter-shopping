@@ -5,10 +5,11 @@ import 'package:sutra_ecommerce/utils/network_repository.dart';
 
 class AddToCartController extends GetxController {
   @override
-  void onInit(){
+  void onInit() {
     // Get called when controller is created
     super.onInit();
   }
+
   var isLoading = true.obs;
   var hasError = false.obs;
   var errorMsg = ''.obs;

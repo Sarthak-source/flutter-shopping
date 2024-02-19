@@ -119,7 +119,7 @@ class NetworkRepository {
     }
   }
 
- static Future getCategories({required String level, String? parent}) async {
+  static Future getCategories({required String level, String? parent}) async {
     try {
       final apiResponse = await NetworkDioHttp.getDioHttpMethod(
         url:
@@ -150,7 +150,7 @@ class NetworkRepository {
     try {
       final apiResponse = await NetworkDioHttp.getDioHttpMethod(
         url:
-        "${ApiAppConstants.apiEndPoint}${ApiAppConstants.mycart}?party=$party",
+            "${ApiAppConstants.apiEndPoint}${ApiAppConstants.mycart}?party=$party",
         header: Options(headers: <String, String>{'authorization': auth}),
       );
       print('mycartItems in repo++++$apiResponse');
@@ -177,7 +177,7 @@ class NetworkRepository {
     try {
       final apiResponse = await NetworkDioHttp.getDioHttpMethod(
         url:
-        "${ApiAppConstants.apiEndPoint}${ApiAppConstants.myaddress}?party=$party",
+            "${ApiAppConstants.apiEndPoint}${ApiAppConstants.myaddress}?party=$party",
         header: Options(headers: <String, String>{'authorization': auth}),
       );
       print('myaddress in repo++++$apiResponse');
@@ -200,10 +200,12 @@ class NetworkRepository {
     }
   }
 
-
-
-
-  static getProducts({String? category, String? status, String? search, String? partyId,String? page}) async {
+  static getProducts(
+      {String? category,
+      String? status,
+      String? search,
+      String? partyId,
+      String? page}) async {
     try {
       final apiResponse = await NetworkDioHttp.getDioHttpMethod(
         url:
@@ -262,12 +264,11 @@ class NetworkRepository {
     }
   }
 
-
-  static Future addToCart(
-      {required String count,
-      required String product,
-      required String party,
-      }) async {
+  static Future addToCart({
+    required String count,
+    required String product,
+    required String party,
+  }) async {
     try {
       var data = FormData.fromMap({
         "count": count,
@@ -281,12 +282,39 @@ class NetworkRepository {
         data: data,
       );
       debugPrint('\x1b[97m  addressListPost  Response : $apiResponse');
-      return  await apiResponse['body'];
+      return await apiResponse['body'];
     } catch (e) {
       dynamic details = e;
       log(e.toString());
       Fluttertoast.showToast(msg: details["body"]["detail"].toString());
       rethrow;
+    }
+  }
+
+  static Future getDeals() async {
+    try {
+      final apiResponse = await NetworkDioHttp.getDioHttpMethod(
+        url:
+            "${ApiAppConstants.apiEndPoint}${ApiAppConstants.deals}?is_active=Active",
+        header: Options(headers: <String, String>{'authorization': auth}),
+      );
+      print('mycartItems in repo++++$apiResponse');
+      debugPrint('\x1b[97m mycart Response : $apiResponse');
+
+      final body = apiResponse['body'];
+
+      if (body != null &&
+          body['error'] != null &&
+          body['error'] == 'User not exist please sign up') {
+        Fluttertoast.showToast(msg: body['error'].toString());
+      }
+
+      return apiResponse;
+    } catch (e) {
+      dynamic er = e;
+      //Fluttertoast.showToast(msg: er['body']['error']);
+
+      return er.toString();
     }
   }
 
