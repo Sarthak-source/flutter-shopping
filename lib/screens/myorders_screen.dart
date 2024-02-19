@@ -4,6 +4,7 @@ import 'package:easy_stepper/easy_stepper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sutra_ecommerce/controllers/my_order_controller.dart';
+import 'package:sutra_ecommerce/utils/common_functions.dart';
 
 import '../constants/colors.dart';
 import '../utils/screen_utils.dart';
@@ -194,7 +195,7 @@ class _MyOrdersState extends State<MyOrders> {
                       return MyOrderCards(
                         devicewidth: devicewidth,
                         orderlist: orderslist,
-                        MyOrderList: RxList([]),
+                        myOrderList: RxList([]),
                       );
                     },
                   ),
@@ -225,11 +226,11 @@ class MyOrderCards extends StatelessWidget {
       {super.key,
       required this.devicewidth,
       required this.orderlist,
-      required this.MyOrderList});
+      required this.myOrderList});
 
   final double devicewidth;
   final List<OrdersList> orderlist;
-  final RxList MyOrderList;
+  final RxList myOrderList;
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -419,5 +420,36 @@ class MyOrderCards extends StatelessWidget {
       ),*/
               );
         });
+  }
+
+  orderIDDate(BuildContext context, int index, String title, String value) {
+    return Row(
+      children: [
+        Icon(
+          Icons.shopping_cart,
+          color: title == "Order No" ? kPrimaryBlue : Colors.white,
+        ),
+        const SizedBox(width: 8),
+        Text(title,
+            style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                  fontSize: 12,
+                  color: kTextColorAccent,
+                )),
+        Padding(
+          padding: const EdgeInsets.only(left: 8.0),
+          child: Text(
+              title == "Order No"
+                  ? myOrderList[index][value].toString()
+                  : convertTimestampToDateString(
+                      myOrderList[index][value].toString()),
+              style: const TextStyle(
+                color: Colors.grey,
+                fontSize: 12,
+              ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis),
+        ),
+      ],
+    );
   }
 }
