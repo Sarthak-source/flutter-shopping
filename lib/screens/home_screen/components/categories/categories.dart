@@ -47,7 +47,7 @@ class CategoryTab extends StatelessWidget {
                   baseColor: Colors.grey[300]!,
                   highlightColor: Colors.grey[100]!,
                   child: SizedBox(
-                    height: 120,
+                    height: 140,
                     child: ListView.builder(
                       clipBehavior: Clip.none,
                       scrollDirection: Axis.horizontal,
@@ -65,7 +65,7 @@ class CategoryTab extends StatelessWidget {
                 return Text('Error: ${controller.errorMsg.value}');
               } else {
                 return SizedBox(
-                  height: 140,
+                  height: 150,
                   child: ListView.builder(
                     clipBehavior: Clip.none,
                     scrollDirection: Axis.horizontal,

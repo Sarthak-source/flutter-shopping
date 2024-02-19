@@ -34,7 +34,7 @@ class TabTitle extends StatelessWidget {
             onPressed: seeAll,
             child: Text(
               actionText,
-              style: TextStyle(fontSize: 18),
+              style: const TextStyle(fontSize: 18),
             ),
           ),
         ],

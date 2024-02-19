@@ -32,19 +32,22 @@ class _ProductCardState extends State<ProductCard> {
       0.obs; // Initialize quantity as observable RxInt with value 0
 
   @override
-  void initState() {
-    super.initState();
+void initState() {
+  super.initState();
 
-    //if( widget.mycartItem["count"] != null){
+  if (widget.product != null && widget.product!["cart_count"] != null) {
     print("count::: ${widget.product!["cart_count"].toString()}");
-    double d = double.parse(widget.product!["cart_count"].toString());
-    print('double count $d');
-    print('int count ${d.toInt()}');
-    quantity.value = d.toInt();
-    //}
+    double? d = double.tryParse(widget.product!["cart_count"].toString());
+    if (d != null) {
+      print('double count $d');
+      print('int count ${d.toInt()}');
+      quantity.value = d.toInt();
+    }
   }
+}
 
-  AddToCartController addToCartController = AddToCartController();
+
+    final AddToCartController addToCartController = Get.put(AddToCartController());
   @override
   Widget build(BuildContext context) {
     log(widget.product.toString());
@@ -116,6 +119,7 @@ class _ProductCardState extends State<ProductCard> {
                         ),
                         Text(
                           widget.product?['name'] ?? "Not given",
+                          maxLines: 1,
                           style: Theme.of(context)
                               .textTheme
                               .bodyMedium
@@ -205,6 +209,7 @@ class _ProductCardState extends State<ProductCard> {
                                                 ),
                                                 onPressed: () {
                                                   quantity.value--;
+                                                  addToCartController.productCount++;
                                                   addToCartController.addToCart(
                                                       quantity.value,
                                                       widget.product['id'],
@@ -246,13 +251,14 @@ class _ProductCardState extends State<ProductCard> {
                                                 ),
                                                 onPressed: () {
                                                   quantity.value++;
+                                                  addToCartController.productCount++;
                                                   addToCartController.addToCart(
                                                       quantity.value,
                                                       widget.product['id'],
                                                       '1');
 
                                                   addToCartController
-                                                      .productCount = quantity;
+                                                      .productCount++;
                                                   addToCartController.update();
                                                 },
                                               ),

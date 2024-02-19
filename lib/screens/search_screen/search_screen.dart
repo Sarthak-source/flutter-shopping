@@ -1,14 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sutra_ecommerce/constants/colors.dart';
+import 'package:sutra_ecommerce/screens/product_grid_screen/produts_grid_screen.dart';
 
 import '../../utils/screen_utils.dart';
-import '../../widgets/custom_nav_bar.dart';
-import '../../widgets/deal_card.dart';
-import '../../widgets/product_card/product_card.dart';
 import '../../widgets/search_bar.dart' as search;
-import '../../widgets/tab_title.dart';
-import '../fruit_screen.dart';
-import '../vegetable_screen.dart';
 
 class SearchScreen extends StatelessWidget {
   static const routeName = '/search_screen';
@@ -17,88 +14,38 @@ class SearchScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController searchController = TextEditingController();
     return Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              const SearchTab(),
-              SizedBox(
-                height: getProportionateScreenHeight(32),
-              ),
-              const SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    DealCard(),
-                    DealCard(),
-                  ],
+        child: Stack(
+          children: [
+            Hero(
+              tag: 'search',
+              child: Material(
+                child: SearchTab(
+                  key: const Key('value'),
+                  textEditingController: searchController,
                 ),
               ),
-              SizedBox(
-                height: getProportionateScreenHeight(16),
-              ),
-              TabTitle(
-                title: 'Featured Vegetables',
-                seeAll: () {
-                  Get.toNamed(VegetableScreen.routeName);
-                },
-              ),
-              SizedBox(
-                height: getProportionateScreenHeight(240),
-                child: Row(
-                  children: [
-                    const Expanded(
-                      child: ProductCard(
-                        isLeft: true,
-                      ),
-                    ),
-                    SizedBox(
-                      width: getProportionateScreenWidth(8.0),
-                    ),
-                    const Expanded(
-                      child: ProductCard(
-                        isLeft: false,
-                      ),
-                    ),
-                  ],
+            ),
+            SizedBox(
+              height: getProportionateScreenHeight(32),
+            ),
+            Transform.translate(
+              offset: const Offset(0, 75),
+              child: SizedBox(
+                height: Get.height,
+                child: CustomStaggerGrid(
+                  addCallback: () {},
+                  categoryId: 3,
                 ),
               ),
-              TabTitle(
-                title: 'Special Bundle',
-                seeAll: () {},
-              ),
-              SizedBox(
-                height: getProportionateScreenHeight(240),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.of(context)
-                              .pushNamed(FruitScreen.routeName);
-                        },
-                        child: const ProductCard(
-                          isLeft: true,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: getProportionateScreenWidth(8.0),
-                    ),
-                    const Expanded(
-                      child: ProductCard(
-                        isLeft: false,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
-      bottomNavigationBar: CustomNavBar((_) {}, 0),
+
+      //bottomNavigationBar: CustomNavBar((_) {}, 0),
     );
   }
 }
@@ -106,7 +53,10 @@ class SearchScreen extends StatelessWidget {
 class SearchTab extends StatelessWidget {
   const SearchTab({
     Key? key,
+    required this.textEditingController,
   }) : super(key: key);
+
+  final TextEditingController textEditingController;
 
   @override
   Widget build(BuildContext context) {
@@ -116,13 +66,23 @@ class SearchTab extends StatelessWidget {
       ),
       child: Row(
         children: [
+          InkWell(
+              onTap: () {
+                Get.back();
+              },
+              child: const Icon(
+                CupertinoIcons.back,
+                size: 35,
+                color: kPrimaryBlue,
+              )),
+
           const Expanded(
-            child: search.SearchBar('Search for Anything'),
+            child: search.SearchBar(hint: 'Search for products'),
           ),
           SizedBox(
             width: getProportionateScreenWidth(10),
           ),
-          Image.asset('assets/images/bell.png'),
+          //Image.asset('assets/images/bell.png'),
         ],
       ),
     );

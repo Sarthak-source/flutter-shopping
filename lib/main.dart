@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:sutra_ecommerce/controllers/add_to_cart_controller.dart';
 import 'package:sutra_ecommerce/routes/route.dart';
 import 'package:sutra_ecommerce/utils/api_constants.dart';
 import 'package:sutra_ecommerce/utils/network_dio.dart';
@@ -73,9 +72,9 @@ class MyApp extends StatelessWidget {
               dividerTheme: customTheme.dividerTheme(),
             ),
             getPages: pages,
-            initialBinding: BindingsBuilder(() {
-              Get.put(AddToCartController()); // Initialize AddToCartController
-            }),
+            // initialBinding: BindingsBuilder(() {
+            //   Get.put(AddToCartController(productCount: 0)); // Initialize AddToCartController
+            // }),
             home: const LandingScreen(),
           );
         },

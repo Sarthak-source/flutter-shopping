@@ -1,9 +1,7 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:sutra_ecommerce/utils/network_repository.dart';
+import 'package:sutra_ecommerce/controllers/products_controller.dart';
 
 import '../../constants/colors.dart';
 import '../../utils/screen_utils.dart';
@@ -52,89 +50,19 @@ class PoductsListScreenState extends State<PoductsListScreen> {
                     ),
                   ],
                 ),
-                CustomStaggerGrid(() {
-                  setState(() {
-                    isAdded = true;
-                  });
-                }, args.categoryId),
+
+                //SizedBox(width: Get.width/4,child: Text('data')),
+                CustomStaggerGrid(
+                  addCallback: () {
+                    setState(() {
+                      isAdded = true;
+                    });
+                  },
+                  categoryId: args.categoryId,
+                ),
               ],
             ),
           ),
-          if (isAdded)
-            Positioned(
-              bottom: getProportionateScreenHeight(40),
-              left: 0,
-              right: 0,
-              child: Container(
-                margin: EdgeInsets.symmetric(
-                  horizontal: getProportionateScreenWidth(16.0),
-                ),
-                padding: EdgeInsets.symmetric(
-                  horizontal: getProportionateScreenWidth(16.0),
-                ),
-                height: getProportionateScreenHeight(80),
-                decoration: ShapeDecoration(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(
-                      getProportionateScreenWidth(8.0),
-                    ),
-                  ),
-                  color: kPrimaryBlue,
-                  shadows: [
-                    BoxShadow(
-                      color: kShadowColor,
-                      offset: Offset(
-                        getProportionateScreenWidth(24),
-                        getProportionateScreenWidth(40),
-                      ),
-                      blurRadius: 80,
-                    ),
-                  ],
-                ),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            '5 items',
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineMedium!
-                                .copyWith(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                          ),
-                          Flexible(
-                            child: Text(
-                              'Dragon Fruits, Oranges, Apples, Dragon Fruits, Oranges, Apples, ',
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                fontSize: getProportionateScreenWidth(12),
-                                color: Colors.white,
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      width: getProportionateScreenWidth(20),
-                    ),
-                    Text(
-                      '\$240',
-                      style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w700,
-                          ),
-                    ),
-                  ],
-                ),
-              ),
-            )
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -169,114 +97,94 @@ class PoductsListScreenState extends State<PoductsListScreen> {
   }
 }
 
-class CustomStaggerGrid extends StatefulWidget {
+class CustomStaggerGrid extends StatelessWidget {
   final Function()? addCallback;
-  final int categoryId;
+  final int? categoryId;
 
-  const CustomStaggerGrid(this.addCallback, this.categoryId, {Key? key})
-      : super(key: key);
-
-  @override
-  State<CustomStaggerGrid> createState() => _CustomStaggerGridState();
-}
-
-class _CustomStaggerGridState extends State<CustomStaggerGrid> {
-  late Future<dynamic> _productFuture;
-
-  @override
-  void initState() {
-    super.initState();
-    _productFuture = NetworkRepository.getProducts(
-      category: widget.categoryId.toString(),
-      status: 'Active',
-      search: '',
-      partyId: '1',
-      page: '1',
-    );
-  }
+  const CustomStaggerGrid({
+    this.addCallback,
+    required this.categoryId,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final ProductController controller = Get.put(ProductController(
+      categoryId: categoryId!,
+    ));
+
     return Expanded(
-      child: FutureBuilder(
-        future: _productFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            // If the Future is still running, show a loading indicator
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Shimmer.fromColors(
-                baseColor: Colors.grey[300]!,
-                highlightColor: Colors.grey[100]!,
-                child: SizedBox(
-                  height: 100,
-                  child: GridView.builder(
-                    clipBehavior: Clip.none,
-                    itemCount: 10, // Use a placeholder count
-                    itemBuilder: (context, index) {
-                      return const Padding(
-                        padding: EdgeInsets.only(left: 16,bottom: 8),
-                        child:
-                            ProductCardPlaceholder(), // Create a placeholder widget
-                      );
-                    },
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: getProportionateScreenWidth(8),
-                      mainAxisSpacing: getProportionateScreenHeight(5),
-                      childAspectRatio: 0.81,
-                    ),
+      child: Obx(() {
+        if (controller.isLoading.value) {
+          // If the Future is still running, show a loading indicator
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Shimmer.fromColors(
+              baseColor: Colors.grey[300]!,
+              highlightColor: Colors.grey[100]!,
+              child: SizedBox(
+                height: 100,
+                child: GridView.builder(
+                  clipBehavior: Clip.none,
+                  itemCount: 10, // Use a placeholder count
+                  itemBuilder: (context, index) {
+                    return const Padding(
+                      padding: EdgeInsets.only(left: 16, bottom: 8),
+                      child: ProductCardPlaceholder(),
+                    );
+                  },
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: getProportionateScreenWidth(8),
+                    mainAxisSpacing: getProportionateScreenHeight(5),
+                    childAspectRatio: 0.89,
                   ),
                 ),
               ),
-            );
-          } else if (snapshot.hasError) {
-            // If there's an error, display it to the user
-            return Center(child: Text('Error: ${snapshot.error}'));
-          } else {
-            // If the Future is complete with data, display the GridView
-            List products = snapshot.data['body']['results'];
+            ),
+          );
+        } else if (controller.hasError.value) {
+          // If there's an error, display it to the user
+          return Center(child: Text('Error: ${controller.errorMsg.value}'));
+        } else {
+          // If the Future is complete with data, display the GridView
+          List products = controller.products;
 
-            log(products.toString());
-
-            return GridView.builder(
-              itemCount: products.length,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: getProportionateScreenWidth(8),
-                mainAxisSpacing: getProportionateScreenHeight(5),
-                childAspectRatio: 0.81,
-              ),
-              itemBuilder: (ctx, index) {
-                if (index % 2 != 0) {
-                  return ProductCard(
-                    isLeft: false,
-                    product: products[index],
-                  );
-                } else if (index == 0) {
-                  return ProductCard(
-                    isLeft: true,
-                    addHandler: widget.addCallback,
-                    product: products[index],
-                  );
-                }
+          return GridView.builder(
+            itemCount: products.length,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: getProportionateScreenWidth(8),
+              mainAxisSpacing: getProportionateScreenHeight(5),
+              childAspectRatio: 0.81,
+            ),
+            itemBuilder: (ctx, index) {
+              if (index % 2 != 0) {
                 return ProductCard(
-                  isLeft: true,
+                  isLeft: false,
                   product: products[index],
                 );
-              },
-
-              // Replace YourProductCardWidget with the actual widget you want to use for displaying products
-            );
-          }
-        },
-      ),
+              } else if (index == 0) {
+                return ProductCard(
+                  isLeft: true,
+                  addHandler: addCallback,
+                  product: products[index],
+                );
+              }
+              return ProductCard(
+                isLeft: true,
+                product: products[index],
+              );
+            },
+          );
+        }
+      }),
     );
   }
 }
 
 class ProductCardPlaceholder extends StatelessWidget {
-  const ProductCardPlaceholder({super.key});
+  const ProductCardPlaceholder({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
