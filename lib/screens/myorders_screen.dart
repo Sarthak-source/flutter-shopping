@@ -192,7 +192,10 @@ class _MyOrdersState extends State<MyOrders> {
                     },
                     itemBuilder: (context, pageIndex) {
                       return MyOrderCards(
-                          devicewidth: devicewidth, orderlist: orderslist);
+                        devicewidth: devicewidth,
+                        orderlist: orderslist,
+                        MyOrderList: RxList([]),
+                      );
                     },
                   ),
                 ),
@@ -218,14 +221,15 @@ class OrdersList {
 }
 
 class MyOrderCards extends StatelessWidget {
-  const MyOrderCards({
-    super.key,
-    required this.devicewidth,
-    required this.orderlist,
-  });
+  const MyOrderCards(
+      {super.key,
+      required this.devicewidth,
+      required this.orderlist,
+      required this.MyOrderList});
 
   final double devicewidth;
   final List<OrdersList> orderlist;
+  final RxList MyOrderList;
   @override
   Widget build(BuildContext context) {
     return ListView.builder(

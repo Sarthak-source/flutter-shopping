@@ -174,6 +174,40 @@ class NetworkRepository {
     }
   }
 
+
+  static Future getMyOrders({
+    required String party,
+    required String order_prifix,
+    required String order_status,
+    required String order_date,
+    required String delivery_required_on,
+  }) async {
+    try {
+      final apiResponse = await NetworkDioHttp.getDioHttpMethod(
+        url:
+        "${ApiAppConstants.apiEndPoint}${ApiAppConstants.myOrders}?party=$party&order_prifix=&order_status=Active&order_date=&delivery_required_on=",
+        header: Options(headers: <String, String>{'authorization': auth}),
+      );
+      print('myOrders in repo++++$apiResponse');
+      debugPrint('\x1b[97m myOrders Response : $apiResponse');
+
+      final body = apiResponse['body'];
+
+      if (body != null &&
+          body['error'] != null &&
+          body['error'] == 'User not exist please sign up') {
+        Fluttertoast.showToast(msg: body['error'].toString());
+      }
+
+      return apiResponse;
+    } catch (e) {
+      dynamic er = e;
+      //Fluttertoast.showToast(msg: er['body']['error']);
+
+      return er.toString();
+    }
+  }
+
   static Future getMyAddress({required String party}) async {
     try {
       final apiResponse = await NetworkDioHttp.getDioHttpMethod(

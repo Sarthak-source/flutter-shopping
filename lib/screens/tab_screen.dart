@@ -23,7 +23,7 @@ class TabScreenState extends State<TabScreen> {
       const HomeScreen(),
       const FavScreen(),
       CartScreen(),
-      const UserScreen(),
+       UserScreen(),
     ];
     return Scaffold(
       body: SafeArea(
