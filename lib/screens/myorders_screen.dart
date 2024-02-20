@@ -134,9 +134,9 @@ class _MyOrdersState extends State<MyOrders> {
                       // unreachedLineColor: grey,
                       finishedStepTextColor: Colors.grey,
                       finishedStepBackgroundColor: Colors.grey,
-                      activeStepIconColor: Colors.blue,
-                      activeStepBackgroundColor: Colors.blue,
-                      activeStepTextColor: Colors.blue.shade700,
+                      activeStepIconColor: kPrimaryBlue,
+                      activeStepBackgroundColor: kPrimaryBlue,
+                      activeStepTextColor: kPrimaryBlue,
                       showLoadingAnimation: false,
                       enableStepTapping: true,
                       steps: const [

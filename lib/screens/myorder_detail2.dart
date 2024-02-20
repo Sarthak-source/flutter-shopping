@@ -23,6 +23,9 @@ final int OrderId;
   State<MyOrderDetail2> createState() => _MyOrderDetail2State();
 }
 class _MyOrderDetail2State extends State<MyOrderDetail2> {
+/*  RxList? get orderList => widget.orderDetails;
+  int get index => widget.index;*/
+
   final MyOrderController controller = Get.put(MyOrderController());
   @override
   void initState() {

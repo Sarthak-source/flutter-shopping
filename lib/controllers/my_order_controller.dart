@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -17,6 +19,7 @@ class MyOrderController extends GetxController{
   var errorMsg = ''.obs;
   var myOrderList = [].obs;
   var myOrderDetailList = [].obs;
+  RxMap orderdetailDatas = {}.obs;
 
   @override
   void onInit() {
@@ -46,6 +49,12 @@ class MyOrderController extends GetxController{
       // Assuming NetworkRepository.getCategories returns a Future<dynamic>
       var responseData = await NetworkRepository.getOrderDetail(orderId: orderId);
       List myorders = responseData['body']['order_items'];
+       String jsonString = jsonEncode(responseData['body']);
+       Map<String, dynamic> data = jsonDecode(jsonString);
+       String addressLine1 = data['address']['address_line1'];
+       print("address from myorderdetail $addressLine1");
+       orderdetailDatas = RxMap(data);
+       print("address from myorderdetail2 ${orderdetailDatas['address']['address_line1']}");
       myOrderDetailList.assignAll(myorders);
       update();
       print('myOrderDetailList++++ ${myOrderDetailList.length}');
