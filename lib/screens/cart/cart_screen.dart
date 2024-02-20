@@ -1,136 +1,164 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sutra_ecommerce/controllers/add_to_cart_controller.dart';
 import 'package:sutra_ecommerce/controllers/mycart_controller.dart';
 
 import '../../constants/colors.dart';
 import '../../utils/screen_utils.dart';
-import '../../widgets/order_card/order_card.dart';
+import '../../widgets/order_card.dart';
 import '../add_address/add_address_screen.dart';
 
 class CartScreen extends StatelessWidget {
-    CartScreen({super.key});
-   final MyCartController controller = Get.put(MyCartController());
+  CartScreen({super.key});
+  final MyCartController controller = Get.put(MyCartController());
+  final AddToCartController addToCartController =
+      Get.put(AddToCartController());
+  //AddToCartController addToCartController = AddToCartController();
   @override
   Widget build(BuildContext context) {
-   
-    return  GetBuilder<MyCartController>(
-        builder: (controller) {
-      return Center(
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: getProportionateScreenWidth(16.0),
-          ),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Text(
-                    'My Cart',
-                    style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                          fontWeight: FontWeight.w700,
-                          fontSize: getProportionateScreenWidth(
-                          20,
-                        ),
-                        ),
-                  ),
-                  const Spacer(),
-                  const Icon(
-                    Icons.search,
-                    color: kPrimaryBlue,
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: getProportionateScreenHeight(16.0),
-              ),
-             Expanded(
-               child: SingleChildScrollView(
-                 child: ListView.builder(
-                   shrinkWrap: true,
-                     physics: const NeverScrollableScrollPhysics(),
-                     itemCount: controller.mycartItems.length,
-                     itemBuilder: (context,index) {
-
-                     return  OrderCard(mycartItem:controller.mycartItems[index]);
-                 }),
-               ),
-             )   ,
-
-            /*  Column(
-                children: List.generate(
-                  3,
-                  (index) => Column(
-                    children: [
-                      index == 0
-                          ? const OrderCard()
-                          : const OrderCard(),
-                      SizedBox(
-                        height: getProportionateScreenHeight(8.0),
-                      ),
-                    ],
+    return GetBuilder<MyCartController>(builder: (controller) {
+      return Obx(
+        () => Center(
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: getProportionateScreenWidth(16.0),
+            ),
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 18,
+                ),
+                Row(
+                  children: [
+                    Text(
+                      'My Cart',
+                      style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                            fontWeight: FontWeight.w700,
+                            fontSize: getProportionateScreenWidth(
+                              20,
+                            ),
+                          ),
+                    ),
+                    const Spacer(),
+                    const Icon(
+                      Icons.search,
+                      color: kPrimaryBlue,
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: getProportionateScreenHeight(16.0),
+                ),
+                Obx(
+                  () => Expanded(
+                    child: SingleChildScrollView(
+                      child: ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: controller.mycartItems.length,
+                          itemBuilder: (context, index) {
+                            return OrderCard(
+                              onPlusinCard: (n) {
+                                log('add qty $n');
+                                addToCartController.updateCart(
+                                    n,
+                                    controller.mycartItems[index]["id"],
+                                    "update",
+                                    "1");
+                              },
+                              onMinusinCard: (n) {
+                                log('remove qty $n');
+                                addToCartController.updateCart(
+                                    n,
+                                    controller.mycartItems[index]["id"],
+                                    "update",
+                                    "1");
+                              },
+                              onAddItem: (n) {
+                                log('add qty $n');
+                                addToCartController.updateCart(
+                                    n,
+                                    controller.mycartItems[index]["id"],
+                                    "update",
+                                    "1");
+                              },
+                              onDeleteItem: (n) {
+                                log('delete qty $n');
+                                addToCartController.updateCart(
+                                    n,
+                                    controller.mycartItems[index]["id"],
+                                    "delete",
+                                    "1");
+                              },
+                              mycartItem: controller.mycartItems[index],
+                            );
+                          }),
+                    ),
                   ),
                 ),
-              ),*/
-
-              Row(
-                children: [
-                  Expanded(
-                    flex: 3,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                        controller.mycartTotalValue.value,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineSmall!
-                              .copyWith(color: Colors.grey,fontSize: 14),
-                        ),
-                        Text(
+                Row(
+                  children: [
+                    Expanded(
+                      flex: 3,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            controller.mycartTotalValue.value,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineSmall!
+                                .copyWith(color: Colors.grey, fontSize: 14),
+                          ),
+                          Text(
                             controller.mycartTotalGst.value,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineSmall!
-                              .copyWith(color: Colors.grey,fontSize: 14),
-                        ),  Text(
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineSmall!
+                                .copyWith(color: Colors.grey, fontSize: 14),
+                          ),
+                          Text(
                             controller.mycartTotalAmount.value,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineLarge!
-                              .copyWith(fontWeight: FontWeight.w700),
-                        ),
-                      ],
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineLarge!
+                                .copyWith(fontWeight: FontWeight.w700),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  Expanded(
-                    flex: 2,
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-                        shape: MaterialStateProperty.all(
-                          const StadiumBorder(),
-                        ),
-                        minimumSize: MaterialStateProperty.all(
-                          Size.fromHeight(
-                            getProportionateScreenHeight(48),
+                    Expanded(
+                      flex: 2,
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          shape: MaterialStateProperty.all(
+                            const StadiumBorder(),
+                          ),
+                          minimumSize: MaterialStateProperty.all(
+                            Size.fromHeight(
+                              getProportionateScreenHeight(48),
+                            ),
                           ),
                         ),
+                        onPressed: () {
+                          //Navigator.of(context).pushNamed(AddAddressScreen.routeName);
+                          Get.toNamed(AddAddressScreen.routeName);
+                        },
+                        child: const Text('Buy Now'),
                       ),
-                      onPressed: () {
-                        Navigator.of(context)
-                            .pushNamed(AddAddressScreen.routeName);
-                      },
-                      child: const Text('Buy Now'),
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: getProportionateScreenHeight(24.0),
-              ),
-            ],
+                  ],
+                ),
+                SizedBox(
+                  height: getProportionateScreenHeight(24.0),
+                ),
+              ],
+            ),
           ),
         ),
-      );}
-    );
+      );
+    });
   }
 }

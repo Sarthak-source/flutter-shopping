@@ -10,9 +10,8 @@ import '../screens/login/login_screen.dart';
 import '../screens/map_screen.dart';
 import '../screens/my_profile_screen.dart';
 import '../screens/myorders_screen.dart';
-import '../screens/order_success_screen.dart';
+import '../screens/order_success_screen/order_success_screen.dart';
 import '../screens/order_summary_screen.dart';
-import '../screens/product_detail.dart/product_detail.dart';
 import '../screens/product_grid_screen/produts_grid_screen.dart';
 import '../screens/search_screen/search_fruit_screen.dart';
 import '../screens/search_screen/search_screen.dart';
@@ -40,10 +39,10 @@ List<GetPage> pages = [
   GetPage(name: SpecialDealScreen.routeName, page: () => const SpecialDealScreen()),
   GetPage(name: SpecialDealChildScreen.routeName, page: () => const SpecialDealChildScreen()),
   GetPage(name: SearchFruitScreen.routeName, page: () => const SearchFruitScreen()),
-  GetPage(name: ProductDetailScreen.routeName, page: () => const ProductDetailScreen()),
+ // GetPage(name: ProductDetailScreen.routeName, page: () => const ProductDetailScreen()),
   GetPage(name: OrderSummaryScreen.routeName, page: () => const OrderSummaryScreen()),
   GetPage(name: CheckoutScreen.routeName, page: () => const CheckoutScreen()),
-  GetPage(name: OrderSuccessScreen.routeName, page: () => const OrderSuccessScreen()),
+  GetPage(name: OrderSuccessScreen.routeName, page: () =>  OrderSuccessScreen()),
   GetPage(name: MyProfileScreen.routeName, page: () => const MyProfileScreen()),
   GetPage(name: OtpScreen.routeName, page: () => const OtpScreen()),
   GetPage(name: MyOrders.routeName, page: () => const MyOrders()),

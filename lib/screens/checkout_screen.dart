@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sutra_ecommerce/screens/order_success_screen/order_success_screen.dart';
 
 import '../constants/colors.dart';
-import '../screens/order_success_screen.dart';
 import '../utils/screen_utils.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/price_breakdown.dart';

@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:sutra_ecommerce/config/common.dart';
-import 'package:sutra_ecommerce/controllers/login_controller.dart';
+import 'package:sutra_ecommerce/controllers/add_to_cart_controller.dart';
 import 'package:sutra_ecommerce/routes/route.dart';
 import 'package:sutra_ecommerce/utils/api_constants.dart';
 import 'package:sutra_ecommerce/utils/network_dio.dart';
@@ -28,8 +28,6 @@ void main() async {
   } else {
     NetworkDioHttp.setDynamicHeader(endPoint: ApiAppConstants.apiEndPoint);
   }
-
-
   runApp(const MyApp());
 }
 
@@ -79,9 +77,11 @@ class MyApp extends StatelessWidget {
               dividerTheme: customTheme.dividerTheme(),
             ),
             getPages: pages,
-            initialBinding: BindingsBuilder(() {
-              Get.put(LoginController()); // Initialize AddToCartController
-            }),
+            initialBinding: StoreBinding()
+            /*   BindingsBuilder(() {
+              Get.put(AddToCartController()); // Initialize AddToCartController
+            })*/
+            ,
             home: const LandingScreen(),
           );
         },

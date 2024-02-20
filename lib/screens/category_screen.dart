@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:sutra_ecommerce/controllers/catagories_controller.dart';
-import 'package:sutra_ecommerce/models/category.dart';
 
 import '../constants/colors.dart';
+import '../models/category.dart';
 import '../utils/screen_utils.dart';
 import '../widgets/category_card/category_card.dart';
 import '../widgets/custom_app_bar.dart';
@@ -14,46 +12,103 @@ class CategoryScreen extends StatelessWidget {
   const CategoryScreen({super.key});
   @override
   Widget build(BuildContext context) {
+    final List<Category> categories = [
+      const Category(
+        'Vegetables',
+        'assets/images/vegetable.png',
+        kAccentGreen,
+      ),
+      const Category(
+        'Fruits',
+        'assets/images/fruit.png',
+        kAccentRed,
+      ),
+      const Category(
+        'Milks & egg',
+        'assets/images/egg.png',
+        kAccentYellow,
+      ),
+      const Category(
+        'Meat',
+        'assets/images/meat.png',
+        kAccentPurple,
+      ),
+      const Category(
+        'Bread',
+        'assets/images/bread.png',
+        kAccentTosca,
+      ),
+      const Category(
+        'Fish',
+        'assets/images/seafood.png',
+        kAccentGreen,
+      ),
+      const Category(
+        'Cookies',
+        'assets/images/cereal.png',
+        kAccentRed,
+      ),
+      const Category(
+        'Herbs',
+        'assets/images/herbs.png',
+        kAccentYellow,
+      ),
+      const Category(
+        'Drinks',
+        'assets/images/drinks.png',
+        kAccentPurple,
+      ),
+      const Category(
+        'Ice Cream',
+        'assets/images/cannedfood.png',
+        kAccentTosca,
+      ),
+      const Category(
+        'Cheese',
+        'assets/images/dairy.png',
+        kAccentGreen,
+      ),
+      const Category(
+        'Chips',
+        'assets/images/cereal.png',
+        kAccentRed,
+      ),
+    ];
     ScreenUtils().init(context);
-    return GetBuilder<CategoriesController>(builder: (controller) {
-      return Scaffold(
-        body: SafeArea(
-          child: Column(
-            children: [
-              CustomAppBar(
-                marginBottom: 12,
-                actions: [
-                  const Icon(
-                    Icons.search,
-                    color: kPrimaryBlue,
-                  ),
-                  SizedBox(
-                    width: getProportionateScreenWidth(16),
-                  ),
-                ],
-                title: 'Categories',
-              ),
-              SizedBox(
-                height: getProportionateScreenHeight(30),
-              ),
-              Expanded(
-                  child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          children: [
+            CustomAppBar(
+              
+             actions: [
+                const Icon(
+                  Icons.search,
+                  color: kPrimaryBlue,
                 ),
-                itemCount: controller.categories.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return CategoryCard(category:  Category(
-                              controller.categories[index]['name'],
-                              controller.categories[index]['categories_img'],
-                              Colors.amber,
-                            ),);
-                },
-              ))
-            ],
-          ),
+                SizedBox(
+                  width: getProportionateScreenWidth(16),
+                ),
+              ], title: 'Categories',
+            ),
+            SizedBox(
+              height: getProportionateScreenHeight(50),
+            ),
+            Expanded(
+                child: GridView(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+              ),
+              children: List.generate(
+                categories.length,
+                (index) => CategoryCard(category: categories[index],
+                  
+                ),
+              ),
+            ))
+          ],
         ),
-      );
-    });
+      ),
+    );
   }
 }

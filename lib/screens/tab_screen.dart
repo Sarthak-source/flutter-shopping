@@ -20,10 +20,10 @@ class TabScreenState extends State<TabScreen> {
   @override
   Widget build(BuildContext context) {
     List<Widget> pages = [
-       HomeScreen(),
+      const HomeScreen(),
       const FavScreen(),
       CartScreen(),
-      const UserScreen(),
+       UserScreen(),
     ];
     return Scaffold(
       body: SafeArea(
@@ -37,5 +37,3 @@ class TabScreenState extends State<TabScreen> {
     );
   }
 }
-
-

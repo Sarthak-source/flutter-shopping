@@ -22,7 +22,6 @@ class FruitTitle extends StatelessWidget {
             _title,
             style: Theme.of(context).textTheme.displaySmall?.copyWith(
                   fontWeight: FontWeight.w700,
-                  fontSize: 18
                 ),
           ),
         ),

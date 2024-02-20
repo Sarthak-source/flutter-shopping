@@ -1,43 +1,47 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sutra_ecommerce/controllers/add_address_controller.dart';
 
 import '../../constants/colors.dart';
+import '../../controllers/mycart_controller.dart';
 import '../../utils/screen_utils.dart';
 import '../../widgets/back_button_ls.dart';
 
 class AddAddressScreen extends StatelessWidget {
   static const routeName = '/add_address_screen';
 
-   AddAddressScreen({super.key});
+  AddAddressScreen({super.key});
 
   final AddAddressController controller = Get.put(AddAddressController());
+  final MyCartController createOrderCtlr = Get.put(MyCartController());
 
   @override
   Widget build(BuildContext context) {
     ScreenUtils().init(context);
-    return GetBuilder<AddAddressController>(
-        builder: (controller) {
-     return Scaffold(
-       floatingActionButton: Padding(
-         padding: const EdgeInsets.only(bottom: 80.0),
-         child: FloatingActionButton(
-
-             onPressed: (){},
-             backgroundColor: kPrimaryBlue,
-             child: const Icon(Icons.add,color: Colors.white,)),
-       ),
-        body: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-           mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: EdgeInsets.all(
-                  getProportionateScreenWidth(18),
-                ),
-                child: Container(
-                //  color: Colors.red,
+    return GetBuilder<MyCartController>(builder: (createOrderCtlr) {
+      return GetBuilder<AddAddressController>(builder: (controller) {
+        return Scaffold(
+          floatingActionButton: Padding(
+            padding: const EdgeInsets.only(bottom: 80.0),
+            child: FloatingActionButton(
+                onPressed: () {},
+                backgroundColor: kPrimaryBlue,
+                child: const Icon(
+                  Icons.add,
+                  color: Colors.white,
+                )),
+          ),
+          body: SafeArea(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(
+                    getProportionateScreenWidth(18),
+                  ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -55,79 +59,116 @@ class AddAddressScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-              ),
-              Expanded(
-                child: SingleChildScrollView(
-                  child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: controller.myAddressItems.length,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemBuilder: (context,index){
-                        print('controller.myAddressItems lg.... ${controller.myAddressItems.length}');
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: controller.myAddressItems.length,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          log('controller.myAddressItems lg.... ${controller.myAddressItems.length}');
 
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child:GestureDetector(
-                            onTap: (){
-                              controller.slectedIndex = RxInt(index);
-                              controller.update();
-                            },
-                            child: Container(
-                              margin: const EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5),
-                                color:controller.slectedIndex==index?kPrimaryBlue.withOpacity(0.2) :Colors.white,
-                              ),
-                              child: ListTile(
-
-                                title:  Text(controller.myAddressItems[index]["address_line1"],
-                                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: getProportionateScreenWidth(14),
-                                  ),),
-                                subtitle: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(controller.myAddressItems[index]["address_line2"], style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                                      fontWeight: FontWeight.w100,
-                                          fontSize: getProportionateScreenWidth(11),
-                                        )),
-                                    Text(controller.myAddressItems[index]["address_line3"], style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                                      fontSize: getProportionateScreenWidth(11),
-                                    )),
-                                    Text("GST : ${controller.myAddressItems[index]["gstin"]["gstin"]}", style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                                      fontSize: getProportionateScreenWidth(11),
-                                    )),
-                                    const Divider(),
-                                  ],
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: GestureDetector(
+                              onTap: () {
+                                controller.slectedIndex = RxInt(index);
+                                controller.update();
+                              },
+                              child: Container(
+                                margin: const EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  color: controller.slectedIndex.value == index
+                                      ? kPrimaryBlue.withOpacity(0.2)
+                                      : Colors.white,
                                 ),
-                                leading: const Icon(Icons.factory_outlined,size: 30,),
+                                child: ListTile(
+                                  title: Text(
+                                    controller.myAddressItems[index]
+                                        ["address_line1"],
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineMedium
+                                        ?.copyWith(
+                                          fontWeight: FontWeight.w700,
+                                          fontSize:
+                                              getProportionateScreenWidth(14),
+                                        ),
+                                  ),
+                                  subtitle: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                          controller.myAddressItems[index]
+                                              ["address_line2"],
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headlineSmall
+                                              ?.copyWith(
+                                                fontWeight: FontWeight.w100,
+                                                fontSize:
+                                                    getProportionateScreenWidth(
+                                                        11),
+                                              )),
+                                      Text(
+                                          controller.myAddressItems[index]
+                                              ["address_line3"],
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headlineSmall
+                                              ?.copyWith(
+                                                fontSize:
+                                                    getProportionateScreenWidth(
+                                                        11),
+                                              )),
+                                      Text(
+                                          "GST : ${controller.myAddressItems[index]["gstin"]["gstin"]}",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headlineSmall
+                                              ?.copyWith(
+                                                fontSize:
+                                                    getProportionateScreenWidth(
+                                                        11),
+                                              )),
+                                      const Divider(),
+                                    ],
+                                  ),
+                                  leading: const Icon(
+                                    Icons.location_on_outlined,
+                                    size: 30,
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
-
-
-                        );
-                      }),
+                          );
+                        }),
+                  ),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  vertical: getProportionateScreenWidth(16.0),
-                  horizontal: getProportionateScreenWidth(16.0),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    vertical: getProportionateScreenWidth(16.0),
+                    horizontal: getProportionateScreenWidth(16.0),
+                  ),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      String address =
+                          "${controller.myAddressItems[controller.slectedIndex.toInt()]["id"]}";
+                      log('selected address: $address');
+                      createOrderCtlr.createOrderApi(
+                          "1", "1", "2015-01-28 03:00:00", address);
+                      // Get.toNamed(OrderSuccessScreen.routeName);
+                    },
+                    child: const Text('Next'),
+                  ),
                 ),
-                child: ElevatedButton(
-                  onPressed: () {
-
-                  },
-                  child: const Text('Next'),
-                ),
-              ),
-            ]
-            ,
+              ],
+            ),
           ),
-        ),
-      );}
-    );
+        );
+      });
+    });
   }
 }

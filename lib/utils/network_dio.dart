@@ -172,7 +172,7 @@ class NetworkDioHttp {
         Response response =
             await _dio!.put(url, data: data, options: header ?? _cacheOptions);
         if (kDebugMode) {
-          print(response);
+          log(response.toString());
         }
 
         // ignore: prefer_typing_uninitialized_variables
@@ -320,7 +320,7 @@ class NetworkDioHttp {
 
         return Future.error(responseData);
       } catch (e) {
-        print(e.toString());
+        log(e.toString());
         return Future.error(e);
       }
     } else {
