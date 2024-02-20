@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:hive/hive.dart';
+import 'package:sutra_ecommerce/config/common.dart';
 
 var auth = 'Basic ${base64Encode(utf8.encode('gfg:gfgtech123'))}'; // Prod
-Box? box;
+
 // var auth = 'Basic ${base64Encode(utf8.encode('gfg:!gfgtech123#'))}';  // Dev
 // var ip = '139.162.12.150'; // Prod
 // var ip = '172.105.55.52'; // new server

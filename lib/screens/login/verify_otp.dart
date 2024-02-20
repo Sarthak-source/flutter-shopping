@@ -27,7 +27,7 @@ class OtpScreen extends StatefulWidget {
 class _OtpScreenState extends State<OtpScreen> {
   int countdown = 30;
   late Timer timer;
-  bool _isLoadingButton = false;
+  bool isLoadingButton = false;
   TextEditingController otpController = TextEditingController(text: "");
   //FirebaseMessaging messaging = FirebaseMessaging.instance;
 
@@ -59,7 +59,7 @@ class _OtpScreenState extends State<OtpScreen> {
     final deviceInfoPlugin = DeviceInfoPlugin();
     FocusScope.of(context).requestFocus(FocusNode());
     setState(() {
-      _isLoadingButton = false;
+      isLoadingButton = false;
     });
 
     if (otpController.text.isNotEmpty) {

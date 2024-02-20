@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:get/get.dart';
+import 'package:sutra_ecommerce/config/common.dart';
 import 'package:sutra_ecommerce/screens/login/verify_otp.dart';
 import 'package:sutra_ecommerce/utils/network_repository.dart';
 
@@ -11,29 +12,24 @@ class LoginController extends GetxController {
     super.onInit();
   }
 
-  prntUser(){
-    log(user.toString());
-  }
-
-  final user = {}.obs;
-
   void userExists(String phoneNumberTyped) async {
     try {
-      var responseData =
+      Map<String, dynamic> responseData =
           await networkRepository.checkUser(number: phoneNumberTyped);
       log(responseData.toString());
-      
 
-      if (responseData != null) {
+      await box!.put('login', true);
+      await box!.put('userData', responseData['body']);
+
+      Map s = box!.get('userData');
+      log("stored ${s.toString()}");
+
+      if (responseData.isNotEmpty) {
         var data = await networkRepository.userLogin(number: phoneNumberTyped);
         log(data.toString());
 
         Get.toNamed(OtpScreen.routeName,
             arguments: OtpScreenArguments(phoneNumber: phoneNumberTyped));
-            user.value = responseData['body'];
-     
-
-      log("user ${user.toString()}");
       }
     } catch (error) {
       log('Error during user check: $error');

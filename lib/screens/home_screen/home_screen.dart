@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sutra_ecommerce/controllers/get_deals_controller.dart';
-import 'package:sutra_ecommerce/controllers/login_controller.dart';
+import 'package:sutra_ecommerce/controllers/user_controller.dart';
 import 'package:sutra_ecommerce/screens/home_screen/components/categories/categories.dart';
 import 'package:sutra_ecommerce/screens/map_screen.dart';
 
@@ -16,9 +16,8 @@ import '../special_deal_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   static const routeName = '/home_screen';
-  final LoginController controller = Get.put(LoginController());
 
-  HomeScreen({super.key});
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -83,10 +82,11 @@ class HomeScreen extends StatelessWidget {
 
         SliverToBoxAdapter(
           child: TabTitle(
-              title: 'Popular Deals',
-              seeAll: () {
-                Get.toNamed(PoductsListScreen.routeName);
-              }),
+            title: 'Popular Deals',
+            seeAll: () {
+              Get.toNamed(PoductsListScreen.routeName);
+            },
+          ),
         ),
         //const PopularDealTab(),
       ],
@@ -150,11 +150,11 @@ class HomeAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final LoginController loginController = Get.put(LoginController());
-final LoginController c = Get.find();
-    return  Obx(
-       () {
-        return Column(
+    UserController userController = Get.put(UserController());
+    return GetBuilder<UserController>(
+        init: UserController(),
+        builder: (controller) {
+          return Column(
             children: [
               Padding(
                 padding: EdgeInsets.symmetric(
@@ -168,11 +168,9 @@ final LoginController c = Get.find();
                   },
                   child: Row(
                     children: [
-                       IconButton(
-                          onPressed: (){
-loginController.prntUser();
-                          },
-                          icon: Icon(
+                      IconButton(
+                          onPressed: () {},
+                          icon: const Icon(
                             CupertinoIcons.location_fill,
                             color: kPrimaryBlue,
                           )),
@@ -180,19 +178,21 @@ loginController.prntUser();
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                             Text(
-                                 c.user.toString(),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headlineMedium!
-                                      .copyWith(
-                                        fontWeight: FontWeight.w700,
-                                      ),
-                                
-                            
+                            //Text(userController.user.toString()),
+                            Text(
+                              userController.user['party']['address']
+                                      ['address_line1']
+                                  .toString(),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headlineMedium!
+                                  .copyWith(
+                                    fontWeight: FontWeight.w700,
+                                  ),
                             ),
                             Text(
-                              'Norristown, Pennsyvlvania, 19403',
+                              userController.user['party']['address']
+                                  ['address_line2'],
                               style: TextStyle(
                                 color: kTextColorAccent,
                                 fontSize: getProportionateScreenWidth(
@@ -209,56 +209,58 @@ loginController.prntUser();
               ),
             ],
           );
-      }
-    );
-    }
-  }
-
-
-class MyWidget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return CustomScrollView(
-      slivers: [
-        SliverToBoxAdapter(
-          child: Row(
-            children: [
-              Expanded(
-                child: SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (BuildContext context, int index) {
-                      return ListTile(
-                        title: Text('Item $index'),
-                      );
-                    },
-                    childCount: 10,
-                  ),
-                ),
-              ),
-              Expanded(
-                child: SliverGrid(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 10.0,
-                    crossAxisSpacing: 10.0,
-                  ),
-                  delegate: SliverChildBuilderDelegate(
-                    (BuildContext context, int index) {
-                      return Container(
-                        color: Colors.blue[100 * (index % 9)],
-                        child: Center(
-                          child: Text('Grid Item $index'),
-                        ),
-                      );
-                    },
-                    childCount: 10,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
+        });
   }
 }
+    
+  
+  
+
+
+// class MyWidget extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return CustomScrollView(
+//       slivers: [
+//         SliverToBoxAdapter(
+//           child: Row(
+//             children: [
+//               Expanded(
+//                 child: SliverList(
+//                   delegate: SliverChildBuilderDelegate(
+//                     (BuildContext context, int index) {
+//                       return ListTile(
+//                         title: Text('Item $index'),
+//                       );
+//                     },
+//                     childCount: 10,
+//                   ),
+//                 ),
+//               ),
+//               Expanded(
+//                 child: SliverGrid(
+//                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+//                     crossAxisCount: 2,
+//                     mainAxisSpacing: 10.0,
+//                     crossAxisSpacing: 10.0,
+//                   ),
+//                   delegate: SliverChildBuilderDelegate(
+//                     (BuildContext context, int index) {
+//                       return Container(
+//                         color: Colors.blue[100 * (index % 9)],
+//                         child: Center(
+//                           child: Text('Grid Item $index'),
+//                         ),
+//                       );
+//                     },
+//                     childCount: 10,
+//                   ),
+//                 ),
+//               ),
+//             ],
+//           ),
+//         ),
+//       ],
+//     );
+//   }
+// }
