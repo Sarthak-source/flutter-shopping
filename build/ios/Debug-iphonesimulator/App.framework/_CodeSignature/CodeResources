@@ -10,11 +10,11 @@
 		</data>
 		<key>flutter_assets/AssetManifest.bin</key>
 		<data>
-		K9okFLuyHWA2/qTlQbqyQZLGeX4=
+		0NiK7KeO0xvgBl+z8D6c2XFcBiM=
 		</data>
 		<key>flutter_assets/AssetManifest.json</key>
 		<data>
-		oWG5tmOHti6SsBsVVDvz7Q4dQLA=
+		NYEHORkn6TceGErzbnKBWTeYSSo=
 		</data>
 		<key>flutter_assets/FontManifest.json</key>
 		<data>
@@ -192,6 +192,10 @@
 		<data>
 		3M5advsbwHi3NnmpKW7tUQNfLWc=
 		</data>
+		<key>flutter_assets/assets/lotties/OrderSuccessAnimation.json</key>
+		<data>
+		y/E/T/BGpUIh3oPneYC5lRcKwbQ=
+		</data>
 		<key>flutter_assets/assets/lotties/cart.json</key>
 		<data>
 		ZBGwsbhsc1nWAAO5E82bx3cbZvs=
@@ -222,7 +226,7 @@
 		</data>
 		<key>flutter_assets/kernel_blob.bin</key>
 		<data>
-		6TPAk2h2JgTITCPPtslc9isvd+0=
+		SFpw2k5MdCn3mO3VIhv+qg4DXss=
 		</data>
 		<key>flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
 		<data>
@@ -259,14 +263,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			P9Xe4MRdeOe6kBlhfYVQSsPpfDTIDdcY94hi7q0Zyhc=
+			OLcEvrcs7bEHldvK5MW573Mbf2SoPCxqN0a1SHPbPmY=
 			</data>
 		</dict>
 		<key>flutter_assets/AssetManifest.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			pR0cmNEFD3GSVkf7kAnUsFR/ByjSLHcaDQCUndVeU/Y=
+			FYQscoKe61Z4u65DVFQGEAGuJ36VhoV1Vcqw41oQKV4=
 			</data>
 		</dict>
 		<key>flutter_assets/FontManifest.json</key>
@@ -577,6 +581,13 @@
 			1PZzTvBFVIPyeVHppoF7nQGwa30HK9Pjshdfw8kBLDY=
 			</data>
 		</dict>
+		<key>flutter_assets/assets/lotties/OrderSuccessAnimation.json</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			tu/SwixqG9kIs54PpOb1WMuurAOsHG4W4GL+vrh/5PI=
+			</data>
+		</dict>
 		<key>flutter_assets/assets/lotties/cart.json</key>
 		<dict>
 			<key>hash2</key>
@@ -630,7 +641,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			49NKiUQhUXeTO6me2jmXCe/1KrQm5gn8VhRJNRHasvM=
+			sPMkAqwHgWXM3Ov4q0pPclp7KsrD4MWHmHAgesCtewA=
 			</data>
 		</dict>
 		<key>flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>

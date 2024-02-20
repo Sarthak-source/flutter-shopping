@@ -6,7 +6,7 @@ import 'package:sutra_ecommerce/controllers/user_controller.dart';
 import 'package:sutra_ecommerce/utils/network_repository.dart';
 
 class AddToCartController extends GetxController {
-  final UserController userController = Get.find<UserController>();
+  final UserController userController = Get.put(UserController());
   final MyCartController cartController =
       Get.find(); // Get reference to CartController
 

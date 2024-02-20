@@ -26,7 +26,7 @@ class HomeScreen extends StatelessWidget {
 
     return CustomScrollView(
       slivers: [
-        const SliverToBoxAdapter(
+         SliverToBoxAdapter(
           child: HomeAppBar(),
         ),
         SliverToBoxAdapter(
@@ -143,11 +143,12 @@ class DealsTab extends StatelessWidget {
 }
 
 class HomeAppBar extends StatelessWidget {
-  const HomeAppBar({super.key});
+  final UserController userController = Get.put(UserController());
+   HomeAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {
-    UserController userController = Get.put(UserController());
+   
     return GetBuilder<UserController>(
         init: UserController(),
         builder: (controller) {

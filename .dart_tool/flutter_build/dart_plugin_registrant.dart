@@ -42,7 +42,7 @@ class _PluginRegistrant {
       try {
         GeolocatorAndroid.registerWith();
       } catch (err) {
-        log(
+        print(
           '`geolocator_android` threw an error: $err. '
           'The app may not function as expected until you remove this plugin from pubspec.yaml'
         );
@@ -51,7 +51,7 @@ class _PluginRegistrant {
       try {
         PathProviderAndroid.registerWith();
       } catch (err) {
-        log(
+        print(
           '`path_provider_android` threw an error: $err. '
           'The app may not function as expected until you remove this plugin from pubspec.yaml'
         );
@@ -60,7 +60,7 @@ class _PluginRegistrant {
       try {
         SharedPreferencesAndroid.registerWith();
       } catch (err) {
-        log(
+        print(
           '`shared_preferences_android` threw an error: $err. '
           'The app may not function as expected until you remove this plugin from pubspec.yaml'
         );
@@ -69,7 +69,7 @@ class _PluginRegistrant {
       try {
         SqflitePlugin.registerWith();
       } catch (err) {
-        log(
+        print(
           '`sqflite` threw an error: $err. '
           'The app may not function as expected until you remove this plugin from pubspec.yaml'
         );
@@ -78,7 +78,7 @@ class _PluginRegistrant {
       try {
         UrlLauncherAndroid.registerWith();
       } catch (err) {
-        log(
+        print(
           '`url_launcher_android` threw an error: $err. '
           'The app may not function as expected until you remove this plugin from pubspec.yaml'
         );
@@ -88,7 +88,7 @@ class _PluginRegistrant {
       try {
         GeolocatorApple.registerWith();
       } catch (err) {
-        log(
+        print(
           '`geolocator_apple` threw an error: $err. '
           'The app may not function as expected until you remove this plugin from pubspec.yaml'
         );
@@ -97,7 +97,7 @@ class _PluginRegistrant {
       try {
         PathProviderFoundation.registerWith();
       } catch (err) {
-        log(
+        print(
           '`path_provider_foundation` threw an error: $err. '
           'The app may not function as expected until you remove this plugin from pubspec.yaml'
         );
@@ -106,7 +106,7 @@ class _PluginRegistrant {
       try {
         SharedPreferencesFoundation.registerWith();
       } catch (err) {
-        log(
+        print(
           '`shared_preferences_foundation` threw an error: $err. '
           'The app may not function as expected until you remove this plugin from pubspec.yaml'
         );
@@ -115,7 +115,7 @@ class _PluginRegistrant {
       try {
         SqflitePlugin.registerWith();
       } catch (err) {
-        log(
+        print(
           '`sqflite` threw an error: $err. '
           'The app may not function as expected until you remove this plugin from pubspec.yaml'
         );
@@ -124,7 +124,7 @@ class _PluginRegistrant {
       try {
         UrlLauncherIOS.registerWith();
       } catch (err) {
-        log(
+        print(
           '`url_launcher_ios` threw an error: $err. '
           'The app may not function as expected until you remove this plugin from pubspec.yaml'
         );
@@ -134,7 +134,7 @@ class _PluginRegistrant {
       try {
         ConnectivityPlusLinuxPlugin.registerWith();
       } catch (err) {
-        log(
+        print(
           '`connectivity_plus` threw an error: $err. '
           'The app may not function as expected until you remove this plugin from pubspec.yaml'
         );
@@ -143,7 +143,7 @@ class _PluginRegistrant {
       try {
         DeviceInfoPlusLinuxPlugin.registerWith();
       } catch (err) {
-        log(
+        print(
           '`device_info_plus` threw an error: $err. '
           'The app may not function as expected until you remove this plugin from pubspec.yaml'
         );
@@ -152,7 +152,7 @@ class _PluginRegistrant {
       try {
         PathProviderLinux.registerWith();
       } catch (err) {
-        log(
+        print(
           '`path_provider_linux` threw an error: $err. '
           'The app may not function as expected until you remove this plugin from pubspec.yaml'
         );
@@ -161,7 +161,7 @@ class _PluginRegistrant {
       try {
         ShareLinux.registerWith();
       } catch (err) {
-        log(
+        print(
           '`share_plus_linux` threw an error: $err. '
           'The app may not function as expected until you remove this plugin from pubspec.yaml'
         );
@@ -170,7 +170,7 @@ class _PluginRegistrant {
       try {
         SharedPreferencesLinux.registerWith();
       } catch (err) {
-        log(
+        print(
           '`shared_preferences_linux` threw an error: $err. '
           'The app may not function as expected until you remove this plugin from pubspec.yaml'
         );
@@ -179,7 +179,7 @@ class _PluginRegistrant {
       try {
         UrlLauncherLinux.registerWith();
       } catch (err) {
-        log(
+        print(
           '`url_launcher_linux` threw an error: $err. '
           'The app may not function as expected until you remove this plugin from pubspec.yaml'
         );
@@ -189,7 +189,7 @@ class _PluginRegistrant {
       try {
         GeolocatorApple.registerWith();
       } catch (err) {
-        log(
+        print(
           '`geolocator_apple` threw an error: $err. '
           'The app may not function as expected until you remove this plugin from pubspec.yaml'
         );
@@ -198,7 +198,7 @@ class _PluginRegistrant {
       try {
         PathProviderFoundation.registerWith();
       } catch (err) {
-        log(
+        print(
           '`path_provider_foundation` threw an error: $err. '
           'The app may not function as expected until you remove this plugin from pubspec.yaml'
         );
@@ -207,7 +207,7 @@ class _PluginRegistrant {
       try {
         SharedPreferencesFoundation.registerWith();
       } catch (err) {
-        log(
+        print(
           '`shared_preferences_foundation` threw an error: $err. '
           'The app may not function as expected until you remove this plugin from pubspec.yaml'
         );
@@ -216,7 +216,7 @@ class _PluginRegistrant {
       try {
         SqflitePlugin.registerWith();
       } catch (err) {
-        log(
+        print(
           '`sqflite` threw an error: $err. '
           'The app may not function as expected until you remove this plugin from pubspec.yaml'
         );
@@ -225,7 +225,7 @@ class _PluginRegistrant {
       try {
         UrlLauncherMacOS.registerWith();
       } catch (err) {
-        log(
+        print(
           '`url_launcher_macos` threw an error: $err. '
           'The app may not function as expected until you remove this plugin from pubspec.yaml'
         );
@@ -235,7 +235,7 @@ class _PluginRegistrant {
       try {
         DeviceInfoPlusWindowsPlugin.registerWith();
       } catch (err) {
-        log(
+        print(
           '`device_info_plus` threw an error: $err. '
           'The app may not function as expected until you remove this plugin from pubspec.yaml'
         );
@@ -244,7 +244,7 @@ class _PluginRegistrant {
       try {
         PathProviderWindows.registerWith();
       } catch (err) {
-        log(
+        print(
           '`path_provider_windows` threw an error: $err. '
           'The app may not function as expected until you remove this plugin from pubspec.yaml'
         );
@@ -253,7 +253,7 @@ class _PluginRegistrant {
       try {
         ShareWindows.registerWith();
       } catch (err) {
-        log(
+        print(
           '`share_plus_windows` threw an error: $err. '
           'The app may not function as expected until you remove this plugin from pubspec.yaml'
         );
@@ -262,7 +262,7 @@ class _PluginRegistrant {
       try {
         SharedPreferencesWindows.registerWith();
       } catch (err) {
-        log(
+        print(
           '`shared_preferences_windows` threw an error: $err. '
           'The app may not function as expected until you remove this plugin from pubspec.yaml'
         );
@@ -271,7 +271,7 @@ class _PluginRegistrant {
       try {
         UrlLauncherWindows.registerWith();
       } catch (err) {
-        log(
+        print(
           '`url_launcher_windows` threw an error: $err. '
           'The app may not function as expected until you remove this plugin from pubspec.yaml'
         );
