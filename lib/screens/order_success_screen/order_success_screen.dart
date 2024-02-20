@@ -257,5 +257,4 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
     }
     log(totalAmount.toString());
     return totalAmount.toString();
-  }
-}
+  }}

@@ -16,6 +16,8 @@ class MyOrderController extends GetxController{
   var hasError = false.obs;
   var errorMsg = ''.obs;
   var myOrderList = [].obs;
+  var myOrderDetailList = [].obs;
+
   @override
   void onInit() {
     super.onInit();
@@ -30,6 +32,23 @@ class MyOrderController extends GetxController{
       myOrderList.assignAll(myorders);
       update();
       print('myOrderList++++ ${myOrderList.length}');
+    } catch (e) {
+      errorMsg.value = e.toString();
+      hasError.value = true;
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  void getMyOrdersDetail(String orderId) async {
+    try {
+       isLoading.value = true;
+      // Assuming NetworkRepository.getCategories returns a Future<dynamic>
+      var responseData = await NetworkRepository.getOrderDetail(orderId: orderId);
+      List myorders = responseData['body']['order_items'];
+      myOrderDetailList.assignAll(myorders);
+      update();
+      print('myOrderDetailList++++ ${myOrderDetailList.length}');
     } catch (e) {
       errorMsg.value = e.toString();
       hasError.value = true;

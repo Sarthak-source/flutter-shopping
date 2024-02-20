@@ -9,3 +9,10 @@ String convertTimestampToDateString(String timestampString) {
 
   return formattedDate;
 }
+
+String convertDoubleToString(String value){
+  double d = double.parse(value);
+  int i = d.toInt();
+  String s = i.toString();
+  return s;
+}

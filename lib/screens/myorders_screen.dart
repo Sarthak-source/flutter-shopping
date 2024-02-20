@@ -247,8 +247,10 @@ class MyOrderCards extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>
-                              MyOrderDetail2(orderdetail: orderlist[index])));
+                          builder: (context) => MyOrderDetail2(
+                                orderdetail: orderlist[index],
+                                OrderId: 0,
+                              )));
                 },
                 child: Container(
                     width: devicewidth,
@@ -451,5 +453,11 @@ class MyOrderCards extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  String setCount(myOrderList) {
+    double d = double.parse(myOrderList);
+    String s = d.toString();
+    return s;
   }
 }
