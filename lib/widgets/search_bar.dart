@@ -13,8 +13,11 @@ class SearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ProductController productController =
-        Get.find(); // Get ProductController
+   final ProductController productController = Get.put(ProductController(categoryId: ''));
+    // final ProductController productController =
+    //     Get.find(); // Get ProductController
+
+        
     return TextField(
       controller: controller,
       onChanged: (value) {

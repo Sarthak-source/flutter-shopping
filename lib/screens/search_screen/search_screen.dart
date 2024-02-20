@@ -37,7 +37,6 @@ class SearchScreen extends StatelessWidget {
                 height: Get.height,
                 child: CustomStaggerGrid(
                   addCallback: () {},
-                  
                 ),
               ),
             ),

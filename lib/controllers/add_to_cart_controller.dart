@@ -1,12 +1,16 @@
 import 'dart:developer';
 
 import 'package:get/get.dart';
+import 'package:sutra_ecommerce/controllers/user_controller.dart';
 import 'package:sutra_ecommerce/utils/network_repository.dart';
 
 class AddToCartController extends GetxController {
+  final UserController userController = Get.find<UserController>();
+  RxInt productCount = 0.obs;
   @override
   void onInit() {
     // Get called when controller is created
+    productCount.value=  userController.user['party']['party_cart_count'].toInt();
     super.onInit();
   }
 
@@ -14,9 +18,7 @@ class AddToCartController extends GetxController {
   var hasError = false.obs;
   var errorMsg = ''.obs;
   RxList addToCartList = [].obs;
-  RxInt productCount = 0.obs;
-
-
+  //int intialProductCount=userController.user[''];
   
 
   void addToCart(count, product, party) async {
@@ -30,7 +32,8 @@ class AddToCartController extends GetxController {
       var addToCartData = responseData;
       addToCartList.add(addToCartData);
 
-      productCount.value = double.parse(responseData['count']).toInt() ; // Update productCount value
+      productCount.value = double.parse(responseData['count'])
+          .toInt(); // Update productCount value
       log(productCount.value.toString());
       update(); // Notify observers about the change
     } catch (e) {

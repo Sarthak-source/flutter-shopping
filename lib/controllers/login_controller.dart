@@ -1,22 +1,30 @@
 import 'dart:developer';
 
 import 'package:get/get.dart';
+import 'package:sutra_ecommerce/config/common.dart';
 import 'package:sutra_ecommerce/screens/login/verify_otp.dart';
 import 'package:sutra_ecommerce/utils/network_repository.dart';
 
 class LoginController extends GetxController {
-  var user = {}.obs;
+  @override
+  void onInit() {
+    // Get called when controller is created
+    super.onInit();
+  }
 
   void userExists(String phoneNumberTyped) async {
     try {
-      var responseData =
+      Map<String, dynamic> responseData =
           await networkRepository.checkUser(number: phoneNumberTyped);
       log(responseData.toString());
-      user.value = responseData;
 
-      log("user ${user.toString()}");
+      await box!.put('login', true);
+      await box!.put('userData', responseData['body']);
 
-      if (responseData != null) {
+      Map s = box!.get('userData');
+      log("stored ${s.toString()}");
+
+      if (responseData.isNotEmpty) {
         var data = await networkRepository.userLogin(number: phoneNumberTyped);
         log(data.toString());
 
