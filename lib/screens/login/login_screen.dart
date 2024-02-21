@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:sutra_ecommerce/assets/logo.dart';
 import 'package:sutra_ecommerce/controllers/login_controller.dart';
 import 'package:sutra_ecommerce/screens/signup_screen.dart';
+import 'package:sutra_ecommerce/screens/tab_screen/tab_screen.dart';
 
 import '../../utils/screen_utils.dart';
 import '../../widgets/custom_text_field.dart';
@@ -91,7 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       onPressed: () async {
                         String phoneNumber = phoneNumberController.text;
 
-                        //Get.toNamed(TabScreen.routeName);
+                        Get.toNamed(TabScreen.routeName);
 
                         if (phoneNumber.length < 10) {
                           // Handle the case where the phone number is too short
