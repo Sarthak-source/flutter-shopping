@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:sutra_ecommerce/config/common.dart';
 import 'package:sutra_ecommerce/controllers/add_to_cart_controller.dart';
 import 'package:sutra_ecommerce/routes/route.dart';
+import 'package:sutra_ecommerce/screens/tab_screen.dart';
 import 'package:sutra_ecommerce/utils/api_constants.dart';
 import 'package:sutra_ecommerce/utils/network_dio.dart';
 
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    bool isLoggedIn = box!.get('login');
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
@@ -77,12 +79,9 @@ class MyApp extends StatelessWidget {
               dividerTheme: customTheme.dividerTheme(),
             ),
             getPages: pages,
-            initialBinding: StoreBinding()
-            /*   BindingsBuilder(() {
-              Get.put(AddToCartController()); // Initialize AddToCartController
-            })*/
-            ,
-            home: const LandingScreen(),
+            initialBinding: StoreBinding(),
+            home:
+                isLoggedIn == true ? const TabScreen() : const LandingScreen(),
           );
         },
       ),

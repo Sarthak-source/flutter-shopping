@@ -29,8 +29,8 @@ class ProductController extends GetxController {
         partyId: '1',
         page: '1',
       );
-      List categoriesData = responseData['body']['results'];
-      products.assignAll(categoriesData);
+      List productData = responseData['body']['results'];
+      products.assignAll(productData);
     } catch (e) {
       errorMsg.value = e.toString();
       hasError.value = true;
