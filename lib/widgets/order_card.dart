@@ -49,7 +49,7 @@ class _OrderCardState extends State<OrderCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+  return Row(
       children: [
         SizedBox(
           width: getProportionateScreenWidth(80),
@@ -116,13 +116,13 @@ class _OrderCardState extends State<OrderCard> {
                       12,
                     ),
                   ),
-                ),
-                Text(
-                  widget.mycartItem["total_gst"].toString(),
-                  style: TextStyle(
-                    color: kTextColorAccent,
-                    fontSize: getProportionateScreenWidth(
-                      12,
+                  Text(
+                    widget.mycartItem["product"]["price"].toString(),
+                    style: TextStyle(
+                      color: kTextColorAccent,
+                      fontSize: getProportionateScreenWidth(
+                        12,
+                      ),
                     ),
                   ),
                 ),*/
@@ -201,8 +201,7 @@ class _OrderCardState extends State<OrderCard> {
       ],
     );
   }
-
-  Row rateCard(String key, String values) {
+Row rateCard(String key, String values) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
