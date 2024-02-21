@@ -4,7 +4,7 @@ import 'package:lottie/lottie.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sutra_ecommerce/controllers/add_to_cart_controller.dart';
 import 'package:sutra_ecommerce/controllers/products_controller.dart';
-import 'package:sutra_ecommerce/screens/add_address/add_address_screen.dart';
+import 'package:sutra_ecommerce/widgets/go_cart/go_to_cart.dart';
 
 import '../../constants/colors.dart';
 import '../../utils/screen_utils.dart';
@@ -74,53 +74,7 @@ class PoductsListScreenState extends State<PoductsListScreen> {
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: (addToCartController.productCount > 0)
-            ? Padding(
-                padding: const EdgeInsets.only(left: 12, right: 12, bottom: 5),
-                child: RawMaterialButton(
-                  fillColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(
-                        20), // Adjust the radius as needed
-                  ),
-                  elevation: 10.0,
-                  onPressed: () {},
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                      vertical: getProportionateScreenHeight(8.0),
-                      horizontal: getProportionateScreenWidth(16.0),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Expanded(
-                          flex: 2,
-                          child: ElevatedButton(
-                            style: ButtonStyle(
-                              shape: MaterialStateProperty.all<
-                                  RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(
-                                      20), // Adjust the radius as needed
-                                ),
-                              ),
-                              minimumSize: MaterialStateProperty.all(
-                                Size.fromHeight(
-                                  getProportionateScreenHeight(48),
-                                ),
-                              ),
-                            ),
-                            onPressed: () {
-                              Navigator.of(context)
-                                  .pushNamed(AddAddressScreen.routeName);
-                            },
-                            child: const Text('Buy Now'),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              )
+            ? const GoToCart()
             : Container(),
       );
     });

@@ -44,8 +44,9 @@ class AddToCartController extends GetxController {
       var addToCartData = responseData;
       addToCartList.add(addToCartData);
 
-      productCount.value = double.parse(responseData['count'])
-          .toInt(); // Update productCount value
+      productCount.value = double.parse((productCount.value/2).toString()).toInt() + double.parse(count).toInt();
+          // double.parse(responseData['count'])
+          //     .toInt(); // Update productCount value
       log(productCount.value.toString());
       update(); // Notify observers about the change
       cartController.getMyCart();

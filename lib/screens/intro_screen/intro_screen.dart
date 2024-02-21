@@ -47,14 +47,14 @@ class TextView extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<Map<String, String>> data = [
       {
-        'title': 'Fresh Vegetables',
+        'title': 'Dilicia products',
         'desc':
-            'Vegetables that are directly picked by farmers and guaranteed quality and freshness',
+            'Milk that are directly picked by farmers and guaranteed quality and freshness',
       },
       {
         'title': 'Easy Shopping',
         'desc':
-            'Grab your items only need to order from home, click pay and wait for the courier to arrive',
+            'Grab your items only need to order from home, and wait for the courier to arrive',
       },
       {
         'title': 'Fast Delivery',
@@ -159,7 +159,7 @@ class IllustrationPageView extends StatelessWidget {
       flex: 3,
       child: Container(
         width: double.infinity,
-        color: kAccentGreen,
+        color: kPrimaryBlue.withOpacity(0.5),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -196,7 +196,7 @@ class IllustrationPageView extends StatelessWidget {
                 },
                 children: [
                   Image.asset(
-                    'assets/images/illu1.png',
+                    'assets/images/all_product.png',
                   ),
                   Image.asset(
                     'assets/images/illu2.png',

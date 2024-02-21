@@ -32,16 +32,20 @@ class _ProductCardState extends State<ProductCard> {
       0.obs; // Initialize quantity as observable RxInt with value 0
 
   @override
+  @override
   void initState() {
     super.initState();
 
     if (widget.product != null && widget.product!["cart_count"] != null) {
-      log("count::: ${widget.product!["cart_count"].toString()}");
-      double? d = double.tryParse(widget.product!["cart_count"].toString());
-      if (d != null) {
-        log('double count $d');
-        log('int count ${d.toInt()}');
-        quantity.value = d.toInt();
+      final cartCount = widget.product!["cart_count"];
+      if (cartCount != null) {
+        log("count::: ${cartCount.toString()}");
+        final double? parsedCount = double.tryParse(cartCount.toString());
+        if (parsedCount != null) {
+          log('double count $parsedCount');
+          log('int count ${parsedCount.toInt()}');
+          quantity.value = parsedCount.toInt();
+        }
       }
     }
   }
@@ -62,6 +66,7 @@ class _ProductCardState extends State<ProductCard> {
             : const EdgeInsets.all(0),
         child: InkWell(
           onTap: () {
+            //log(widget.product.toString());
             Get.toNamed(ProductDetailScreen.routeName,
                 arguments:
                     ProductDetailArguments(productDetailData: widget.product));
@@ -117,14 +122,17 @@ class _ProductCardState extends State<ProductCard> {
                         const Spacer(
                           flex: 2,
                         ),
-                        Text(
-                          widget.product?['name'] ?? "Not given",
-                          maxLines: 1,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium
-                              ?.copyWith(
-                                  fontWeight: FontWeight.w700, fontSize: 13),
+                        Hero(
+                          tag: 'productDetailName',
+                          child: Text(
+                            widget.product?['name'] ?? "Not given",
+                            maxLines: 1,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(
+                                    fontWeight: FontWeight.w700, fontSize: 13),
+                          ),
                         ),
                         const Spacer(),
                         Text(

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:sutra_ecommerce/controllers/user_controller.dart';
 
 import '../constants/colors.dart';
 import '../utils/screen_utils.dart';
@@ -6,32 +8,35 @@ import '../widgets/custom_app_bar.dart';
 import '../widgets/image_container.dart';
 
 class MyProfileScreen extends StatelessWidget {
+  final UserController userController = Get.put(UserController());
   static const routeName = '/myProfile';
 
-  const MyProfileScreen({super.key});
+  MyProfileScreen({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: Column(
           children: [
-            const CustomAppBar(  title: 'My Profile', actions: [],),
+            const CustomAppBar(
+              title: 'My Profile',
+              actions: [],
+            ),
             SizedBox(
               height: getProportionateScreenHeight(16.0),
             ),
             const ImageContainer(),
             Padding(
               padding: EdgeInsets.symmetric(
-                horizontal: getProportionateScreenWidth(16.0),
+                horizontal: getProportionateScreenWidth(30.0),
               ),
               child: Column(
                 children: [
-                  Divider(
-                    height: getProportionateScreenHeight(64.0),
-                  ),
-                  const InputFormCard(
+                  SizedBox(height: getProportionateScreenHeight(60.0),),
+                  InputFormCard(
                     title: 'Full name',
-                    value: 'Shoo Phar Nhoe', 
+                    value:
+                        userController.user['party']['party_name'].toString(),
                   ),
                   const InputFormCard(
                     title: 'Birthdate',
@@ -41,13 +46,13 @@ class MyProfileScreen extends StatelessWidget {
                     title: 'Gender',
                     value: 'Male',
                   ),
-                  const InputFormCard(
+                  InputFormCard(
                     title: 'Email',
-                    value: 'shoophar@email.com',
+                    value: userController.user['party']['email'].toString(),
                   ),
-                  const InputFormCard(
+                  InputFormCard(
                     title: 'Phone number',
-                    value: '(+78) 8989 8787',
+                    value: userController.user['party']['phone'].toString(),
                   ),
                 ],
               ),
@@ -61,7 +66,7 @@ class MyProfileScreen extends StatelessWidget {
 
 class InputFormCard extends StatelessWidget {
   const InputFormCard({
-     Key? key,
+    Key? key,
     required this.title,
     required this.value,
   }) : super(key: key);
@@ -87,7 +92,7 @@ class InputFormCard extends StatelessWidget {
             initialValue: value,
             textAlign: TextAlign.right,
             style: TextStyle(
-              fontWeight: FontWeight.w700,
+              fontWeight: FontWeight.w500,
               fontSize: getProportionateScreenWidth(17),
             ),
             decoration: const InputDecoration(

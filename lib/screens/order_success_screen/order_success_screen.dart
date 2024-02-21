@@ -8,7 +8,7 @@ import 'package:sutra_ecommerce/controllers/mycart_controller.dart';
 import '../../constants/colors.dart';
 import '../../utils/screen_utils.dart';
 import '../myorder_detail2.dart';
-import '../tab_screen.dart';
+import '../tab_screen/tab_screen.dart';
 
 class OrderSuccessScreen extends StatefulWidget {
   static const routeName = '/orderSuccess';

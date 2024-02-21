@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -26,7 +28,7 @@ class HomeScreen extends StatelessWidget {
 
     return CustomScrollView(
       slivers: [
-         SliverToBoxAdapter(
+        SliverToBoxAdapter(
           child: HomeAppBar(),
         ),
         SliverToBoxAdapter(
@@ -119,9 +121,21 @@ class DealsTab extends StatelessWidget {
               itemBuilder: (BuildContext context, int index) {
                 // Return your item widget based on the index
                 //log(controller.deals.toString());
-                return DealCard(
-                  image: controller.deals[index]['deal_img'],
-                  heading: controller.deals[index]['heading'],
+                return InkWell(
+                  onTap: () {
+                    log('message, ${controller.deals[index]}');
+                    Get.toNamed(
+                      PoductsListScreen.routeName,
+                      arguments: PoductsListArguments(
+                        title: controller.deals[index]['heading'],
+                        categoryId: controller.deals[index]['category'].toString(),
+                      ),
+                    );
+                  },
+                  child: DealCard(
+                    image: controller.deals[index]['deal_img'],
+                    heading: controller.deals[index]['heading'],
+                  ),
                 ); // Replace with your actual item widget
               },
             ),
@@ -144,11 +158,10 @@ class DealsTab extends StatelessWidget {
 
 class HomeAppBar extends StatelessWidget {
   final UserController userController = Get.put(UserController());
-   HomeAppBar({super.key});
+  HomeAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {
-   
     return GetBuilder<UserController>(
         init: UserController(),
         builder: (controller) {

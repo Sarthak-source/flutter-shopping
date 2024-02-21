@@ -1,17 +1,23 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sutra_ecommerce/controllers/user_controller.dart';
 
-import '../constants/colors.dart';
-import '../screens/my_profile_screen.dart';
-import '../utils/screen_utils.dart';
-import '../widgets/image_container.dart';
-import 'myorders_screen.dart';
+import '../../constants/colors.dart';
+import '../../utils/screen_utils.dart';
+import '../../widgets/image_container.dart';
+import '../my_profile_screen.dart';
+import '../myorders_screen.dart';
 
 class UserScreen extends StatelessWidget {
-  const UserScreen({super.key});
+  final UserController userController = Get.put(UserController());
+
+  UserScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    log(userController.user.toString());
     return Center(
       child: Padding(
         padding: EdgeInsets.symmetric(
@@ -27,19 +33,19 @@ class UserScreen extends StatelessWidget {
               height: getProportionateScreenHeight(8.0),
             ),
             Text(
-              'Shoo Phar Nhoe',
+              userController.user['party']['party_name'].toString(),
               style: Theme.of(context).textTheme.displaySmall!.copyWith(
                     fontWeight: FontWeight.w700,
                   ),
             ),
             Text(
-              'shoophar@email.com',
+              userController.user['party']['email'].toString(),
               style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                     color: kTextColorAccent,
                   ),
             ),
-            Divider(
-              height: getProportionateScreenHeight(32.0),
+            SizedBox(
+              height: getProportionateScreenHeight(40.0),
             ),
             ProfileCard(
               image: 'assets/images/profile_user.png',
@@ -76,12 +82,12 @@ class UserScreen extends StatelessWidget {
             SizedBox(
               height: getProportionateScreenHeight(8.0),
             ),
-             ProfileCard(
+            ProfileCard(
               image: 'assets/images/arrow_user.png',
               color: kAccentRed,
               title: 'My Orders',
-              tapHandler: (){
-               // Navigator.of(context).pushNamed(MyOrders.routeName);
+              tapHandler: () {
+                // Navigator.of(context).pushNamed(MyOrders.routeName);
                 Get.toNamed(MyOrders.routeName);
               },
             ),
@@ -132,16 +138,6 @@ class ProfileCard extends StatelessWidget {
         padding: EdgeInsets.all(
           getProportionateScreenWidth(8.0),
         ),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              offset: const Offset(0, 1),
-              color: kShadowColor.withOpacity(0.05),
-              blurRadius: 10,
-            ),
-          ],
-        ),
         child: Row(
           children: [
             Container(
@@ -167,7 +163,7 @@ class ProfileCard extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .headlineMedium
-                    ?.copyWith(fontWeight: FontWeight.w700),
+                    ?.copyWith(fontWeight: FontWeight.w600, fontSize: 16),
               ),
             ),
             const Icon(Icons.arrow_forward_ios_rounded),

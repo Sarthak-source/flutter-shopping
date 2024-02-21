@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../constants/colors.dart';
-import '../screens/tab_screen.dart';
 import '../utils/screen_utils.dart';
+import 'tab_screen/tab_screen.dart';
 
 class OrderSuccessScreenold extends StatelessWidget {
   static const routeName = '/orderSuccessold';

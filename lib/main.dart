@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:sutra_ecommerce/config/common.dart';
 import 'package:sutra_ecommerce/controllers/add_to_cart_controller.dart';
 import 'package:sutra_ecommerce/routes/route.dart';
-import 'package:sutra_ecommerce/screens/tab_screen.dart';
+import 'package:sutra_ecommerce/screens/tab_screen/tab_screen.dart';
 import 'package:sutra_ecommerce/utils/api_constants.dart';
 import 'package:sutra_ecommerce/utils/network_dio.dart';
 
@@ -81,7 +81,7 @@ class MyApp extends StatelessWidget {
             getPages: pages,
             initialBinding: StoreBinding(),
             home:
-                isLoggedIn == true ? const TabScreen() : const LandingScreen(),
+                isLoggedIn == false ? const TabScreen() : const LandingScreen(),
           );
         },
       ),

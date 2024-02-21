@@ -99,7 +99,7 @@ class _MyOrdersState extends State<MyOrders> {
           body: SafeArea(
             child: Column(
               children: [
-                const CustomAppBar(  title: 'My Orders', actions: [],),
+                const CustomAppBar(  title: 'My Orders', actions: [],marginBottom: 10,),
                 SizedBox(
                   height: getProportionateScreenHeight(16.0),
                 ),
