@@ -67,7 +67,9 @@ class _CustomTextFieldiconState extends State<CustomTextFieldicon> {
       textAlign: widget.txtalign,
       decoration: InputDecoration(
           floatingLabelBehavior: FloatingLabelBehavior.never,
-        label: RichText(
+       // label: Text(widget.hintText),
+
+        /*RichText(
           text: TextSpan(
               text:  widget.hintText,
             //  style: CustomTextStyle.txt16kyctxtgrey,
@@ -76,18 +78,19 @@ class _CustomTextFieldiconState extends State<CustomTextFieldicon> {
                     text: widget.hintText == 'Referral code'? '':' ',
                     style: const TextStyle(color: Colors.red))
               ]),
-        ),
+        ),*/
         labelStyle: const TextStyle(color: Color(0xFF6F6F6F)),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12.0),
+          borderRadius: BorderRadius.circular(8.0),
           borderSide: const BorderSide(
-            color: kPrimaryBlue,
+            color: kTextColorThird,
             width: 2.0,
           ),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12.0),
+          borderRadius: BorderRadius.circular(8.0),
           borderSide: const BorderSide(
+           // color: kPrimaryBlue,
             color: kPrimaryBlue,
           ),
         ),

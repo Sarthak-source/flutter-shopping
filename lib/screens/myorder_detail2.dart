@@ -93,64 +93,69 @@ class _MyOrderDetail2State extends State<MyOrderDetail2> {
     var devicewidth = MediaQuery.of(context).size.width;
     return GetBuilder<MyOrderController>(
         builder: (controller) {
-    return SafeArea(
-          child: Scaffold(
-            backgroundColor: Colors.white,
-          body: Column(
-            children: [
-              const CustomAppBar(  title: "Order Details", actions: [],),
-              SizedBox(
-                height: getProportionateScreenHeight(16.0),
-              ),
-              Container(
-                  width: devicewidth,
-                  margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                        child: Row(
-                          children: [
-                            Expanded(
-                                flex:1,
-                                child: Row(
-                                  children: [
-                                  const Icon(
-                                  Icons.shopping_cart,
-                                  color: kPrimaryBlue,
-                                ),
-                                    Expanded(
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(left: 8.0),
-                                          child: Text("${widget.OrderId}", style: const TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.bold),maxLines: 1,overflow: TextOverflow.ellipsis),
-                                        )),
-                                  ],
-                                )),
-                            controller.isLoading.value?const SizedBox():    Row(
+    return Scaffold(
+      backgroundColor: Colors.white,
+    body: SafeArea(
+      child: Column(
+        children: [
+          const CustomAppBar(  title: "Order Details", actions: [],),
+          SizedBox(
+            height: getProportionateScreenHeight(16.0),
+          ),
+          Container(
+              width: devicewidth,
+              margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    child: Row(
+                      children: [
+                        Expanded(
+                            flex:1,
+                            child: Row(
                               children: [
-                                 Text(convertTimestampToDateString("${controller.orderdetailDatas["order_date"]}"), style: const TextStyle(
-                                    color: Colors.grey, fontSize: 12),),
-                              ],
+                              const Icon(
+                              Icons.shopping_cart,
+                              color: kPrimaryBlue,
                             ),
+                                Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(left: 8.0),
+                                      child: Text("${widget.OrderId}", style: const TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold),maxLines: 1,overflow: TextOverflow.ellipsis),
+                                    )),
+                              ],
+                            )),
+                        controller.isLoading.value?const SizedBox():    Row(
+                          children: [
+                             Text(convertTimestampToDateString("${controller.orderdetailDatas["order_date"]}"), style: const TextStyle(
+                                color: Colors.grey, fontSize: 12),),
                           ],
                         ),
-                      ),
-                      const Divider(
-                        color: Colors.blueGrey,
-                        thickness: 0.3,
-                        height: 1,
-                      ),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      controller.isLoading.value?const SizedBox():     Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                        child: Row(
+                      ],
+                    ),
+                  ),
+                  const Divider(
+                    color: Colors.blueGrey,
+                    thickness: 0.3,
+                    height: 1,
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  controller.isLoading.value?const SizedBox():
+                  Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Expanded(
                               flex: 2,
@@ -177,85 +182,103 @@ class _MyOrderDetail2State extends State<MyOrderDetail2> {
                               ),
                             ),
                             Expanded(
-                              flex: 1,
+                              flex: 2,
                               child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(("₹ ${controller.orderdetailDatas["total_amount"]}"),style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                              fontWeight: FontWeight.w700,
-                              fontSize: getProportionateScreenWidth(14),
-                            ),
-                          ),
+                                  orderRateCard(context,"Total value",controller.orderdetailDatas["total_value"].toString()),
+                                  orderRateCard(context,"Total gst",controller.orderdetailDatas["total_gst"].toString()),
+      
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      Expanded(
+                                          flex:1,
+                                          child: Text("")),
+                                      Expanded(
+                                        flex:1,
+                                        child: Text(("₹ ${controller.orderdetailDatas["total_amount"]}"),style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                                                                      fontWeight: FontWeight.w700,
+                                                                      fontSize: getProportionateScreenWidth(14),
+                                                                    ),
+                                                                  ),
+                                      ),
+                                    ],
+                                  ),
                                   const SizedBox(
                                     height: 12,
                                   ),
-                                  SizedBox(
-                                    height: 35,
-                                    width: 130,
-                                   // color: Colors.red,
-                                    child: ElevatedButton(
-                                      onPressed: (){},
-                                      style: ElevatedButton.styleFrom(
-
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(8), // <-- Radius
-                                        ),
-                                      ),
-                                      child:const Row(
-                                        children: [
-                                          Icon(Icons.refresh,color: Colors.white,),
-                                          SizedBox(width: 6),
-                                          Text('Reorder',style: TextStyle(fontSize: 13),),
-                                        ],
-                                      )),
-                                  )
+      
                                 ],
                               ),
                             )
                           ],
                         ),
-                      ),
-                    ],
-                  )),
-              SizedBox(
-                height: getProportionateScreenHeight(16.0),
-              ),
-              Expanded(
-                  child: Obx(() =>
-
-                  controller.isLoading.value? Shimmer.fromColors(
-                        baseColor: Colors.grey[300]!,
-                        highlightColor: Colors.grey[100]!,
-                        child: SizedBox(
-                          height: 80,
-                          child: ListView.builder(
-                            clipBehavior: Clip.none,
-                            scrollDirection: Axis.vertical,
-                            itemCount: 6, // Use a placeholder count
-                            itemBuilder: (context, index) {
-                              return const Padding(
-                                padding: EdgeInsets.all(0),
-                                child: MyOrderShimmer(from: "orderdetail"),
-                              );
-                            },
-                          ),
-                        ),
-                      )
-                    : controller.hasError.value
-                        ? Text('Error: ${controller.errorMsg.value}')
-                        : ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: controller.myOrderDetailList.length,
-                            itemBuilder: (context, index) {
-                              return OrderTile(context, oddatas[index],
-                                  controller.myOrderDetailList[index]);
-                            }),
-              ),
-              ),
-
-            ],
+                        SizedBox(
+                          height: 35,
+                          width: 130,
+                          // color: Colors.red,
+                          child: ElevatedButton(
+                              onPressed: (){},
+                              style: ElevatedButton.styleFrom(
+      
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8), // <-- Radius
+                                ),
+                              ),
+                              child:const Row(
+                                children: [
+                                  Icon(Icons.refresh,color: Colors.white,),
+                                  SizedBox(width: 6),
+                                  Text('Reorder',style: TextStyle(fontSize: 13),),
+                                ],
+                              )),
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              )),
+          SizedBox(
+            height: getProportionateScreenHeight(16.0),
           ),
-          ));}
+          Expanded(
+              child: Obx(() =>
+      
+              controller.isLoading.value? Shimmer.fromColors(
+                    baseColor: Colors.grey[300]!,
+                    highlightColor: Colors.grey[100]!,
+                    child: SizedBox(
+                      height: 80,
+                      child: ListView.builder(
+                        clipBehavior: Clip.none,
+                        scrollDirection: Axis.vertical,
+                        itemCount: 6, // Use a placeholder count
+                        itemBuilder: (context, index) {
+                          return const Padding(
+                            padding: EdgeInsets.all(0),
+                            child: MyOrderShimmer(from: "orderdetail"),
+                          );
+                        },
+                      ),
+                    ),
+                  )
+                : controller.hasError.value
+                    ? Text('Error: ${controller.errorMsg.value}')
+                    : ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: controller.myOrderDetailList.length,
+                        itemBuilder: (context, index) {
+                          return OrderTile(context, oddatas[index],
+                              controller.myOrderDetailList[index]);
+                        }),
+          ),
+          ),
+      
+        ],
+      ),
+    ),
+    );}
     );
   }
 
@@ -391,6 +414,36 @@ class _MyOrderDetail2State extends State<MyOrderDetail2> {
           ),
         ],
       ),
+    );
+  }
+
+  orderRateCard(BuildContext context, String key, String value) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Expanded(
+          flex:1,
+          child: Text(key, style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: kTextColorAccent,
+            fontSize: getProportionateScreenWidth(
+              12,
+            ),
+          )),
+        ),
+        Expanded(
+          flex: 1,
+          child: Text(
+              ": ₹ $value",
+              style: TextStyle(
+                color: kTextColorAccent,
+                fontSize: getProportionateScreenWidth(
+                  12,
+                ),
+              )
+          ),
+        ),
+      ],
     );
   }
 }

@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:easy_stepper/easy_stepper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sutra_ecommerce/controllers/my_order_controller.dart';
 
@@ -130,7 +131,7 @@ class _MyOrdersState extends State<MyOrders> {
                       steps: const [
                         EasyStep(
                           customStep: Text("1"),
-                          title: "Open",
+                          title: "Created",
                         ),
                         EasyStep(
                           customStep: Text("2"),
@@ -138,15 +139,19 @@ class _MyOrdersState extends State<MyOrders> {
                         ),
                         EasyStep(
                           customStep: Text("3"),
-                          title: "Partially \ncompleted",
+                          title: "Rejected",
                         ),
                         EasyStep(
                           customStep: Text("4"),
-                          title: "Completed",
+                          title: "Cancelled",
                         ),
                         EasyStep(
                           customStep: Text("5"),
-                          title: "Rejected",
+                          title: "InProgress",
+                        ),
+                        EasyStep(
+                          customStep: Text("6"),
+                          title: "Completed",
                         ),
                       ],
                       onStepReached: (index) {
@@ -167,12 +172,27 @@ class _MyOrdersState extends State<MyOrders> {
                 ),
                 Expanded(
                   child: PageView.builder(
-                    itemCount: 5,
+                    itemCount: 6,
                     restorationId: "MyOrdersPage",
                      controller: controller.pageController,
                     onPageChanged: (v) async {
                       log('page Number:: $v');
                       controller.selectedBtn.value = v;
+                      controller.update();
+                     if(v == 0){
+                       controller.getMyOrders("Created");
+                     }else if(v == 1){
+                       controller.getMyOrders("Approved");
+                     }else if(v == 2){
+                       controller.getMyOrders("Rejected");
+                     }else if(v == 3){
+                       controller.getMyOrders("Cancelled");
+                     }else if(v == 4){
+                       controller.getMyOrders("InProgress");
+                     }else {
+                       controller.getMyOrders("Completed");
+                     }
+
                     for (int i = 0;
                     i < controller.selectedFilter.length;
                     i++) {
@@ -203,7 +223,25 @@ class _MyOrdersState extends State<MyOrders> {
                       }else if (controller.hasError.value) {
                      return Text('Error: ${controller.errorMsg.value}');
                    }else {
-                     return MyOrderCards(devicewidth: devicewidth,orderlist: orderslist,myOrderList:controller.myOrderList);
+
+                     if (controller.myOrderList.isEmpty) {
+                       return Column(
+                         children: [
+                           Lottie.asset('assets/lotties/no-data.json',
+                               repeat: false,
+                               height: getProportionateScreenHeight(250.0),
+                               width: getProportionateScreenWidth(250.0)),
+                           SizedBox(height: getProportionateScreenHeight(10.0)),
+                           const Text(
+                             'No orders found',
+                             style: TextStyle(
+                                 fontWeight: FontWeight.w600, color: kPrimaryBlue),
+                           ),
+                         ],
+                       );
+                     }else{
+
+                     return MyOrderCards(devicewidth: devicewidth,orderlist: orderslist,myOrderList:controller.myOrderList);}
                    }
                    },
                   ),
@@ -305,7 +343,7 @@ class MyOrderCards extends StatelessWidget {
                       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                       child: Row(
                         children: [
-                          const Icon(Icons.location_on_outlined,color: kPrimaryBlue,),
+                           Icon(Icons.location_on_outlined,color: kPrimaryBlue,),
                           const SizedBox(width: 8,),
                           Expanded(
                             flex: 2,
@@ -331,9 +369,19 @@ class MyOrderCards extends StatelessWidget {
                               ],
                             ),
                           ),
-                        ],
-                      ),
-                    ),
+                      Expanded(
+                        flex:2,
+                        child: Column(
+                          children: [
+                            orderRateCard(context,"Total value",myOrderList[index]["total_value"].toString()),
+                            orderRateCard(context,"Total gst",myOrderList[index]["total_gst"].toString()),
+                            orderRateCard(context,"Total",myOrderList[index]["total_amount"].toString())
+                                  ],
+                                ),
+                      )
+                            ],
+                          ),
+                        ),
                     Container(
                       width: Get.width,
                         margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -446,6 +494,36 @@ class MyOrderCards extends StatelessWidget {
 
       ),*/
       );}
+    );
+  }
+
+   orderRateCard(BuildContext context,String key,String value) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Expanded(
+          flex:1,
+          child: Text(key, style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: kTextColorAccent,
+            fontSize: getProportionateScreenWidth(
+              12,
+            ),
+          )),
+        ),
+        Expanded(
+          flex: 1,
+          child: Text(
+            ": ₹ $value",
+              style: TextStyle(
+                color: kTextColorAccent,
+                fontSize: getProportionateScreenWidth(
+                  12,
+                ),
+              )
+          ),
+        ),
+      ],
     );
   }
 

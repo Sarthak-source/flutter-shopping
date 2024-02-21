@@ -11,6 +11,7 @@ import '../../controllers/mycart_controller.dart';
 import '../../utils/screen_utils.dart';
 import '../../utils/shimmer_placeholders/myorder_shimmer.dart';
 import '../../widgets/back_button_ls.dart';
+import '../../widgets/loading_widgets/loader.dart';
 
 class AddAddressScreen extends StatelessWidget {
   static const routeName = '/add_address_screen';
@@ -42,7 +43,30 @@ class AddAddressScreen extends StatelessWidget {
                 )),
           ),
           body: SafeArea(
-            child: Column(
+            child:   controller.isLoading.value
+                ?
+            Center(child: Loader())
+             /* Shimmer.fromColors(
+                            baseColor: Colors.grey[200]!,
+                            highlightColor: Colors.grey[100]!,
+                            child: SizedBox(
+                              height: 80,
+                              child: ListView.builder(
+                                clipBehavior: Clip.none,
+                                scrollDirection: Axis.vertical,
+                                itemCount: 6, // Use a placeholder count
+                                itemBuilder: (context, index) {
+                                  return const Padding(
+                                    padding: EdgeInsets.all(0),
+                                    child: MyOrderShimmer(from: "addAddress"),
+                                  );
+                                },
+                              ),
+                            ),
+                          )*/
+                : controller.hasError.value
+                ? Text('Error: ${controller.errorMsg.value}')
+                :Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -67,30 +91,10 @@ class AddAddressScreen extends StatelessWidget {
                     ],
                   ),
                 ),
+
                 Expanded(
                   child: SingleChildScrollView(
-                    child: controller.isLoading.value
-                        ? Shimmer.fromColors(
-                            baseColor: Colors.grey[200]!,
-                            highlightColor: Colors.grey[100]!,
-                            child: SizedBox(
-                              height: 80,
-                              child: ListView.builder(
-                                clipBehavior: Clip.none,
-                                scrollDirection: Axis.vertical,
-                                itemCount: 6, // Use a placeholder count
-                                itemBuilder: (context, index) {
-                                  return const Padding(
-                                    padding: EdgeInsets.all(0),
-                                    child: MyOrderShimmer(from: "addAddress"),
-                                  );
-                                },
-                              ),
-                            ),
-                          )
-                        : controller.hasError.value
-                            ? Text('Error: ${controller.errorMsg.value}')
-                            : ListView.builder(
+                    child:  ListView.builder(
                                 shrinkWrap: true,
                                 itemCount: controller.myAddressItems.length,
                                 physics: const NeverScrollableScrollPhysics(),

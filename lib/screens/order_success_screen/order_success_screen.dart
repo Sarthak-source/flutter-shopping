@@ -260,7 +260,7 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
                     txt5 == "title"
                         ? const SizedBox.shrink()
                         : const Text(
-                            "Viewmore",
+                            "ViewDetails",
                             style: TextStyle(
                               fontSize: 10,
                               color: kPrimaryBlue,

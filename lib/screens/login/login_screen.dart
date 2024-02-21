@@ -10,6 +10,7 @@ import 'package:sutra_ecommerce/screens/signup_screen.dart';
 import '../../utils/screen_utils.dart';
 import '../../widgets/custom_text_field.dart';
 import '../../widgets/option_button.dart';
+import '../tab_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   static const routeName = '/loginScreen';
@@ -91,9 +92,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       onPressed: () async {
                         String phoneNumber = phoneNumberController.text;
 
-                        //Get.toNamed(TabScreen.routeName);
+                        Get.toNamed(TabScreen.routeName);
 
-                        if (phoneNumber.length < 10) {
+                        /*if (phoneNumber.length < 10) {
                           // Handle the case where the phone number is too short
                           Fluttertoast.showToast(
                             msg: 'Enter a proper number',
@@ -103,7 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           log(phoneNumber);
                           loginController.userExists(phoneNumber);
                           loginController.update();
-                        }
+                        }*/
                       },
                       child: const Text('Continue'),
                     ),
