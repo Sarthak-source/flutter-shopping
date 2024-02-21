@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -34,7 +35,7 @@ class MyOrderController extends GetxController{
       List myorders = responseData['body']['results'];
       myOrderList.assignAll(myorders);
       update();
-      print('myOrderList++++ ${myOrderList.length}');
+      log('myOrderList++++ ${myOrderList.length}');
     } catch (e) {
       errorMsg.value = e.toString();
       hasError.value = true;
@@ -52,12 +53,12 @@ class MyOrderController extends GetxController{
        String jsonString = jsonEncode(responseData['body']);
        Map<String, dynamic> data = jsonDecode(jsonString);
        String addressLine1 = data['address']['address_line1'];
-       print("address from myorderdetail $addressLine1");
+       log("address from myorderdetail $addressLine1");
        orderdetailDatas = RxMap(data);
-       print("address from myorderdetail2 ${orderdetailDatas['address']['address_line1']}");
+       log("address from myorderdetail2 ${orderdetailDatas['address']['address_line1']}");
       myOrderDetailList.assignAll(myorders);
       update();
-      print('myOrderDetailList++++ ${myOrderDetailList.length}');
+      log('myOrderDetailList++++ ${myOrderDetailList.length}');
     } catch (e) {
       errorMsg.value = e.toString();
       hasError.value = true;

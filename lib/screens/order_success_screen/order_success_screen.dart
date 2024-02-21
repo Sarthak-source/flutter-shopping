@@ -7,6 +7,7 @@ import 'package:sutra_ecommerce/controllers/mycart_controller.dart';
 
 import '../../constants/colors.dart';
 import '../../utils/screen_utils.dart';
+import '../myorder_detail2.dart';
 import '../tab_screen.dart';
 
 class OrderSuccessScreen extends StatefulWidget {
@@ -114,10 +115,8 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
                         child: Row(
                           //  mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Expanded(
-                                flex: 1, child: Center(child: Text(""))),
-                            const Expanded(
-                                flex: 1, child: Center(child: Text(""))),
+                            const Expanded(flex: 1, child: Center(child: Text(""))),
+                            const Expanded(flex: 1, child: Center(child: Text(""))),
                             Expanded(
                                 flex: 1,
                                 child: Center(
@@ -135,7 +134,7 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
                                 flex: 1,
                                 child: Center(
                                     child: Text(
-                                        "â‚¹ ${setTotalValue(
+                                        "₹ ${setTotalValue(
                                           createOrderCtlr.myOrderItems,
                                         )}",
                                         style: Theme.of(context)
@@ -207,7 +206,7 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
           Expanded(
             flex: 1,
             child: Center(
-              child: Text(txt5 == "title" ? txt2 : "â‚¹ $txt2",
+              child: Text(txt5 == "title" ? txt2 : "₹ $txt2",
                   style: txt5 == "title"
                       ? Theme.of(context).textTheme.headlineLarge?.copyWith(
                           fontWeight: FontWeight.w700,
@@ -220,7 +219,7 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
           Expanded(
             flex: 1,
             child: Center(
-              child: Text(txt5 == "title" ? txt3 : "â‚¹ $txt3",
+              child: Text(txt5 == "title" ? txt3 : "₹ $txt3",
                   style: txt5 == "title"
                       ? Theme.of(context).textTheme.headlineLarge?.copyWith(
                           fontWeight: FontWeight.w700,
@@ -233,14 +232,45 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
           Expanded(
             flex: 1,
             child: Center(
-              child: Text(txt5 == "title" ? txt4 : "â‚¹ $txt4",
-                  style: txt5 == "title"
-                      ? Theme.of(context).textTheme.headlineLarge?.copyWith(
-                          fontWeight: FontWeight.w700,
-                          fontSize: getProportionateScreenWidth(15))
-                      : Theme.of(context).textTheme.headlineSmall?.copyWith(
-                          fontWeight: FontWeight.w700,
-                          fontSize: getProportionateScreenWidth(11))),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              MyOrderDetail2(OrderId: int.parse(txt1))));
+                  log('od id $txt1');
+                },
+                child: Column(
+                  children: [
+                    Text(txt5 == "title" ? txt4 : "₹ $txt4",
+                        style: txt5 == "title"
+                            ? Theme.of(context)
+                                .textTheme
+                                .headlineLarge
+                                ?.copyWith(
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: getProportionateScreenWidth(15))
+                            : Theme.of(context)
+                                .textTheme
+                                .headlineSmall
+                                ?.copyWith(
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: getProportionateScreenWidth(11))),
+                    txt5 == "title"
+                        ? const SizedBox.shrink()
+                        : const Text(
+                            "Viewmore",
+                            style: TextStyle(
+                              fontSize: 10,
+                              color: kPrimaryBlue,
+                              decoration: TextDecoration.underline,
+                              decorationColor: kPrimaryBlue,
+                            ),
+                          )
+                  ],
+                ),
+              ),
             ),
           ),
         ],
@@ -257,4 +287,5 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
     }
     log(totalAmount.toString());
     return totalAmount.toString();
-  }}
+  }
+}

@@ -48,6 +48,7 @@ class AddToCartController extends GetxController {
           .toInt(); // Update productCount value
       log(productCount.value.toString());
       update(); // Notify observers about the change
+      cartController.getMyCart();
     } catch (e) {
       log(e.toString());
       errorMsg.value = e.toString();

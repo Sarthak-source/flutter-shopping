@@ -188,7 +188,7 @@ class NetworkRepository {
         "${ApiAppConstants.apiEndPoint}${ApiAppConstants.myOrders}?party=$party&order_prifix=&order_status=Active&order_date=&delivery_required_on=",
         header: Options(headers: <String, String>{'authorization': auth}),
       );
-      print('myOrders in repo++++$apiResponse');
+      log('myOrders in repo++++$apiResponse');
       debugPrint('\x1b[97m myOrders Response : $apiResponse');
 
       final body = apiResponse['body'];
@@ -219,7 +219,7 @@ class NetworkRepository {
         "${ApiAppConstants.apiEndPoint}${ApiAppConstants.myOrderDetail}$orderId",
         header: Options(headers: <String, String>{'authorization': auth}),
       );
-      print('myOrderDetail in repo++++$apiResponse');
+      log('myOrderDetail in repo++++$apiResponse');
       debugPrint(' myOrderDetail Response : $apiResponse');
 
       final body = apiResponse['body'];

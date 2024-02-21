@@ -19,7 +19,7 @@ class MyOrderDetail extends StatefulWidget {
 class _MyOrderDetailState extends State<MyOrderDetail> {
   @override
   Widget build(BuildContext context) {
-    var deviceheight = Get.height;
+    //var deviceheight = Get.height;
     var devicewidth = Get.width;
 
     final List<TableData> tdata = [
@@ -121,7 +121,7 @@ class _MyOrderDetailState extends State<MyOrderDetail> {
                           ],
                         );
                       }
-                      int lind = ind - 1;
+                      //int lind = ind - 1;
                       return TableRow(
                           decoration: BoxDecoration(color: setTabColor(ind)),
                           children: [

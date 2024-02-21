@@ -1,26 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class myOrderShimmer extends StatelessWidget {
+class MyOrderShimmer extends StatelessWidget {
   final String from;
-  const myOrderShimmer({super.key,required this.from});
+  const MyOrderShimmer({super.key, required this.from});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-       height: from == "orderdetail"? 100 :200,
+          height: from == "orderdetail" ? 100 : 200,
           width: Get.width,
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(8),
           ),
-
-          child: Column(
-
+          child: const Column(
             children: [
-             /* Container(
+              /* Container(
 
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
