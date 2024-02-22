@@ -27,7 +27,6 @@ class MyCartController extends GetxController {
     dynamic totalValue = responseData['body']['total_value'];
     dynamic totalGst = responseData['body']['total_gst'];
     dynamic totalAmount = responseData['body']['total_amount'];
-    print("hello ${totalAmount}");
     mycartTotalValue = RxString(totalValue.toString());
     mycartTotalGst = RxString(totalGst.toString());
     mycartTotalAmount = RxString(totalAmount.toString());

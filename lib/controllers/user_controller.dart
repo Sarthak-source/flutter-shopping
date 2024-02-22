@@ -21,10 +21,11 @@ class UserController extends GetxController {
     super.onInit();
 
     // Initialize storedUserData inside onInit method
-    storedUserData = box!.get('userData');
+    storedUserData = box!.get('userData')??{};
 
     // Assign storedUserData to the user variable
     user.value = storedUserData;
+    getUserData();
   }
 
   void getUserData() async {
@@ -35,6 +36,10 @@ class UserController extends GetxController {
 
       log('responseData message  ${responseData.toString()}');
       Map userData = responseData['body'] ?? storedUserData;
+
+      log(responseData['body']);
+
+
       await box!.put('userData', responseData['body']);
       log(userData.toString());
       user.value = userData;

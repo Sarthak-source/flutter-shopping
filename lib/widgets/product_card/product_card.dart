@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sutra_ecommerce/controllers/add_to_cart_controller.dart';
 import 'package:sutra_ecommerce/screens/product_detail.dart/product_detail.dart';
+import 'package:sutra_ecommerce/utils/common_functions.dart';
 
 import '../../constants/colors.dart';
 import '../../utils/screen_utils.dart';
@@ -54,7 +55,7 @@ class _ProductCardState extends State<ProductCard> {
       Get.put(AddToCartController());
   @override
   Widget build(BuildContext context) {
-    //log(widget.product.toString());
+    log(widget.product.toString());
 
     return Obx(() {
       return Padding(
@@ -136,7 +137,7 @@ class _ProductCardState extends State<ProductCard> {
                         ),
                         const Spacer(),
                         Text(
-                          '200gr',
+                          "${convertDoubleToString(widget.product?['packing_qty'].toString() ?? '0.0')} ${widget.product?['packing_uom']}",
                           style: TextStyle(
                             fontSize: getProportionateScreenWidth(12),
                             color: kTextColorAccent,
@@ -146,9 +147,16 @@ class _ProductCardState extends State<ProductCard> {
                         Row(
                           children: [
                             Expanded(
-                              child: Text(
-                                '\$45',
-                                style: Theme.of(context).textTheme.bodyMedium,
+                              child: Row(
+                                children: [
+                                  Text(
+                                    "₹ ${convertDoubleToString(widget.product?['price'].toString() ?? '0.0 ')}",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium!
+                                        .copyWith(fontWeight: FontWeight.w600),
+                                  ),
+                                ],
                               ),
                             ),
                             Card(

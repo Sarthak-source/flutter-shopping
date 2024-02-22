@@ -33,7 +33,7 @@ class PoductsListScreenState extends State<PoductsListScreen> {
   Widget build(BuildContext context) {
     ScreenUtils().init(context);
     var args =
-        ModalRoute.of(context)?.settings.arguments as PoductsListArguments;
+        ModalRoute.of(context)?.settings.arguments as PoductsListArguments?;
     final AddToCartController addToCartController =
         Get.put(AddToCartController());
 
@@ -45,7 +45,9 @@ class PoductsListScreenState extends State<PoductsListScreen> {
               child: Column(
                 children: [
                   CustomAppBar(
-                    title: args.title,
+                    title: args != null && args.title != null
+                        ? args.title
+                        : "Popular Deals",
                     actions: [
                       const Icon(
                         Icons.search,
@@ -64,9 +66,13 @@ class PoductsListScreenState extends State<PoductsListScreen> {
                         isAdded = true;
                       });
                     },
-                    categoryId: args.categoryId,
+                    categoryId: args != null && args.categoryId != null
+                        ? args.categoryId
+                        : "1",
                   ),
-                  const SizedBox(height: 220,),
+                  const SizedBox(
+                    height: 220,
+                  ),
                 ],
               ),
             ),
@@ -118,11 +124,10 @@ class CustomStaggerGrid extends StatelessWidget {
                     );
                   },
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: getProportionateScreenWidth(8),
-                    mainAxisSpacing: getProportionateScreenHeight(5),
-                    childAspectRatio: 0.89,
-                  ),
+                      crossAxisCount: 2,
+                      crossAxisSpacing: getProportionateScreenWidth(8),
+                      mainAxisSpacing: getProportionateScreenHeight(5),
+                      childAspectRatio: (Get.width / Get.height) * 1.75),
                 ),
               ),
             ),
@@ -153,11 +158,10 @@ class CustomStaggerGrid extends StatelessWidget {
             return GridView.builder(
               itemCount: products.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: getProportionateScreenWidth(8),
-                mainAxisSpacing: getProportionateScreenHeight(5),
-                childAspectRatio: 0.81,
-              ),
+                  crossAxisCount: 2,
+                  crossAxisSpacing: getProportionateScreenWidth(8),
+                  mainAxisSpacing: getProportionateScreenHeight(5),
+                  childAspectRatio: (Get.width / Get.height) * 1.75),
               itemBuilder: (ctx, index) {
                 if (index % 2 != 0) {
                   return ProductCard(
