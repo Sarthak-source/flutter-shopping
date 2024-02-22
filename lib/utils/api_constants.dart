@@ -39,6 +39,7 @@ static const String addToCart = 'add_cart/';
 
   static const String myOrders='orders/';
   static const String myOrderDetail='order_detail/';
+  static const String postaddress='inventory/address_post/';
 
   static const String addressListPost = 'addressListPost/';
 }

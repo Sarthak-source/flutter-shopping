@@ -25,13 +25,18 @@ class MyOrderController extends GetxController{
   @override
   void onInit() {
     super.onInit();
-    getMyOrders();
+    getMyOrders("Created");
+
+    print('selectedBtn in myorder controller ${selectedBtn.value}');
   }
-  void getMyOrders() async {
+  void getMyOrders(String status) async {
     try {
       // Assuming NetworkRepository.getCategories returns a Future<dynamic>
+
+
+
       var responseData = await NetworkRepository.getMyOrders(party: '1',
-      order_status: "",order_date: "",delivery_required_on: "",order_prifix: "");
+      order_status: status,order_date: "",delivery_required_on: "",order_prifix: "");
       List myorders = responseData['body']['results'];
       myOrderList.assignAll(myorders);
       update();

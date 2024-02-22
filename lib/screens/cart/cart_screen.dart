@@ -132,24 +132,18 @@ class CartScreen extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  controller.mycartTotalValue.value,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headlineSmall!
-                                      .copyWith(
-                                          color: Colors.grey, fontSize: 14),
-                                ),
-                                Text(
+                                RateCardinBuyNow(context, "Total value",controller.mycartTotalValue.value),
+                                RateCardinBuyNow(context, "Total Gst",controller.mycartTotalGst.value),
+                               /* Text(
                                   controller.mycartTotalGst.value,
                                   style: Theme.of(context)
                                       .textTheme
                                       .headlineSmall!
                                       .copyWith(
                                           color: Colors.grey, fontSize: 14),
-                                ),
+                                ),*/
                                 Text(
-                                  controller.mycartTotalAmount.value,
+                                  "₹ ${controller.mycartTotalAmount.value}",
                                   style: Theme.of(context)
                                       .textTheme
                                       .headlineLarge!
@@ -189,5 +183,32 @@ class CartScreen extends StatelessWidget {
         ),
       );
     });
+  }
+
+  Row RateCardinBuyNow(BuildContext context,String key, String value) {
+    return Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Expanded(
+                                    flex:1,
+                                    child: Text(key, style: Theme.of(context)
+                                        .textTheme
+                                        .headlineSmall!
+                                        .copyWith(
+                                        color: Colors.grey, fontSize: 14),),
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: Text(
+                                     ": ₹ $value",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineSmall!
+                                          .copyWith(
+                                              color: Colors.grey, fontSize: 14),
+                                    ),
+                                  ),
+                                ],
+                              );
   }
 }

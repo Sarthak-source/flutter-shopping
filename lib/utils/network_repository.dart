@@ -185,7 +185,7 @@ class NetworkRepository {
     try {
       final apiResponse = await NetworkDioHttp.getDioHttpMethod(
         url:
-        "${ApiAppConstants.apiEndPoint}${ApiAppConstants.myOrders}?party=$party&order_prifix=&order_status=Active&order_date=&delivery_required_on=",
+        "${ApiAppConstants.apiEndPoint}${ApiAppConstants.myOrders}?party=$party&order_prifix=&order_status=$order_status&order_date=&delivery_required_on=",
         header: Options(headers: <String, String>{'authorization': auth}),
       );
       log('myOrders in repo++++$apiResponse');
@@ -434,6 +434,48 @@ class NetworkRepository {
       rethrow;
     }
   }
+
+  static Future addNewAddress({
+    required String add1,
+    required String add2,
+    required String add3,
+    required String pincode,
+    required String gst,
+  }) async {
+    try {
+      var data = FormData.fromMap({
+        "party": "1",
+        "gstin": gst,
+        "address_line1": add1,
+        "is_active": "yes",
+        "address_line2": add3,
+        "address_line3": add3,
+        "pin_code": pincode,
+      });
+      log("addNewAddress data:: $data");
+      final apiResponse = await NetworkDioHttp.postDioHttpMethod(
+        url: "${ApiAppConstants.apiEndPoint}${ApiAppConstants.postaddress}",
+        header: Options(headers: <String, String>{'authorization': auth}),
+        data: data,
+      );
+      debugPrint('\x1b[97m  postaddress  Response : $apiResponse');
+      final body = apiResponse['body'];
+
+      if (body != null &&
+          body['error'] != null &&
+          body['error'] == 'User not exist please sign up') {
+        Fluttertoast.showToast(msg: body['error'].toString());
+      }
+
+      return apiResponse;
+    } catch (e) {
+      dynamic details = e;
+      log(e.toString());
+      Fluttertoast.showToast(msg: details["body"]["detail"].toString());
+      rethrow;
+    }
+  }
+
 
   static Future getDeals() async {
     try {

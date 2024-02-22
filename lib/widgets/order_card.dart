@@ -76,7 +76,7 @@ class _OrderCardState extends State<OrderCard> {
                             ),
                       ),
                     ),
-                    Text(
+              /*      Text(
                       widget.mycartItem["product"]["price"].toString(),
                       style: TextStyle(
                         color: kTextColorAccent,
@@ -84,7 +84,7 @@ class _OrderCardState extends State<OrderCard> {
                           12,
                         ),
                       ),
-                    ),
+                    ),*/
                     const SizedBox(width: 8,),
                     InkWell(
                         onTap: (){
@@ -93,11 +93,14 @@ class _OrderCardState extends State<OrderCard> {
                           });
 
                         },
-                        child: const Icon(Icons.delete,color: Colors.red,))
+                        child: const Icon(Icons.delete,color: kPrimaryBlue,))
                   ],
                 ),
+              rateCard("Total price ",widget.mycartItem["product"]["price"].toString()),
+              rateCard("Total gst ",widget.mycartItem["total_value"].toString()),
+              rateCard("Total value ",widget.mycartItem["total_gst"].toString()),
 
-                Text(
+            /*    Text(
                   widget.mycartItem["total_value"].toString(),
                   style: TextStyle(
                     color: kTextColorAccent,
@@ -106,7 +109,6 @@ class _OrderCardState extends State<OrderCard> {
                     ),
                   ),
                 ),
-
                 Text(
                   widget.mycartItem["total_gst"].toString(),
                   style: TextStyle(
@@ -115,8 +117,7 @@ class _OrderCardState extends State<OrderCard> {
                       12,
                     ),
                   ),
-                ),
-
+                ),*/
 
                 Row(
                   children: [
@@ -195,6 +196,38 @@ class _OrderCardState extends State<OrderCard> {
         ],
       );
 
+  }
+
+  Row rateCard(String key, String values) {
+    return Row(
+
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: Text(
+                    key,
+                    style: TextStyle(
+                    color: kTextColorAccent,
+                    fontSize: getProportionateScreenWidth(
+                      12,
+                    ),
+                  ),),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Text(":  ₹ $values",
+                    //widget.mycartItem["product"]["price"].toString(),
+                    style: TextStyle(
+                      color: kTextColorAccent,
+                      fontSize: getProportionateScreenWidth(
+                        12,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            );
   }
 }
 
