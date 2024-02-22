@@ -19,8 +19,8 @@ class PopularDealTab extends StatelessWidget {
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             childAspectRatio: (Get.width / Get.height) * 1.75,
-            crossAxisSpacing: getProportionateScreenWidth(8),
-            mainAxisSpacing: getProportionateScreenHeight(5),
+            crossAxisSpacing: getProportionateScreenWidth(14),
+            mainAxisSpacing: getProportionateScreenHeight(8),
           ),
           delegate: SliverChildListDelegate(
             List.generate(

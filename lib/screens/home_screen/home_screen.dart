@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sutra_ecommerce/controllers/get_deals_controller.dart';
 import 'package:sutra_ecommerce/controllers/user_controller.dart';
-import 'package:sutra_ecommerce/screens/home_screen/components/categories/categories.dart';
-import 'package:sutra_ecommerce/screens/home_screen/components/popular_deal/popular_deals.dart';
+import 'package:sutra_ecommerce/screens/home_screen/categories.dart';
+import 'package:sutra_ecommerce/screens/home_screen/popular_deals.dart';
 import 'package:sutra_ecommerce/screens/map_screen.dart';
 import 'package:sutra_ecommerce/screens/product_grid_screen/produts_grid_screen.dart';
 
@@ -29,11 +29,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
     final UserController userController = Get.put(UserController());
 
-  //  @override
-  // void initState() {
-  //   super.initState();
-  //   userController.getUserData();
-  // }
   
   @override
   
