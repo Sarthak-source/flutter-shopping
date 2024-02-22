@@ -1,18 +1,16 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:sutra_ecommerce/screens/order_summary_screen.dart';
+import 'package:sutra_ecommerce/widgets/custom_app_bar.dart';
+import 'package:sutra_ecommerce/widgets/discount_text.dart';
+import 'package:sutra_ecommerce/widgets/fruit_title.dart';
+import 'package:sutra_ecommerce/widgets/order_card.dart';
+import 'package:sutra_ecommerce/widgets/product_card/product_card.dart';
+import 'package:sutra_ecommerce/widgets/tab_title.dart';
 
 import '../../constants/colors.dart';
 import '../../utils/screen_utils.dart';
-import '../../widgets/custom_app_bar.dart';
-import '../../widgets/custom_input_button.dart';
-import '../../widgets/discount_text.dart';
-import '../../widgets/fruit_title.dart';
-import '../../widgets/price_tag.dart';
-import '../../widgets/product_card/product_card.dart';
-import '../../widgets/quantity_input.dart';
-import '../../widgets/tab_title.dart';
-import '../order_summary_screen.dart';
 
 //arguments: ProductDetailArguments(phoneNumber: phoneNumberTyped)
 
@@ -33,7 +31,22 @@ class ProductDetailScreen extends StatefulWidget {
 
 class ProductDetailScreenState extends State<ProductDetailScreen> {
   final textController = TextEditingController(text: '1');
-  bool isReviewTab = false;
+  bool isExpanded = false;
+
+  int quantity = 0;
+  @override
+
+  // void initState() {
+  //   super.initState();
+  //   // Initialize quantity based on the arguments passed via ModalRoute
+  //   var args = ModalRoute.of(context)?.settings.arguments as ProductDetailArguments;
+  //   if (args.productDetailData["count"] != null) {
+  //     final double? parsedCount = double.tryParse(args.productDetailData["count"].toString());
+  //     if (parsedCount != null) {
+  //       quantity = parsedCount.toInt();
+  //     }
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -51,12 +64,16 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CustomAppBar(
-                      title: args.productDetailData['name'],
-                      marginBottom: 12,
+                      title: '',
+                      marginBottom: 5,
                       actions: [
-                        const Icon(
-                          Icons.share,
-                          color: kPrimaryBlue,
+                        GestureDetector(
+                          onTap: () {},
+                          child: Icon(
+                            Icons.favorite_border_outlined,
+                            color: kPrimaryBlue,
+                            size: getProportionateScreenWidth(20),
+                          ),
                         ),
                         SizedBox(
                           width: getProportionateScreenWidth(16),
@@ -69,11 +86,13 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                     SizedBox(
                       height: getProportionateScreenHeight(300),
                       width: double.infinity,
-                      child:
-                          Image.network(args.productDetailData['product_img']),
+                      child: Image.network(
+                        args.productDetailData['product_img'],
+                        fit: BoxFit.cover,
+                      ),
                     ),
                     SizedBox(
-                      height: getProportionateScreenHeight(10),
+                      height: getProportionateScreenHeight(30),
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(
@@ -84,144 +103,153 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                         children: [
                           const DiscoutText(),
                           SizedBox(
-                            height: getProportionateScreenHeight(8),
+                            height: getProportionateScreenHeight(14),
                           ),
-                          FruitTitle(title: args.productDetailData['name']),
+                          Hero(
+                              tag: 'productDetailName',
+                              child: FruitTitle(
+                                  title: args.productDetailData['name'])),
                           SizedBox(
-                            height: getProportionateScreenHeight(8),
-                          ),
-                          Text(
-                            args.productDetailData['price'].toString(),
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineMedium!
-                                .copyWith(
-                                  color: kTextColorAccent,
-                                ),
+                            height: getProportionateScreenHeight(10),
                           ),
                           Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const PreviousPriceTag(),
-                              SizedBox(
-                                width: getProportionateScreenWidth(8),
+                              Text(
+                                args.productDetailData['price'].toString(),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headlineMedium!
+                                    .copyWith(
+                                      color: kTextColorAccent,
+                                    ),
                               ),
-                              const PriceTag(),
                               const Spacer(),
-                              CustomIconButton(Icons.remove, () {
-                                setState(() {
-                                  int quantity = int.parse(textController.text);
-                                  quantity--;
-                                  textController.text = quantity.toString();
-                                });
-                              }),
-                              SizedBox(
-                                width: getProportionateScreenWidth(4),
+                              Card(
+                                elevation: 0,
+                                shape: RoundedRectangleBorder(
+                                  side: const BorderSide(
+                                    color:
+                                        kPrimaryBlue, // Set your desired border color
+                                    width: 1.0, // Set the border width
+                                  ),
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                child: SizedBox(
+                                  height: 35,
+                                  width: quantity == 0
+                                      ? 75
+                                      : (quantity.toString().length * 11) + 75,
+                                  child: quantity == 0
+                                      ? OutlinedButton(
+                                          style: OutlinedButton.styleFrom(
+                                            side: const BorderSide(
+                                                color: kPrimaryBlue),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(
+                                                  10.0), // Set your desired border radius
+                                            ),
+                                          ),
+                                          onPressed: () {
+                                            //log('widget.mycartItem["product"]["name"] ${widget.mycartItem["product"]["name"].toString()}');
+                                            setState(() {
+                                              quantity++;
+                                              log(quantity.toString());
+                                              //widget.onAddItem(quantity);
+                                            });
+                                          },
+                                          child: const Text(
+                                            'Add',
+                                            style: TextStyle(
+                                                color: kPrimaryBlue,
+                                                fontSize: 14),
+                                          ),
+                                        )
+                                      : PlusMinusUI(
+                                          onPlusPressed: () {
+                                            setState(() {
+                                              quantity++;
+                                              //widget.onPlusinCard(quantity);
+                                            });
+                                          },
+                                          onMinusPressed: () {
+                                            if (quantity != 0) {
+                                              setState(() {
+                                                quantity--;
+                                                //widget.onMinusinCard(quantity);
+                                              });
+                                            }
+                                          },
+                                          qty: quantity,
+                                        ),
+                                  // :
+                                ),
                               ),
-                              QuantityInput(textController: textController),
-                              SizedBox(
-                                width: getProportionateScreenWidth(4),
-                              ),
-                              CustomIconButton(Icons.add, () {
-                                setState(() {
-                                  int quantity = int.parse(textController.text);
-                                  quantity++;
-                                  textController.text = quantity.toString();
-                                });
-                              }),
                             ],
                           ),
                           SizedBox(
                             height: getProportionateScreenHeight(8.0),
                           ),
-                          Container(
-                            height: getProportionateScreenHeight(
-                              32,
-                            ),
-                            padding: EdgeInsets.symmetric(
-                              vertical: getProportionateScreenHeight(2),
-                              horizontal: getProportionateScreenWidth(4),
-                            ),
-                            decoration: ShapeDecoration(
-                              color: kFillColorThird,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(
-                                  getProportionateScreenWidth(8.0),
+                          if (!isExpanded)
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  isExpanded = !isExpanded;
+                                });
+                              },
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: getProportionateScreenWidth(0.0),
+                                  vertical: getProportionateScreenHeight(2),
+                                ),
+                                child: const Text(
+                                  'Detail Items',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                    color: kTextColorAccent,
+                                  ),
                                 ),
                               ),
                             ),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                Expanded(
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      if (!isReviewTab) {
-                                        return;
-                                      }
-
-                                      setState(() {
-                                        isReviewTab = !isReviewTab;
-                                      });
+                          if (isExpanded)
+                            InkWell(
+                              onTap: () {
+                                setState(() {
+                                  isExpanded = !isExpanded;
+                                });
+                              },
+                              child: ExpansionPanelList(
+                                elevation: 0,
+                                expansionCallback:
+                                    (int index, bool isExpanded) {
+                                  setState(() {
+                                    this.isExpanded = !isExpanded;
+                                  });
+                                },
+                                children: [
+                                  ExpansionPanel(
+                                    backgroundColor: null,
+                                    headerBuilder: (BuildContext context,
+                                        bool isExpanded) {
+                                      return const ListTile(
+                                        title: Text('Description'),
+                                      );
                                     },
-                                    child: DetailSelection(
-                                      'Detail Items',
-                                      !isReviewTab,
-                                    ),
-                                  ),
-                                ),
-                                VerticalDivider(
-                                  endIndent: getProportionateScreenHeight(4),
-                                  indent: getProportionateScreenHeight(4),
-                                ),
-                                Expanded(
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      if (isReviewTab) {
-                                        return;
-                                      }
-
-                                      setState(() {
-                                        isReviewTab = !isReviewTab;
-                                      });
-                                    },
-                                    child: DetailSelection(
-                                      'Reviews',
-                                      isReviewTab,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: getProportionateScreenHeight(16),
-                          ),
-                          !isReviewTab
-                              ? Text(
-                                  '${args.productDetailData['description']}',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headlineMedium!
-                                      .copyWith(
-                                        color: kTextColorAccent,
-                                        fontSize: 16,
+                                    body: ListTile(
+                                      title: Text(
+                                        args.productDetailData['description'],
+                                        style: const TextStyle(
+                                          color: kTextColorAccent,
+                                          fontSize: 15,
+                                        ),
                                       ),
-                                )
-                              : Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
-                                  children: [
-                                    const ReviewCard(),
-                                    const ReviewCard(),
-                                    OutlinedButton(
-                                        onPressed: () {},
-                                        child: const Text('See All Reviews'))
-                                  ],
-                                ),
-                          Divider(
-                            height: getProportionateScreenHeight(48),
-                          ),
+                                    ),
+                                    isExpanded: isExpanded,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          SizedBox(height: getProportionateScreenHeight(20)),
                           const TabTitle(
                             title: 'More Like this',
                             padding: 0,
@@ -259,23 +287,23 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
             Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: getProportionateScreenWidth(16.0),
+                vertical: getProportionateScreenHeight(5.0),
               ),
               child: Row(
                 children: [
                   Expanded(
-                    child: OutlinedButton(
-                      onPressed: () {
-                        Navigator.of(context)
-                            .pushNamed(OrderSummaryScreen.routeName);
-                      },
+                    
+
                       child: SizedBox(
                         width: getProportionateScreenWidth(32),
-                        child: Image.asset(
-                          'assets/images/cart_nav_fill.png',
-                          fit: BoxFit.cover,
-                        ),
+                        child: IconButton(
+                          onPressed: () {
+                            Navigator.of(context)
+                            .pushNamed(OrderSummaryScreen.routeName);
+                          },
+                          icon: const Icon(Icons.shopping_cart_checkout))
                       ),
-                    ),
+                   
                   ),
                   SizedBox(
                     width: getProportionateScreenWidth(16),
@@ -292,115 +320,6 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class ReviewCard extends StatelessWidget {
-  const ReviewCard({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(
-        bottom: getProportionateScreenHeight(8.0),
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    CircleAvatar(
-                      backgroundColor: kGreyShade5,
-                      radius: getProportionateScreenWidth(24.0),
-                    ),
-                    SizedBox(
-                      width: getProportionateScreenWidth(8),
-                    ),
-                    const UserDetails(),
-                  ],
-                ),
-                Text(
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.',
-                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                        color: kTextColorAccent,
-                      ),
-                )
-              ],
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class UserDetails extends StatelessWidget {
-  const UserDetails({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Shoo Thar Mien',
-                style: TextStyle(
-                  fontSize: getProportionateScreenWidth(17.0),
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              const Icon(Icons.more_vert_rounded),
-            ],
-          ),
-          Row(
-            children: [
-              Image.asset(
-                'assets/images/star_rating.png',
-              ),
-              SizedBox(
-                width: getProportionateScreenWidth(4),
-              ),
-              Image.asset(
-                'assets/images/star_rating.png',
-              ),
-              SizedBox(
-                width: getProportionateScreenWidth(4),
-              ),
-              Image.asset(
-                'assets/images/star_rating.png',
-              ),
-              SizedBox(
-                width: getProportionateScreenWidth(4),
-              ),
-              Image.asset(
-                'assets/images/star_rating.png',
-              ),
-              SizedBox(
-                width: getProportionateScreenWidth(4),
-              ),
-              Image.asset(
-                'assets/images/star_rating.png',
-              ),
-              const Text(
-                '29 February, 2099',
-                style: TextStyle(
-                  color: kTextColorAccent,
-                ),
-              ),
-            ],
-          )
-        ],
       ),
     );
   }

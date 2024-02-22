@@ -8,7 +8,7 @@ import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:sutra_ecommerce/constants/colors.dart';
-import 'package:sutra_ecommerce/screens/tab_screen.dart';
+import 'package:sutra_ecommerce/screens/tab_screen/tab_screen.dart';
 import 'package:sutra_ecommerce/utils/screen_utils.dart';
 class OtpScreenArguments {
   final String phoneNumber;

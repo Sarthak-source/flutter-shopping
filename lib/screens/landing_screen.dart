@@ -1,30 +1,88 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sutra_ecommerce/assets/logo.dart';
 
-///best practices
 import '../constants/colors.dart';
-import '../utils/screen_utils.dart';
 import 'intro_screen/intro_screen.dart';
 
-class LandingScreen extends StatelessWidget {
-  const LandingScreen({super.key});
+class LandingScreen extends StatefulWidget {
+  const LandingScreen({Key? key}) : super(key: key);
+
+  @override
+  _LandingScreenState createState() => _LandingScreenState();
+}
+
+class _LandingScreenState extends State<LandingScreen>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<Offset> _offsetAnimation;
+  late Animation<double> _scaleAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 6),
+    );
+
+    _offsetAnimation = Tween<Offset>(
+      begin: const Offset(0, 0),
+      end: const Offset(200, 0),
+    ).animate(_controller);
+
+    _scaleAnimation = Tween<double>(
+      begin: 1.0,
+      end: 0.45,
+    ).animate(_controller);
+
+    _controller.forward();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtils().init(context);
     return Scaffold(
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            AnimatedBuilder(
+              animation: _controller,
+              builder: (context,child) {
+                return Transform.scale(
+                  scale: _scaleAnimation.value,
+                  child: CustomPaint(
+                    size: const Size(90, 90),
+                    painter: Logo(),
+                  ),
+                );
+              }
+            ),
             Expanded(
               flex: 2,
-              child: Image.asset(
-                'assets/images/landing.png',
-                fit: BoxFit.cover,
+              child: AnimatedBuilder(
+                animation: _controller,
+                builder: (context, child) {
+                  return Transform.translate(
+                    offset: _offsetAnimation.value,
+                    child: Transform.scale(
+                      scale: 2.2,
+                      child: Image.asset(
+                        'assets/images/all_product.png',
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  );
+                },
               ),
             ),
-            const IntroWidget()
+            const IntroWidget(),
           ],
         ),
       ),
@@ -33,29 +91,25 @@ class LandingScreen extends StatelessWidget {
 }
 
 class IntroWidget extends StatelessWidget {
-  const IntroWidget({super.key});
+  const IntroWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: getProportionateScreenWidth(
-            20,
-          ),
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [
                 Expanded(
-                  flex: 2,
                   child: Text(
-                    'Welcome to Veggie Fresh',
-                    style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                    'Welcome to Dilicia',
+                    style: Theme.of(context).textTheme.headline6!.copyWith(
                           color: kTextColor,
                           fontWeight: FontWeight.w600,
+                          fontSize: 25,
                         ),
                   ),
                 ),
@@ -64,8 +118,8 @@ class IntroWidget extends StatelessWidget {
             ),
             const Spacer(),
             Text(
-              'We have more than 10,000+ food available for all of you.',
-              style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+              'The delightful experience with purely rich taste.',
+              style: Theme.of(context).textTheme.subtitle1!.copyWith(
                     color: kTextColorAccent,
                   ),
             ),
