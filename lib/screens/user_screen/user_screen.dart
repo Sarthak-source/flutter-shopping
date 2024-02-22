@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sutra_ecommerce/controllers/user_controller.dart';
+import 'package:sutra_ecommerce/screens/add_address/add_address_screen.dart';
 
 import '../../constants/colors.dart';
 import '../../utils/screen_utils.dart';
@@ -58,10 +59,13 @@ class UserScreen extends StatelessWidget {
             SizedBox(
               height: getProportionateScreenHeight(8.0),
             ),
-            const ProfileCard(
+            ProfileCard(
               image: 'assets/images/map_user.png',
               color: kAccentTosca,
               title: 'My Address',
+              tapHandler: () {
+               Get.toNamed(AddAddressScreen.routeName);
+              },
             ),
             SizedBox(
               height: getProportionateScreenHeight(8.0),

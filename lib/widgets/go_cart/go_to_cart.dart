@@ -12,10 +12,10 @@ class GoToCart extends StatefulWidget {
 }
 
 class _GoToCartState extends State<GoToCart> {
-  final MyCartController controller = Get.put(MyCartController());
-
   @override
   Widget build(BuildContext context) {
+    final MyCartController controller = Get.put(MyCartController());
+
     return Padding(
       padding: const EdgeInsets.only(left: 12, right: 12, bottom: 20),
       child: RawMaterialButton(
@@ -47,7 +47,8 @@ class _GoToCartState extends State<GoToCart> {
                         style: Theme.of(context)
                             .textTheme
                             .headlineLarge!
-                            .copyWith(fontWeight: FontWeight.w700,fontSize: 20),
+                            .copyWith(
+                                fontWeight: FontWeight.w700, fontSize: 20),
                       ),
                     ],
                   ),

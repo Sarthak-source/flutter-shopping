@@ -63,6 +63,7 @@ class CartScreen extends StatelessWidget {
                                 ),
                                 Lottie.asset('assets/lotties/cart.json',
                                     repeat: false,
+                                    frameRate: FrameRate(30),
                                     height: getProportionateScreenHeight(250.0),
                                     width: getProportionateScreenWidth(250.0)),
                                 SizedBox(
@@ -132,9 +133,11 @@ class CartScreen extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                RateCardinBuyNow(context, "Total value",controller.mycartTotalValue.value),
-                                RateCardinBuyNow(context, "Total Gst",controller.mycartTotalGst.value),
-                               /* Text(
+                                RateCardinBuyNow(context, "Total value",
+                                    controller.mycartTotalValue.value),
+                                RateCardinBuyNow(context, "Total Gst",
+                                    controller.mycartTotalGst.value),
+                                /* Text(
                                   controller.mycartTotalGst.value,
                                   style: Theme.of(context)
                                       .textTheme
@@ -185,30 +188,31 @@ class CartScreen extends StatelessWidget {
     });
   }
 
-  Row RateCardinBuyNow(BuildContext context,String key, String value) {
+  Row RateCardinBuyNow(BuildContext context, String key, String value) {
     return Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Expanded(
-                                    flex:1,
-                                    child: Text(key, style: Theme.of(context)
-                                        .textTheme
-                                        .headlineSmall!
-                                        .copyWith(
-                                        color: Colors.grey, fontSize: 14),),
-                                  ),
-                                  Expanded(
-                                    flex: 1,
-                                    child: Text(
-                                     ": ₹ $value",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headlineSmall!
-                                          .copyWith(
-                                              color: Colors.grey, fontSize: 14),
-                                    ),
-                                  ),
-                                ],
-                              );
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Expanded(
+          flex: 1,
+          child: Text(
+            key,
+            style: Theme.of(context)
+                .textTheme
+                .headlineSmall!
+                .copyWith(color: Colors.grey, fontSize: 14),
+          ),
+        ),
+        Expanded(
+          flex: 1,
+          child: Text(
+            ": ₹ $value",
+            style: Theme.of(context)
+                .textTheme
+                .headlineSmall!
+                .copyWith(color: Colors.grey, fontSize: 14),
+          ),
+        ),
+      ],
+    );
   }
 }

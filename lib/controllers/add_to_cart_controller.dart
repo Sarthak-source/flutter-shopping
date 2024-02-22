@@ -44,12 +44,11 @@ class AddToCartController extends GetxController {
       var addToCartData = responseData;
       addToCartList.add(addToCartData);
 
-      productCount.value = double.parse((productCount.value/2).toString()).toInt() + double.parse(count).toInt();
-          // double.parse(responseData['count'])
-          //     .toInt(); // Update productCount value
+     // Update productCount value
       log(productCount.value.toString());
       update(); // Notify observers about the change
       cartController.getMyCart();
+        //productCount.value = double.parse((productCount.value/2).toString()).toInt() + double.parse(count).toInt();
     } catch (e) {
       log(e.toString());
       errorMsg.value = e.toString();
@@ -93,5 +92,6 @@ class StoreBinding implements Bindings {
   @override
   void dependencies() {
     Get.lazyPut(() => AddToCartController());
+     Get.lazyPut(() => MyCartController());
   }
 }

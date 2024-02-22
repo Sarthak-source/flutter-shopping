@@ -44,7 +44,7 @@ class TabScreenState extends State<TabScreen> {
     return Obx(() {
       return Scaffold(
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        floatingActionButton: (addToCartController.productCount > 0)
+        floatingActionButton: (addToCartController.productCount > 0 && curTab!=2)
             ? const GoToCart()
             : Container(),
         body: SafeArea(

@@ -6,7 +6,6 @@ import 'package:sutra_ecommerce/utils/network_repository.dart';
 import '../screens/order_success_screen/order_success_screen.dart';
 
 class MyCartController extends GetxController {
-
   var isLoading = true.obs;
   var hasError = false.obs;
   var errorMsg = ''.obs;
@@ -21,32 +20,36 @@ class MyCartController extends GetxController {
     super.onInit();
     getMyCart();
   }
+
   void updateCart(List newCartItems, responseData) {
-   // mycartItems.value = newCartItems;
+    // mycartItems.value = newCartItems;
     log('cartitems inside my cart update fun :${newCartItems.length}');
     dynamic totalValue = responseData['body']['total_value'];
-    dynamic totalGst =  responseData['body']['total_gst'];
+    dynamic totalGst = responseData['body']['total_gst'];
     dynamic totalAmount = responseData['body']['total_amount'];
-    mycartTotalValue =  RxString(totalValue.toString());
+    print("hello ${totalAmount}");
+    mycartTotalValue = RxString(totalValue.toString());
     mycartTotalGst = RxString(totalGst.toString());
-    mycartTotalAmount =RxString(totalAmount.toString());
+    mycartTotalAmount = RxString(totalAmount.toString());
     mycartItems.assignAll(newCartItems);
     log('cartitems inside my cart update fun2 :${mycartItems.length}');
-    update();// Update the cart items
+    update(); // Update the cart items
   }
+
   void getMyCart() async {
     try {
       // Assuming NetworkRepository.getCategories returns a Future<dynamic>
       var responseData = await NetworkRepository.getMyCart(party: '1');
       List myCartData = responseData['body']['cart_list'];
       dynamic totalValue = responseData['body']['total_value'];
-      dynamic totalGst =  responseData['body']['total_gst'];
+      dynamic totalGst = responseData['body']['total_gst'];
       dynamic totalAmount = responseData['body']['total_amount'];
-      mycartTotalValue =  RxString(totalValue.toString());
+      log("hello $totalAmount");
+      mycartTotalValue = RxString(totalValue.toString());
       mycartTotalGst = RxString(totalGst.toString());
-      mycartTotalAmount =RxString(totalAmount.toString());
+      mycartTotalAmount.value = totalAmount.toString();
       mycartItems.assignAll(myCartData);
-      log('mycartItems++++${mycartItems.length}');
+      log('mycartItems++++${mycartItems.length} ${mycartTotalAmount.value}');
     } catch (e) {
       errorMsg.value = e.toString();
       hasError.value = true;
@@ -55,20 +58,16 @@ class MyCartController extends GetxController {
     }
   }
 
-
-  void createOrderApi(party, shift, deliverydate,address) async {
+  void createOrderApi(party, shift, deliverydate, address) async {
     try {
       var responseData = await NetworkRepository.CreateOrderApi(
-      party: "1",
-      shift: "1",
-      deliverydate: deliverydate,
-      address: address);
+          party: "1", shift: "1", deliverydate: deliverydate, address: address);
       log('CreateOrderApiresponseData $responseData');
 
       List addToCartData = responseData['body'];
       myOrderItems.assignAll(addToCartData);
       update();
-      if( myOrderItems.isNotEmpty){
+      if (myOrderItems.isNotEmpty) {
         Get.toNamed(OrderSuccessScreen.routeName);
       }
 
@@ -81,5 +80,4 @@ class MyCartController extends GetxController {
       isLoading.value = false;
     }
   }
-
 }
