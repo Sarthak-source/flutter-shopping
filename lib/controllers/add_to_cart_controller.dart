@@ -2,11 +2,10 @@ import 'dart:developer';
 
 import 'package:get/get.dart';
 import 'package:sutra_ecommerce/controllers/mycart_controller.dart';
-import 'package:sutra_ecommerce/controllers/user_controller.dart';
 import 'package:sutra_ecommerce/utils/network_repository.dart';
 
 class AddToCartController extends GetxController {
-  final UserController userController = Get.put(UserController());
+  //final UserController userController = Get.put(UserController());
   final MyCartController cartController =
       Get.find(); // Get reference to CartController
 
@@ -14,8 +13,10 @@ class AddToCartController extends GetxController {
   @override
   void onInit() {
     // Get called when controller is created
-    productCount.value =
-        userController.user['party']['party_cart_count'].toInt();
+    // productCount.value =
+    //     userController.user['party']['party_cart_count'].toInt();
+
+    // log("productCount ${productCount.value.toString()}");
     super.onInit();
   }
 
@@ -44,11 +45,11 @@ class AddToCartController extends GetxController {
       var addToCartData = responseData;
       addToCartList.add(addToCartData);
 
-     // Update productCount value
+      // Update productCount value
       log(productCount.value.toString());
       update(); // Notify observers about the change
       cartController.getMyCart();
-        //productCount.value = double.parse((productCount.value/2).toString()).toInt() + double.parse(count).toInt();
+      //productCount.value = double.parse((productCount.value/2).toString()).toInt() + double.parse(count).toInt();
     } catch (e) {
       log(e.toString());
       errorMsg.value = e.toString();
@@ -92,6 +93,6 @@ class StoreBinding implements Bindings {
   @override
   void dependencies() {
     Get.lazyPut(() => AddToCartController());
-     Get.lazyPut(() => MyCartController());
+    Get.lazyPut(() => MyCartController());
   }
 }

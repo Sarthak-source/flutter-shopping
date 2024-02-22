@@ -2,48 +2,59 @@ import 'dart:developer';
 
 import 'package:get/get.dart';
 import 'package:sutra_ecommerce/config/common.dart';
+import 'package:sutra_ecommerce/controllers/add_to_cart_controller.dart';
 import 'package:sutra_ecommerce/utils/network_repository.dart';
 
 class UserController extends GetxController {
+    final AddToCartController addToCardController =Get.find();
+
   var isLoading = true.obs;
   var hasError = false.obs;
   var errorMsg = ''.obs;
 
   // Define storedUserData as a local variable inside the class
-  late Map storedUserData;
+   
 
   // Define user as an observable variable
   var user = {}.obs;
 
   @override
-  void onInit() {
+  void onInit() async {
     // Call super onInit method
     super.onInit();
 
     // Initialize storedUserData inside onInit method
-    storedUserData = box!.get('userData')??{};
+    // storedUserData = box!.get('userData')??{};
 
-    // Assign storedUserData to the user variable
-    user.value = storedUserData;
+    // // Assign storedUserData to the user variable
+    // user.value = storedUserData;
     getUserData();
   }
 
   void getUserData() async {
+    log('=============================');
     try {
+      Map storedUserData=box!.get('userData');
       var responseData = await networkRepository.checkUser(
         number: storedUserData['party']['phone'],
       );
 
       log('responseData message  ${responseData.toString()}');
-      Map userData = responseData['body'] ?? storedUserData;
+      Map userData = responseData['body'];
+      await box!.put('userData', userData);
+      user.value = userData;
+
+      log("productCount ${userData['party']['party_cart_count'].toString()}");
+
+      addToCardController.productCount.value=userData['party']['party_cart_count'].toInt();
 
       log(responseData['body']);
 
 
-      await box!.put('userData', responseData['body']);
+      
       log(userData.toString());
-      user.value = userData;
-      update();
+      
+     log('=============================');
     } catch (e) {
       errorMsg.value = e.toString();
       hasError.value = true;

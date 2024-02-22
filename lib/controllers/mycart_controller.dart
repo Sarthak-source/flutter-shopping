@@ -40,6 +40,7 @@ class MyCartController extends GetxController {
       // Assuming NetworkRepository.getCategories returns a Future<dynamic>
       var responseData = await NetworkRepository.getMyCart(party: '1');
       List myCartData = responseData['body']['cart_list'];
+      log(myCartData.toString());
       dynamic totalValue = responseData['body']['total_value'];
       dynamic totalGst = responseData['body']['total_gst'];
       dynamic totalAmount = responseData['body']['total_amount'];

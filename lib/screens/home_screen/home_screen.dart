@@ -17,12 +17,26 @@ import '../../widgets/tab_title.dart';
 import '../search_screen/search_screen.dart';
 import '../special_deal_screen.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   static const routeName = '/home_screen';
 
   const HomeScreen({super.key});
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+    final UserController userController = Get.put(UserController());
+
+  //  @override
+  // void initState() {
+  //   super.initState();
+  //   userController.getUserData();
+  // }
+  
+  @override
+  
   Widget build(BuildContext context) {
     ScreenUtils().init(context);
 
@@ -87,7 +101,7 @@ class HomeScreen extends StatelessWidget {
             },
           ),
         ),
-        const PopularDealTab(),
+         PopularDealTab(),
       ],
     );
   }
@@ -162,9 +176,8 @@ class HomeAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<UserController>(
-        init: UserController(),
-        builder: (controller) {
+    return Obx(
+         () {
           return Column(
             children: [
               Padding(
@@ -191,26 +204,22 @@ class HomeAppBar extends StatelessWidget {
                           children: [
                             //Text(userController.user.toString()),
                             Text(
-                              userController.user['party']['address']
-                                      ['address_line1']
-                                  .toString(),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headlineMedium!
-                                  .copyWith(
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                            ),
-                            Text(
-                              userController.user['party']['address']
-                                  ['address_line2'],
-                              style: TextStyle(
-                                color: kTextColorAccent,
-                                fontSize: getProportionateScreenWidth(
-                                  12,
-                                ),
-                              ),
-                            ),
+  userController.user['party']?['address']?['address_line1'] ?? 'Loading...',
+  style: Theme.of(context)
+      .textTheme
+      .headlineMedium!
+      .copyWith(
+        fontWeight: FontWeight.w700,
+      ),
+),
+Text(
+  userController.user['party']?['address']?['address_line2'] ?? '',
+  style: TextStyle(
+    color: kTextColorAccent,
+    fontSize: getProportionateScreenWidth(12),
+  ),
+),
+
                           ],
                         ),
                       ),
