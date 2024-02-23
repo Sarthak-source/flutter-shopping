@@ -126,7 +126,8 @@ class _ProductCardState extends State<ProductCard> {
                         Hero(
                           tag: 'productDetailName',
                           child: Text(
-                            widget.product?['name'] ?? "Not given",
+                           titleCase(widget.product?['name'].toLowerCase() ?? "Not given"),
+
                             maxLines: 1,
                             style: Theme.of(context)
                                 .textTheme
@@ -173,7 +174,7 @@ class _ProductCardState extends State<ProductCard> {
                               child: SizedBox(
                                 height: 35,
                                 width: quantity.value == 0
-                                    ? 75
+                                    ? 76
                                     : (quantity.toString().length * 11) + 75,
                                 child: quantity.value == 0
                                     ? OutlinedButton(

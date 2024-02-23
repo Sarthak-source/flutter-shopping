@@ -44,12 +44,12 @@ class UserController extends GetxController {
       await box!.put('userData', userData);
       user.value = userData;
 
-      log("productCount ${userData['party']['party_cart_count'].toString()}");
+      print("productCount in user ctlr ${responseData['body']['party']['party_cart_count'].toString()}");
+      print("productCount in user ctlr2 ${userData['party']['party_cart_count'].toString()}");
 
       addToCardController.productCount.value=userData['party']['party_cart_count'].toInt();
 
       log(responseData['body']);
-
 
       
       log(userData.toString());

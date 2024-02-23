@@ -75,7 +75,8 @@ class CustomTheme {
           ),
           textStyle: MaterialStateProperty.all(
             TextStyle(
-              fontSize: _getProportionateScreenWidth(16),
+              fontWeight: FontWeight.bold,
+              fontSize: _getProportionateScreenWidth(19),
             ),
           ),
           minimumSize: MaterialStateProperty.all(

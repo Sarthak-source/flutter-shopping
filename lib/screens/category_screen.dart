@@ -31,7 +31,7 @@ class CategoryScreen extends StatelessWidget {
                     width: getProportionateScreenWidth(16),
                   ),
                 ],
-                title: 'Categories',
+                title: 'All Categories',
               ),
               SizedBox(
                 height: getProportionateScreenHeight(30),
@@ -43,7 +43,9 @@ class CategoryScreen extends StatelessWidget {
                 ),
                 itemCount: controller.categories.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return CategoryCard(category:  Category(
+                  return CategoryCard(
+                    from: "allcategories",
+                    category:  Category(
                               controller.categories[index]['name'],
                               controller.categories[index]['categories_img'],
                               Colors.amber,

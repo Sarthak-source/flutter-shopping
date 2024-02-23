@@ -2,13 +2,14 @@ import 'dart:developer';
 
 import 'package:get/get.dart';
 import 'package:sutra_ecommerce/controllers/mycart_controller.dart';
+import 'package:sutra_ecommerce/controllers/popular_deals.dart';
 import 'package:sutra_ecommerce/controllers/user_controller.dart';
 import 'package:sutra_ecommerce/utils/network_repository.dart';
 
 class AddToCartController extends GetxController {
   //final UserController userController = Get.put(UserController());
-  final MyCartController cartController =
-      Get.find(); // Get reference to CartController
+  final MyCartController cartController = Get.find();
+  final PopularDealController popController = Get.find();
 
   RxInt productCount = 0.obs;
   @override
@@ -62,6 +63,8 @@ class AddToCartController extends GetxController {
       log(productCount.value.toString());
       update(); // Notify observers about the change
       cartController.getMyCart();
+      popController.fetchPopularDeals();
+      popController.update();
       //productCount.value = double.parse((productCount.value/2).toString()).toInt() + double.parse(count).toInt();
     } catch (e) {
       log(e.toString());
@@ -108,6 +111,7 @@ class StoreBinding implements Bindings {
     Get.lazyPut(() => AddToCartController());
     Get.lazyPut(() => MyCartController());
     Get.lazyPut(() => UserController());
+    Get.lazyPut(() => PopularDealController());
   }
 
 

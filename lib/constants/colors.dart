@@ -26,7 +26,9 @@ const kTextColorThird = Color(0xFFC5C5C7);
 const kTextColorForth = Color(0xFFF8F8F8);
 
 /// Main color pallete
-const kPrimaryBlue = Color.fromRGBO(113, 196, 237, 1);
+//const kPrimaryBlue = Color.fromRGBO(113, 196, 237, 1);
+const kPrimaryBlue = Color.fromRGBO(0, 76, 255, 1);
+const kPrimaryBlueBG = Color.fromRGBO(21, 76, 121 ,1);
 const kPrimaryRed = Color(0xFFFE6E4C);
 const kPrimaryYellow = Color(0xFFFEBF43);
 const kPrimaryPurple = Color(0xFF9B81E5);

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sutra_ecommerce/utils/common_functions.dart';
 
 class FruitTitle extends StatelessWidget {
   const FruitTitle({
@@ -14,7 +15,7 @@ class FruitTitle extends StatelessWidget {
       children: [
         Expanded(
           child: Text(
-            "${_title[0].toUpperCase()}${_title.substring(1, _title.length).toLowerCase()}",
+            titleCase(_title.toLowerCase()),
             style: Theme.of(context)
                 .textTheme
                 .displaySmall

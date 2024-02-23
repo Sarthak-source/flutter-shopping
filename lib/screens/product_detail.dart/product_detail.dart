@@ -115,13 +115,13 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                           Row(
                             children: [
                               Text(
-                                args.productDetailData['price'].toString(),
+                               "₹ ${args.productDetailData['price'].toString()}",
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headlineLarge!
+                                    .headlineSmall!
                                     .copyWith(
                                   fontWeight: FontWeight.bold,
-                                      color: kTextColorAccent,
+                                      color: Colors.black,
                                     ),
                               ),
                               const Spacer(),

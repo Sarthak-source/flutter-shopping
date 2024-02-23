@@ -5,8 +5,9 @@ import '../../models/category.dart';
 
 class CategoryCard extends StatelessWidget {
   final Category category;
+  final String from;
 
-  const CategoryCard({required this.category, super.key});
+  const CategoryCard({required this.category, required this.from,super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,15 +18,16 @@ class CategoryCard extends StatelessWidget {
           category.catIcon?? 
           'http://170.187.232.148/static/images/dilicia.png',
           fit: BoxFit.fill,
-          height: getProportionateScreenHeight(80),
+          height: from == "allcategories"?getProportionateScreenHeight(80):getProportionateScreenHeight(40),
         ),
-        const Spacer(),
-        SizedBox(
-          width: 80,
+        from == "allcategories"? const Spacer() : SizedBox.shrink(),
+        Container(
+          width: from == "allcategories"?80:65,
           height: 40,
+        //  color: Colors.red.shade100,
           child: Text(
             "${category.catName[0].toUpperCase()}${category.catName.substring(1,category.catName.length).toLowerCase()}",
-            style: const TextStyle(fontSize: 14,fontWeight: FontWeight.w700,),
+            style:  TextStyle(fontSize: from == "allcategories"?14:10,fontWeight: FontWeight.w700,),maxLines: 2,
             textAlign: TextAlign.center,
           ),
         )

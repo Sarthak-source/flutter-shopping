@@ -113,13 +113,16 @@ class IntroWidget extends StatelessWidget {
                         ),
                   ),
                 ),
-                const Spacer(),
+               // const Spacer(),
               ],
             ),
-            const Spacer(),
+          //  const Spacer(),
+            SizedBox(
+              height: 16,
+            ),
             Text(
               'The delightful experience with purely rich taste.',
-              style: Theme.of(context).textTheme.subtitle1!.copyWith(
+              style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                     color: kTextColorAccent,
                   ),
             ),

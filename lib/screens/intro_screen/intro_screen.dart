@@ -49,17 +49,17 @@ class TextView extends StatelessWidget {
       {
         'title': 'Dilicia products',
         'desc':
-            'Milk that are directly picked by farmers and guaranteed quality and freshness',
+            'Milk is directly procured from farmers with guaranteed quality',
       },
       {
-        'title': 'Easy Shopping',
+        'title': 'Easy to place orders',
         'desc':
-            'Grab your items only need to order from home, and wait for the courier to arrive',
+            'Place orders while you are on go.',
       },
       {
         'title': 'Fast Delivery',
         'desc':
-            'Courier will send the groceries you buy in just 1 day, very fast like a flash!',
+            'Dilicia delivers ordered products to distrubutors door',
       },
     ];
     return Expanded(
@@ -84,6 +84,7 @@ class TextView extends StatelessWidget {
               textAlign: TextAlign.center,
               style: const TextStyle(
                 color: kTextColorAccent,
+                fontWeight: FontWeight.w400,
               ),
             ),
             const Spacer(),
@@ -159,7 +160,7 @@ class IllustrationPageView extends StatelessWidget {
       flex: 3,
       child: Container(
         width: double.infinity,
-        color: kPrimaryBlue.withOpacity(0.5),
+        color: kPrimaryBlueBG,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -176,7 +177,7 @@ class IllustrationPageView extends StatelessWidget {
                   child: Text(
                     'Skip',
                     style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                          color: kTextColor,
+                          color: kTextColorForth,
                         ),
                   ),
                 ),

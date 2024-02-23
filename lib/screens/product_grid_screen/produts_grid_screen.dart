@@ -161,7 +161,7 @@ class CustomStaggerGrid extends StatelessWidget {
                   crossAxisCount: 2,
                   crossAxisSpacing: getProportionateScreenWidth(8),
                   mainAxisSpacing: getProportionateScreenHeight(5),
-                  childAspectRatio: (Get.width / Get.height) * 1.75),
+                  childAspectRatio: (Get.width / Get.height) * 1.70),
               itemBuilder: (ctx, index) {
                 if (index % 2 != 0) {
                   return ProductCard(

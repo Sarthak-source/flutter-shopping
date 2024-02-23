@@ -11,6 +11,7 @@ import 'package:sutra_ecommerce/screens/map_screen.dart';
 import 'package:sutra_ecommerce/screens/product_grid_screen/produts_grid_screen.dart';
 
 import '../../constants/colors.dart';
+import '../../utils/common_functions.dart';
 import '../../utils/screen_utils.dart';
 import '../../widgets/deal_card.dart';
 import '../../widgets/tab_title.dart';
@@ -28,6 +29,13 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
     final UserController userController = Get.put(UserController());
+    @override
+  void initState() {
+
+    super.initState();
+    print('home screen:::');
+   // userController.getUserData();
+  }
 
   
   @override
@@ -113,7 +121,7 @@ class DealsTab extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         TabTitle(
-            title: 'Special Deals for You',
+            title: titleCase("special deals for you"),
             seeAll: () {
               Get.toNamed(SpecialDealScreen.routeName);
             }),
@@ -160,6 +168,11 @@ class DealsTab extends StatelessWidget {
           //   ),
           // );
         }),
+        SizedBox(height: 12),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Divider(),
+        )
       ],
     );
   }

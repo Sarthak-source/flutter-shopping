@@ -21,24 +21,27 @@ class CategoryTab extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Row(
-            children: [
-              Expanded(
-                child: Text(
-                  'Categories',
-                  style: Theme.of(context).textTheme.headlineSmall!.copyWith(fontSize: 18),
+          Container(
+           // color: Colors.red,
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    'Category',
+                    style: Theme.of(context).textTheme.headlineSmall!.copyWith(fontSize: 16),
+                  ),
                 ),
-              ),
-              TextButton(
-                onPressed: () {
-                  Get.toNamed(CategoryScreen.routeName);
-                },
-                child: const Text(
-                  'See All',
-                  style: TextStyle(fontSize: 18),
-                ),
-              )
-            ],
+                TextButton(
+                  onPressed: () {
+                    Get.toNamed(CategoryScreen.routeName);
+                  },
+                  child: const Text(
+                    'See All',
+                    style: TextStyle(fontSize: 14),
+                  ),
+                )
+              ],
+            ),
           ),
           GetBuilder<CategoriesController>(
             builder: (controller) {
@@ -65,30 +68,28 @@ class CategoryTab extends StatelessWidget {
                 return Text('Error: ${controller.errorMsg.value}');
               } else {
                 return SizedBox(
-                  height: 150,
+                  height: 85,
                   child: ListView.builder(
                     clipBehavior: Clip.none,
                     scrollDirection: Axis.horizontal,
                     itemCount: controller.categories.length,
                     itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.only(right: 12.0),
-                        child: InkWell(
-                          onTap: () {
-                            Get.toNamed(
-                              PoductsListScreen.routeName,
-                              arguments: PoductsListArguments(
-                                title: controller.categories[index]['name'],
-                                categoryId: controller.categories[index]['id'].toString(),
-                              ),
-                            );
-                          },
-                          child: CategoryCard(
-                           category: Category(
-                              controller.categories[index]['name'],
-                              controller.categories[index]['categories_img'],
-                              Colors.amber,
+                      return InkWell(
+                        onTap: () {
+                          Get.toNamed(
+                            PoductsListScreen.routeName,
+                            arguments: PoductsListArguments(
+                              title: controller.categories[index]['name'],
+                              categoryId: controller.categories[index]['id'].toString(),
                             ),
+                          );
+                        },
+                        child: CategoryCard(
+                          from: "homecategory",
+                         category: Category(
+                            controller.categories[index]['name'],
+                            controller.categories[index]['categories_img'],
+                            Colors.amber,
                           ),
                         ),
                       );
@@ -98,6 +99,7 @@ class CategoryTab extends StatelessWidget {
               }
             },
           ),
+          Divider()
         ],
       ),
     );
