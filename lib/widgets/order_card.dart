@@ -39,17 +39,24 @@ class _OrderCardState extends State<OrderCard> {
   super.initState();
 
   //if( widget.mycartItem["count"] != null){
-    log("count::: ${widget.mycartItem["count"].toString()}");
+/*  print("count::: ${widget.mycartItem["count"].toString()}");
 
 
   double d = double.parse(widget.mycartItem["count"].toString());
-  log('double count $d');
-  log('int count ${d.toInt()}');
-  quantity = d.toInt();
+  print('double count $d');
+  print('int count ${d.toInt()}');
+  quantity = d.toInt();*/
     //}
   }
   @override
   Widget build(BuildContext context) {
+    print("count::: ${widget.mycartItem["count"].toString()}");
+
+
+    double d = double.parse(widget.mycartItem["count"].toString());
+    print('double count $d');
+    print('int count ${d.toInt()}');
+    quantity = d.toInt();
     return
       Row(
         children: [

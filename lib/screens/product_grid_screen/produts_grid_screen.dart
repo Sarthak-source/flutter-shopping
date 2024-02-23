@@ -68,7 +68,7 @@ class PoductsListScreenState extends State<PoductsListScreen> {
                     },
                     categoryId: args != null && args.categoryId != null
                         ? args.categoryId
-                        : "1",
+                        : "",
                   ),
                   const SizedBox(
                     height: 220,
@@ -139,7 +139,7 @@ class CustomStaggerGrid extends StatelessWidget {
           // If the Future is complete with data, display the GridView
           List products = controller.products;
 
-          if (products.isEmpty) {
+          if (products.isEmpty || categoryId == "") {
             return Column(
               children: [
                 Lottie.asset('assets/lotties/no-data.json',
