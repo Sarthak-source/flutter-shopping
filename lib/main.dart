@@ -78,7 +78,7 @@ class MyApp extends StatelessWidget {
               textButtonTheme: customTheme.textButtonTheme(),
               dividerTheme: customTheme.dividerTheme(),
             ),
-            getPages: pages,
+            getPages: pages ,
             initialBinding: StoreBinding(),
             home:
                 isLoggedIn == false ? const TabScreen() : const LandingScreen(),
