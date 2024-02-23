@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+import 'package:sutra_ecommerce/controllers/add_to_cart_controller.dart';
 import 'package:sutra_ecommerce/controllers/mycart_controller.dart';
 
 import '../../constants/colors.dart';
@@ -21,8 +22,20 @@ class OrderSuccessScreen extends StatefulWidget {
 
 class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
   final MyCartController controller = Get.put(MyCartController());
+  final AddToCartController AtCcontroller = Get.put(AddToCartController());
 
   double totalamt = 0.0;
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      AtCcontroller.productCount.value = 0;
+      AtCcontroller.update();
+    });
+
+  }
 
   @override
   Widget build(BuildContext context) {

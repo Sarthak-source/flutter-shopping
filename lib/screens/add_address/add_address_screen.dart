@@ -191,7 +191,7 @@ class AddAddressScreen extends StatelessWidget {
                                 }),
                   ),
                 ),
-                Padding(
+                createOrderCtlr.isLoading.value? Center(child: Loader()):    Padding(
                   padding: EdgeInsets.symmetric(
                     vertical: getProportionateScreenWidth(16.0),
                     horizontal: getProportionateScreenWidth(16.0),

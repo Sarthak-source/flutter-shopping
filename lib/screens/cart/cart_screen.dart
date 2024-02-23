@@ -19,6 +19,10 @@ class CartScreen extends StatelessWidget {
   //AddToCartController addToCartController = AddToCartController();
   @override
   Widget build(BuildContext context) {
+ /*   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      setPDCount(controller.mycartItems,addToCartController);
+    });*/
+
     return GetBuilder<MyCartController>(builder: (controller) {
       return Obx(
         () => Center(
@@ -85,6 +89,7 @@ class CartScreen extends StatelessWidget {
                               physics: const NeverScrollableScrollPhysics(),
                               itemCount: controller.mycartItems.length,
                               itemBuilder: (context, index) {
+                                setPDCount(controller.mycartItems,addToCartController);
                                 return OrderCard(
                                   onPlusinCard: (n) {
                                     print('add qty $n');
@@ -225,5 +230,13 @@ class CartScreen extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  void setPDCount(RxList mycartItems, AddToCartController addToCartController) {
+    print('mycartItems length ${mycartItems.length}');
+  if(mycartItems.isEmpty){
+    addToCartController.productCount.value=0;
+    addToCartController.update();
+  }
   }
 }

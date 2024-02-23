@@ -43,7 +43,7 @@ class _GoToCartState extends State<GoToCart> {
                     children: [
                       const Text('cart total:'),
                       Text(
-                        controller.mycartTotalAmount.value,
+                       "₹ ${controller.mycartTotalAmount.value}",
                         style: Theme.of(context)
                             .textTheme
                             .headlineLarge!

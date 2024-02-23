@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:get/get.dart';
 import 'package:sutra_ecommerce/controllers/mycart_controller.dart';
+import 'package:sutra_ecommerce/controllers/user_controller.dart';
 import 'package:sutra_ecommerce/utils/network_repository.dart';
 
 class AddToCartController extends GetxController {
@@ -29,9 +30,21 @@ class AddToCartController extends GetxController {
   //int intialProductCount=userController.user[''];
 
   void updateCartData(List newCartItems, responseData) {
-    log('cartitems inside update fun :${newCartItems.length}');
+    print('cartitems inside update fun :${newCartItems.length}');
+
     cartController.updateCart(newCartItems,
         responseData); // Call the method in CartController to update cart data
+    if(newCartItems.length ==0){
+      print('newcart length zero${newCartItems.length}');
+      productCount.value=0;
+    }
+    for(var i =0; i<=newCartItems.length ; i++){
+      print('newCartItems count ${newCartItems[i]['party_cart_count']}');
+
+        productCount.value=newCartItems[i]['party_cart_count'].toInt();
+
+
+        }
   }
 
   void addToCart(count, product, party) async {
@@ -94,5 +107,8 @@ class StoreBinding implements Bindings {
   void dependencies() {
     Get.lazyPut(() => AddToCartController());
     Get.lazyPut(() => MyCartController());
+    Get.lazyPut(() => UserController());
   }
+
+
 }

@@ -118,8 +118,9 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                                 args.productDetailData['price'].toString(),
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headlineMedium!
+                                    .headlineLarge!
                                     .copyWith(
+                                  fontWeight: FontWeight.bold,
                                       color: kTextColorAccent,
                                     ),
                               ),
@@ -255,7 +256,7 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                             padding: 0,
                           ),
                           SizedBox(
-                            height: getProportionateScreenHeight(220),
+                            height: getProportionateScreenHeight(225),
                             child: Row(
                               children: [
                                 const Expanded(

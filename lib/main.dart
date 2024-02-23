@@ -81,7 +81,7 @@ class MyApp extends StatelessWidget {
             getPages: pages,
             initialBinding: StoreBinding(),
             home:
-                isLoggedIn == true ? const TabScreen() : const LandingScreen(),
+                isLoggedIn == false ? const TabScreen() : const LandingScreen(),
           );
         },
       ),
