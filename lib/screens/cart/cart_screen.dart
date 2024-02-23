@@ -87,7 +87,8 @@ class CartScreen extends StatelessWidget {
                               itemBuilder: (context, index) {
                                 return OrderCard(
                                   onPlusinCard: (n) {
-                                    log('add qty $n');
+                                    print('add qty $n');
+
                                     addToCartController.updateCart(
                                         n,
                                         controller.mycartItems[index]["id"],
@@ -95,12 +96,22 @@ class CartScreen extends StatelessWidget {
                                         "1");
                                   },
                                   onMinusinCard: (n) {
-                                    log('remove qty $n');
-                                    addToCartController.updateCart(
-                                        n,
-                                        controller.mycartItems[index]["id"],
-                                        "update",
-                                        "1");
+
+                                    if(n==0){
+                                      addToCartController.updateCart(
+                                          n,
+                                          controller.mycartItems[index]["id"],
+                                          "delete",
+                                          "1");
+                                    }else{
+                                      print('remove qty $n');
+                                      addToCartController.updateCart(
+                                          n,
+                                          controller.mycartItems[index]["id"],
+                                          "update",
+                                          "1");
+                                    }
+
                                   },
                                   onAddItem: (n) {
                                     log('add qty $n');

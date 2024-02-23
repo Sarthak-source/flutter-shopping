@@ -73,7 +73,7 @@ class AddToCartController extends GetxController {
       myUpdatecartItems.addAll(myCartData);
       update();
 
-      log('myUpdatecartItems==>> ${myUpdatecartItems.length}');
+      print('myUpdatecartItems==>> ${myUpdatecartItems.length}');
       updateCartData(myCartData, responseData);
       //  cartController.mycartItems.add(addToCartData);
       cartController.update();

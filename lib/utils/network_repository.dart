@@ -155,6 +155,7 @@ class NetworkRepository {
         header: Options(headers: <String, String>{'authorization': auth}),
       );
       log('mycartItems in repo++++$apiResponse');
+      print('authorization $auth');
       debugPrint('\x1b[97m mycart Response : $apiResponse');
 
       final body = apiResponse['body'];
@@ -402,11 +403,21 @@ class NetworkRepository {
     required String party,
   }) async {
     try {
-      var data = FormData.fromMap({
-        "count": count,
-        "cart": cart,
-        "type": type,
-      });
+      var data;
+      if(type == "delete"){
+         data = FormData.fromMap({
+          "count": count,
+          "cart": cart,
+          "type": type,
+        });
+      }else{
+         data = FormData.fromMap({
+          "count": count,
+          "cart": cart,
+          "type": type,
+        });
+      }
+
       log("dataposted $data");
       final apiResponse = await NetworkDioHttp.putDioHttpMethod(
         url:
