@@ -9,7 +9,8 @@ class TabTitle extends StatelessWidget {
   final double padding;
 
   const TabTitle(
-      {super.key, this.title,
+      {super.key,
+      this.title,
       this.seeAll,
       this.actionText = 'See All',
       this.padding = 16});
@@ -18,6 +19,7 @@ class TabTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(
+        vertical: 0,
         horizontal: getProportionateScreenWidth(
           padding,
         ),
@@ -27,7 +29,10 @@ class TabTitle extends StatelessWidget {
           Expanded(
             child: Text(
               title!,
-              style: Theme.of(context).textTheme.headlineSmall!.copyWith(fontSize: 15),
+              style: Theme.of(context)
+                  .textTheme
+                  .headlineSmall!
+                  .copyWith(fontSize: 15),
             ),
           ),
           TextButton(

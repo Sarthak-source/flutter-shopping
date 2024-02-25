@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sutra_ecommerce/controllers/add_to_cart_controller.dart';
 import 'package:sutra_ecommerce/controllers/get_deals_controller.dart';
 import 'package:sutra_ecommerce/controllers/user_controller.dart';
 import 'package:sutra_ecommerce/screens/home_screen/categories.dart';
@@ -27,7 +28,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final UserController userController = Get.put(UserController());
+  final AddToCartController addToCardController = Get.find();
   @override
   void initState() {
     super.initState();
@@ -47,6 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Hero(
               tag: 'search',
               child: Container(
+                height: 50,
                 decoration: BoxDecoration(
                   border: Border.all(
                     color: Colors.grey, // Border color
@@ -109,7 +111,16 @@ class _HomeScreenState extends State<HomeScreen> {
             },
           ),
         ),
-        SliverToBoxAdapter(child: PopularDealTab()),
+        const SliverToBoxAdapter(child: PopularDealTab()),
+        (addToCardController.productCount.value > 0)
+            ? const SliverToBoxAdapter(
+                child: SizedBox(
+                height: 140,
+              ))
+            : const SliverToBoxAdapter(
+                child: SizedBox(
+                height: 0,
+              ))
       ],
     );
   }
@@ -135,7 +146,7 @@ class DealsTab extends StatelessWidget {
         ),
         GetBuilder<DealsController>(builder: (context) {
           return SizedBox(
-            height: 160,
+            height: 150,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount:
@@ -207,7 +218,7 @@ class HomeAppBar extends StatelessWidget {
                 children: [
                   IconButton(
                       onPressed: () {},
-                      icon:  const Icon(
+                      icon: const Icon(
                         Icons.location_on_outlined,
                         color: kPrimaryBlue,
                       )),

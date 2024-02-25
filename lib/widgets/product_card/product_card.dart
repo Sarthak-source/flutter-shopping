@@ -33,7 +33,6 @@ class _ProductCardState extends State<ProductCard> {
       0.obs; // Initialize quantity as observable RxInt with value 0
 
   @override
-  @override
   void initState() {
     super.initState();
 
