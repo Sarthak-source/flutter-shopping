@@ -4,6 +4,8 @@ import 'package:sutra_ecommerce/controllers/mycart_controller.dart';
 import 'package:sutra_ecommerce/screens/tab_screen/tab_screen.dart';
 import 'package:sutra_ecommerce/utils/screen_utils.dart';
 
+import '../../screens/cart/cart_screen.dart';
+
 class GoToCart extends StatefulWidget {
   const GoToCart({super.key});
 
@@ -73,7 +75,7 @@ class _GoToCartState extends State<GoToCart> {
                       ),
                     ),
                     onPressed: () {
-                      Navigator.of(context).pushNamed(TabScreen.routeName);
+                      Navigator.of(context).pushNamed(CartScreen.routeName);
                     },
                     child: const Text('View cart'),
                   ),

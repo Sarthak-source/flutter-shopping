@@ -4,6 +4,7 @@ import 'package:sutra_ecommerce/screens/login/verify_otp.dart';
 import 'package:sutra_ecommerce/screens/product_detail.dart/product_detail.dart';
 
 import '../screens/add_address/add_address_screen.dart';
+import '../screens/cart/cart_screen.dart';
 import '../screens/category_screen.dart';
 import '../screens/checkout_screen.dart';
 import '../screens/fruit_screen.dart';
@@ -49,6 +50,7 @@ List<GetPage> pages = [
   GetPage(name: MyProfileScreen.routeName, page: () =>  MyProfileScreen()),
   GetPage(name: OtpScreen.routeName, page: () => const OtpScreen()),
   GetPage(name: MyOrders.routeName, page: () => const MyOrders()),
+  GetPage(name: CartScreen.routeName, page: () => CartScreen()),
 
  // MyOrders.routeName: (ctx) => const MyOrders(),
 

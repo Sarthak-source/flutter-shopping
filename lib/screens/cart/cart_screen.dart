@@ -12,6 +12,7 @@ import '../../widgets/order_card.dart';
 import '../add_address/add_address_screen.dart';
 
 class CartScreen extends StatelessWidget {
+  static const routeName = '/cartscreen';
   CartScreen({super.key});
   final MyCartController controller = Get.put(MyCartController());
   final AddToCartController addToCartController =
@@ -23,185 +24,194 @@ class CartScreen extends StatelessWidget {
       setPDCount(controller.mycartItems,addToCartController);
     });*/
 
-    return GetBuilder<MyCartController>(builder: (controller) {
-      return Obx(
-        () => Center(
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: getProportionateScreenWidth(16.0),
-            ),
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 18,
+    return Scaffold(
+      body: SafeArea(
+        child: GetBuilder<MyCartController>(builder: (controller) {
+          return Obx(
+            () => Center(
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: getProportionateScreenWidth(16.0),
                 ),
-                Row(
+                child: Column(
                   children: [
-                    Text(
-                      'My Cart',
-                      style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                            fontWeight: FontWeight.w700,
-                            fontSize: getProportionateScreenWidth(
-                              20,
-                            ),
-                          ),
+                    const SizedBox(
+                      height: 18,
                     ),
-                    const Spacer(),
-                    const Icon(
-                      Icons.search,
-                      color: kPrimaryBlue,
+                    Row(
+                      children: [
+                        Text(
+                          'My Cart',
+                          style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                                fontWeight: FontWeight.w700,
+                                fontSize: getProportionateScreenWidth(
+                                  20,
+                                ),
+                              ),
+                        ),
+                        const Spacer(),
+                        const Icon(
+                          Icons.search,
+                          color: kPrimaryBlue,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: getProportionateScreenHeight(16.0),
+                    ),
+                    Obx(
+                      () => Expanded(
+                        child: SingleChildScrollView(
+                          child: controller.mycartItems.isEmpty
+                              ? Container(
+                            height: Get.height/2+150,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SizedBox(
+                                        height: getProportionateScreenHeight(16.0),
+                                      ),
+                                      Lottie.asset('assets/lotties/cart.json',
+                                          repeat: false,
+                                          frameRate: FrameRate(30),
+                                          height: getProportionateScreenHeight(250.0),
+                                          width: getProportionateScreenWidth(250.0)),
+                                      SizedBox(
+                                        height: getProportionateScreenHeight(10.0),
+                                      ),
+                                      Text(
+                                        'Oops! your cart is empty',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displaySmall
+                                            ?.copyWith(
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                      ),
+                                    ],
+                                  ),
+                              )
+                              : ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount: controller.mycartItems.length,
+                                  itemBuilder: (context, index) {
+                                    setPDCount(controller.mycartItems,addToCartController);
+                                    return OrderCard(
+                                      onPlusinCard: (n) {
+                                        print('add qty $n');
+        
+                                        addToCartController.updateCart(
+                                            n,
+                                            controller.mycartItems[index]["id"],
+                                            "update",
+                                            "1");
+                                      },
+                                      onMinusinCard: (n) {
+        
+                                        if(n==0){
+                                          addToCartController.updateCart(
+                                              n,
+                                              controller.mycartItems[index]["id"],
+                                              "delete",
+                                              "1");
+                                        }else{
+                                          print('remove qty $n');
+                                          addToCartController.updateCart(
+                                              n,
+                                              controller.mycartItems[index]["id"],
+                                              "update",
+                                              "1");
+                                        }
+        
+                                      },
+                                      onAddItem: (n) {
+                                        log('add qty $n');
+                                        addToCartController.updateCart(
+                                            n,
+                                            controller.mycartItems[index]["id"],
+                                            "update",
+                                            "1");
+                                      },
+                                      onDeleteItem: (n) {
+                                        log('delete qty $n');
+                                        addToCartController.updateCart(
+                                            n,
+                                            controller.mycartItems[index]["id"],
+                                            "delete",
+                                            "1");
+                                      },
+                                      mycartItem: controller.mycartItems[index],
+                                    );
+                                  }),
+                        ),
+                      ),
+                    ),
+                    controller.mycartItems.isEmpty
+                        ? const SizedBox.shrink()
+                        : Row(
+                            children: [
+                              Expanded(
+                                flex: 3,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    RateCardinBuyNow(context, "Total value",
+                                        controller.mycartTotalValue.value),
+                                    RateCardinBuyNow(context, "Total Gst",
+                                        controller.mycartTotalGst.value),
+                                    /* Text(
+                                      controller.mycartTotalGst.value,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineSmall!
+                                          .copyWith(
+                                              color: Colors.grey, fontSize: 14),
+                                    ),*/
+                                    Text(
+                                      "₹ ${controller.mycartTotalAmount.value}",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineLarge!
+                                          .copyWith(fontWeight: FontWeight.w700,
+                                      fontSize: 20),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                flex: 2,
+                                child: ElevatedButton(
+                                  style: ButtonStyle(
+                                    shape: MaterialStateProperty.all(
+                                      const StadiumBorder(),
+                                    ),
+                                    minimumSize: MaterialStateProperty.all(
+                                      Size.fromHeight(
+                                        getProportionateScreenHeight(48),
+                                      ),
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    //Navigator.of(context).pushNamed(AddAddressScreen.routeName);
+                                    Get.toNamed(AddAddressScreen.routeName);
+                                  },
+                                  child: const Text('Buy Now'),
+                                ),
+                              ),
+                            ],
+                          ),
+                    SizedBox(
+                      height: getProportionateScreenHeight(24.0),
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: getProportionateScreenHeight(16.0),
-                ),
-                Obx(
-                  () => Expanded(
-                    child: SingleChildScrollView(
-                      child: controller.mycartItems.isEmpty
-                          ? Column(
-                              children: [
-                                SizedBox(
-                                  height: getProportionateScreenHeight(16.0),
-                                ),
-                                Lottie.asset('assets/lotties/cart.json',
-                                    repeat: false,
-                                    frameRate: FrameRate(30),
-                                    height: getProportionateScreenHeight(250.0),
-                                    width: getProportionateScreenWidth(250.0)),
-                                SizedBox(
-                                  height: getProportionateScreenHeight(10.0),
-                                ),
-                                Text(
-                                  'Oops! your cart is empty',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .displaySmall
-                                      ?.copyWith(
-                                        fontWeight: FontWeight.w700,
-                                      ),
-                                ),
-                              ],
-                            )
-                          : ListView.builder(
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemCount: controller.mycartItems.length,
-                              itemBuilder: (context, index) {
-                                setPDCount(controller.mycartItems,addToCartController);
-                                return OrderCard(
-                                  onPlusinCard: (n) {
-                                    print('add qty $n');
-
-                                    addToCartController.updateCart(
-                                        n,
-                                        controller.mycartItems[index]["id"],
-                                        "update",
-                                        "1");
-                                  },
-                                  onMinusinCard: (n) {
-
-                                    if(n==0){
-                                      addToCartController.updateCart(
-                                          n,
-                                          controller.mycartItems[index]["id"],
-                                          "delete",
-                                          "1");
-                                    }else{
-                                      print('remove qty $n');
-                                      addToCartController.updateCart(
-                                          n,
-                                          controller.mycartItems[index]["id"],
-                                          "update",
-                                          "1");
-                                    }
-
-                                  },
-                                  onAddItem: (n) {
-                                    log('add qty $n');
-                                    addToCartController.updateCart(
-                                        n,
-                                        controller.mycartItems[index]["id"],
-                                        "update",
-                                        "1");
-                                  },
-                                  onDeleteItem: (n) {
-                                    log('delete qty $n');
-                                    addToCartController.updateCart(
-                                        n,
-                                        controller.mycartItems[index]["id"],
-                                        "delete",
-                                        "1");
-                                  },
-                                  mycartItem: controller.mycartItems[index],
-                                );
-                              }),
-                    ),
-                  ),
-                ),
-                controller.mycartItems.isEmpty
-                    ? const SizedBox.shrink()
-                    : Row(
-                        children: [
-                          Expanded(
-                            flex: 3,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                RateCardinBuyNow(context, "Total value",
-                                    controller.mycartTotalValue.value),
-                                RateCardinBuyNow(context, "Total Gst",
-                                    controller.mycartTotalGst.value),
-                                /* Text(
-                                  controller.mycartTotalGst.value,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headlineSmall!
-                                      .copyWith(
-                                          color: Colors.grey, fontSize: 14),
-                                ),*/
-                                Text(
-                                  "₹ ${controller.mycartTotalAmount.value}",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headlineLarge!
-                                      .copyWith(fontWeight: FontWeight.w700),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Expanded(
-                            flex: 2,
-                            child: ElevatedButton(
-                              style: ButtonStyle(
-                                shape: MaterialStateProperty.all(
-                                  const StadiumBorder(),
-                                ),
-                                minimumSize: MaterialStateProperty.all(
-                                  Size.fromHeight(
-                                    getProportionateScreenHeight(48),
-                                  ),
-                                ),
-                              ),
-                              onPressed: () {
-                                //Navigator.of(context).pushNamed(AddAddressScreen.routeName);
-                                Get.toNamed(AddAddressScreen.routeName);
-                              },
-                              child: const Text('Buy Now'),
-                            ),
-                          ),
-                        ],
-                      ),
-                SizedBox(
-                  height: getProportionateScreenHeight(24.0),
-                ),
-              ],
+              ),
             ),
-          ),
-        ),
-      );
-    });
+          );
+        }),
+      ),
+    );
   }
 
   Row RateCardinBuyNow(BuildContext context, String key, String value) {

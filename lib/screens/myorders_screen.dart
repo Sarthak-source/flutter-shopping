@@ -343,7 +343,7 @@ class MyOrderCards extends StatelessWidget {
                       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                       child: Row(
                         children: [
-                           Icon(Icons.location_on_outlined,color: kPrimaryBlue,),
+                           Icon(Icons.location_on_outlined,color: Colors.grey,),
                           const SizedBox(width: 8,),
                           Expanded(
                             flex: 2,

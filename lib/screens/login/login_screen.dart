@@ -9,6 +9,7 @@ import 'package:sutra_ecommerce/screens/signup_screen.dart';
 
 import '../../utils/screen_utils.dart';
 import '../../widgets/custom_text_field.dart';
+import '../../widgets/loading_widgets/loader.dart';
 import '../../widgets/option_button.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -22,8 +23,8 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController phoneNumberController = TextEditingController(text: '');
-  LoginController loginController = LoginController();
-
+  //LoginController loginController = LoginController();
+  final LoginController loginController = Get.put(LoginController());
   bool repeat = false;
   @override
   Widget build(BuildContext context) {
@@ -85,29 +86,31 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     height: getProportionateScreenHeight(30),
                   ),
-                  SizedBox(
-                    width: getProportionateScreenHeight(Get.width),
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        String phoneNumber = phoneNumberController.text;
+                     Obx( ()=>
+                       SizedBox(
+                         width: getProportionateScreenHeight(Get.width),
+                                           child: loginController.isLoading.value?Loader():ElevatedButton(
+                        onPressed: () async {
+                          String phoneNumber = phoneNumberController.text;
 
-                        //Get.toNamed(TabScreen.routeName);
+                          //Get.toNamed(TabScreen.routeName);
 
-                        if (phoneNumber.length < 10) {
-                          // Handle the case where the phone number is too short
-                          Fluttertoast.showToast(
-                            msg: 'Enter a proper number',
-                            backgroundColor: Colors.red,
-                          );
-                        } else {
-                          log(phoneNumber);
-                          loginController.userExists(phoneNumber);
-                          loginController.update();
-                        }
-                      },
-                      child: const Text('Continue'),
-                    ),
-                  ),
+                          if (phoneNumber.length < 10) {
+                            // Handle the case where the phone number is too shrort
+                            Fluttertoast.showToast(
+                              msg: 'Enter a proper number',
+                              backgroundColor: Colors.red,
+                            );
+                          } else {
+                            log(phoneNumber);
+                            loginController.userExists(phoneNumber);
+                            loginController.update();
+                          }
+                        },
+                        child: const Text('Continue'),
+                                           ),
+                                         ),
+                     ),
                   const Spacer(
                     flex: 4,
                   ),

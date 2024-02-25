@@ -6,6 +6,9 @@ import 'package:sutra_ecommerce/screens/login/verify_otp.dart';
 import 'package:sutra_ecommerce/utils/network_repository.dart';
 
 class LoginController extends GetxController {
+  var isLoading = false.obs;
+  var hasError = false.obs;
+  var errorMsg = ''.obs;
   @override
   void onInit() {
     // Get called when controller is created
@@ -14,6 +17,7 @@ class LoginController extends GetxController {
 
   void userExists(String phoneNumberTyped) async {
     try {
+      isLoading.value =true;
       Map<String, dynamic> responseData =
           await networkRepository.checkUser(number: phoneNumberTyped);
       log(responseData.toString());
@@ -31,9 +35,11 @@ class LoginController extends GetxController {
         Get.toNamed(OtpScreen.routeName,
             arguments: OtpScreenArguments(phoneNumber: phoneNumberTyped));
       }
-    } catch (error) {
-      log('Error during user check: $error');
-      // Handle the error, show a message, or take appropriate action
+    } catch (e) {
+      errorMsg.value = e.toString();
+      hasError.value = true;
+    } finally {
+      isLoading.value = false;
     }
   }
 }

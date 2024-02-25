@@ -100,12 +100,12 @@ class _OrderCardState extends State<OrderCard> {
                           });
 
                         },
-                        child: const Icon(Icons.delete,color: kPrimaryBlue,))
+                        child: const Icon(Icons.delete,color: Colors.grey,))
                   ],
                 ),
-              rateCard("Total price ",widget.mycartItem["product"]["price"].toString()),
-              rateCard("Total gst ",widget.mycartItem["total_value"].toString()),
-              rateCard("Total value ",widget.mycartItem["total_gst"].toString()),
+              rateCard("price ",widget.mycartItem["product"]["price"].toString()),
+              rateCard("gst ",widget.mycartItem["total_value"].toString()),
+              rateCard("value ",widget.mycartItem["total_gst"].toString()),
 
             /*    Text(
                   widget.mycartItem["total_value"].toString(),
