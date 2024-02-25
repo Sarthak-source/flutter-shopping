@@ -37,6 +37,7 @@ class MyCartController extends GetxController {
     mycartTotalAmount = RxString(totalAmount.toString());
 
     mycartItems.assignAll(newCartItems);
+    popController.fetchPopularDeals();
   /*  for(var i =0; i<newCartItems.length ; i++){
       if(newCartItems.isNotEmpty){
         addToCardController.productCount.value=newCartItems[i]['party_cart_count'].toInt();
