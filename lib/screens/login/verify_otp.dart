@@ -64,7 +64,9 @@ class _OtpScreenState extends State<OtpScreen> {
 
     if (otpController.text.isNotEmpty) {
       try {
-        Get.toNamed(TabScreen.routeName);
+      //  Get.toNamed(TabScreen.routeName);
+
+        Get.offNamed(TabScreen.routeName);
         // var value = await networkRepository.verifyLogin(
         //   number: args.phoneNumber,
         //   otp: otpController.text,

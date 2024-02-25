@@ -32,8 +32,8 @@ class LoginController extends GetxController {
         var data = await networkRepository.userLogin(number: phoneNumberTyped);
         log(data.toString());
 
-        Get.toNamed(OtpScreen.routeName,
-            arguments: OtpScreenArguments(phoneNumber: phoneNumberTyped));
+        //Get.toNamed(OtpScreen.routeName,arguments: OtpScreenArguments(phoneNumber: phoneNumberTyped));
+        Get.offNamed(OtpScreen.routeName,arguments: OtpScreenArguments(phoneNumber: phoneNumberTyped));
       }
     } catch (e) {
       errorMsg.value = e.toString();

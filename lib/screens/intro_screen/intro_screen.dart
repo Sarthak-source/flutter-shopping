@@ -105,7 +105,8 @@ class TextView extends StatelessWidget {
             const Spacer(),
             ElevatedButton(
               onPressed: () {
-                Get.toNamed(LoginScreen.routeName);
+                //Get.toNamed(LoginScreen.routeName);
+                Get.offNamed(LoginScreen.routeName);
               },
               child: const Text(
                 'Get Started',

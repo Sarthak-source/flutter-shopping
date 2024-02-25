@@ -129,7 +129,8 @@ class IntroWidget extends StatelessWidget {
             const Spacer(),
             ElevatedButton(
               onPressed: () {
-                Get.toNamed(IntroScreen.routeName);
+               // Get.toNamed(IntroScreen.routeName);
+                Get.offNamed(IntroScreen.routeName);
               },
               child: const Text('Get Started'),
             ),
