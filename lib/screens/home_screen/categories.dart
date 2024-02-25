@@ -25,8 +25,11 @@ class CategoryTab extends StatelessWidget {
             children: [
               Expanded(
                 child: Text(
-                  'Category',
-                  style: Theme.of(context).textTheme.headlineSmall!.copyWith(fontSize: 16),
+                  '',
+                  style: Theme.of(context)
+                      .textTheme
+                      .headlineSmall!
+                      .copyWith(fontSize: 16),
                 ),
               ),
               TextButton(
@@ -77,13 +80,14 @@ class CategoryTab extends StatelessWidget {
                             PoductsListScreen.routeName,
                             arguments: PoductsListArguments(
                               title: controller.categories[index]['name'],
-                              categoryId: controller.categories[index]['id'].toString(),
+                              categoryId:
+                                  controller.categories[index]['id'].toString(),
                             ),
                           );
                         },
                         child: CategoryCard(
                           from: "homecategory",
-                         category: Category(
+                          category: Category(
                             controller.categories[index]['name'],
                             controller.categories[index]['categories_img'],
                             Colors.amber,
@@ -96,7 +100,7 @@ class CategoryTab extends StatelessWidget {
               }
             },
           ),
-          Divider()
+          const Divider()
         ],
       ),
     );
