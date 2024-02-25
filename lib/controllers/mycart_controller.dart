@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:sutra_ecommerce/utils/network_repository.dart';
 
+import '../config/common.dart';
 import '../screens/order_success_screen/order_success_screen.dart';
 import 'add_to_cart_controller.dart';
 
@@ -47,7 +48,9 @@ class MyCartController extends GetxController {
   void getMyCart() async {
     try {
       // Assuming NetworkRepository.getCategories returns a Future<dynamic>
-      var responseData = await NetworkRepository.getMyCart(party: '1');
+      Map storedUserData=box!.get('userData');
+      print('userdata in mycart ${ storedUserData['party']['id'].toString()}');
+      var responseData = await NetworkRepository.getMyCart(party: storedUserData['party']['id'].toString());
       List myCartData = responseData['body']['cart_list'];
       log(myCartData.toString());
       dynamic totalValue = responseData['body']['total_value'];
@@ -81,8 +84,10 @@ class MyCartController extends GetxController {
   void createOrderApi(party, shift, deliverydate, address) async {
     try {
       isLoading.value = true;
+      Map storedUserData=box!.get('userData');
+
       var responseData = await NetworkRepository.CreateOrderApi(
-          party: "1", shift: "1", deliverydate: deliverydate, address: address);
+          party: storedUserData['party']['id'].toString(), shift: "1", deliverydate: deliverydate, address: address);
       log('CreateOrderApiresponseData $responseData');
 
       List addToCartData = responseData['body'];

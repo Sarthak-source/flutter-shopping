@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sutra_ecommerce/controllers/add_address_controller.dart';
 import 'package:sutra_ecommerce/screens/add_address/post_address.dart';
@@ -91,7 +92,28 @@ class AddAddressScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-
+                controller.myAddressItems.isEmpty?Expanded(
+                  child: Container(
+                    width: Get.width,
+                    //color: Colors.red,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Lottie.asset('assets/lotties/no-data.json',
+                            repeat: false,
+                            height: getProportionateScreenHeight(250.0),
+                            width: getProportionateScreenWidth(250.0)),
+                        SizedBox(height: getProportionateScreenHeight(10.0)),
+                        const Text(
+                          'No Address Found',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600, color: kPrimaryBlue),
+                        ),
+                      ],
+                    ),
+                  ),
+                ):
                 Expanded(
                   child: SingleChildScrollView(
                     child:  ListView.builder(

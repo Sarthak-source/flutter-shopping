@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
+import '../config/common.dart';
 import '../utils/network_repository.dart';
 
 
@@ -32,10 +33,10 @@ class MyOrderController extends GetxController{
   void getMyOrders(String status) async {
     try {
       // Assuming NetworkRepository.getCategories returns a Future<dynamic>
+      Map storedUserData=box!.get('userData');
 
 
-
-      var responseData = await NetworkRepository.getMyOrders(party: '1',
+      var responseData = await NetworkRepository.getMyOrders(party: storedUserData['party']['id'].toString(),
       order_status: status,order_date: "",delivery_required_on: "",order_prifix: "");
       List myorders = responseData['body']['results'];
       myOrderList.assignAll(myorders);

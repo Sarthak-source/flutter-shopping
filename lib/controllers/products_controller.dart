@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:sutra_ecommerce/utils/network_repository.dart';
 
+import '../config/common.dart';
+
 class ProductController extends GetxController {
   final String categoryId;
   String searchTerm = ''; // Change RxString to regular String
@@ -22,11 +24,12 @@ class ProductController extends GetxController {
   Future<dynamic> fetchProducts() async {
     try {
       isLoading.value = true;
+      Map storedUserData=box!.get('userData');
       var responseData = await NetworkRepository.getProducts(
         category: categoryId.toString(),
         status: 'Active',
         search: searchTerm,
-        partyId: '1',
+        partyId: storedUserData['party']['id'].toString(),
         page: '1',
       );
       List productData = responseData['body']['results'];

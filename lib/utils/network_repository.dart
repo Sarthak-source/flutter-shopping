@@ -454,8 +454,9 @@ class NetworkRepository {
     required String gst,
   }) async {
     try {
+      Map storedUserData=box!.get('userData');
       var data = FormData.fromMap({
-        "party": "1",
+        "party": storedUserData['party']['id'].toString(),
         "gstin": gst,
         "address_line1": add1,
         "is_active": "yes",

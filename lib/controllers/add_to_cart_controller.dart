@@ -6,6 +6,8 @@ import 'package:sutra_ecommerce/controllers/popular_deals.dart';
 import 'package:sutra_ecommerce/controllers/user_controller.dart';
 import 'package:sutra_ecommerce/utils/network_repository.dart';
 
+import '../config/common.dart';
+
 class AddToCartController extends GetxController {
   //final UserController userController = Get.put(UserController());
   final MyCartController cartController = Get.find();
@@ -50,10 +52,13 @@ class AddToCartController extends GetxController {
 
   void addToCart(count, product, party) async {
     try {
+      Map storedUserData=box!.get('userData');
+
+
       var responseData = await NetworkRepository.addToCart(
           count: count.toString(),
           product: product.toString(),
-          party: party.toString());
+          party: storedUserData['party']['id'].toString());
       log('responseData $responseData');
 
       var addToCartData = responseData;
@@ -77,11 +82,12 @@ class AddToCartController extends GetxController {
 
   void updateCart(count, cart, type, party) async {
     try {
+      Map storedUserData=box!.get('userData');
       var responseData = await NetworkRepository.UpdateCart(
           count: count.toString(),
           cart: cart.toString(),
           type: type.toString(),
-          party: party.toString());
+          party: storedUserData['party']['id'].toString());
       log('responseData $responseData');
 
       //var addToCartData = responseData;

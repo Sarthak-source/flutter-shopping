@@ -5,11 +5,15 @@ import 'package:get/get.dart';
 import 'package:sutra_ecommerce/screens/add_address/add_address_screen.dart';
 import 'package:sutra_ecommerce/utils/network_repository.dart';
 
+import '../config/common.dart';
+import '../screens/add_address/post_address.dart';
+
 class AddAddressController extends GetxController {
   var isLoading = true.obs;
   var hasError = false.obs;
   var errorMsg = ''.obs;
   var myAddressItems = [].obs;
+  RxString? NewAddres= ''.obs;
   RxInt slectedIndex =0.obs;
 
   @override
@@ -21,7 +25,9 @@ class AddAddressController extends GetxController {
   void getMyAddress() async {
     try {
       // Assuming NetworkRepository.getCategories returns a Future<dynamic>
-      var responseData = await NetworkRepository.getMyAddress(party: '1');
+      Map storedUserData=box!.get('userData');
+
+      var responseData = await NetworkRepository.getMyAddress(party: storedUserData['party']['id'].toString());
       List myAddressData = responseData['body']['results'];
       myAddressItems.assignAll(myAddressData);
       update();
@@ -36,6 +42,7 @@ class AddAddressController extends GetxController {
 
   void addNewAddress(String add1,String add2,String add3,String pincode,String gst) async {
     try {
+      isLoading.value = true;
       var responseData = await NetworkRepository.addNewAddress(
           add1: add1.toString(),
           add2: add2.toString(),
@@ -46,11 +53,15 @@ class AddAddressController extends GetxController {
       log('addNewAddress responseData $responseData');
       String jsonString = jsonEncode(responseData['body']);
       Map<String, dynamic> data = jsonDecode(jsonString);
-      String addNewAddress = data['address_line1'];
-      log("address from myorderdetail $addNewAddress");
 
+
+      String? addNewAddress = data['address_line1'];
+      log("address from myorderdetail $addNewAddress");
       if(addNewAddress != null && addNewAddress != ""){
-        Get.toNamed(AddAddressScreen.routeName);
+        getMyAddress();
+        NewAddres?.value = data['address_line1'];
+
+
       }
 
       var addToCartData = responseData;
