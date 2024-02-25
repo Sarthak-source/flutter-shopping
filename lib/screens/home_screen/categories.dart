@@ -21,27 +21,24 @@ class CategoryTab extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Container(
-           // color: Colors.red,
-            child: Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    'Category',
-                    style: Theme.of(context).textTheme.headlineSmall!.copyWith(fontSize: 16),
-                  ),
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  'Category',
+                  style: Theme.of(context).textTheme.headlineSmall!.copyWith(fontSize: 16),
                 ),
-                TextButton(
-                  onPressed: () {
-                    Get.toNamed(CategoryScreen.routeName);
-                  },
-                  child: const Text(
-                    'See All',
-                    style: TextStyle(fontSize: 14),
-                  ),
-                )
-              ],
-            ),
+              ),
+              TextButton(
+                onPressed: () {
+                  Get.toNamed(CategoryScreen.routeName);
+                },
+                child: const Text(
+                  'See All',
+                  style: TextStyle(fontSize: 14),
+                ),
+              )
+            ],
           ),
           GetBuilder<CategoriesController>(
             builder: (controller) {
@@ -68,7 +65,7 @@ class CategoryTab extends StatelessWidget {
                 return Text('Error: ${controller.errorMsg.value}');
               } else {
                 return SizedBox(
-                  height: 85,
+                  height: 90,
                   child: ListView.builder(
                     clipBehavior: Clip.none,
                     scrollDirection: Axis.horizontal,

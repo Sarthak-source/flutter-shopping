@@ -20,7 +20,7 @@ class CategoryCard extends StatelessWidget {
           fit: BoxFit.fill,
           height: from == "allcategories"?getProportionateScreenHeight(80):getProportionateScreenHeight(40),
         ),
-        from == "allcategories"? const Spacer() : SizedBox.shrink(),
+        from == "allcategories"? const Spacer() : const SizedBox.shrink(),
         Container(
           width: from == "allcategories"?80:65,
           height: 40,

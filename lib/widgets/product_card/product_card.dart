@@ -78,21 +78,25 @@ class _ProductCardState extends State<ProductCard> {
             ),
             decoration: BoxDecoration(
               color: Colors.white,
+              border: Border.all(
+                    color: Colors.grey, // Border color
+                    width: 1.0, // Border width
+                  ),
               borderRadius: BorderRadius.circular(
                 getProportionateScreenWidth(
                   8,
                 ),
               ),
-              boxShadow: [
-                BoxShadow(
-                  color: kShadowColor,
-                  offset: Offset(
-                    getProportionateScreenWidth(3),
-                    getProportionateScreenWidth(3),
-                  ),
-                  blurRadius: 1,
-                )
-              ],
+              // boxShadow: [
+              //   BoxShadow(
+              //     color: kShadowColor,
+              //     offset: Offset(
+              //       getProportionateScreenWidth(3),
+              //       getProportionateScreenWidth(3),
+              //     ),
+              //     blurRadius: 1,
+              //   )
+              // ],
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -104,7 +108,8 @@ class _ProductCardState extends State<ProductCard> {
                     image: DecorationImage(
                       image: NetworkImage(
                           widget.product?['product_img'] ?? "Not given"),
-                      fit: BoxFit.cover, // Adjust the fit based on your needs
+                      fit: BoxFit.cover, 
+                      scale: 0.4,// Adjust the fit based on your needs
                     ),
                     borderRadius: BorderRadius.circular(
                       getProportionateScreenWidth(10.0),

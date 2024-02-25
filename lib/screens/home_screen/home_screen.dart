@@ -28,18 +28,15 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-    final UserController userController = Get.put(UserController());
-    @override
+  final UserController userController = Get.put(UserController());
+  @override
   void initState() {
-
     super.initState();
     print('home screen:::');
-   // userController.getUserData();
+    // userController.getUserData();
   }
 
-  
   @override
-  
   Widget build(BuildContext context) {
     ScreenUtils().init(context);
 
@@ -53,41 +50,50 @@ class _HomeScreenState extends State<HomeScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
             child: Hero(
               tag: 'search',
-              child: SearchBar(
-                elevation: MaterialStateProperty.resolveWith<double?>(
-                  (Set<MaterialState> states) {
-                    // Define the elevation based on different states
-                    if (states.contains(MaterialState.pressed)) {
-                      return 5.0; // Elevation when pressed
-                    }
-                    return 2.0; // Default elevation
-                  },
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.grey, // Border color
+                    width: 1.0, // Border width
+                  ),
+                  borderRadius: BorderRadius.circular(50.0), // Border radius
                 ),
-                hintText: 'Search...',
-                hintStyle: MaterialStateProperty.resolveWith<TextStyle?>(
-                  (Set<MaterialState> states) {
-                    // Define the TextStyle based on different states
-                    if (states.contains(MaterialState.pressed)) {
+                child: SearchBar(
+                  elevation: MaterialStateProperty.resolveWith<double?>(
+                    (Set<MaterialState> states) {
+                      // Define the elevation based on different states
+                      if (states.contains(MaterialState.pressed)) {
+                        return 0.0; // Elevation when pressed
+                      }
+                      return 0.0; // Default elevation
+                    },
+                  ),
+                  hintText: 'Search...',
+                  hintStyle: MaterialStateProperty.resolveWith<TextStyle?>(
+                    (Set<MaterialState> states) {
+                      // Define the TextStyle based on different states
+                      if (states.contains(MaterialState.pressed)) {
+                        return const TextStyle(
+                          color:
+                              Colors.blue, // Change the text color when pressed
+                          fontStyle: FontStyle
+                              .italic, // Change the font style when pressed
+                          fontSize: 16, // Change the font size when pressed
+                          // Add any other TextStyle properties you want to customize
+                        );
+                      }
                       return const TextStyle(
-                        color:
-                            Colors.blue, // Change the text color when pressed
-                        fontStyle: FontStyle
-                            .italic, // Change the font style when pressed
-                        fontSize: 16, // Change the font size when pressed
+                        color: Colors.grey, // Default text color
+                        fontStyle: FontStyle.normal, // Default font style
+                        fontSize: 16, // Default font size
                         // Add any other TextStyle properties you want to customize
                       );
-                    }
-                    return const TextStyle(
-                      color: Colors.grey, // Default text color
-                      fontStyle: FontStyle.normal, // Default font style
-                      fontSize: 16, // Default font size
-                      // Add any other TextStyle properties you want to customize
-                    );
+                    },
+                  ),
+                  onTap: () {
+                    Get.toNamed(SearchScreen.routeName);
                   },
                 ),
-                onTap: () {
-                  Get.toNamed(SearchScreen.routeName);
-                },
               ),
             ),
           ),
@@ -104,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
             },
           ),
         ),
-         PopularDealTab(),
+        SliverToBoxAdapter(child: PopularDealTab()),
       ],
     );
   }
@@ -145,7 +151,8 @@ class DealsTab extends StatelessWidget {
                       PoductsListScreen.routeName,
                       arguments: PoductsListArguments(
                         title: controller.deals[index]['heading'],
-                        categoryId: controller.deals[index]['category'].toString(),
+                        categoryId:
+                            controller.deals[index]['category'].toString(),
                       ),
                     );
                   },
@@ -184,60 +191,62 @@ class HomeAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-         () {
-          return Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: getProportionateScreenWidth(
-                    16,
-                  ),
-                ),
-                child: InkWell(
-                  onTap: () {
-                    Get.toNamed(MapScreen.routeName);
-                  },
-                  child: Row(
-                    children: [
-                      IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            CupertinoIcons.location_fill,
-                            color: kPrimaryBlue,
-                          )),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            //Text(userController.user.toString()),
-                            Text(
-  userController.user['party']?['address']?['address_line1'] ?? 'Loading...',
-  style: Theme.of(context)
-      .textTheme
-      .headlineMedium!
-      .copyWith(
-        fontWeight: FontWeight.w700,
-      ),
-),
-Text(
-  userController.user['party']?['address']?['address_line2'] ?? '',
-  style: TextStyle(
-    color: kTextColorAccent,
-    fontSize: getProportionateScreenWidth(12),
-  ),
-),
-
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+    return Obx(() {
+      return Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: getProportionateScreenWidth(
+                16,
               ),
-            ],
-          );
-        });
+            ),
+            child: InkWell(
+              onTap: () {
+                Get.toNamed(MapScreen.routeName);
+              },
+              child: Row(
+                children: [
+                  IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        CupertinoIcons.location_fill,
+                        color: kPrimaryBlue,
+                      )),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        //Text(userController.user.toString()),
+                        Text(
+                          userController.user['party']?['address']
+                                  ?['address_line1'] ??
+                              'Loading...',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineMedium!
+                              .copyWith(
+                                fontWeight: FontWeight.w700,
+                              ),
+                        ),
+                        Text(
+                          userController.user['party']?['address']
+                                  ?['address_line2'] ??
+                              '',
+                          style: TextStyle(
+                            color: kTextColorAccent,
+                            fontSize: getProportionateScreenWidth(12),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      );
+    });
   }
 }
     
