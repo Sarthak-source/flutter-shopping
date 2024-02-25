@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:get/get.dart';
+import 'package:sutra_ecommerce/controllers/popular_deals.dart';
 import 'package:sutra_ecommerce/utils/network_repository.dart';
 
 import '../config/common.dart';
@@ -9,7 +10,7 @@ import 'add_to_cart_controller.dart';
 
 class MyCartController extends GetxController {
   // AddToCartController addToCardController =Get.find();
-
+  final PopularDealController popController = Get.find();
   var isLoading = true.obs;
   var hasError = false.obs;
   var errorMsg = ''.obs;
@@ -95,6 +96,7 @@ class MyCartController extends GetxController {
       update();
       if (myOrderItems.isNotEmpty) {
         getMyCart();
+        popController.fetchPopularDeals();
         Get.toNamed(OrderSuccessScreen.routeName);
       }
 

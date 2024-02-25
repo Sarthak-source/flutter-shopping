@@ -8,6 +8,9 @@ import 'package:sutra_ecommerce/screens/product_grid_screen/produts_grid_screen.
 import 'package:sutra_ecommerce/utils/screen_utils.dart';
 import 'package:sutra_ecommerce/widgets/category_card/category_card.dart';
 
+import '../../constants/colors.dart';
+import '../../widgets/tab_title.dart';
+
 class CategoryTab extends StatelessWidget {
   final CategoriesController controller = Get.put(CategoriesController());
 
@@ -17,91 +20,104 @@ class CategoryTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(
-        horizontal: getProportionateScreenWidth(16.0),
+        horizontal: getProportionateScreenWidth(0),
       ),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Expanded(
-                child: Text(
-                  '',
-                  style: Theme.of(context)
-                      .textTheme
-                      .headlineSmall!
-                      .copyWith(fontSize: 16),
-                ),
-              ),
-              TextButton(
-                onPressed: () {
+      child: Container(
+       // color: Colors.red,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            TabTitle(
+                title: "",
+                seeAll: () {
                   Get.toNamed(CategoryScreen.routeName);
-                },
-                child: const Text(
-                  'See All',
-                  style: TextStyle(fontSize: 14),
+                }),
+
+          /*  Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Text(
+                    '',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineSmall!
+                        .copyWith(fontSize: 16),
+                  ),
                 ),
-              )
-            ],
-          ),
-          GetBuilder<CategoriesController>(
-            builder: (controller) {
-              if (controller.isLoading.value) {
-                return Shimmer.fromColors(
-                  baseColor: Colors.grey[300]!,
-                  highlightColor: Colors.grey[100]!,
-                  child: SizedBox(
-                    height: 140,
+                GestureDetector(
+                  onTap: (){
+                    Get.toNamed(CategoryScreen.routeName);
+                  },
+                  child: Text(
+                      'See All',
+                    style: const TextStyle(fontSize: 12,color: kPrimaryBlue),
+                  ),
+                ),
+        SizedBox(width: 16,)
+              ],
+            ),*/
+            GetBuilder<CategoriesController>(
+              builder: (controller) {
+                if (controller.isLoading.value) {
+                  return Shimmer.fromColors(
+                    baseColor: Colors.grey[300]!,
+                    highlightColor: Colors.grey[100]!,
+                    child: SizedBox(
+                      height: 140,
+                      child: ListView.builder(
+                        clipBehavior: Clip.none,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: 5, // Use a placeholder count
+                        itemBuilder: (context, index) {
+                          return const Padding(
+                            padding: EdgeInsets.only(right: 12.0),
+                            child: CategoryCardPlaceholder(),
+                          );
+                        },
+                      ),
+                    ),
+                  );
+                }
+                else if (controller.hasError.value) {
+                  return Text('Error: ${controller.errorMsg.value}');
+                } else {
+                  return Container(
+                    height: 85,
                     child: ListView.builder(
                       clipBehavior: Clip.none,
                       scrollDirection: Axis.horizontal,
-                      itemCount: 5, // Use a placeholder count
+                      itemCount: controller.categories.length,
                       itemBuilder: (context, index) {
-                        return const Padding(
-                          padding: EdgeInsets.only(right: 12.0),
-                          child: CategoryCardPlaceholder(),
+                        return InkWell(
+                          onTap: () {
+                            Get.toNamed(
+                              PoductsListScreen.routeName,
+                              arguments: PoductsListArguments(
+                                title: controller.categories[index]['name'],
+                                categoryId:
+                                    controller.categories[index]['id'].toString(),
+                              ),
+                            );
+                          },
+                          child: CategoryCard(
+                            from: "homecategory",
+                            category: Category(
+                              controller.categories[index]['name'],
+                              controller.categories[index]['categories_img'],
+                              Colors.amber,
+                            ),
+                          ),
                         );
                       },
                     ),
-                  ),
-                );
-              } else if (controller.hasError.value) {
-                return Text('Error: ${controller.errorMsg.value}');
-              } else {
-                return SizedBox(
-                  height: 90,
-                  child: ListView.builder(
-                    clipBehavior: Clip.none,
-                    scrollDirection: Axis.horizontal,
-                    itemCount: controller.categories.length,
-                    itemBuilder: (context, index) {
-                      return InkWell(
-                        onTap: () {
-                          Get.toNamed(
-                            PoductsListScreen.routeName,
-                            arguments: PoductsListArguments(
-                              title: controller.categories[index]['name'],
-                              categoryId:
-                                  controller.categories[index]['id'].toString(),
-                            ),
-                          );
-                        },
-                        child: CategoryCard(
-                          from: "homecategory",
-                          category: Category(
-                            controller.categories[index]['name'],
-                            controller.categories[index]['categories_img'],
-                            Colors.amber,
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                );
-              }
-            },
-          ),
-          const Divider()
-        ],
+                  );
+                }
+              },
+            ),
+
+          ],
+        ),
       ),
     );
   }

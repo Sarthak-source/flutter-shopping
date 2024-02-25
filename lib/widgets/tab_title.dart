@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sutra_ecommerce/constants/colors.dart';
 
 import '../utils/screen_utils.dart';
 
@@ -19,14 +20,16 @@ class TabTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(
-        vertical: 0,
+        vertical: 8,
         horizontal: getProportionateScreenWidth(
           padding,
         ),
       ),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
+            //flex: 4,
             child: Text(
               title!,
               style: Theme.of(context)
@@ -35,11 +38,20 @@ class TabTitle extends StatelessWidget {
                   .copyWith(fontSize: 15),
             ),
           ),
-          TextButton(
-            onPressed: seeAll,
-            child: Text(
-              actionText,
-              style: const TextStyle(fontSize: 12),
+          Container(
+          //  color: Colors.green,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                GestureDetector(
+                  onTap: seeAll,
+                  child: Text(
+                    actionText,
+                    style: const TextStyle(fontSize: 12,color: kPrimaryBlue),
+                  ),
+                ),
+
+              ],
             ),
           ),
         ],

@@ -54,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     color: Colors.grey, // Border color
                     width: 1.0, // Border width
                   ),
-                  borderRadius: BorderRadius.circular(20.0), // Border radius
+                  borderRadius: BorderRadius.circular(12), // Border radius
                 ),
                 child: SearchBar(
                   elevation: MaterialStateProperty.resolveWith<double?>(
@@ -101,6 +101,9 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         SliverToBoxAdapter(child: CategoryTab()),
         SliverToBoxAdapter(
+          child:     const Divider(),
+        ),
+        SliverToBoxAdapter(
           child: DealsTab(),
         ),
         SliverToBoxAdapter(
@@ -133,64 +136,65 @@ class DealsTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        TabTitle(
-            title: titleCase("special deals for you"),
-            seeAll: () {
-              Get.toNamed(SpecialDealScreen.routeName);
-            }),
-        SizedBox(
-          height: getProportionateScreenHeight(10),
-        ),
-        GetBuilder<DealsController>(builder: (context) {
-          return SizedBox(
-            height: 150,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount:
-                  controller.deals.length, // Set the total number of items
-              itemBuilder: (BuildContext context, int index) {
-                // Return your item widget based on the index
-                //log(controller.deals.toString());
-                return InkWell(
-                  onTap: () {
-                    log('message, ${controller.deals[index]}');
-                    Get.toNamed(
-                      PoductsListScreen.routeName,
-                      arguments: PoductsListArguments(
-                        title: controller.deals[index]['heading'],
-                        categoryId:
-                            controller.deals[index]['category'].toString(),
-                      ),
-                    );
-                  },
-                  child: DealCard(
-                    image: controller.deals[index]['deal_img'],
-                    heading: controller.deals[index]['heading'],
-                  ),
-                ); // Replace with your actual item widget
-              },
-            ),
-          );
+    return Container(
+      //color: Colors.red,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          TabTitle(
+              title: titleCase("special deals for you"),
+              seeAll: () {
+                Get.toNamed(SpecialDealScreen.routeName);
+              }),
+          SizedBox(
+            height: getProportionateScreenHeight(10),
+          ),
+          GetBuilder<DealsController>(builder: (context) {
+            return SizedBox(
+              height: 150,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount:
+                    controller.deals.length, // Set the total number of items
+                itemBuilder: (BuildContext context, int index) {
+                  // Return your item widget based on the index
+                  //log(controller.deals.toString());
+                  return InkWell(
+                    onTap: () {
+                      log('message, ${controller.deals[index]}');
+                      Get.toNamed(
+                        PoductsListScreen.routeName,
+                        arguments: PoductsListArguments(
+                          title: controller.deals[index]['heading'],
+                          categoryId:
+                              controller.deals[index]['category'].toString(),
+                        ),
+                      );
+                    },
+                    child: DealCard(
+                      image: controller.deals[index]['deal_img'],
+                      heading: controller.deals[index]['heading'],
+                    ),
+                  ); // Replace with your actual item widget
+                },
+              ),
+            );
 
-          // SingleChildScrollView(
-          //   scrollDirection: Axis.horizontal,
-          //   child: Row(
-          //     children: [
-          //       DealCard(),
-          //       DealCard(),
-          //     ],
-          //   ),
-          // );
-        }),
-        const SizedBox(height: 12),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.0),
-          child: Divider(),
-        )
-      ],
+            // SingleChildScrollView(
+            //   scrollDirection: Axis.horizontal,
+            //   child: Row(
+            //     children: [
+            //       DealCard(),
+            //       DealCard(),
+            //     ],
+            //   ),
+            // );
+          }),
+          const SizedBox(height: 8),
+          Divider()
+        ],
+      ),
     );
   }
 }
