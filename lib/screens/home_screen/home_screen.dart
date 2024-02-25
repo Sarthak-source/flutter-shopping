@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sutra_ecommerce/controllers/get_deals_controller.dart';
@@ -43,9 +42,6 @@ class _HomeScreenState extends State<HomeScreen> {
     return CustomScrollView(
       slivers: [
         SliverToBoxAdapter(
-          child: HomeAppBar(),
-        ),
-        SliverToBoxAdapter(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
             child: Hero(
@@ -56,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     color: Colors.grey, // Border color
                     width: 1.0, // Border width
                   ),
-                  borderRadius: BorderRadius.circular(50.0), // Border radius
+                  borderRadius: BorderRadius.circular(20.0), // Border radius
                 ),
                 child: SearchBar(
                   elevation: MaterialStateProperty.resolveWith<double?>(
@@ -97,6 +93,9 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
+        ),
+        SliverToBoxAdapter(
+          child: HomeAppBar(),
         ),
         SliverToBoxAdapter(child: CategoryTab()),
         SliverToBoxAdapter(
@@ -175,9 +174,9 @@ class DealsTab extends StatelessWidget {
           //   ),
           // );
         }),
-        SizedBox(height: 12),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        const SizedBox(height: 12),
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16.0),
           child: Divider(),
         )
       ],
@@ -208,8 +207,8 @@ class HomeAppBar extends StatelessWidget {
                 children: [
                   IconButton(
                       onPressed: () {},
-                      icon: const Icon(
-                        CupertinoIcons.location_fill,
+                      icon:  const Icon(
+                        Icons.location_on_outlined,
                         color: kPrimaryBlue,
                       )),
                   Expanded(

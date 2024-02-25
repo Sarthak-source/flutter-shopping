@@ -25,11 +25,12 @@ class CustomNavBarState extends State<CustomNavBar> {
     return Obx(() {
       return Container(
         decoration: const BoxDecoration(
-          borderRadius: BorderRadius.only(
-              topRight: Radius.circular(25), topLeft: Radius.circular(25)),
-          boxShadow: [
-            BoxShadow(color: Colors.black38, spreadRadius: 0, blurRadius: 10),
-          ],
+          border: Border(top: BorderSide(color: Colors.grey,width: 0.8)),
+          // borderRadius: BorderRadius.only(
+          //     topRight: Radius.circular(25), topLeft: Radius.circular(25)),
+          // boxShadow: [
+          //   BoxShadow(color: Colors.black38, spreadRadius: 0, blurRadius: 10),
+          // ],
         ),
         child: ClipRRect(
           borderRadius: const BorderRadius.only(
