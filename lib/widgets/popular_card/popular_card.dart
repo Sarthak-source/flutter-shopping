@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sutra_ecommerce/constants/colors.dart';
 import 'package:sutra_ecommerce/controllers/add_to_cart_controller.dart';
+import 'package:sutra_ecommerce/controllers/mycart_controller.dart';
 import 'package:sutra_ecommerce/screens/product_detail.dart/product_detail.dart';
 import 'package:sutra_ecommerce/utils/common_functions.dart';
 import 'package:sutra_ecommerce/utils/screen_utils.dart';
@@ -41,8 +42,8 @@ class _PopularCardState extends State<PopularCard> {
     }
   }
 
-  final AddToCartController addToCartController =
-      Get.put(AddToCartController());
+  final AddToCartController addToCartController = Get.put(AddToCartController());
+  final MyCartController myCartController = Get.put(MyCartController());
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -187,12 +188,13 @@ class _PopularCardState extends State<PopularCard> {
                                         ),
                                         onPressed: () {
                                           quantity.value--;
+
                                           addToCartController.productCount--;
                                           addToCartController.addToCart(
                                               quantity.value,
                                               widget.product?['id'],
                                               '1');
-      
+
                                           addToCartController.update();
                                         },
                                       ),

@@ -22,13 +22,13 @@ class PopularDealTab extends StatelessWidget {
       final popularDeals = controller.popularDeals;
       return Container(
         height: 175,
-        color: Colors.grey.shade300,
+        color: Colors.grey.shade200,
         child: ListView.builder(
           clipBehavior: Clip.none,
           scrollDirection: Axis.horizontal,
           itemCount: popularDeals.length,
           itemBuilder: (context, index) {
-            return PopularCard(product: popularDeals[index]);
+            return PopularCard(product: popularDeals[index],);
           },
         ),
       );
