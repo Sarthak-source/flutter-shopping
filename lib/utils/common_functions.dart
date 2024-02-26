@@ -11,9 +11,13 @@ String convertTimestampToDateString(String? timestampString) {
 }
 
 String convertDoubleToString(String value){
-  double d = double.parse(value);
-  int i = d.toInt();
-  String s = i.toString();
+  String s = "";
+  if(value != "null"){
+    double d = double.parse(value);
+    int i = d.toInt();
+     s = i.toString();
+  }
+
   return s;
 }
 

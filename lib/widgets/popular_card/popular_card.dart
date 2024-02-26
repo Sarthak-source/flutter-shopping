@@ -99,6 +99,7 @@ class _PopularCardState extends State<PopularCard> {
                       Row(
                         children: [
                           Text(
+                          //  "####${widget.product?['packing_qty'].toString()}",
                             "${convertDoubleToString(widget.product?['packing_qty'].toString() ?? '0.0')} ${widget.product?['packing_uom']}",
                             style: TextStyle(
                               fontSize: getProportionateScreenWidth(12),
