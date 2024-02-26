@@ -83,7 +83,8 @@ class CategoryTab extends StatelessWidget {
                   return Text('Error: ${controller.errorMsg.value}');
                 } else {
                   return Container(
-                    height: Get.height/2 -200,
+                    height: 88,
+                   // color: Colors.red,
                     child: ListView.builder(
                       clipBehavior: Clip.none,
                       scrollDirection: Axis.horizontal,

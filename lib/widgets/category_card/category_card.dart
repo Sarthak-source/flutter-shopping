@@ -23,12 +23,14 @@ class CategoryCard extends StatelessWidget {
         from == "allcategories"? const Spacer() : const SizedBox.shrink(),
         Container(
           width: from == "allcategories"?80:65,
-          height: 40,
+          height: 35,
         //  color: Colors.red.shade100,
-          child: Text(
-            "${category.catName[0].toUpperCase()}${category.catName.substring(1,category.catName.length).toLowerCase()}",
-            style:  TextStyle(fontSize: from == "allcategories"?14:10,fontWeight: FontWeight.w700,),maxLines: 2,
-            textAlign: TextAlign.center,
+          child: Center(
+            child: Text(
+              "${category.catName[0].toUpperCase()}${category.catName.substring(1,category.catName.length).toLowerCase()}",
+              style:  TextStyle(fontSize: from == "allcategories"?14:10,fontWeight: FontWeight.w700,),maxLines: 1,
+              textAlign: TextAlign.center,
+            ),
           ),
         )
       ],
