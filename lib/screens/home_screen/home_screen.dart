@@ -46,67 +46,74 @@ class _HomeScreenState extends State<HomeScreen> {
           SliverToBoxAdapter(
             child: Container(
               color:  Colors.grey.shade200,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
-                child: Hero(
-                  tag: 'search',
-                  child: Container(
-                    height: 50,
-                    decoration: BoxDecoration(
-                      color:  Colors.grey.shade200,
-                      border: Border.all(
-                        color: Colors.grey, // Border color
-                        width: 1.0, // Border width
-                      ),
-                      borderRadius: BorderRadius.circular(12), // Border radius
-                    ),
-                    child: SearchBar(
-                      elevation: MaterialStateProperty.resolveWith<double?>(
-                        (Set<MaterialState> states) {
-                          // Define the elevation based on different states
-                          if (states.contains(MaterialState.pressed)) {
-                            return 0.0; // Elevation when pressed
-                          }
-                          return 0.0; // Default elevation
-                        },
-                      ),
-                      backgroundColor:MaterialStateProperty.resolveWith<Color?>(
+              height: 80,
+             // color:  Colors.red,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 0),
+                    child: Hero(
+                      tag: 'search',
+                      child: Container(
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color:  Colors.grey.shade200,
+                          border: Border.all(
+                            color: Colors.grey, // Border color
+                            width: 1.0, // Border width
+                          ),
+                          borderRadius: BorderRadius.circular(12), // Border radius
+                        ),
+                        child: SearchBar(
+                          elevation: MaterialStateProperty.resolveWith<double?>(
                             (Set<MaterialState> states) {
-                          // Define the elevation based on different states
-                          if (states.contains(MaterialState.pressed)) {
-                            return Colors.white; // Elevation when pressed
-                          }
-                          return  Colors.grey.shade200; // Default elevation
-                        },
+                              // Define the elevation based on different states
+                              if (states.contains(MaterialState.pressed)) {
+                                return 0.0; // Elevation when pressed
+                              }
+                              return 0.0; // Default elevation
+                            },
+                          ),
+                          backgroundColor:MaterialStateProperty.resolveWith<Color?>(
+                                (Set<MaterialState> states) {
+                              // Define the elevation based on different states
+                              if (states.contains(MaterialState.pressed)) {
+                                return Colors.white; // Elevation when pressed
+                              }
+                              return  Colors.grey.shade200; // Default elevation
+                            },
+                          ),
+                          hintText: 'Search...',
+                          hintStyle: MaterialStateProperty.resolveWith<TextStyle?>(
+                            (Set<MaterialState> states) {
+                              // Define the TextStyle based on different states
+                              if (states.contains(MaterialState.pressed)) {
+                                return const TextStyle(
+                                  color:
+                                      Colors.blue, // Change the text color when pressed
+                                  fontStyle: FontStyle
+                                      .italic, // Change the font style when pressed
+                                  fontSize: 16, // Change the font size when pressed
+                                  // Add any other TextStyle properties you want to customize
+                                );
+                              }
+                              return const TextStyle(
+                                color: Colors.grey, // Default text color
+                                fontStyle: FontStyle.normal, // Default font style
+                                fontSize: 16, // Default font size
+                                // Add any other TextStyle properties you want to customize
+                              );
+                            },
+                          ),
+                          onTap: () {
+                            Get.toNamed(SearchScreen.routeName);
+                          },
+                        ),
                       ),
-                      hintText: 'Search...',
-                      hintStyle: MaterialStateProperty.resolveWith<TextStyle?>(
-                        (Set<MaterialState> states) {
-                          // Define the TextStyle based on different states
-                          if (states.contains(MaterialState.pressed)) {
-                            return const TextStyle(
-                              color:
-                                  Colors.blue, // Change the text color when pressed
-                              fontStyle: FontStyle
-                                  .italic, // Change the font style when pressed
-                              fontSize: 16, // Change the font size when pressed
-                              // Add any other TextStyle properties you want to customize
-                            );
-                          }
-                          return const TextStyle(
-                            color: Colors.grey, // Default text color
-                            fontStyle: FontStyle.normal, // Default font style
-                            fontSize: 16, // Default font size
-                            // Add any other TextStyle properties you want to customize
-                          );
-                        },
-                      ),
-                      onTap: () {
-                        Get.toNamed(SearchScreen.routeName);
-                      },
                     ),
                   ),
-                ),
+                ],
               ),
             ),
           ),

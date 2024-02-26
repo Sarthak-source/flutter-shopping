@@ -53,7 +53,7 @@ class _OrderCardState extends State<OrderCard> {
     print("count::: ${widget.mycartItem["count"].toString()}");
 
 
-    double d = double.parse(widget.mycartItem["count"].toString());
+    double? d = double.parse(widget.mycartItem["count"].toString());
     print('double count $d');
     print('int count ${d.toInt()}');
     quantity = d.toInt();
@@ -62,7 +62,7 @@ class _OrderCardState extends State<OrderCard> {
         children: [
           SizedBox(
             width: getProportionateScreenWidth(80),
-            child: Image.network( widget.mycartItem["product"]["product_img"],),
+            child: Image.network( widget.mycartItem["product"]["product_img"] ?? "http://170.187.232.148/static/images/dilicia.png",),
           ),
           SizedBox(
             width: getProportionateScreenWidth(8),
@@ -76,7 +76,7 @@ class _OrderCardState extends State<OrderCard> {
                   children: [
                     Expanded(
                       child: Text(
-                        widget.mycartItem["product"]["name"],
+                        widget.mycartItem["product"]["name"] ?? "",
                         style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                               fontWeight: FontWeight.w700,
                               fontSize: getProportionateScreenWidth(14),
@@ -103,7 +103,7 @@ class _OrderCardState extends State<OrderCard> {
                         child: const Icon(Icons.delete,color: Colors.grey,))
                   ],
                 ),
-              rateCard("price ",widget.mycartItem["product"]["price"].toString()),
+              rateCard("price ",widget.mycartItem["product"]["price"].toString() ),
               rateCard("gst ",widget.mycartItem["total_value"].toString()),
               rateCard("value ",widget.mycartItem["total_gst"].toString()),
 
@@ -205,7 +205,7 @@ class _OrderCardState extends State<OrderCard> {
 
   }
 
-  Row rateCard(String key, String values) {
+  Row rateCard(String key, String? values ) {
     return Row(
 
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -223,7 +223,7 @@ class _OrderCardState extends State<OrderCard> {
                 ),
                 Expanded(
                   flex: 1,
-                  child: Text(":  ₹ $values",
+                  child: Text(":  ₹ ${values ?? ""}",
                     //widget.mycartItem["product"]["price"].toString(),
                     style: TextStyle(
                       color: kTextColorAccent,

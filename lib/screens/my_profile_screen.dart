@@ -38,14 +38,8 @@ class MyProfileScreen extends StatelessWidget {
                     value:
                         userController.user['party']['party_name'].toString(),
                   ),
-                  const InputFormCard(
-                    title: 'Birthdate',
-                    value: '29 February 1200',
-                  ),
-                  const InputFormCard(
-                    title: 'Gender',
-                    value: 'Male',
-                  ),
+
+
                   InputFormCard(
                     title: 'Email',
                     value: userController.user['party']['email'].toString(),
