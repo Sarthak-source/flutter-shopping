@@ -34,14 +34,15 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
       AtCcontroller.productCount.value = 0;
       AtCcontroller.update();
     });
-
   }
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<MyCartController>(builder: (createOrderCtlr) {
-      return PopScope(
-        canPop: false,
+      return WillPopScope(
+        onWillPop: () async {
+          return false;
+        },
         child: Scaffold(
           body: SafeArea(
             child: SingleChildScrollView(
@@ -58,10 +59,12 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
                       children: [
                         Text(
                           'Order successfully placed!',
-                          style:
-                              Theme.of(context).textTheme.displaySmall!.copyWith(
-                                    fontWeight: FontWeight.w700,
-                                  ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .displaySmall!
+                              .copyWith(
+                                fontWeight: FontWeight.w700,
+                              ),
                         ),
                         SizedBox(
                           height: getProportionateScreenHeight(8.0),
@@ -130,8 +133,10 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
                           child: Row(
                             //  mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Expanded(flex: 1, child: Center(child: Text(""))),
-                              const Expanded(flex: 1, child: Center(child: Text(""))),
+                              const Expanded(
+                                  flex: 1, child: Center(child: Text(""))),
+                              const Expanded(
+                                  flex: 1, child: Center(child: Text(""))),
                               Expanded(
                                   flex: 1,
                                   child: Center(
@@ -143,7 +148,8 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
                                         ?.copyWith(
                                             fontWeight: FontWeight.w700,
                                             fontSize:
-                                                getProportionateScreenWidth(15)),
+                                                getProportionateScreenWidth(
+                                                    15)),
                                   ))),
                               Expanded(
                                   flex: 1,
