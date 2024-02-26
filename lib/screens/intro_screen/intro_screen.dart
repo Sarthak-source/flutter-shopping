@@ -84,7 +84,8 @@ class TextView extends StatelessWidget {
               textAlign: TextAlign.center,
               style: const TextStyle(
                 color: kTextColorAccent,
-                fontWeight: FontWeight.w400,
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
               ),
             ),
             const Spacer(),

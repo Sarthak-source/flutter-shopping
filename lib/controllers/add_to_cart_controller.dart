@@ -117,7 +117,7 @@ class StoreBinding implements Bindings {
     Get.lazyPut(() => AddToCartController());
     Get.lazyPut(() => MyCartController());
     Get.lazyPut(() => UserController());
-    Get.lazyPut(() => PopularDealController());
+    Get.lazyPut(() => PopularDealController(categoryId: ''));
   }
 
 

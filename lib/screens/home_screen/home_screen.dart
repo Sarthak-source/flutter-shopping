@@ -40,19 +40,17 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     ScreenUtils().init(context);
 
-    return CustomScrollView(
-      slivers: [
-        SliverToBoxAdapter(
-          child: Container(
-            color:  Colors.grey.shade200,
+    return Obx(() {
+      return CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
               child: Hero(
                 tag: 'search',
                 child: Container(
                   height: 50,
                   decoration: BoxDecoration(
-                    color:  Colors.grey.shade200,
                     border: Border.all(
                       color: Colors.grey, // Border color
                       width: 1.0, // Border width
@@ -69,23 +67,14 @@ class _HomeScreenState extends State<HomeScreen> {
                         return 0.0; // Default elevation
                       },
                     ),
-                    backgroundColor:MaterialStateProperty.resolveWith<Color?>(
-                          (Set<MaterialState> states) {
-                        // Define the elevation based on different states
-                        if (states.contains(MaterialState.pressed)) {
-                          return Colors.white; // Elevation when pressed
-                        }
-                        return  Colors.grey.shade200; // Default elevation
-                      },
-                    ),
                     hintText: 'Search...',
                     hintStyle: MaterialStateProperty.resolveWith<TextStyle?>(
                       (Set<MaterialState> states) {
                         // Define the TextStyle based on different states
                         if (states.contains(MaterialState.pressed)) {
                           return const TextStyle(
-                            color:
-                                Colors.blue, // Change the text color when pressed
+                            color: Colors
+                                .blue, // Change the text color when pressed
                             fontStyle: FontStyle
                                 .italic, // Change the font style when pressed
                             fontSize: 16, // Change the font size when pressed
@@ -108,21 +97,17 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-        ),
-        SliverToBoxAdapter(
-          child: HomeAppBar(),
-        ),
-
-        SliverToBoxAdapter(child: CategoryTab()),
-     /*   SliverToBoxAdapter(
-          child:     const Divider(),
-        ),*/
-        SliverToBoxAdapter(
-          child: DealsTab(),
-        ),
-        SliverToBoxAdapter(
-          child: Container(
-            color: Colors.grey.shade300,
+          SliverToBoxAdapter(
+            child: HomeAppBar(),
+          ),
+          SliverToBoxAdapter(child: CategoryTab()),
+          const SliverToBoxAdapter(
+            child: Divider(),
+          ),
+          SliverToBoxAdapter(
+            child: DealsTab(),
+          ),
+          SliverToBoxAdapter(
             child: TabTitle(
               title: 'Popular Deals',
               seeAll: () {
@@ -130,20 +115,22 @@ class _HomeScreenState extends State<HomeScreen> {
               },
             ),
           ),
-        ),
-        const SliverToBoxAdapter(child: PopularDealTab()),
-
-        (addToCardController.productCount.value > 0)
-            ? const SliverToBoxAdapter(
-                child: SizedBox(
-                height: 140,
-              ))
-            : const SliverToBoxAdapter(
-                child: SizedBox(
-                height: 0,
-              ))
-      ],
-    );
+          const SliverToBoxAdapter(
+              child: PopularDealTab(
+            categoryId: '',
+          )),
+          (addToCardController.productCount.value > 0)
+              ? const SliverToBoxAdapter(
+                  child: SizedBox(
+                  height: 140,
+                ))
+              : const SliverToBoxAdapter(
+                  child: SizedBox(
+                  height: 0,
+                ))
+        ],
+      );
+    });
   }
 }
 
@@ -208,7 +195,7 @@ class DealsTab extends StatelessWidget {
             // );
           }),
           const SizedBox(height: 8),
-          Divider()
+          const Divider()
         ],
       ),
     );

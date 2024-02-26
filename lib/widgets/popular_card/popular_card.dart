@@ -220,6 +220,7 @@ class _PopularCardState extends State<PopularCard> {
                                       width: 12,
                                       child: IconButton(
                                         padding: EdgeInsets.zero,
+                                        color: Colors.green,
                                         icon: const Icon(
                                           Icons.add,
                                           color: kPrimaryBlue,
