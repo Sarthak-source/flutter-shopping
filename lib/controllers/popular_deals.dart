@@ -6,7 +6,8 @@ import 'package:sutra_ecommerce/utils/network_repository.dart';
 import '../config/common.dart';
 
 class PopularDealController extends GetxController {
-  PopularDealController();
+  final String categoryId;
+  PopularDealController({required this.categoryId,});
 
   var popularDeals = [].obs;
 
@@ -24,9 +25,11 @@ class PopularDealController extends GetxController {
     try {
       Map storedUserData=box!.get('userData');
 
+      log(categoryId.toString());
+
       isLoading.value = true;
       var responseData = await NetworkRepository.getProducts(
-        category: '',
+        category: categoryId.toString(),
         status: 'Active',
         search: '',
         partyId: storedUserData['party']['id'].toString(),

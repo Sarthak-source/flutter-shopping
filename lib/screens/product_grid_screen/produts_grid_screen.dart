@@ -5,6 +5,7 @@ import 'package:shimmer/shimmer.dart';
 import 'package:sutra_ecommerce/controllers/add_to_cart_controller.dart';
 import 'package:sutra_ecommerce/controllers/products_controller.dart';
 import 'package:sutra_ecommerce/widgets/go_cart/go_to_cart.dart';
+import 'package:sutra_ecommerce/widgets/search_bar.dart' as search;
 
 import '../../constants/colors.dart';
 import '../../utils/screen_utils.dart';
@@ -14,8 +15,10 @@ import '../../widgets/product_card/product_card.dart';
 class PoductsListArguments {
   final String title;
   final String categoryId;
+  final double? childAspectRatio;
 
-  PoductsListArguments({required this.title, required this.categoryId});
+  PoductsListArguments(
+      {required this.title, required this.categoryId, this.childAspectRatio});
 }
 
 class PoductsListScreen extends StatefulWidget {
@@ -28,7 +31,8 @@ class PoductsListScreen extends StatefulWidget {
 }
 
 class PoductsListScreenState extends State<PoductsListScreen> {
-  bool isAdded = false;
+  bool isSearch = false;
+  TextEditingController searchController = TextEditingController(text: '');
   @override
   Widget build(BuildContext context) {
     ScreenUtils().init(context);
@@ -44,27 +48,43 @@ class PoductsListScreenState extends State<PoductsListScreen> {
             SafeArea(
               child: Column(
                 children: [
-                  CustomAppBar(
-                    title: args != null && args.title != null
-                        ? args.title
-                        : "Popular Deals",
-                    actions: [
-                      const Icon(
-                        Icons.search,
-                        color: kPrimaryBlue,
-                      ),
-                      SizedBox(
-                        width: getProportionateScreenWidth(16),
-                      ),
-                    ],
-                  ),
+                  !isSearch
+                      ? CustomAppBar(
+                          title: args != null && args.title != null
+                              ? args.title
+                              : "Popular Deals",
+                          actions: [
+                            InkWell(
+                              onTap: () {
+                                setState(() {
+                                  isSearch = true;
+                                });
+                              },
+                              child: const Icon(
+                                Icons.search,
+                                color: kPrimaryBlue,
+                              ),
+                            ),
+                            SizedBox(
+                              width: getProportionateScreenWidth(16),
+                            ),
+                          ],
+                        )
+                      : Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 13, vertical: 10),
+                          child: search.SearchBar(
+                            hint: 'search product',
+                            controller: searchController,
+                          ),
+                        ),
 
                   //SizedBox(width: Get.width/4,child: Text('data')),
                   CustomStaggerGrid(
                     addCallback: () {
-                      setState(() {
-                        isAdded = true;
-                      });
+                      // setState(() {
+                      //   isAdded = true;
+                      // });
                     },
                     categoryId: args != null && args.categoryId != null
                         ? args.categoryId
@@ -90,12 +110,11 @@ class PoductsListScreenState extends State<PoductsListScreen> {
 class CustomStaggerGrid extends StatelessWidget {
   final Function()? addCallback;
   final String? categoryId;
+  final double? childAspectRatio;
 
-  const CustomStaggerGrid({
-    this.addCallback,
-    this.categoryId,
-    Key? key,
-  }) : super(key: key);
+  const CustomStaggerGrid(
+      {this.addCallback, this.categoryId, Key? key, this.childAspectRatio})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -127,7 +146,8 @@ class CustomStaggerGrid extends StatelessWidget {
                       crossAxisCount: 2,
                       crossAxisSpacing: getProportionateScreenWidth(8),
                       mainAxisSpacing: getProportionateScreenHeight(5),
-                      childAspectRatio: (Get.width / Get.height) * 1.75),
+                      childAspectRatio:
+                          childAspectRatio ?? (Get.width / Get.height) * 1.75),
                 ),
               ),
             ),
@@ -161,7 +181,8 @@ class CustomStaggerGrid extends StatelessWidget {
                   crossAxisCount: 2,
                   crossAxisSpacing: getProportionateScreenWidth(8),
                   mainAxisSpacing: getProportionateScreenHeight(5),
-                  childAspectRatio: (Get.width / Get.height) * 1.70),
+                  childAspectRatio:
+                      childAspectRatio ?? (Get.width / Get.height) * 1.70),
               itemBuilder: (ctx, index) {
                 if (index % 2 != 0) {
                   return ProductCard(

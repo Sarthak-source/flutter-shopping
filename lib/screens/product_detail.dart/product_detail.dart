@@ -1,12 +1,12 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:sutra_ecommerce/screens/home_screen/popular_deals.dart';
 import 'package:sutra_ecommerce/screens/order_summary_screen.dart';
 import 'package:sutra_ecommerce/widgets/custom_app_bar.dart';
 import 'package:sutra_ecommerce/widgets/discount_text.dart';
 import 'package:sutra_ecommerce/widgets/fruit_title.dart';
 import 'package:sutra_ecommerce/widgets/order_card.dart';
-import 'package:sutra_ecommerce/widgets/product_card/product_card.dart';
 import 'package:sutra_ecommerce/widgets/tab_title.dart';
 
 import '../../constants/colors.dart';
@@ -115,12 +115,12 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                           Row(
                             children: [
                               Text(
-                               "₹ ${args.productDetailData['price'].toString()}",
+                                "₹ ${args.productDetailData['price'].toString()}",
                                 style: Theme.of(context)
                                     .textTheme
                                     .headlineSmall!
                                     .copyWith(
-                                  fontWeight: FontWeight.bold,
+                                      fontWeight: FontWeight.bold,
                                       color: Colors.black,
                                     ),
                               ),
@@ -256,25 +256,12 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                             padding: 0,
                           ),
                           SizedBox(
-                            height: getProportionateScreenHeight(225),
-                            child: Row(
-                              children: [
-                                const Expanded(
-                                  child: ProductCard(
-                                    noPadding: true,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: getProportionateScreenWidth(8),
-                                ),
-                                const Expanded(
-                                  child: ProductCard(
-                                    noPadding: true,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                              height: getProportionateScreenHeight(155),
+                              child: PopularDealTab(
+                                categoryId: args.productDetailData['category']
+                                    .toString(),
+                                //childAspectRatio: 0.72,
+                              )),
                           SizedBox(
                             height: getProportionateScreenHeight(48),
                           ),
@@ -293,18 +280,14 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
               child: Row(
                 children: [
                   Expanded(
-                    
-
-                      child: SizedBox(
+                    child: SizedBox(
                         width: getProportionateScreenWidth(32),
                         child: IconButton(
-                          onPressed: () {
-                            Navigator.of(context)
-                            .pushNamed(OrderSummaryScreen.routeName);
-                          },
-                          icon: const Icon(Icons.shopping_cart_checkout))
-                      ),
-                   
+                            onPressed: () {
+                              Navigator.of(context)
+                                  .pushNamed(OrderSummaryScreen.routeName);
+                            },
+                            icon: const Icon(Icons.shopping_cart_checkout))),
                   ),
                   SizedBox(
                     width: getProportionateScreenWidth(16),
