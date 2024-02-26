@@ -198,7 +198,7 @@ class IllustrationPageView extends StatelessWidget {
                 },
                 children: [
                   Image.asset(
-                    'assets/images/all_product.png',
+                    'assets/images/dilicia_good_image.jpeg',
                   ),
                   Image.asset(
                     'assets/images/illu2.png',

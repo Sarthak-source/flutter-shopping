@@ -8,7 +8,6 @@ import 'package:sutra_ecommerce/screens/product_grid_screen/produts_grid_screen.
 import 'package:sutra_ecommerce/utils/screen_utils.dart';
 import 'package:sutra_ecommerce/widgets/category_card/category_card.dart';
 
-import '../../constants/colors.dart';
 import '../../widgets/tab_title.dart';
 
 class CategoryTab extends StatelessWidget {
