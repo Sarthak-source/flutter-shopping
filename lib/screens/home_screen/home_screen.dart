@@ -43,54 +43,67 @@ class _HomeScreenState extends State<HomeScreen> {
     return CustomScrollView(
       slivers: [
         SliverToBoxAdapter(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-            child: Hero(
-              tag: 'search',
-              child: Container(
-                height: 50,
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.grey, // Border color
-                    width: 1.0, // Border width
+          child: Container(
+            color:  Colors.grey.shade200,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 16),
+              child: Hero(
+                tag: 'search',
+                child: Container(
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color:  Colors.grey.shade200,
+                    border: Border.all(
+                      color: Colors.grey, // Border color
+                      width: 1.0, // Border width
+                    ),
+                    borderRadius: BorderRadius.circular(12), // Border radius
                   ),
-                  borderRadius: BorderRadius.circular(12), // Border radius
-                ),
-                child: SearchBar(
-                  elevation: MaterialStateProperty.resolveWith<double?>(
-                    (Set<MaterialState> states) {
-                      // Define the elevation based on different states
-                      if (states.contains(MaterialState.pressed)) {
-                        return 0.0; // Elevation when pressed
-                      }
-                      return 0.0; // Default elevation
-                    },
-                  ),
-                  hintText: 'Search...',
-                  hintStyle: MaterialStateProperty.resolveWith<TextStyle?>(
-                    (Set<MaterialState> states) {
-                      // Define the TextStyle based on different states
-                      if (states.contains(MaterialState.pressed)) {
+                  child: SearchBar(
+                    elevation: MaterialStateProperty.resolveWith<double?>(
+                      (Set<MaterialState> states) {
+                        // Define the elevation based on different states
+                        if (states.contains(MaterialState.pressed)) {
+                          return 0.0; // Elevation when pressed
+                        }
+                        return 0.0; // Default elevation
+                      },
+                    ),
+                    backgroundColor:MaterialStateProperty.resolveWith<Color?>(
+                          (Set<MaterialState> states) {
+                        // Define the elevation based on different states
+                        if (states.contains(MaterialState.pressed)) {
+                          return Colors.white; // Elevation when pressed
+                        }
+                        return  Colors.grey.shade200; // Default elevation
+                      },
+                    ),
+                    hintText: 'Search...',
+                    hintStyle: MaterialStateProperty.resolveWith<TextStyle?>(
+                      (Set<MaterialState> states) {
+                        // Define the TextStyle based on different states
+                        if (states.contains(MaterialState.pressed)) {
+                          return const TextStyle(
+                            color:
+                                Colors.blue, // Change the text color when pressed
+                            fontStyle: FontStyle
+                                .italic, // Change the font style when pressed
+                            fontSize: 16, // Change the font size when pressed
+                            // Add any other TextStyle properties you want to customize
+                          );
+                        }
                         return const TextStyle(
-                          color:
-                              Colors.blue, // Change the text color when pressed
-                          fontStyle: FontStyle
-                              .italic, // Change the font style when pressed
-                          fontSize: 16, // Change the font size when pressed
+                          color: Colors.grey, // Default text color
+                          fontStyle: FontStyle.normal, // Default font style
+                          fontSize: 16, // Default font size
                           // Add any other TextStyle properties you want to customize
                         );
-                      }
-                      return const TextStyle(
-                        color: Colors.grey, // Default text color
-                        fontStyle: FontStyle.normal, // Default font style
-                        fontSize: 16, // Default font size
-                        // Add any other TextStyle properties you want to customize
-                      );
+                      },
+                    ),
+                    onTap: () {
+                      Get.toNamed(SearchScreen.routeName);
                     },
                   ),
-                  onTap: () {
-                    Get.toNamed(SearchScreen.routeName);
-                  },
                 ),
               ),
             ),
@@ -99,22 +112,27 @@ class _HomeScreenState extends State<HomeScreen> {
         SliverToBoxAdapter(
           child: HomeAppBar(),
         ),
+
         SliverToBoxAdapter(child: CategoryTab()),
-        SliverToBoxAdapter(
+     /*   SliverToBoxAdapter(
           child:     const Divider(),
-        ),
+        ),*/
         SliverToBoxAdapter(
           child: DealsTab(),
         ),
         SliverToBoxAdapter(
-          child: TabTitle(
-            title: 'Popular Deals',
-            seeAll: () {
-              Get.toNamed(PoductsListScreen.routeName);
-            },
+          child: Container(
+            color: Colors.grey.shade300,
+            child: TabTitle(
+              title: 'Popular Deals',
+              seeAll: () {
+                Get.toNamed(PoductsListScreen.routeName);
+              },
+            ),
           ),
         ),
         const SliverToBoxAdapter(child: PopularDealTab()),
+
         (addToCardController.productCount.value > 0)
             ? const SliverToBoxAdapter(
                 child: SizedBox(
@@ -137,22 +155,20 @@ class DealsTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      //color: Colors.red,
+      color: Colors.grey.shade300,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
+       // crossAxisAlignment: CrossAxisAlignment.start,
+        //mainAxisAlignment: MainAxisAlignment.start,
         children: [
           TabTitle(
               title: titleCase("special deals for you"),
               seeAll: () {
                 Get.toNamed(SpecialDealScreen.routeName);
               }),
-          SizedBox(
-            height: getProportionateScreenHeight(10),
-          ),
+
           GetBuilder<DealsController>(builder: (context) {
             return SizedBox(
-              height: 150,
+              height: 200,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount:
@@ -206,59 +222,62 @@ class HomeAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      return Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: getProportionateScreenWidth(
-                16,
+      return Container(
+        height: 80,
+        color: Colors.grey.shade200,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: getProportionateScreenWidth(
+                  16,
+                ),
               ),
-            ),
-            child: InkWell(
-              onTap: () {
-                Get.toNamed(MapScreen.routeName);
-              },
-              child: Row(
-                children: [
-                  IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.location_on_outlined,
-                        color: kPrimaryBlue,
-                      )),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        //Text(userController.user.toString()),
-                        Text(
-                          userController.user['party']?['address']
-                                  ?['address_line1'] ??
-                              'Loading...',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineMedium!
-                              .copyWith(
-                                fontWeight: FontWeight.w700,
-                              ),
-                        ),
-                        Text(
-                          userController.user['party']?['address']
-                                  ?['address_line2'] ??
-                              '',
-                          style: TextStyle(
-                            color: kTextColorAccent,
-                            fontSize: getProportionateScreenWidth(12),
+              child: InkWell(
+                onTap: () {
+                  Get.toNamed(MapScreen.routeName);
+                },
+                child: Row(
+                  children: [
+                    IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.location_on_outlined,
+                          color: Colors.grey,
+                        )),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          //Text(userController.user.toString()),
+                          Text(
+                            userController.user['party']?['address']
+                                    ?['address_line1'] ??
+                                'Loading...',
+                            style: TextStyle(
+                              color: kTextColorAccent,
+                              fontSize: getProportionateScreenWidth(12),
+                            ),
                           ),
-                        ),
-                      ],
+                          Text(
+                            userController.user['party']?['address']
+                                    ?['address_line2'] ??
+                                '',
+                            style: TextStyle(
+                              color: kTextColorAccent,
+                              fontSize: getProportionateScreenWidth(12),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       );
     });
   }

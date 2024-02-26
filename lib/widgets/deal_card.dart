@@ -27,7 +27,7 @@ class DealCard extends StatelessWidget {
         height: getProportionateScreenHeight(170),
         margin: EdgeInsets.only(
           left: isHorizontalScrolling
-              ? getProportionateScreenWidth(16)
+              ? getProportionateScreenWidth(5)
               : getProportionateScreenWidth(0),
           bottom: !isHorizontalScrolling
               ? getProportionateScreenHeight(32)

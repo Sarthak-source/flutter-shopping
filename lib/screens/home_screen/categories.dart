@@ -22,7 +22,7 @@ class CategoryTab extends StatelessWidget {
         horizontal: getProportionateScreenWidth(0),
       ),
       child: Container(
-       // color: Colors.red,
+      //  color: Colors.red,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [

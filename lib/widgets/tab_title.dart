@@ -32,10 +32,9 @@ class TabTitle extends StatelessWidget {
             //flex: 4,
             child: Text(
               title!,
-              style: Theme.of(context)
-                  .textTheme
-                  .headlineSmall!
-                  .copyWith(fontSize: 15),
+              style: TextStyle(
+                  fontSize: 11,fontWeight: FontWeight.bold,
+              )
             ),
           ),
           Container(
@@ -47,7 +46,7 @@ class TabTitle extends StatelessWidget {
                   onTap: seeAll,
                   child: Text(
                     actionText,
-                    style: const TextStyle(fontSize: 12,color: kPrimaryBlue),
+                    style: const TextStyle(fontSize: 9,color: Colors.black,fontWeight: FontWeight.bold),
                   ),
                 ),
 

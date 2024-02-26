@@ -23,8 +23,9 @@ class _PopularDealTabState extends State<PopularDealTab> {
   Widget build(BuildContext context) {
     return Obx(() {
       final popularDeals = controller.popularDeals;
-      return SizedBox(
+      return Container(
         height: 175,
+        color: Colors.grey.shade300,
         child: ListView.builder(
           clipBehavior: Clip.none,
           scrollDirection: Axis.horizontal,

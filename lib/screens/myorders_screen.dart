@@ -351,17 +351,17 @@ class MyOrderCards extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
 
-                                Text(myOrderList[index]["address"]["address_line1"], style: const TextStyle(
+                                Text(setAddress(myOrderList[index]["address"],"address_line1"), style: const TextStyle(
                                     color: Colors.black,
                                     fontSize: 12,
                                 fontWeight: FontWeight.normal),
                                 ),
-                                Text(myOrderList[index]["address"]["address_line2"], style: const TextStyle(
+                                Text(setAddress(myOrderList[index]["address"],"address_line2"), style: const TextStyle(
                                     color: Colors.black,
                                     fontSize: 12,
                                 fontWeight: FontWeight.normal),
                                 ),
-                                Text(myOrderList[index]["address"]["address_line3"], style: const TextStyle(
+                                Text(setAddress(myOrderList[index]["address"],"address_line3"), style: const TextStyle(
                                     color: Colors.black,
                                     fontSize: 12,
                                 fontWeight: FontWeight.normal),
@@ -557,5 +557,14 @@ class MyOrderCards extends StatelessWidget {
     double d = double.parse(myOrderList);
     String s = d.toString();
     return s;
+  }
+
+
+}
+setAddress(myOrderList, String s) {
+  if(myOrderList != null){
+    return myOrderList[s];
+  }else {
+    return "";
   }
 }
