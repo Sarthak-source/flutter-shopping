@@ -47,7 +47,15 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     print('home screen:::');
-     // userController.getUserData();
+
+
+    /*dealsController.fetchDealss();
+    dealsController.update();
+    categoriesController.getCategories();
+    categoriesController.update();
+    popularController.fetchPopularDeals();
+    popularController.update();*/
+    // userController.getUserData();
   }
 
   @override
@@ -192,9 +200,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
             ),
           ),
-
-
-          //SliverToBoxAdapter(child: const AddButton()),
 
           (addToCardController.productCount.value > 0)
               ? const SliverToBoxAdapter(
@@ -350,7 +355,7 @@ class HomeAppBar extends StatelessWidget {
                               fontSize: getProportionateScreenWidth(12),
                             ),
                           ),
-                          SizedBox(width: 10),
+                           const SizedBox(width: 10),
                           Text(
                             userController.user['party']?['address']
                                     ?['address_line2'] ??

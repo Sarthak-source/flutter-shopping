@@ -53,9 +53,8 @@ class PopularDealTab extends StatelessWidget {
       }else {
 
       return Container(
-        height: 180,
-        color: controller.isLoading.value?Colors.white:Colors.grey.shade300,
-
+         height: 175,
+        color: Colors.grey.shade200,
         child: ListView.builder(
           clipBehavior: Clip.none,
           scrollDirection: Axis.horizontal,
