@@ -46,14 +46,6 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     print('home screen:::');
 
-
-    /*dealsController.fetchDealss();
-    dealsController.update();
-    categoriesController.getCategories();
-    categoriesController.update();
-    popularController.fetchPopularDeals();
-    popularController.update();*/
-    // userController.getUserData();
   }
 
   @override
