@@ -66,6 +66,5 @@ class PopularDealTab extends StatelessWidget {
         ),
       );
     }});
-
   }
 }
