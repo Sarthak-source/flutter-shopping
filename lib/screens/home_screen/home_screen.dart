@@ -17,7 +17,6 @@ import '../../controllers/popular_controller.dart';
 import '../../utils/common_functions.dart';
 import '../../utils/screen_utils.dart';
 import '../../utils/shimmer_placeholders/myorder_shimmer.dart';
-import '../../widgets/category_card/category_card.dart';
 import '../../widgets/deal_card.dart';
 import '../../widgets/tab_title.dart';
 import '../category_screen.dart';
@@ -48,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     print('home screen:::');
-
+     // userController.getUserData();
   }
 
   @override
