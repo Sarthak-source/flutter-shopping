@@ -10,6 +10,7 @@ import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:flutter/foundation.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hive/hive.dart';
+import 'package:sutra_ecommerce/utils/generic_exception.dart';
 import 'package:sutra_ecommerce/utils/network_repository.dart';
 
 import 'internet_error.dart';
@@ -89,10 +90,10 @@ class NetworkDioHttp {
       try {
         debugPrint(url);
         Response response = await _dio!
-            .get(url, options: header ?? _cacheOptions)
-            .onError((error, stackTrace) {
+            .get(url, options: header ?? _cacheOptions);
+   /*         .onError((error, stackTrace) {
           throw error.toString();
-        });
+        });*/
 
         log(response.toString());
 
@@ -112,13 +113,15 @@ class NetworkDioHttp {
           //
 
           return data;
-        } else if (response.statusCode == 500) {
+        }
+        else if (response.statusCode == 500) {
           return {
             'body': "Something Went Wrong",
             'headers': null,
             'error_description': "Something Went Wrong",
           };
-        } else {
+        }
+        else {
           if (response.statusCode == 500) {
             // Handle 500 status code error here
             return {
@@ -136,16 +139,39 @@ class NetworkDioHttp {
           };
         }
       } on DioError catch (e) {
-        Map<String, dynamic> responseData = {
+        print('DioError::: $e');
+     /*   Map<String, dynamic> responseData = {
           'body': "Please try again",
           'headers': null,
           'error_description': e.response?.data,
           //  await _handleError(e, context,
           //     message: e.response?.data['message']),
-        };
+        };*/
+        if (e.response != null) {
+          print(e.response?.statusCode);
+          print(e.response?.statusMessage);
+          print(e.response?.requestOptions);
+          throw AppException(
+            error: e,
+            type: ErrorType.dioError,
+            statusCode: e.response?.statusCode,
+             res:  e.response
+          );
+        } else {
+          // Something happened in setting up or sending the request that triggered an Error
+          print(e.requestOptions);
+          print(e.message);
+        }
 
         return Future.error(e.response?.data);
       }
+   /*   catch (error, stacktrace) {
+        print('stacktrace::: $error');
+        throw AppException(
+          error: error,
+          type: ErrorType.dioError,
+        );
+      }*/
     } else {
       Map<String, dynamic> responseData = {
         'body': null,

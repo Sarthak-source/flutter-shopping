@@ -20,6 +20,11 @@ class PopularDealController extends GetxController {
     super.onInit();
     fetchPopularDeals();
   }
+  @override
+  void onReady() {
+   // fetchPopularDeals();
+    super.onReady();
+  }
 
   Future<dynamic> fetchPopularDeals() async {
     try {

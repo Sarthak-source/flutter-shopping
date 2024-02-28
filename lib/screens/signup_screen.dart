@@ -48,6 +48,7 @@ class SignupScreen extends StatelessWidget {
                     const Spacer(),
                     const CustomTextField(
                       hint: 'Your Name',
+                        TextInputType: TextInputType.text
                     ),
                     const Spacer(),
                     Row(
@@ -60,6 +61,7 @@ class SignupScreen extends StatelessWidget {
                               Icons.keyboard_arrow_down_rounded,
                               size: 24,
                             ),
+                              TextInputType: TextInputType.number
                           ),
                         ),
                         SizedBox(
@@ -69,15 +71,17 @@ class SignupScreen extends StatelessWidget {
                           flex: 5,
                           child: CustomTextField(
                             hint: 'Phone Number',
+                              TextInputType: TextInputType.number
                           ),
                         ),
                       ],
                     ),
                     const Spacer(),
-                    const CustomTextField(hint: 'Email Address'),
+                    const CustomTextField(hint: 'Email Address', TextInputType: TextInputType.text),
                     const Spacer(),
                     CustomTextField(
                       hint: 'Password',
+                        TextInputType: TextInputType.text,
                       icon: Image.asset('assets/images/hide_icon.png'),
                     ),
                     const Spacer(),

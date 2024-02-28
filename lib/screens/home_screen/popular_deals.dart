@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sutra_ecommerce/controllers/popular_deals.dart';
+import 'package:sutra_ecommerce/controllers/popular_controller.dart';
 import 'package:sutra_ecommerce/widgets/popular_card/popular_card.dart';
 
 class PopularDealTab extends StatelessWidget {
@@ -21,12 +21,13 @@ class PopularDealTab extends StatelessWidget {
     return Obx(() {
       final popularDeals = controller.popularDeals;
       return Container(
-        height: 175,
-        color: Colors.grey.shade200,
+        height: 180,
+        color: Colors.grey.shade300,
+
         child: ListView.builder(
           clipBehavior: Clip.none,
           scrollDirection: Axis.horizontal,
-          itemCount: popularDeals.length,
+          itemCount: popularDeals.length ??0,
           itemBuilder: (context, index) {
             return PopularCard(product: popularDeals[index],);
           },

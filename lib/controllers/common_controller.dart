@@ -5,5 +5,6 @@ import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
 class CommonController extends GetxController {
   RxInt quantity =0.obs;
+  RxInt   curTab =0.obs;
 
 }

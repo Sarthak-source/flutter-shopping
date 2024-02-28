@@ -1,12 +1,14 @@
 import 'dart:developer';
 
 import 'package:get/get.dart';
+import 'package:sutra_ecommerce/controllers/get_deals_controller.dart';
 import 'package:sutra_ecommerce/controllers/mycart_controller.dart';
-import 'package:sutra_ecommerce/controllers/popular_deals.dart';
+import 'package:sutra_ecommerce/controllers/popular_controller.dart';
 import 'package:sutra_ecommerce/controllers/user_controller.dart';
 import 'package:sutra_ecommerce/utils/network_repository.dart';
 
 import '../config/common.dart';
+import 'catagories_controller.dart';
 
 class AddToCartController extends GetxController {
   //final UserController userController = Get.put(UserController());
@@ -68,6 +70,7 @@ class AddToCartController extends GetxController {
       log(productCount.value.toString());
       update(); // Notify observers about the change
       cartController.getMyCart();
+      cartController.update();
       popController.fetchPopularDeals();
       popController.update();
       //productCount.value = double.parse((productCount.value/2).toString()).toInt() + double.parse(count).toInt();
@@ -112,13 +115,27 @@ class AddToCartController extends GetxController {
 
 class StoreBinding implements Bindings {
 // default dependency
+  StoreBinding();
   @override
   void dependencies() {
-    Get.lazyPut(() => AddToCartController());
-    Get.lazyPut(() => MyCartController());
-    Get.lazyPut(() => UserController());
-    Get.lazyPut(() => PopularDealController(categoryId: ''));
+
+  //  Get.lazyPut(() => ProfileController(), tag: tag);
+    Get.put(() => AddToCartController());
+    Get.put(() => MyCartController());
+    Get.put(() => UserController());
+    Get.put(() => PopularDealController(categoryId: ''));
+    Get.put(() => DealsController());
+    Get.put(() => CategoriesController());
   }
 
 
+}
+
+Future<void> init() async {
+  Get.put(() => AddToCartController());
+  Get.put(() => MyCartController());
+  Get.put(() => UserController());
+  Get.put(() => PopularDealController(categoryId: ''));
+  Get.put(() => DealsController());
+  Get.put(() => CategoriesController());
 }

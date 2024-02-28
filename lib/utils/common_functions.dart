@@ -1,4 +1,8 @@
+import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
+
+import '../exceptions/data_exceptions.dart';
+import 'generic_exception.dart';
 
 String convertTimestampToDateString(String? timestampString) {
   // Parse the timestamp string to a DateTime object
@@ -30,4 +34,22 @@ String titleCase(String text) {
     return '$first$rest';
   });
   return capitalized.join(' ');
+}
+
+String errorHandler(AppException appException) {
+  var errorMsg = '';
+  if (appException.error is String) {
+    //Something went wrong error
+    errorMsg = appException.error as String;
+  }
+  else if (appException.type == ErrorType.dioError) {
+    //Dio code error
+    var dioError = appException.error as DioError;
+    errorMsg = DataException.errorResponseHandler(dioError);
+  } else {
+    //Status code error
+    errorMsg = DataException.handleError(appException.statusCode!);
+  }
+  print('errorMsg:: $errorMsg');
+  return errorMsg;
 }

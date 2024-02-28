@@ -140,9 +140,11 @@ class FavScreen extends StatelessWidget {
       ),
       child: SingleChildScrollView(
         child: Column(
+        //  children: [Container()],
             children: Provider.of<Items>(context).favoriteItems.isEmpty
                 ? emptyCartWidgets
-                : cartWidgets),
+                : cartWidgets
+        ),
       ),
     );
   }

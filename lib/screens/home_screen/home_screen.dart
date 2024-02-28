@@ -11,12 +11,16 @@ import 'package:sutra_ecommerce/screens/map_screen.dart';
 import 'package:sutra_ecommerce/screens/product_grid_screen/produts_grid_screen.dart';
 
 import '../../constants/colors.dart';
+import '../../controllers/catagories_controller.dart';
+import '../../controllers/popular_controller.dart';
 import '../../utils/common_functions.dart';
 import '../../utils/screen_utils.dart';
 import '../../widgets/deal_card.dart';
 import '../../widgets/tab_title.dart';
+import '../category_screen.dart';
 import '../search_screen/search_screen.dart';
 import '../special_deal_screen.dart';
+import 'explore_newCateagory.dart';
 
 class HomeScreen extends StatefulWidget {
   static const routeName = '/home_screen';
@@ -29,10 +33,26 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final AddToCartController addToCardController = Get.find();
+
+  //final DealsController dealsController = Get.find();
+//  final CategoriesController categoriesController = Get.find();
+  //final PopularDealController popularController = Get.find();
+  final dealsController = Get.put(DealsController());
+  final categoriesController = Get.put( CategoriesController());
+  final popularController = Get.put( PopularDealController(categoryId: ""));
+  final controller = Get.put(DealsController());
   @override
   void initState() {
     super.initState();
     print('home screen:::');
+
+
+    /*dealsController.fetchDealss();
+    dealsController.update();
+    categoriesController.getCategories();
+    categoriesController.update();
+    popularController.fetchPopularDeals();
+    popularController.update();*/
     // userController.getUserData();
   }
 
@@ -121,7 +141,8 @@ class _HomeScreenState extends State<HomeScreen> {
             child: HomeAppBar(),
           ),
 
-          SliverToBoxAdapter(child: CategoryTab()),
+          SliverToBoxAdapter(
+              child: CategoryTab()),
        /*   SliverToBoxAdapter(
             child:     const Divider(),
           ),*/
@@ -132,14 +153,51 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Container(
               color: Colors.grey.shade300,
               child: TabTitle(
-                title: 'Popular Deals',
+                title: 'Popular Products',
                 seeAll: () {
                   Get.toNamed(PoductsListScreen.routeName);
                 },
               ),
             ),
           ),
-          const SliverToBoxAdapter(child: PopularDealTab(categoryId: "",)),
+          const SliverToBoxAdapter(
+              child: PopularDealTab(categoryId: "",)),
+
+          SliverToBoxAdapter(
+            child: Column(
+              children: [
+                Container(
+                  height: 14,
+                  color: Colors.grey.shade300,
+                ),
+                Container(
+                  color: Colors.grey.shade300,
+                  child: TabTitle(
+                    title: 'Explore More Catrgories',
+                    seeAll: () {
+                      Get.toNamed(CategoryScreen.routeName);
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: Container(
+              //height: 200,
+              width: Get.width,
+              color: Colors.grey.shade300,
+             child: ExploreNewCategory(),
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: Container(
+              height: 20,
+
+              color: Colors.grey.shade300,
+
+            ),
+          ),
 
           (addToCardController.productCount.value > 0)
               ? const SliverToBoxAdapter(
@@ -155,6 +213,8 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
+
 
 class DealsTab extends StatelessWidget {
   final DealsController controller = Get.put(DealsController());
@@ -232,7 +292,7 @@ class HomeAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(() {
       return Container(
-        height: 80,
+      //  height: 80,
         color: Colors.grey.shade200,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -240,7 +300,7 @@ class HomeAppBar extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: getProportionateScreenWidth(
-                  16,
+                  0,
                 ),
               ),
               child: InkWell(
@@ -249,26 +309,28 @@ class HomeAppBar extends StatelessWidget {
                 },
                 child: Row(
                   children: [
-                    IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.location_on_outlined,
-                          color: Colors.grey,
-                        )),
+
                     Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+
                         children: [
                           //Text(userController.user.toString()),
+                          IconButton(
+                              onPressed: () {},
+                              icon: const Icon(
+                                Icons.location_on_outlined,
+                                color: Colors.grey,
+                              )),
                           Text(
-                            userController.user['party']?['address']
-                                    ?['address_line1'] ??
+                            userController.user['party']?['address']?['address_line1'] ??
                                 'Loading...',
                             style: TextStyle(
                               color: kTextColorAccent,
                               fontSize: getProportionateScreenWidth(12),
                             ),
                           ),
+                          SizedBox(width: 10),
                           Text(
                             userController.user['party']?['address']
                                     ?['address_line2'] ??

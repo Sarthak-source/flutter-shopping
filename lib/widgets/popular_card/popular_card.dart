@@ -21,8 +21,7 @@ class PopularCard extends StatefulWidget {
 }
 
 class _PopularCardState extends State<PopularCard> {
-  RxInt quantity =
-      0.obs; // Initialize quantity as observable RxInt with value 0
+  RxInt quantity = 0.obs; // Initialize quantity as observable RxInt with value 0
 
   @override
   void initState() {
@@ -46,6 +45,7 @@ class _PopularCardState extends State<PopularCard> {
   final MyCartController myCartController = Get.put(MyCartController());
   @override
   Widget build(BuildContext context) {
+    var productdeal = widget.product;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: InkWell(
@@ -84,11 +84,14 @@ class _PopularCardState extends State<PopularCard> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Image.network(
-                  widget.product?['product_img'] ??
-                      'http://170.187.232.148/static/images/dilicia.png',
-                  fit: BoxFit.fill,
-                  height: getProportionateScreenHeight(60),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Image.network(
+                    widget.product?['product_img'] ??
+                        'http://170.187.232.148/static/images/dilicia.png',
+                    fit: BoxFit.fill,
+                    height: getProportionateScreenHeight(60),
+                  ),
                 ),
                 const Spacer(),
                 Hero(
@@ -188,15 +191,14 @@ class _PopularCardState extends State<PopularCard> {
                                         ),
                                         onPressed: () {
                                           quantity.value--;
-
                                           addToCartController.productCount--;
                                           addToCartController.addToCart(
                                               quantity.value,
                                               widget.product?['id'],
                                               '1');
-
                                           addToCartController.update();
-                                        },
+
+                                   },
                                       ),
                                     ),
                                   ),

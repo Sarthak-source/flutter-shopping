@@ -12,13 +12,13 @@ import '../my_profile_screen.dart';
 import '../myorders_screen.dart';
 
 class UserScreen extends StatelessWidget {
-  final UserController userController = Get.put(UserController());
+  final UserController? userController = Get.put(UserController());
 
   UserScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    log(userController.user.toString());
+    log(userController?.user.toString() ?? "sss");
     return Center(
       child: Padding(
         padding: EdgeInsets.symmetric(
@@ -34,13 +34,13 @@ class UserScreen extends StatelessWidget {
               height: getProportionateScreenHeight(8.0),
             ),
             Text(
-              userController.user['party']['party_name'].toString(),
+                userController?.user!=null? userController!.user['party']['party_name'].toString(): "",
               style: Theme.of(context).textTheme.displaySmall!.copyWith(
                     fontWeight: FontWeight.w700,
                   ),
             ),
             Text(
-              userController.user['party']['email'].toString(),
+              userController?.user!=null? userController!.user['party']['email'].toString():"",
               style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                     color: kTextColorAccent,
                   ),

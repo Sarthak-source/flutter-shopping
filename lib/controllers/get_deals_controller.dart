@@ -19,6 +19,12 @@ class DealsController extends GetxController {
     super.onInit();
     fetchDealss();
   }
+  @override
+  void onReady() {
+    print('ControllerTwo onReady');
+   // fetchDealss();
+    super.onReady();
+  }
 
   Future<dynamic> fetchDealss() async {
     try {

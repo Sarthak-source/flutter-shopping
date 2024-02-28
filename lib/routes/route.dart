@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:sutra_ecommerce/controllers/add_to_cart_controller.dart';
 import 'package:sutra_ecommerce/screens/add_address/post_address.dart';
 import 'package:sutra_ecommerce/screens/login/verify_otp.dart';
 import 'package:sutra_ecommerce/screens/product_detail.dart/product_detail.dart';
@@ -34,7 +35,7 @@ List<GetPage> pages = [
   GetPage(name: AddAddressScreen.routeName, page: () =>  AddAddressScreen()),
   GetPage(name: PostAddressPage.routeName, page: () =>  PostAddressPage()),
   GetPage(name: MapScreen.routeName, page: () => const MapScreen()),
-  GetPage(name: TabScreen.routeName, page: () => const TabScreen()),
+  GetPage(name: TabScreen.routeName, page: () => const TabScreen(),binding: StoreBinding()),
   GetPage(name: SearchScreen.routeName, page: () => const SearchScreen()),
   GetPage(name: VegetableScreen.routeName, page: () => const VegetableScreen()),
   GetPage(name: FruitScreen.routeName, page: () => const FruitScreen()),

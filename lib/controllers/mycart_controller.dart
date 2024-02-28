@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:get/get.dart';
-import 'package:sutra_ecommerce/controllers/popular_deals.dart';
+import 'package:sutra_ecommerce/controllers/popular_controller.dart';
 import 'package:sutra_ecommerce/utils/network_repository.dart';
 
 import '../config/common.dart';
@@ -52,7 +52,7 @@ class MyCartController extends GetxController {
       // Assuming NetworkRepository.getCategories returns a Future<dynamic>
       Map storedUserData=box!.get('userData');
       print('userdata in mycart ${ storedUserData['party']['id'].toString()}');
-      var responseData = await NetworkRepository.getMyCart(party: storedUserData['party']['id'].toString());
+      var responseData = await NetworkRepository.getMyCart(party:storedUserData['party']['id'].toString());
       List myCartData = responseData['body']['cart_list'];
       log(myCartData.toString());
       dynamic totalValue = responseData['body']['total_value'];

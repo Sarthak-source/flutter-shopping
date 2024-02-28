@@ -156,6 +156,7 @@ class BottomCard extends StatelessWidget {
                     ),
                     const CustomTextField(
                       hint: 'Write down the building, apartment or office...',
+                      TextInputType: TextInputType.text,
                     ),
                     SizedBox(
                       height: getProportionateScreenHeight(10),

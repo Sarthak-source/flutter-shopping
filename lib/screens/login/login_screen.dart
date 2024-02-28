@@ -81,6 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   CustomTextField(
                     hint: 'Phone number',
                     controller: phoneNumberController,
+                    TextInputType: TextInputType.number,
                     //onChanged: handlePhoneNumberChange,
                   ),
                   SizedBox(
@@ -89,13 +90,13 @@ class _LoginScreenState extends State<LoginScreen> {
                      Obx( ()=>
                        SizedBox(
                          width: getProportionateScreenHeight(Get.width),
-                                           child: loginController.isLoading.value?Loader():ElevatedButton(
-                        onPressed: () async {
+                         child: loginController.isLoading.value?Loader():ElevatedButton(
+                        onPressed: ()  {
                           String phoneNumber = phoneNumberController.text;
 
                           //Get.toNamed(TabScreen.routeName);
 
-                          if (phoneNumber.length < 10) {
+                          if (phoneNumber.length < 10 || phoneNumber.length > 10) {
                             // Handle the case where the phone number is too shrort
                             Fluttertoast.showToast(
                               msg: 'Enter a proper number',

@@ -12,6 +12,12 @@ class CategoriesController extends GetxController {
     super.onInit();
     getCategories();
   }
+  @override
+  void onReady() {
+    print('ControllerTwo onReady');
+    getCategories();
+    super.onReady();
+  }
 
   void getCategories() async {
     try {

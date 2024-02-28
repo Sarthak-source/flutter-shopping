@@ -7,6 +7,7 @@ import 'package:sutra_ecommerce/utils/network_repository.dart';
 
 import '../config/common.dart';
 import '../screens/add_address/post_address.dart';
+import '../utils/generic_exception.dart';
 
 class AddAddressController extends GetxController {
   var isLoading = true.obs;
@@ -27,13 +28,15 @@ class AddAddressController extends GetxController {
       // Assuming NetworkRepository.getCategories returns a Future<dynamic>
       Map storedUserData=box!.get('userData');
 
-      var responseData = await NetworkRepository.getMyAddress(party: storedUserData['party']['id'].toString());
+      var responseData = await NetworkRepository.getMyAddress(party:storedUserData['party']['id'].toString());
+          //party:"100");
+
       List myAddressData = responseData['body']['results'];
       myAddressItems.assignAll(myAddressData);
       update();
       log('myAddressItems++++${myAddressItems.length}');
-    } catch (e) {
-      errorMsg.value = e.toString();
+    } on AppException catch (appException) {
+      errorMsg.value = appException.statusCode.toString();
       hasError.value = true;
     } finally {
       isLoading.value = false;

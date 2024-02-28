@@ -104,8 +104,8 @@ class _OrderCardState extends State<OrderCard> {
                   ],
                 ),
               rateCard("price ",widget.mycartItem["product"]["price"].toString() ),
-              rateCard("gst ",widget.mycartItem["total_value"].toString()),
-              rateCard("value ",widget.mycartItem["total_gst"].toString()),
+              rateCard("gst ",widget.mycartItem["total_gst"].toString()),
+              rateCard("value ",widget.mycartItem["total_value"].toString()),
 
             /*    Text(
                   widget.mycartItem["total_value"].toString(),

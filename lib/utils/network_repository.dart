@@ -12,6 +12,9 @@ import 'package:sutra_ecommerce/config/common.dart';
 import 'package:sutra_ecommerce/utils/api_constants.dart';
 import 'package:sutra_ecommerce/utils/network_dio.dart';
 
+import 'common_functions.dart';
+import 'generic_exception.dart';
+
 NetworkRepository networkRepository = NetworkRepository();
 
 class NetworkRepository {
@@ -101,22 +104,25 @@ class NetworkRepository {
         header: Options(headers: <String, String>{'authorization': auth}),
       );
 
-      debugPrint('\x1b[97m checkSeller Response : $apiResponse');
+      print('\x1b[97m checkParty Response : $apiResponse');
 
       final body = apiResponse['body'];
 
       if (body.isEmpty &&
-          body['error'] != null &&
-          body['error'] == 'User not exist please sign up') {
+          body['detail'] != null ) {
         Fluttertoast.showToast(msg: body['error'].toString());
       }
 
       return apiResponse;
-    } catch (e) {
-      dynamic er = e;
-      //Fluttertoast.showToast(msg: er['body']['error']);
-
-      return er.toString();
+    }on AppException catch (appException)  {
+      print('appException.type in net repo ${appException.type.toString()}');
+      String errorMsg = '';
+      errorMsg = errorHandler(appException);
+      print('ERROR MESSAGE :: ${errorMsg}');
+      if (appException.res != null && appException.res?.data['detail'] != null ) {
+        Fluttertoast.showToast(msg: appException.res?.data['detail'].toString() ?? "Something went wrong");
+      }
+      return  null;
     }
   }
 
@@ -139,11 +145,13 @@ class NetworkRepository {
       }
 
       return apiResponse;
-    } catch (e) {
-      dynamic er = e;
-      //Fluttertoast.showToast(msg: er['body']['error']);
+    } on AppException catch (appException)  {
+      if(appException.statusCode == 500 || appException.statusCode == 400|| appException.statusCode == 404){
+        Fluttertoast.showToast(msg: "Something went wrong in getCategories!");
 
-      return er.toString();
+      }
+
+      return appException.res?.statusCode.toString();
     }
   }
 
@@ -167,11 +175,13 @@ class NetworkRepository {
       }
 
       return apiResponse;
-    } catch (e) {
-      dynamic er = e;
-      //Fluttertoast.showToast(msg: er['body']['error']);
+    } on AppException catch (appException)  {
+      if(appException.statusCode == 500 || appException.statusCode == 400|| appException.statusCode == 404){
+        Fluttertoast.showToast(msg: "Something went wrong in mycart!");
 
-      return er.toString();
+      }
+
+      return appException.res?.statusCode.toString();
     }
   }
 
@@ -201,11 +211,13 @@ class NetworkRepository {
       }
 
       return apiResponse;
-    } catch (e) {
-      dynamic er = e;
-      //Fluttertoast.showToast(msg: er['body']['error']);
+    } on AppException catch (appException)  {
+      if(appException.statusCode == 500 || appException.statusCode == 400|| appException.statusCode == 404){
+        Fluttertoast.showToast(msg: "Something went wrong in myOrders!");
 
-      return er.toString();
+      }
+
+      return appException.res?.statusCode.toString();
     }
   }
 
@@ -232,11 +244,13 @@ class NetworkRepository {
       }
 
       return apiResponse;
-    } catch (e) {
-      dynamic er = e;
-      //Fluttertoast.showToast(msg: er['body']['error']);
+    } on AppException catch (appException)  {
+      if(appException.statusCode == 500 || appException.statusCode == 400|| appException.statusCode == 404){
+        Fluttertoast.showToast(msg: "Something went wrong in order detail!");
 
-      return er.toString();
+      }
+
+      return appException.res?.statusCode.toString();
     }
   }
 
@@ -259,11 +273,13 @@ class NetworkRepository {
       }
 
       return apiResponse;
-    } catch (e) {
-      dynamic er = e;
-      //Fluttertoast.showToast(msg: er['body']['error']);
+    } on AppException catch (appException)  {
+     if(appException.statusCode == 500 || appException.statusCode == 400|| appException.statusCode == 404){
+       Fluttertoast.showToast(msg: "Something went wrong in myaddress!");
 
-      return er.toString();
+     }
+
+      return appException.res?.statusCode.toString();
     }
   }
 
@@ -280,7 +296,7 @@ class NetworkRepository {
         header: Options(headers: <String, String>{'authorization': auth}),
       );
 
-      debugPrint('\x1b[97m checkSeller Response : $apiResponse');
+      print('\x1b[97m products Response : $apiResponse');
 
       final body = apiResponse['body'];
 
@@ -291,11 +307,13 @@ class NetworkRepository {
       }
 
       return apiResponse;
-    } catch (e) {
-      dynamic er = e;
-      Fluttertoast.showToast(msg: er['body']['error']);
+    } on AppException catch (appException)  {
+      if(appException.statusCode == 500 || appException.statusCode == 400|| appException.statusCode == 404){
+        Fluttertoast.showToast(msg: "Something went wrong in products!");
 
-      return er['body']['error'].toString();
+      }
+
+      return appException.res?.statusCode.toString();
     }
   }
 
@@ -508,11 +526,13 @@ class NetworkRepository {
       }
 
       return apiResponse;
-    } catch (e) {
-      dynamic er = e;
-      //Fluttertoast.showToast(msg: er['body']['error']);
+    } on AppException catch (appException)  {
+      if(appException.statusCode == 500 || appException.statusCode == 400|| appException.statusCode == 404){
+        Fluttertoast.showToast(msg: "Something went wrong in deals!");
 
-      return er.toString();
+      }
+
+      return appException.res?.statusCode.toString();
     }
   }
 

@@ -58,6 +58,7 @@ class CategoryTab extends StatelessWidget {
             ),*/
             GetBuilder<CategoriesController>(
               builder: (controller) {
+                var catData=  controller.categories;
                 if (controller.isLoading.value) {
                   return Shimmer.fromColors(
                     baseColor: Colors.grey[300]!,
@@ -87,14 +88,14 @@ class CategoryTab extends StatelessWidget {
                     child: ListView.builder(
                       clipBehavior: Clip.none,
                       scrollDirection: Axis.horizontal,
-                      itemCount: controller.categories.length,
+                      itemCount: catData.length ?? 0,
                       itemBuilder: (context, index) {
                         return InkWell(
                           onTap: () {
                             Get.toNamed(
                               PoductsListScreen.routeName,
                               arguments: PoductsListArguments(
-                                title: controller.categories[index]['name'],
+                                title: catData.isNotEmpty?catData[index]['name']:"",
                                 categoryId:
                                     controller.categories[index]['id'].toString(),
                               ),
@@ -103,8 +104,8 @@ class CategoryTab extends StatelessWidget {
                           child: CategoryCard(
                             from: "homecategory",
                             category: Category(
-                              controller.categories[index]['name'],
-                              controller.categories[index]['categories_img'],
+                              catData.isNotEmpty? catData[index]['name']:"",
+                              catData.isNotEmpty?catData[index]['categories_img']:"",
                               Colors.amber,
                             ),
                           ),
