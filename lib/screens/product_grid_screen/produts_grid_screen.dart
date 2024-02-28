@@ -210,13 +210,14 @@ class CustomStaggerGrid extends StatelessWidget {
 }
 
 class ProductCardPlaceholder extends StatelessWidget {
-  const ProductCardPlaceholder({Key? key}) : super(key: key);
+  final String? isFrom;
+  const ProductCardPlaceholder({Key? key,this.isFrom}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: Get.width / 2,
-      height: 10,
+      height: isFrom == "homepop"?5:10,
       margin: const EdgeInsets.only(right: 12.0),
       decoration: BoxDecoration(
         color: Colors.grey[300],

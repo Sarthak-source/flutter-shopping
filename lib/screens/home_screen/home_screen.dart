@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:sutra_ecommerce/controllers/add_to_cart_controller.dart';
 import 'package:sutra_ecommerce/controllers/get_deals_controller.dart';
 import 'package:sutra_ecommerce/controllers/user_controller.dart';
@@ -15,6 +16,8 @@ import '../../controllers/catagories_controller.dart';
 import '../../controllers/popular_controller.dart';
 import '../../utils/common_functions.dart';
 import '../../utils/screen_utils.dart';
+import '../../utils/shimmer_placeholders/myorder_shimmer.dart';
+import '../../widgets/category_card/category_card.dart';
 import '../../widgets/deal_card.dart';
 import '../../widgets/tab_title.dart';
 import '../category_screen.dart';
@@ -216,7 +219,7 @@ class DealsTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.grey.shade300,
+      color: controller.isLoading.value?Colors.white:Colors.grey.shade300,
       child: Column(
        // crossAxisAlignment: CrossAxisAlignment.start,
         //mainAxisAlignment: MainAxisAlignment.start,
@@ -228,36 +231,59 @@ class DealsTab extends StatelessWidget {
               }),
 
           GetBuilder<DealsController>(builder: (context) {
-            return SizedBox(
-              height: 200,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount:
-                    controller.deals.length, // Set the total number of items
-                itemBuilder: (BuildContext context, int index) {
-                  // Return your item widget based on the index
-                  //log(controller.deals.toString());
-                  return InkWell(
-                    onTap: () {
-                      log('message, ${controller.deals[index]}');
-                      Get.toNamed(
-                        PoductsListScreen.routeName,
-                        arguments: PoductsListArguments(
-                          title: controller.deals[index]['heading'],
-                          categoryId:
-                              controller.deals[index]['category'].toString(),
-                        ),
+              if (controller.isLoading.value) {
+              return Shimmer.fromColors(
+                baseColor: Colors.grey[300]!,
+                highlightColor: Colors.grey[100]!,
+                child: SizedBox(
+                  height: 140,
+                  child: ListView.builder(
+                    clipBehavior: Clip.none,
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 5, // Use a placeholder count
+                    itemBuilder: (context, index) {
+                      return const Padding(
+                        padding: EdgeInsets.only(right: 12.0),
+                        child: MyOrderShimmer(from: "myorder"),
                       );
                     },
-                    child: DealCard(
-                      image: controller.deals[index]['deal_img'],
-                      heading: controller.deals[index]['heading'],
+                  ),
+                ),
+              );
+            }
+            else if (controller.hasError.value) {
+              return Text('Error: ${controller.errorMsg.value}');
+            }else {
+                return SizedBox(
+                    height: 200,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount:
+                      controller.deals.length, // Set the total number of items
+                      itemBuilder: (BuildContext context, int index) {
+                        // Return your item widget based on the index
+                        //log(controller.deals.toString());
+                        return InkWell(
+                          onTap: () {
+                            log('message, ${controller.deals[index]}');
+                            Get.toNamed(
+                              PoductsListScreen.routeName,
+                              arguments: PoductsListArguments(
+                                title: controller.deals[index]['heading'],
+                                categoryId:
+                                controller.deals[index]['category'].toString(),
+                              ),
+                            );
+                          },
+                          child: DealCard(
+                            image: controller.deals[index]['deal_img'],
+                            heading: controller.deals[index]['heading'],
+                          ),
+                        ); // Replace with your actual item widget
+                      },
                     ),
-                  ); // Replace with your actual item widget
-                },
-              ),
-            );
-
+                  );
+              }
             // SingleChildScrollView(
             //   scrollDirection: Axis.horizontal,
             //   child: Row(
