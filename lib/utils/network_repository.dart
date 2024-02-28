@@ -326,7 +326,7 @@ class NetworkRepository {
         header: Options(headers: <String, String>{'authorization': auth}),
       );
 
-      debugPrint('\x1b[97m checkSeller Response : $apiResponse');
+      print('\x1b[97m products Response : $apiResponse');
 
       final body = apiResponse['body'];
 
@@ -337,11 +337,13 @@ class NetworkRepository {
       }
 
       return apiResponse;
-    } catch (e) {
-      dynamic er = e;
-      Fluttertoast.showToast(msg: er['body']['error']);
+    } on AppException catch (appException)  {
+      if(appException.statusCode == 500 || appException.statusCode == 400|| appException.statusCode == 404){
+        Fluttertoast.showToast(msg: "Something went wrong in products!");
 
-      return er['body']['error'].toString();
+      }
+
+      return appException.res?.statusCode.toString();
     }
   }
 
