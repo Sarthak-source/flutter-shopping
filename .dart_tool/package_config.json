@@ -194,12 +194,6 @@
       "languageVersion": "3.0"
     },
     {
-      "name": "flutter_advanced_switch",
-      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/flutter_advanced_switch-3.1.0",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
       "name": "flutter_json_viewer",
       "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/flutter_json_viewer-1.0.1",
       "packageUri": "lib/",
@@ -794,7 +788,7 @@
       "languageVersion": "3.1"
     }
   ],
-  "generated": "2024-02-28T09:25:41.934216Z",
+  "generated": "2024-02-29T08:35:25.303753Z",
   "generator": "pub",
   "generatorVersion": "3.1.5"
 }
