@@ -2,14 +2,11 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
-import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:sutra_ecommerce/screens/home_screen/popular_deals.dart';
-import 'package:sutra_ecommerce/screens/order_summary_screen.dart';
 import 'package:sutra_ecommerce/widgets/custom_app_bar.dart';
 import 'package:sutra_ecommerce/widgets/discount_text.dart';
 import 'package:sutra_ecommerce/widgets/fruit_title.dart';
+import 'package:sutra_ecommerce/widgets/go_cart/go_to_cart.dart';
 import 'package:sutra_ecommerce/widgets/loading_widgets/loader.dart';
 import 'package:sutra_ecommerce/widgets/order_card.dart';
 import 'package:sutra_ecommerce/widgets/tab_title.dart';
@@ -48,9 +45,15 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     prodDetailController.fetchProductDetail( args.productDetailData['id'].toString());
   }
 
+  final AddToCartController addToCartController =
+        Get.put(AddToCartController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+bottomSheet: (addToCartController.productCount > 0 )
+            ? const GoToCart()
+            : const SizedBox.shrink(),
       body: SafeArea(
         child: GetBuilder<ProductDetailController>(
           //init: ProductDetailController(product: args.productDetailData['id'].toString()),
@@ -67,38 +70,38 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: getProportionateScreenWidth(16.0),
-                      vertical: getProportionateScreenHeight(5.0),
-                    ),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: SizedBox(
-                            width: getProportionateScreenWidth(32),
-                            child: IconButton(
-                              onPressed: () {
-                                Navigator.of(context)
-                                    .pushNamed(OrderSummaryScreen.routeName);
-                              },
-                              icon: const Icon(Icons.shopping_cart_checkout),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: getProportionateScreenWidth(16),
-                        ),
-                        Expanded(
-                          flex: 4,
-                          child: ElevatedButton(
-                            onPressed: () {},
-                            child: const Text('Buy Now'),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  // Padding(
+                  //   padding: EdgeInsets.symmetric(
+                  //     horizontal: getProportionateScreenWidth(16.0),
+                  //     vertical: getProportionateScreenHeight(5.0),
+                  //   ),
+                  //   child: Row(
+                  //     children: [
+                  //       Expanded(
+                  //         child: SizedBox(
+                  //           width: getProportionateScreenWidth(32),
+                  //           child: IconButton(
+                  //             onPressed: () {
+                  //               Navigator.of(context)
+                  //                   .pushNamed(OrderSummaryScreen.routeName);
+                  //             },
+                  //             icon: const Icon(Icons.shopping_cart_checkout),
+                  //           ),
+                  //         ),
+                  //       ),
+                  //       SizedBox(
+                  //         width: getProportionateScreenWidth(16),
+                  //       ),
+                  //       Expanded(
+                  //         flex: 4,
+                  //         child: ElevatedButton(
+                  //           onPressed: () {},
+                  //           child: const Text('Buy Now'),
+                  //         ),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
                 ],
               );
             }

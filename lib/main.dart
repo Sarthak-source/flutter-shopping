@@ -79,6 +79,7 @@ class MyApp extends StatelessWidget {
               outlinedButtonTheme: customTheme.outlinedButtonTheme(),
               textButtonTheme: customTheme.textButtonTheme(),
               dividerTheme: customTheme.dividerTheme(),
+              bottomSheetTheme: customTheme.bottomSheetTheme()
             ),
             getPages: pages ,
             initialBinding: StoreBinding(),

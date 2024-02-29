@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sutra_ecommerce/controllers/mycart_controller.dart';
+import 'package:sutra_ecommerce/screens/select_time/select_time.dart';
 
 import '../../constants/colors.dart';
 import '../../controllers/add_to_cart_controller.dart';
 import '../../utils/screen_utils.dart';
 import '../../widgets/order_card.dart';
-import '../add_address/add_address_screen.dart';
 
 class CartScreen extends StatelessWidget {
   static const routeName = '/cartscreen';
@@ -194,7 +194,7 @@ class CartScreen extends StatelessWidget {
                                   ),
                                   onPressed: () {
                                     //Navigator.of(context).pushNamed(AddAddressScreen.routeName);
-                                    Get.toNamed(AddAddressScreen.routeName);
+                                    Get.toNamed(SelectTime.routeName);
                                   },
                                   child: const Text('Buy Now'),
                                 ),
