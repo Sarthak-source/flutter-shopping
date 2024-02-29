@@ -185,7 +185,6 @@ class NetworkRepository {
     }
   }
 
-
   static Future getMyOrders({
     required String party,
     required String order_prifix,
@@ -196,7 +195,7 @@ class NetworkRepository {
     try {
       final apiResponse = await NetworkDioHttp.getDioHttpMethod(
         url:
-        "${ApiAppConstants.apiEndPoint}${ApiAppConstants.myOrders}?party=$party&order_prifix=&order_status=$order_status&order_date=&delivery_required_on=",
+            "${ApiAppConstants.apiEndPoint}${ApiAppConstants.myOrders}?party=$party&order_prifix=&order_status=$order_status&order_date=&delivery_required_on=",
         header: Options(headers: <String, String>{'authorization': auth}),
       );
       log('myOrders in repo++++$apiResponse');
@@ -221,15 +220,13 @@ class NetworkRepository {
     }
   }
 
-
   static Future getOrderDetail({
     required String orderId,
-
   }) async {
     try {
       final apiResponse = await NetworkDioHttp.getDioHttpMethod(
         url:
-        "${ApiAppConstants.apiEndPoint}${ApiAppConstants.myOrderDetail}$orderId",
+            "${ApiAppConstants.apiEndPoint}${ApiAppConstants.myOrderDetail}$orderId",
         header: Options(headers: <String, String>{'authorization': auth}),
       );
       log('myOrderDetail in repo++++$apiResponse');
@@ -314,6 +311,37 @@ class NetworkRepository {
       }
 
       return appException.res?.statusCode.toString();
+    }
+  }
+
+  static getProductDetail({String? partyId, String? product}) async {
+
+    log(product.toString());
+
+
+    try {
+      final apiResponse = await NetworkDioHttp.getDioHttpMethod(
+        url:
+            "${ApiAppConstants.apiEndPoint}${ApiAppConstants.products}?&party=$partyId&product=$product",
+        header: Options(headers: <String, String>{'authorization': auth}),
+      );
+
+      debugPrint('\x1b[97m checkSeller Response : $apiResponse');
+
+      final body = apiResponse['body'];
+
+      if (body != null &&
+          body['error'] != null &&
+          body['error'] == 'User not exist please sign up') {
+        Fluttertoast.showToast(msg: body['error'].toString());
+      }
+
+      return apiResponse;
+    } catch (e) {
+      dynamic er = e;
+      Fluttertoast.showToast(msg: er['body']['error']);
+
+      return er['body']['error'].toString();
     }
   }
 
@@ -422,14 +450,14 @@ class NetworkRepository {
   }) async {
     try {
       var data;
-      if(type == "delete"){
-         data = FormData.fromMap({
+      if (type == "delete") {
+        data = FormData.fromMap({
           "count": count,
           "cart": cart,
           "type": type,
         });
-      }else{
-         data = FormData.fromMap({
+      } else {
+        data = FormData.fromMap({
           "count": count,
           "cart": cart,
           "type": type,
@@ -472,7 +500,7 @@ class NetworkRepository {
     required String gst,
   }) async {
     try {
-      Map storedUserData=box!.get('userData');
+      Map storedUserData = box!.get('userData');
       var data = FormData.fromMap({
         "party": storedUserData['party']['id'].toString(),
         "gstin": gst,
@@ -505,7 +533,6 @@ class NetworkRepository {
       rethrow;
     }
   }
-
 
   static Future getDeals() async {
     try {
