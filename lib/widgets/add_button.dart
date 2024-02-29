@@ -55,7 +55,9 @@ class _AddButtonState extends State<AddButton> {
                 color: kPrimaryBlue, // Specify the border color here
               ),
             ),
-            width: quantity.toString().length ==1?80:60 + 12.0 * quantity.toString().length,
+            width: quantity.toString().length == 1
+                ? 80
+                : 60 + 12.0 * quantity.toString().length,
             child: Row(
               children: [
                 InkWell(
@@ -100,9 +102,11 @@ class _AddButtonState extends State<AddButton> {
                           EdgeInsets.only(top: 5), // Remove default padding
                     ),
                     onChanged: (value) {
-                      
-                        quantity = int.parse(value);
-                      
+                      quantity = int.parse(value);
+                    },
+
+                    onEditingComplete: () {
+                      setState(() {});
                     },
                     textAlign: TextAlign.center,
                     style: const TextStyle(color: kPrimaryBlue, fontSize: 16),
