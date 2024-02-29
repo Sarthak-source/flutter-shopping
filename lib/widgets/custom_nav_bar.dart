@@ -25,7 +25,7 @@ class CustomNavBarState extends State<CustomNavBar> {
     return Obx(() {
       return Container(
         decoration: const BoxDecoration(
-          border: Border(top: BorderSide(color: Colors.grey,width: 0.8)),
+          border: Border(top: BorderSide(color: Colors.grey, width: 0.8)),
           // borderRadius: BorderRadius.only(
           //     topRight: Radius.circular(25), topLeft: Radius.circular(25)),
           // boxShadow: [
@@ -66,36 +66,35 @@ class CustomNavBarState extends State<CustomNavBar> {
                         : const Icon(Icons.shopping_cart_outlined),
                     if (addToCartController.productCount > 0)
                       Positioned(
-      right: 0,
-      child: Stack(
-        children: [
-          
-          Shimmer.fromColors(
-            baseColor: Colors.red[400]!,
-            highlightColor: Colors.red[100]!,
-            child: Container(
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.red,
-              ),
-              width: 16,
-              height: 16,
-            ),
-          ),
-          CircleAvatar(
-            backgroundColor: Colors.transparent,
-            radius: 8,
-            child: Text(
-              addToCartController.productCount.toString(),
-              style: const TextStyle(
-                fontSize: 10,
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ],
-      ),
-    ),
+                        right: 0,
+                        child: Stack(
+                          children: [
+                            Shimmer.fromColors(
+                              baseColor: Colors.red[400]!,
+                              highlightColor: Colors.red[100]!,
+                              child: Container(
+                                decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.red,
+                                ),
+                                width: 16,
+                                height: 16,
+                              ),
+                            ),
+                            CircleAvatar(
+                              backgroundColor: Colors.transparent,
+                              radius: 8,
+                              child: Text(
+                                addToCartController.productCount.toString(),
+                                style: const TextStyle(
+                                  fontSize: 10,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                   ],
                 ),
                 label: 'Cart',
@@ -113,5 +112,3 @@ class CustomNavBarState extends State<CustomNavBar> {
     });
   }
 }
-
-

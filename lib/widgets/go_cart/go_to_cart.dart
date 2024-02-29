@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sutra_ecommerce/controllers/add_to_cart_controller.dart';
 import 'package:sutra_ecommerce/controllers/mycart_controller.dart';
 import 'package:sutra_ecommerce/utils/screen_utils.dart';
 
@@ -18,6 +19,9 @@ class _GoToCartState extends State<GoToCart> {
   Widget build(BuildContext context) {
     final MyCartController controller = Get.put(MyCartController());
 
+    final AddToCartController addToCartController =
+        Get.put(AddToCartController());
+
     return Obx(() {
       return Padding(
         padding: EdgeInsets.symmetric(
@@ -34,18 +38,24 @@ class _GoToCartState extends State<GoToCart> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text('cart total:'),
-                  Text(
-                    "₹ ${controller.mycartTotalAmount.value}",
-                    style: Theme.of(context)
-                        .textTheme
-                        .headlineLarge!
-                        .copyWith(fontWeight: FontWeight.w700, fontSize: 20),
+                  Row(
+                    children: [
+                      Text(
+                        "₹ ${controller.mycartTotalAmount.value}",
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineLarge!
+                            .copyWith(fontWeight: FontWeight.w700, fontSize: 20),
+                      ),
+
+                      Text(" | ${addToCartController.productCount.value}")
+                    ],
                   ),
                 ],
               ),
             ),
             const SizedBox(
-              width: 150,
+              width: 110,
             ),
             Expanded(
               flex: 2,
