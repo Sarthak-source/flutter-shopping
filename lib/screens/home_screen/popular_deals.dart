@@ -6,7 +6,6 @@ import 'package:shimmer/shimmer.dart';
 import 'package:sutra_ecommerce/controllers/popular_controller.dart';
 import 'package:sutra_ecommerce/widgets/popular_card/popular_card.dart';
 
-import '../../utils/screen_utils.dart';
 import '../product_grid_screen/produts_grid_screen.dart';
 
 class PopularDealTab extends StatelessWidget {
@@ -54,9 +53,8 @@ class PopularDealTab extends StatelessWidget {
       }else {
 
       return Container(
-        height: 180,
-        color: controller.isLoading.value?Colors.white:Colors.grey.shade300,
-
+         height: 175,
+        color: Colors.grey.shade200,
         child: ListView.builder(
           clipBehavior: Clip.none,
           scrollDirection: Axis.horizontal,

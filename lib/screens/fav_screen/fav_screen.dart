@@ -40,6 +40,7 @@ class FavScreen extends StatelessWidget {
       SizedBox(
         height: getProportionateScreenHeight(10.0),
       ),
+     
       Text(
         'Oops your wishlish is empty',
         style: Theme.of(context).textTheme.displaySmall?.copyWith(

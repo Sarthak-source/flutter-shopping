@@ -32,6 +32,7 @@ class SearchBar extends StatelessWidget {
         prefixIcon: const Icon(Icons.search),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(getProportionateScreenWidth(4)),
+          
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(getProportionateScreenWidth(8)),

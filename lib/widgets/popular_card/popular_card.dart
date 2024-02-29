@@ -41,7 +41,8 @@ class _PopularCardState extends State<PopularCard> {
     }
   }
 
-  final AddToCartController addToCartController = Get.put(AddToCartController());
+  final AddToCartController addToCartController =
+      Get.put(AddToCartController());
   final MyCartController myCartController = Get.put(MyCartController());
   @override
   Widget build(BuildContext context) {
@@ -50,11 +51,15 @@ class _PopularCardState extends State<PopularCard> {
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: InkWell(
         onTap: () {
-            //log(widget.product.toString());
-            Get.toNamed(ProductDetailScreen.routeName,
-                arguments:
-                    ProductDetailArguments(productDetailData: widget.product));
-          },
+          log('Navigating to ProductDetailScreen');
+          log('Product Data: ${widget.product.toString()}');
+          Navigator.pushNamed(
+            context,
+            ProductDetailScreen.routeName,
+            arguments:
+                ProductDetailArguments(productDetailData: widget.product),
+          );
+        },
         child: Container(
           width: 170,
           decoration: BoxDecoration(
@@ -140,8 +145,8 @@ class _PopularCardState extends State<PopularCard> {
                           color: kPrimaryBlue, // Set your desired border color
                           width: 1.0, // Set the border width
                         ),
-                        borderRadius:
-                            BorderRadius.circular(10.0), // Set the border radius
+                        borderRadius: BorderRadius.circular(
+                            10.0), // Set the border radius
                       ),
                       child: SizedBox(
                         height: 35,
@@ -161,16 +166,17 @@ class _PopularCardState extends State<PopularCard> {
                                   log('20');
                                   quantity.value++;
                                   addToCartController.productCount++;
-                                  addToCartController.addToCart(
-                                      quantity.value, widget.product?['id'], '1');
-      
+                                  addToCartController.addToCart(quantity.value,
+                                      widget.product?['id'], '1');
+
                                   addToCartController.update();
                                 },
                                 child: Text(
                                   'Add',
                                   style: TextStyle(
                                       color: kPrimaryBlue,
-                                      fontSize: getProportionateScreenWidth(14)),
+                                      fontSize:
+                                          getProportionateScreenWidth(14)),
                                 ),
                               )
                             : Row(
@@ -204,9 +210,9 @@ class _PopularCardState extends State<PopularCard> {
                                   ),
                                   Container(
                                     height: 35,
-                                    width:
-                                        (quantity.value.toString().length * 11) +
-                                            20,
+                                    width: (quantity.value.toString().length *
+                                            11) +
+                                        20,
                                     color: kPrimaryBlue,
                                     child: Center(
                                       child: Text(
@@ -236,7 +242,7 @@ class _PopularCardState extends State<PopularCard> {
                                               quantity.value,
                                               widget.product?['id'],
                                               '1');
-      
+
                                           addToCartController.productCount++;
                                           addToCartController.update();
                                         },

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sutra_ecommerce/controllers/catagories_controller.dart';
 import 'package:sutra_ecommerce/models/category.dart';
+import 'package:sutra_ecommerce/screens/product_grid_screen/produts_grid_screen.dart';
 
 import '../constants/colors.dart';
 import '../utils/screen_utils.dart';
@@ -43,13 +44,25 @@ class CategoryScreen extends StatelessWidget {
                 ),
                 itemCount: controller.categories.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return CategoryCard(
-                    from: "allcategories",
-                    category:  Category(
-                              controller.categories[index]['name'],
-                              controller.categories[index]['categories_img'],
-                              Colors.amber,
-                            ),);
+                  return InkWell(
+                    onTap: () {
+                      Get.toNamed(
+                              PoductsListScreen.routeName,
+                              arguments: PoductsListArguments(
+                                title: controller.categories[index]['name'],
+                                categoryId:
+                                    controller.categories[index]['id'].toString(),
+                              ),
+                            );
+                    },
+                    child: CategoryCard(
+                      from: "allcategories",
+                      category:  Category(
+                                controller.categories[index]['name'],
+                                controller.categories[index]['categories_img'],
+                                Colors.amber,
+                              ),),
+                  );
                 },
               ))
             ],

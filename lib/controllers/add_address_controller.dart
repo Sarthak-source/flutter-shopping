@@ -2,11 +2,9 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:get/get.dart';
-import 'package:sutra_ecommerce/screens/add_address/add_address_screen.dart';
 import 'package:sutra_ecommerce/utils/network_repository.dart';
 
 import '../config/common.dart';
-import '../screens/add_address/post_address.dart';
 import '../utils/generic_exception.dart';
 
 class AddAddressController extends GetxController {
