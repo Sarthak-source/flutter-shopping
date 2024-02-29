@@ -43,7 +43,8 @@ class _PopularCardState extends State<PopularCard> {
     }
   }
 
-  final AddToCartController addToCartController = Get.put(AddToCartController());
+  final AddToCartController addToCartController =
+      Get.put(AddToCartController());
   final MyCartController myCartController = Get.put(MyCartController());
   @override
   Widget build(BuildContext context) {

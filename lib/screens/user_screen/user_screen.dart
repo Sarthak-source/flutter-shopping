@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sutra_ecommerce/controllers/user_controller.dart';
 import 'package:sutra_ecommerce/screens/add_address/add_address_screen.dart';
+import 'package:sutra_ecommerce/screens/select_time/select_time.dart';
 
 import '../../constants/colors.dart';
 import '../../utils/screen_utils.dart';
@@ -33,6 +34,16 @@ class UserScreen extends StatelessWidget {
             SizedBox(
               height: getProportionateScreenHeight(8.0),
             ),
+            //const AddButton(),
+            // ...
+
+// ...
+
+
+            //  CustomPaint(
+            //     size: const Size(100, 100),
+            //     painter: EveningPainter(),
+            //   ),
             Text(
                 userController?.user!=null? userController!.user['party']['party_name'].toString(): "",
               style: Theme.of(context).textTheme.displaySmall!.copyWith(
@@ -60,11 +71,22 @@ class UserScreen extends StatelessWidget {
               height: getProportionateScreenHeight(8.0),
             ),
             ProfileCard(
+              image: 'assets/images/profile_user.png',
+              color: kAccentGreen,
+              title: 'Select time',
+              tapHandler: () {
+                Get.toNamed(SelectTime.routeName);
+              },
+            ),
+            SizedBox(
+              height: getProportionateScreenHeight(8.0),
+            ),
+            ProfileCard(
               image: 'assets/images/map_user.png',
               color: kAccentTosca,
               title: 'My Address',
               tapHandler: () {
-               Get.toNamed(AddAddressScreen.routeName);
+                Get.toNamed(AddAddressScreen.routeName);
               },
             ),
             SizedBox(

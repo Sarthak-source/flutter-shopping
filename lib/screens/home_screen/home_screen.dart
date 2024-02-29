@@ -17,7 +17,6 @@ import '../../controllers/popular_controller.dart';
 import '../../utils/common_functions.dart';
 import '../../utils/screen_utils.dart';
 import '../../utils/shimmer_placeholders/myorder_shimmer.dart';
-import '../../widgets/category_card/category_card.dart';
 import '../../widgets/deal_card.dart';
 import '../../widgets/tab_title.dart';
 import '../category_screen.dart';
@@ -50,6 +49,14 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     print('home screen:::');
 
+
+    /*dealsController.fetchDealss();
+    dealsController.update();
+    categoriesController.getCategories();
+    categoriesController.update();
+    popularController.fetchPopularDeals();
+    popularController.update();*/
+    // userController.getUserData();
   }
 
   @override
@@ -281,7 +288,7 @@ class DealsTab extends StatelessWidget {
             // );
           }),
           const SizedBox(height: 8),
-          Divider()
+          const Divider()
         ],
       ),
     );
@@ -334,7 +341,7 @@ class HomeAppBar extends StatelessWidget {
                               fontSize: getProportionateScreenWidth(12),
                             ),
                           ),
-                          SizedBox(width: 10),
+                           const SizedBox(width: 10),
                           Text(
                             userController.user['party']?['address']
                                     ?['address_line2'] ??

@@ -3,6 +3,7 @@ import 'package:sutra_ecommerce/controllers/add_to_cart_controller.dart';
 import 'package:sutra_ecommerce/screens/add_address/post_address.dart';
 import 'package:sutra_ecommerce/screens/login/verify_otp.dart';
 import 'package:sutra_ecommerce/screens/product_detail.dart/product_detail.dart';
+import 'package:sutra_ecommerce/screens/select_time/select_time.dart';
 
 import '../screens/add_address/add_address_screen.dart';
 import '../screens/cart/cart_screen.dart';
@@ -33,7 +34,7 @@ List<GetPage> pages = [
   GetPage(name: LoginScreen.routeName, page: () => const LoginScreen()),
   GetPage(name: SignupScreen.routeName, page: () => const SignupScreen()),
   GetPage(name: AddAddressScreen.routeName, page: () =>  AddAddressScreen()),
-  GetPage(name: PostAddressPage.routeName, page: () =>  PostAddressPage()),
+  GetPage(name: PostAddressPage.routeName, page: () =>  const PostAddressPage()),
   GetPage(name: MapScreen.routeName, page: () => const MapScreen()),
   GetPage(name: TabScreen.routeName, page: () => const TabScreen(),binding: StoreBinding()),
   GetPage(name: SearchScreen.routeName, page: () => const SearchScreen()),
@@ -41,6 +42,7 @@ List<GetPage> pages = [
   GetPage(name: FruitScreen.routeName, page: () => const FruitScreen()),
   GetPage(name: CategoryScreen.routeName, page: () => const CategoryScreen()),
   GetPage(name: PoductsListScreen.routeName, page: () => const PoductsListScreen()),
+  GetPage(name: SelectTime.routeName, page: () => const SelectTime()),
   GetPage(name: SpecialDealScreen.routeName, page: () => const SpecialDealScreen()),
   GetPage(name: SpecialDealChildScreen.routeName, page: () => const SpecialDealChildScreen()),
   GetPage(name: SearchFruitScreen.routeName, page: () => const SearchFruitScreen()),

@@ -128,6 +128,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "date_picker_timeline",
+      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/date_picker_timeline-1.2.5",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "dbus",
       "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/dbus-0.7.10",
       "packageUri": "lib/",
@@ -186,6 +192,12 @@
       "rootUri": "file:///Users/fao/flutter/packages/flutter",
       "packageUri": "lib/",
       "languageVersion": "3.0"
+    },
+    {
+      "name": "flutter_advanced_switch",
+      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/flutter_advanced_switch-3.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
     },
     {
       "name": "flutter_json_viewer",
@@ -782,7 +794,7 @@
       "languageVersion": "3.1"
     }
   ],
-  "generated": "2024-02-26T08:57:08.800937Z",
+  "generated": "2024-02-28T09:25:41.934216Z",
   "generator": "pub",
   "generatorVersion": "3.1.5"
 }
