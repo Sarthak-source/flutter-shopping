@@ -46,7 +46,9 @@ class _SelectTimeState extends State<SelectTime> {
           const SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: DatePicker(
+            child:
+
+            DatePicker(
               DateTime.now(),
               initialSelectedDate: DateTime.now(),
               selectionColor: kPrimaryBlue,
@@ -130,7 +132,7 @@ class _SelectTimeState extends State<SelectTime> {
               child: Column(
                 children: [
                   const Text(
-                    'Sumbit',
+                    'Submit',
                     style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                   Text(

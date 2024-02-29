@@ -1,6 +1,10 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
+import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:sutra_ecommerce/screens/home_screen/popular_deals.dart';
 import 'package:sutra_ecommerce/screens/order_summary_screen.dart';
 import 'package:sutra_ecommerce/widgets/custom_app_bar.dart';
@@ -10,6 +14,8 @@ import 'package:sutra_ecommerce/widgets/order_card.dart';
 import 'package:sutra_ecommerce/widgets/tab_title.dart';
 
 import '../../constants/colors.dart';
+import '../../controllers/add_to_cart_controller.dart';
+import '../../controllers/product_detail_controller.dart';
 import '../../utils/screen_utils.dart';
 
 //arguments: ProductDetailArguments(phoneNumber: phoneNumberTyped)
@@ -334,7 +340,7 @@ class _ProductBodyState extends State<ProductBody> {
                 padding: 0,
               ),
               SizedBox(
-                  height: getProportionateScreenHeight(155),
+                //  height: getProportionateScreenHeight(155),
                   child: PopularDealTab(
                     categoryId: widget.product?['category'].toString() ?? '',
                     //childAspectRatio: 0.72,
