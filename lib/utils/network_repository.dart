@@ -291,8 +291,7 @@ class NetworkRepository {
         url:
             "${ApiAppConstants.apiEndPoint}${ApiAppConstants.products}?category=$category&status=$status&search=$search&party=$partyId&page=$page",
         header: Options(headers: <String, String>{'authorization': auth}),
-      );
- 
+      ); 
       print('\x1b[97m products Response : $apiResponse');
 
       final body = apiResponse['body'];
@@ -346,8 +345,6 @@ class NetworkRepository {
       return appException.res?.statusCode.toString();
     }
   }
-
-
 // shipping from
   Future addressListPost(
       {required String name,
