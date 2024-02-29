@@ -11,9 +11,11 @@ import 'package:sutra_ecommerce/utils/screen_utils.dart';
 
 class PopularCard extends StatefulWidget {
   final dynamic product;
-  const PopularCard({
+  final String? isFrom;
+   PopularCard({
     super.key,
     this.product,
+    this.isFrom
   });
 
   @override
@@ -51,9 +53,14 @@ class _PopularCardState extends State<PopularCard> {
       child: InkWell(
         onTap: () {
             //log(widget.product.toString());
+          if(widget.isFrom=="more"){
+            Get.offNamed(ProductDetailScreen.routeName,
+                arguments: ProductDetailArguments(productDetailData: widget.product));
+          }else{
             Get.toNamed(ProductDetailScreen.routeName,
-                arguments:
-                    ProductDetailArguments(productDetailData: widget.product));
+                arguments: ProductDetailArguments(productDetailData: widget.product));
+          }
+
           },
         child: Container(
           width: 170,

@@ -23,6 +23,7 @@ import '../../widgets/tab_title.dart';
 import '../category_screen.dart';
 import '../search_screen/search_screen.dart';
 import '../special_deal_screen.dart';
+import 'explore_more_products.dart';
 import 'explore_newCateagory.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -155,28 +156,10 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          const SliverToBoxAdapter(
+          SliverToBoxAdapter(
               child: PopularDealTab(categoryId: "",)),
 
-          SliverToBoxAdapter(
-            child: Column(
-              children: [
-                Container(
-                  height: 14,
-                  color: Colors.grey.shade300,
-                ),
-                Container(
-                  color: Colors.grey.shade300,
-                  child: TabTitle(
-                    title: 'Explore More Catrgories',
-                    seeAll: () {
-                      Get.toNamed(CategoryScreen.routeName);
-                    },
-                  ),
-                ),
-              ],
-            ),
-          ),
+
           SliverToBoxAdapter(
             child: Container(
               //height: 200,
@@ -186,9 +169,12 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           SliverToBoxAdapter(
+            child:  ExploreMoreProducts(categoryId: "",)
+          ),
+          SliverToBoxAdapter(
             child: Container(
               height: 20,
-
+              width: Get.width,
               color: Colors.grey.shade300,
 
             ),

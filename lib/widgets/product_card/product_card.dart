@@ -68,8 +68,7 @@ class _ProductCardState extends State<ProductCard> {
           onTap: () {
             //log(widget.product.toString());
             Get.toNamed(ProductDetailScreen.routeName,
-                arguments:
-                    ProductDetailArguments(productDetailData: widget.product));
+                arguments: ProductDetailArguments(productDetailData: widget.product));
           },
           child: Container(
             padding: EdgeInsets.all(

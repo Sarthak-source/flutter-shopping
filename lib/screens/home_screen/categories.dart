@@ -96,8 +96,7 @@ class CategoryTab extends StatelessWidget {
                               PoductsListScreen.routeName,
                               arguments: PoductsListArguments(
                                 title: catData.isNotEmpty?catData[index]['name']:"",
-                                categoryId:
-                                    controller.categories[index]['id'].toString(),
+                                categoryId: controller.categories[index]['id'].toString(),
                               ),
                             );
                           },

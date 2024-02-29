@@ -33,7 +33,7 @@ class TabTitle extends StatelessWidget {
             child: Text(
               title!,
               style: TextStyle(
-                  fontSize: 11,fontWeight: FontWeight.bold,
+                  fontSize: 13,fontWeight: FontWeight.bold,
               )
             ),
           ),
@@ -46,7 +46,7 @@ class TabTitle extends StatelessWidget {
                   onTap: seeAll,
                   child: Text(
                     actionText,
-                    style: const TextStyle(fontSize: 8,color: Colors.black,fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontSize: 10,color: Colors.black,fontWeight: FontWeight.bold),
                   ),
                 ),
 

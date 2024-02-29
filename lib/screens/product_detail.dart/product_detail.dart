@@ -21,7 +21,7 @@ class ProductDetailArguments {
 }
 
 class ProductDetailScreen extends StatefulWidget {
-  static const routeName = '/productDetail';
+  static const  routeName = '/productDetail';
 
   const ProductDetailScreen({super.key});
 
@@ -50,8 +50,7 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var args =
-        ModalRoute.of(context)?.settings.arguments as ProductDetailArguments;
+    var args = ModalRoute.of(context)?.settings.arguments as ProductDetailArguments;
 
     log(args.productDetailData.toString());
     return Scaffold(
@@ -256,10 +255,10 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                             padding: 0,
                           ),
                           SizedBox(
-                              height: getProportionateScreenHeight(155),
+                            //  height: getProportionateScreenHeight(155),
                               child: PopularDealTab(
-                                categoryId: args.productDetailData['category']
-                                    .toString(),
+                                isfrom: "more",
+                                categoryId: args.productDetailData['category'].toString(),
                                 //childAspectRatio: 0.72,
                               )),
                           SizedBox(

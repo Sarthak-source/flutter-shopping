@@ -7,13 +7,15 @@ import 'package:sutra_ecommerce/controllers/popular_controller.dart';
 import 'package:sutra_ecommerce/widgets/popular_card/popular_card.dart';
 
 import '../../utils/screen_utils.dart';
+import '../../widgets/tab_title.dart';
 import '../product_grid_screen/produts_grid_screen.dart';
 
 class PopularDealTab extends StatelessWidget {
   final String categoryId;
+  final String? isfrom;
 
   // Constructor
-  const PopularDealTab({Key? key, required this.categoryId}) : super(key: key);
+  const PopularDealTab({Key? key, required this.categoryId,this.isfrom}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,7 @@ class PopularDealTab extends StatelessWidget {
     return Obx(() {
       final popularDeals = controller.popularDeals;
 
-      if (controller.isLoading.value) {
+      if (popularDeals.isEmpty) {
         // If the Future is still running, show a loading indicator
         return Padding(
           padding: const EdgeInsets.all(8.0),
@@ -53,18 +55,23 @@ class PopularDealTab extends StatelessWidget {
         return Center(child: Text('Error: ${controller.errorMsg.value}'));
       }else {
 
-      return Container(
-        height: 180,
-        color: controller.isLoading.value?Colors.white:Colors.grey.shade300,
+      return Column(
+        children: [
 
-        child: ListView.builder(
-          clipBehavior: Clip.none,
-          scrollDirection: Axis.horizontal,
-          itemCount: popularDeals.length ??0,
-          itemBuilder: (context, index) {
-            return PopularCard(product: popularDeals[index],);
-          },
-        ),
+          Container(
+            height: 180,
+            color: popularDeals.isEmpty?Colors.white:Colors.grey.shade300,
+
+            child: ListView.builder(
+              clipBehavior: Clip.none,
+              scrollDirection: Axis.horizontal,
+              itemCount: popularDeals.length ??0,
+              itemBuilder: (context, index) {
+                return PopularCard(product: popularDeals[index],isFrom: isfrom,);
+              },
+            ),
+          ),
+        ],
       );
     }});
   }
