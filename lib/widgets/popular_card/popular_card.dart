@@ -9,6 +9,8 @@ import 'package:sutra_ecommerce/screens/product_detail.dart/product_detail.dart'
 import 'package:sutra_ecommerce/utils/common_functions.dart';
 import 'package:sutra_ecommerce/utils/screen_utils.dart';
 
+import '../../controllers/product_detail_controller.dart';
+
 class PopularCard extends StatefulWidget {
   final dynamic product;
   final String? isFrom;
@@ -43,9 +45,9 @@ class _PopularCardState extends State<PopularCard> {
     }
   }
 
-  final AddToCartController addToCartController =
-      Get.put(AddToCartController());
+  final AddToCartController addToCartController = Get.put(AddToCartController());
   final MyCartController myCartController = Get.put(MyCartController());
+  final ProductDetailController prodDetailController = Get.put(ProductDetailController());
   @override
   Widget build(BuildContext context) {
     var productdeal = widget.product;
@@ -55,8 +57,11 @@ class _PopularCardState extends State<PopularCard> {
         onTap: () {
             //log(widget.product.toString());
           if(widget.isFrom=="more"){
-            Get.offNamed(ProductDetailScreen.routeName,
-                arguments: ProductDetailArguments(productDetailData: widget.product));
+            print('isFrom==more');
+            prodDetailController.fetchProductDetail(widget.product['id'].toString());
+            prodDetailController.update();
+            /* Get.offNamed(ProductDetailScreen.routeName,
+                arguments: ProductDetailArguments(productDetailData: widget.product));*/
           }else{
             Get.toNamed(ProductDetailScreen.routeName,
                 arguments: ProductDetailArguments(productDetailData: widget.product));

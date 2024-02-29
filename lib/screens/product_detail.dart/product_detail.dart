@@ -10,6 +10,7 @@ import 'package:sutra_ecommerce/screens/order_summary_screen.dart';
 import 'package:sutra_ecommerce/widgets/custom_app_bar.dart';
 import 'package:sutra_ecommerce/widgets/discount_text.dart';
 import 'package:sutra_ecommerce/widgets/fruit_title.dart';
+import 'package:sutra_ecommerce/widgets/loading_widgets/loader.dart';
 import 'package:sutra_ecommerce/widgets/order_card.dart';
 import 'package:sutra_ecommerce/widgets/tab_title.dart';
 
@@ -26,26 +27,36 @@ class ProductDetailArguments {
   ProductDetailArguments({required this.productDetailData});
 }
 
-class ProductDetailScreen extends StatelessWidget {
+class ProductDetailScreen extends StatefulWidget {
   static const routeName = '/productDetail';
 
   const ProductDetailScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    var args =
-        ModalRoute.of(context)?.settings.arguments as ProductDetailArguments;
+  State<ProductDetailScreen> createState() => _ProductDetailScreenState();
+}
 
+class _ProductDetailScreenState extends State<ProductDetailScreen> {
+  final ProductDetailController prodDetailController = Get.put(ProductDetailController());
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    var args = ModalRoute.of(context)?.settings.arguments as ProductDetailArguments;
     log("ProductDetailController ${args.productDetailData.toString()}");
 
+    prodDetailController.fetchProductDetail( args.productDetailData['id'].toString());
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: GetBuilder<ProductDetailController>(
-          init: ProductDetailController(
-              product: args.productDetailData['id'].toString()),
+          //init: ProductDetailController(product: args.productDetailData['id'].toString()),
           builder: (controller) {
             if (controller.isLoading.value) {
-              return const Center(child: Text('loading'));
+              return const Center(child: Loader());
             } else {
               return Column(
                 children: [
@@ -343,6 +354,7 @@ class _ProductBodyState extends State<ProductBody> {
                 //  height: getProportionateScreenHeight(155),
                   child: PopularDealTab(
                     categoryId: widget.product?['category'].toString() ?? '',
+                    isfrom: 'more',
                     //childAspectRatio: 0.72,
                   )),
               SizedBox(
