@@ -6,7 +6,6 @@ import 'package:shimmer/shimmer.dart';
 import 'package:sutra_ecommerce/controllers/popular_controller.dart';
 import 'package:sutra_ecommerce/widgets/popular_card/popular_card.dart';
 
-import '../../utils/screen_utils.dart';
 import '../product_grid_screen/produts_grid_screen.dart';
 
 class PopularDealTab extends StatelessWidget {
@@ -67,5 +66,6 @@ class PopularDealTab extends StatelessWidget {
         ),
       );
     }});
+
   }
 }

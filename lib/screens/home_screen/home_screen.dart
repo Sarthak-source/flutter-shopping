@@ -194,6 +194,9 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
 
+
+          //SliverToBoxAdapter(child: const AddButton()),
+
           (addToCardController.productCount.value > 0)
               ? const SliverToBoxAdapter(
                   child: SizedBox(
@@ -295,7 +298,7 @@ class DealsTab extends StatelessWidget {
             // );
           }),
           const SizedBox(height: 8),
-          Divider()
+          const Divider()
         ],
       ),
     );
