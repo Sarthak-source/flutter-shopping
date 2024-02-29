@@ -201,6 +201,9 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
 
+
+          //SliverToBoxAdapter(child: const AddButton()),
+
           (addToCardController.productCount.value > 0)
               ? const SliverToBoxAdapter(
                   child: SizedBox(
