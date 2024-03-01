@@ -145,4 +145,15 @@ class CustomTheme {
         color: kGreyShade3,
         thickness: 2,
       );
+      
+  bottomSheetTheme() => const BottomSheetThemeData(
+    //elevation: 5,
+    //modalElevation: 5,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+          ),
+        ),
+      );
 }

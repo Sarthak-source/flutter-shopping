@@ -19,7 +19,6 @@ import '../../utils/screen_utils.dart';
 import '../../utils/shimmer_placeholders/myorder_shimmer.dart';
 import '../../widgets/deal_card.dart';
 import '../../widgets/tab_title.dart';
-import '../category_screen.dart';
 import '../search_screen/search_screen.dart';
 import '../special_deal_screen.dart';
 import 'explore_more_products.dart';
@@ -190,7 +189,7 @@ class _HomeScreenState extends State<HomeScreen> {
           (addToCardController.productCount.value > 0)
               ? const SliverToBoxAdapter(
                   child: SizedBox(
-                  height: 140,
+                  height: 70,
                 ))
               : const SliverToBoxAdapter(
                   child: SizedBox(

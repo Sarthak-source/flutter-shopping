@@ -1,6 +1,8 @@
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sutra_ecommerce/constants/colors.dart';
+import 'package:sutra_ecommerce/screens/add_address/add_address_screen.dart';
 import 'package:sutra_ecommerce/utils/screen_utils.dart';
 import 'package:sutra_ecommerce/widgets/back_button_ls.dart';
 
@@ -127,6 +129,7 @@ class _SelectTimeState extends State<SelectTime> {
             padding: const EdgeInsets.symmetric(horizontal: 24.0),
             child: ElevatedButton(
               onPressed: () {
+                 Get.toNamed(AddAddressScreen.routeName);
                 //_selectDate(context); // Step 2
               },
               child: Column(

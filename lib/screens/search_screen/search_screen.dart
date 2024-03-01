@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sutra_ecommerce/constants/colors.dart';
+import 'package:sutra_ecommerce/controllers/add_to_cart_controller.dart';
 import 'package:sutra_ecommerce/screens/product_grid_screen/produts_grid_screen.dart';
+import 'package:sutra_ecommerce/widgets/go_cart/go_to_cart.dart';
 
 import '../../utils/screen_utils.dart';
 import '../../widgets/search_bar.dart' as search;
@@ -15,7 +17,13 @@ class SearchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextEditingController searchController = TextEditingController();
+
+      final AddToCartController addToCartController =
+        Get.put(AddToCartController());
     return Scaffold(
+      bottomSheet: (addToCartController.productCount > 0 )
+            ? const GoToCart()
+            : const SizedBox.shrink(),
       body: SafeArea(
         child: Stack(
           children: [
