@@ -188,9 +188,7 @@ class _ProductBodyState extends State<ProductBody> {
               SizedBox(
                 height: getProportionateScreenHeight(14),
               ),
-              Hero(
-                  tag: 'productDetailName',
-                  child: FruitTitle(title: widget.product?['name'])),
+              FruitTitle(title: widget.product?['name']),
               SizedBox(
                 height: getProportionateScreenHeight(10),
               ),
