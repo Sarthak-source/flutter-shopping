@@ -26,7 +26,7 @@ class ExploreMoreProducts extends StatelessWidget {
     return Obx(() {
       final popularDeals = controller.popularDeals;
 
-      if (controller.isLoading.value) {
+      if (controller.popularDeals.isEmpty) {
         // If the Future is still running, show a loading indicator
         return Padding(
             padding: const EdgeInsets.all(8.0),
@@ -67,14 +67,14 @@ class ExploreMoreProducts extends StatelessWidget {
             ),
             Container(
               height: 180,
-              color: controller.isLoading.value?Colors.white:Colors.grey.shade300,
+              color: controller.popularDeals.isEmpty?Colors.white:Colors.grey.shade300,
 
               child: ListView.builder(
                 clipBehavior: Clip.none,
                 scrollDirection: Axis.horizontal,
                 itemCount: popularDeals.length ??0,
                 itemBuilder: (context, index) {
-                  return PopularCard(product: popularDeals[index],);
+                  return PopularCard(product: popularDeals[index],onCardAddClicked: (){},onCardMinusClicked: (){},);
                 },
               ),
             ),

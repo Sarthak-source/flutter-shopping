@@ -211,7 +211,7 @@ class DealsTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: controller.isLoading.value?Colors.white:Colors.grey.shade300,
+      color: controller.deals.isEmpty?Colors.white:Colors.grey.shade300,
       child: Column(
        // crossAxisAlignment: CrossAxisAlignment.start,
         //mainAxisAlignment: MainAxisAlignment.start,
@@ -223,7 +223,7 @@ class DealsTab extends StatelessWidget {
               }),
 
           GetBuilder<DealsController>(builder: (context) {
-              if (controller.isLoading.value) {
+              if (controller.deals.isEmpty) {
               return Shimmer.fromColors(
                 baseColor: Colors.grey[300]!,
                 highlightColor: Colors.grey[100]!,

@@ -23,7 +23,7 @@ class ApiAppConstants {
   // static String apiEndPoint = "http://139.162.12.150/api/"; // Prod
   static String apiEndPoint = "http://170.187.232.148/api/";
 
-  static const String signup = 'app_user/';
+  static const String signup = 'new_party/';
   static const String otp = 'sendLoginOTP/';
   static const String resendOTP = 'resendLogiOTP/';
   static const String verifyOTP = 'verifyLoginOTP/';
@@ -40,6 +40,6 @@ static const String addToCart = 'add_cart/';
   static const String myOrders='orders/';
   static const String myOrderDetail='order_detail/';
   static const String postaddress='inventory/address_post/';
-
+  static const String getstates='inventory/state/';
   static const String addressListPost = 'addressListPost/';
 }

@@ -1,9 +1,13 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 import '../constants/colors.dart';
+import '../controllers/add_to_cart_controller.dart';
 import '../utils/screen_utils.dart';
+import 'add_button.dart';
 
 class OrderCard extends StatefulWidget {
   const OrderCard( {
@@ -32,7 +36,8 @@ final dynamic mycartItem;
 
 class _OrderCardState extends State<OrderCard> {
   //final textController = TextEditingController(text: '1');
-
+  final TextEditingController quantityCtrlr =TextEditingController();
+  final AddToCartController addToCartController = Get.put(AddToCartController());
   int quantity = 0;
 @override
   void initState() {
@@ -136,6 +141,7 @@ class _OrderCardState extends State<OrderCard> {
                       ),
                     ),
                     const Spacer(),
+
                     Card(
                       elevation: 0,
                       shape: RoundedRectangleBorder(
@@ -197,6 +203,43 @@ class _OrderCardState extends State<OrderCard> {
                     ),
                   ],
                 ),
+               /* AddButton(
+                  isLoading: false,
+                  qty: quantity,
+                  onChangedPressed: (value){
+                    quantity = int.parse(value);
+                    quantityCtrlr.text =quantity.toString();
+                    controller.rxQty.value = quantity.toString();
+
+
+                  },
+                  onAddPressed: (){
+
+                    log('widget.mycartItem["product"]["name"] ${widget.mycartItem["product"]["name"].toString()}');
+                    setState(() {
+                      quantity++;
+                      log(quantity.toString());
+                      widget.onAddItem(quantity);
+                    });
+
+                  },
+                  onPlusPressed: (){
+                    setState(() {
+                      quantity++;
+                      widget.onPlusinCard(quantity);
+                    });
+                  },
+                  onMinusPressed: (){
+                    if (quantity != 0) {
+                      setState(() {
+                        quantity--;
+                        widget.onMinusinCard(quantity);
+                      });
+
+                    }
+                  },
+                  qtyController: quantityCtrlr,
+                ),*/
               ],
             ),
           ),

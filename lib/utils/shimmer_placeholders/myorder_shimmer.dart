@@ -10,7 +10,7 @@ class MyOrderShimmer extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-          height: from == "orderdetail" ? 100 : 200,
+          height: from == "orderdetail" ? 100 : 300,
           width: Get.width,
           decoration: BoxDecoration(
             color: Colors.white,

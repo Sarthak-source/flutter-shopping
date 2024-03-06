@@ -34,7 +34,7 @@ class UserScreen extends StatelessWidget {
             SizedBox(
               height: getProportionateScreenHeight(8.0),
             ),
-            const AddButton(),
+           // const AddButton(),
             // ...
 
 // ...

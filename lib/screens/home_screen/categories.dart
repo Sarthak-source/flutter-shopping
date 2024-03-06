@@ -59,7 +59,8 @@ class CategoryTab extends StatelessWidget {
             GetBuilder<CategoriesController>(
               builder: (controller) {
                 var catData=  controller.categories;
-                if (controller.isLoading.value) {
+               // if (controller.isLoading.value) {
+                if (catData.isEmpty) {
                   return Shimmer.fromColors(
                     baseColor: Colors.grey[300]!,
                     highlightColor: Colors.grey[100]!,

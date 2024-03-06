@@ -6,23 +6,32 @@ import 'package:shimmer/shimmer.dart';
 import 'package:sutra_ecommerce/controllers/popular_controller.dart';
 import 'package:sutra_ecommerce/widgets/popular_card/popular_card.dart';
 
+import '../../controllers/add_to_cart_controller.dart';
 import '../../utils/screen_utils.dart';
 import '../../widgets/tab_title.dart';
 import '../product_grid_screen/produts_grid_screen.dart';
 
-class PopularDealTab extends StatelessWidget {
+class PopularDealTab extends StatefulWidget {
   final String categoryId;
   final String? isfrom;
 
-  // Constructor
-  const PopularDealTab({Key? key, required this.categoryId,this.isfrom}) : super(key: key);
+   PopularDealTab({Key? key, required this.categoryId,this.isfrom}) : super(key: key);
+
+  @override
+  State<PopularDealTab> createState() => _PopularDealTabState();
+}
+
+class _PopularDealTabState extends State<PopularDealTab> {
+  int _selectedIndex = -1;
+
+  final AddToCartController addToCartController = Get.put(AddToCartController());
 
   @override
   Widget build(BuildContext context) {
     // Initialize the controller inside the build method
-    final PopularDealController controller = Get.put(PopularDealController(categoryId: categoryId));
+    final PopularDealController controller = Get.put(PopularDealController(categoryId: widget.categoryId));
 
-    log(categoryId.toString());
+    log(widget.categoryId.toString());
 
     return Obx(() {
       final popularDeals = controller.popularDeals;
@@ -59,7 +68,7 @@ class PopularDealTab extends StatelessWidget {
         children: [
 
           Container(
-            height: 180,
+            height: 200,
             color: popularDeals.isEmpty?Colors.white:Colors.grey.shade300,
 
             child: ListView.builder(
@@ -67,7 +76,31 @@ class PopularDealTab extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               itemCount: popularDeals.length ??0,
               itemBuilder: (context, index) {
-                return PopularCard(product: popularDeals[index],isFrom: isfrom,);
+                return PopularCard(
+                  onCardAddClicked: (){
+                    setState(() {
+                      _selectedIndex= index;
+
+                    /*  if(_selectedIndex == index){
+                        _selectedIndex= -1;
+                      }else{
+                        _selectedIndex= index;
+                      }*/
+                    });
+                  },
+                  onCardMinusClicked: (){
+                    setState(() {
+
+                      _selectedIndex= index;
+                    /*  if(_selectedIndex == index){
+                        _selectedIndex= -1;
+                      }else{
+                        _selectedIndex= index;
+                      }*/
+                    });
+                  },
+                  product: popularDeals[index],isFrom: widget.isfrom,
+                loader: index== _selectedIndex ?addToCartController.isLoading.value:false,);
               },
             ),
           ),

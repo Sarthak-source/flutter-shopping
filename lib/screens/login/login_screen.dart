@@ -119,6 +119,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     desc: 'Don\'t have an account? ',
                     method: 'Sign Up',
                     onPressHandler: () {
+                      loginController.getStates();
                       Get.toNamed(SignupScreen.routeName);
                     },
                   ),

@@ -7,10 +7,15 @@ class Loader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: CircularProgressIndicator(
-       // color: Color.fromRGBO(216, 244, 108, 1.0),
-        color: kPrimaryBlue,
+    return  Center(
+      child: Container(
+        height: 15,
+        width: 15,
+        child: CircularProgressIndicator(
+
+         // color: Color.fromRGBO(216, 244, 108, 1.0),
+          color: kPrimaryBlue,
+        ),
       ),
     );
   }

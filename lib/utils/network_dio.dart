@@ -291,7 +291,7 @@ class NetworkDioHttp {
         log(response.toString());
         // ignore: prefer_typing_uninitialized_variables
         var responseBody;
-        if (response.statusCode == 200) {
+        if (response.statusCode == 200 || response.statusCode == 201) {
           //
 
           try {

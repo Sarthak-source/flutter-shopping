@@ -1,7 +1,7 @@
 // ignore_for_file: non_constant_identifier_names, prefer_typing_uninitialized_variables
 
 import 'dart:developer';
-
+import '../models/stateResponseModel.dart';
 //import 'package:geolocator/geolocator.dart';
 // ignore: depend_on_referenced_packages
 import 'package:dio/dio.dart';
@@ -47,15 +47,15 @@ class NetworkRepository {
 
   Future userSignup(
       {required String name,
-      required String password,
-      required String number}) async {
+      required String mobnum,
+      required String state}) async {
     try {
       final apiResponse = await NetworkDioHttp.postDioHttpMethod(
         url: "${ApiAppConstants.apiEndPoint}${ApiAppConstants.signup}",
-        data: {"name": name, "password": password, "phone_number": number},
+        data: {"party_name": name, "mobile_NO": mobnum, "state": state},
         header: Options(headers: <String, String>{'authorization': auth}),
       );
-      debugPrint('\x1b[97m Response : $apiResponse');
+      debugPrint('\x1b[97m signup : $apiResponse');
 
       return await apiResponse['body'];
     } catch (e) {
@@ -114,6 +114,47 @@ class NetworkRepository {
       }
 
       return apiResponse;
+    }on AppException catch (appException)  {
+      print('appException.type in net repo ${appException.type.toString()}');
+      String errorMsg = '';
+      errorMsg = errorHandler(appException);
+      print('ERROR MESSAGE :: ${errorMsg}');
+      if (appException.res != null && appException.res?.data['detail'] != null ) {
+        Fluttertoast.showToast(msg: appException.res?.data['detail'].toString() ?? "Something went wrong");
+      }
+      return  null;
+    }
+  }
+
+  Future getStates() async {
+    log("${ApiAppConstants.apiEndPoint}${ApiAppConstants.getstates}?page=1");
+    try {
+      final apiResponse = await NetworkDioHttp.getDioHttpMethod(
+        url: "${ApiAppConstants.apiEndPoint}${ApiAppConstants.getstates}?page=1",
+        header: Options(headers: <String, String>{'authorization': auth}),
+      );
+
+
+      if (apiResponse != null) {
+
+        return apiResponse;
+      } else {
+        //Failed returning null
+
+        return null;
+      }
+
+
+  /*    print('\x1b[97m getstates Response : $apiResponse');
+
+      final body = apiResponse['body'];
+
+      if (body.isEmpty &&
+          body['detail'] != null ) {
+        Fluttertoast.showToast(msg: body['error'].toString());
+      }
+
+      return apiResponse;*/
     }on AppException catch (appException)  {
       print('appException.type in net repo ${appException.type.toString()}');
       String errorMsg = '';

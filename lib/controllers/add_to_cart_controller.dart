@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:sutra_ecommerce/controllers/get_deals_controller.dart';
 import 'package:sutra_ecommerce/controllers/mycart_controller.dart';
 import 'package:sutra_ecommerce/controllers/popular_controller.dart';
+import 'package:sutra_ecommerce/controllers/product_detail_controller.dart';
 import 'package:sutra_ecommerce/controllers/user_controller.dart';
 import 'package:sutra_ecommerce/utils/network_repository.dart';
 
@@ -14,6 +15,7 @@ class AddToCartController extends GetxController {
   //final UserController userController = Get.put(UserController());
   final MyCartController cartController = Get.find();
   final PopularDealController popController = Get.find();
+  final ProductDetailController prodDetailController = Get.find();
 
   RxInt productCount = 0.obs;
   @override
@@ -26,7 +28,7 @@ class AddToCartController extends GetxController {
     super.onInit();
   }
 
-  var isLoading = true.obs;
+  var isLoading = false.obs;
   var hasError = false.obs;
   var errorMsg = ''.obs;
   var myUpdatecartItems = [].obs;
@@ -56,7 +58,7 @@ class AddToCartController extends GetxController {
     try {
       Map storedUserData=box!.get('userData');
 
-
+     isLoading.value = true;
       var responseData = await NetworkRepository.addToCart(
           count: count.toString(),
           product: product.toString(),
@@ -73,6 +75,12 @@ class AddToCartController extends GetxController {
       cartController.update();
       popController.fetchPopularDeals();
       popController.update();
+      prodDetailController.fetchProductDetail( product.toString());
+      prodDetailController.update();
+if(responseData != null ){
+  isLoading.value = false;
+}
+
       //productCount.value = double.parse((productCount.value/2).toString()).toInt() + double.parse(count).toInt();
     } catch (e) {
       log(e.toString());
@@ -80,6 +88,7 @@ class AddToCartController extends GetxController {
       hasError.value = true;
     } finally {
       isLoading.value = false;
+      update();
     }
   }
 
@@ -126,6 +135,7 @@ class StoreBinding implements Bindings {
     Get.put(() => PopularDealController(categoryId: ''));
     Get.put(() => DealsController());
     Get.put(() => CategoriesController());
+    Get.put(() => ProductDetailController());
   }
 
 
