@@ -116,6 +116,7 @@ class OrderListState extends State<OrderList> {
               onPlusinCard: (n){},
               onAddItem: (n){},
               onDeleteItem: (n){},
+              onChangeQty: (n){},
               key: UniqueKey(),
               isSelected: index == 0 ? true : false,
               onTapHandler: () {

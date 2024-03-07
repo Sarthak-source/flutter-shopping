@@ -105,6 +105,12 @@ class CustomNavBarState extends State<CustomNavBar> {
                     : const Icon(Icons.person_outline),
                 label: 'Profile',
               ),
+              BottomNavigationBarItem(
+                icon: widget.curTabIndex == 4
+                    ? const Icon(Icons.payment)
+                    : const Icon(Icons.payment_outlined),
+                label: 'Payment',
+              ),
             ],
           ),
         ),

@@ -11,6 +11,7 @@ import '../../widgets/custom_nav_bar.dart';
 import '../cart/cart_screen.dart';
 import '../fav_screen/fav_screen.dart';
 import '../home_screen/home_screen.dart';
+import '../paymentScreen/paymentScreen.dart';
 import '../user_screen/user_screen.dart';
 
 class TabScreen extends StatefulWidget {
@@ -49,10 +50,11 @@ class TabScreenState extends State<TabScreen> {
   Widget build(BuildContext context) {
 
     List<Widget> pages = [
-      const HomeScreen(),
-      const FavScreen(),
+       HomeScreen(),
+       FavScreen(),
       CartScreen(),
       UserScreen(),
+      PaymentScreen(),
     ];
 
     final AddToCartController addToCartController =

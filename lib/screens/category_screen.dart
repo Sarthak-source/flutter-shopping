@@ -3,23 +3,48 @@ import 'package:get/get.dart';
 import 'package:sutra_ecommerce/controllers/catagories_controller.dart';
 import 'package:sutra_ecommerce/models/category.dart';
 import 'package:sutra_ecommerce/screens/product_grid_screen/produts_grid_screen.dart';
+import 'package:sutra_ecommerce/screens/user_screen/category_screen2.dart';
 
 import '../constants/colors.dart';
 import '../utils/screen_utils.dart';
 import '../widgets/category_card/category_card.dart';
 import '../widgets/custom_app_bar.dart';
+import '../widgets/loading_widgets/loader.dart';
 
-class CategoryScreen extends StatelessWidget {
+class CategoryScreen extends StatefulWidget {
   static const routeName = '/category_screen';
 
-  const CategoryScreen({super.key});
+  final String? subCatId;
+
+  CategoryScreen({
+     this.subCatId,
+
+});
+
+  @override
+  State<CategoryScreen> createState() => _CategoryScreenState();
+}
+
+class _CategoryScreenState extends State<CategoryScreen> {
+  final CategoriesController catcontroller = Get.put(CategoriesController());
+  @override
+  void initState() {
+    super.initState();
+    if (widget.subCatId != null) {
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+        catcontroller.getSubCategories(widget.subCatId ?? "", "1");
+      });
+
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     ScreenUtils().init(context);
     return GetBuilder<CategoriesController>(builder: (controller) {
       return Scaffold(
         body: SafeArea(
-          child: Column(
+          child: catcontroller.isLoading.value?Loader():Column(
             children: [
               CustomAppBar(
                 marginBottom: 12,
@@ -42,24 +67,45 @@ class CategoryScreen extends StatelessWidget {
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
                 ),
-                itemCount: controller.categories.length,
+                itemCount: widget.subCatId != null?controller.Subcategories.length:  controller.categories.length,
                 itemBuilder: (BuildContext context, int index) {
+                  var subCatData= widget.subCatId != null?controller.Subcategories[index]:null;
                   return InkWell(
                     onTap: () {
-                      Get.toNamed(
-                              PoductsListScreen.routeName,
-                              arguments: PoductsListArguments(
-                                title: controller.categories[index]['name'],
-                                categoryId:
-                                    controller.categories[index]['id'].toString(),
-                              ),
-                            );
-                    },
+
+                      if(widget.subCatId != null){
+                        var checkSubCat = subCatData['has_sub_category'];
+                          print('has_sub_category:: ${checkSubCat}');
+                        if(checkSubCat != null && checkSubCat == true){
+                          if(subCatData["id"] !=null) {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) =>CategoryScreen2(subCatId: subCatData["id"].toString(),type: "2",)));
+                          }
+                        }else {
+                          Get.toNamed(
+                            PoductsListScreen.routeName,
+                            arguments: PoductsListArguments(
+                              title: subCatData['name'],
+                              categoryId:
+                              subCatData['id'].toString(),
+                            ),
+                          );
+                        }
+                      }else {
+                        Get.toNamed(
+                          PoductsListScreen.routeName,
+                          arguments: PoductsListArguments(
+                            title: controller.categories[index]['name'],
+                            categoryId:
+                            controller.categories[index]['id'].toString(),
+                          ),
+                        );
+                      }
+                      },
                     child: CategoryCard(
                       from: "allcategories",
                       category:  Category(
-                                controller.categories[index]['name'],
-                                controller.categories[index]['categories_img'],
+                        widget.subCatId != null?subCatData['name']:   controller.categories[index]['name'],
+                        widget.subCatId != null?subCatData['categories_img']: controller.categories[index]['categories_img'],
                                 Colors.amber,
                               ),),
                   );

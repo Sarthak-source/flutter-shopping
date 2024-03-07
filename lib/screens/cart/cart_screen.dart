@@ -14,6 +14,7 @@ import '../../widgets/order_card.dart';
 class CartScreen extends StatelessWidget {
   static const routeName = '/cartscreen';
   CartScreen({super.key});
+  final TextEditingController quantityCtrlr =TextEditingController();
   final MyCartController controller = Get.put(MyCartController());
   final AddToCartController addToCartController =
       Get.put(AddToCartController());
@@ -98,6 +99,13 @@ class CartScreen extends StatelessWidget {
                                   itemBuilder: (context, index) {
                                     setPDCount(controller.mycartItems,addToCartController);
                                     return OrderCard(
+                                      onChangeQty: (n){
+                                        addToCartController.updateCart(
+                                            n,
+                                            controller.mycartItems[index]["id"],
+                                            "update",
+                                            "1");
+                                      },
                                       onPlusinCard: (n) {
                                         print('add qty $n');
         
@@ -142,6 +150,7 @@ class CartScreen extends StatelessWidget {
                                             "1");
                                       },
                                       mycartItem: controller.mycartItems[index],
+                                        Txtctrlr: quantityCtrlr,
                                     );
                                   }),
                         ),

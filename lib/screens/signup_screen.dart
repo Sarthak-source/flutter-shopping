@@ -103,6 +103,7 @@ class _SignupScreenState extends State<SignupScreen> {
 
                         SizedBox(height: 16,),
                     StateDropdown(
+                      hinttxt: "Select State",
                       devicewidth: Get.width / 2 + 10,
                       selectedValue: selectedState,
                     //  options: ["Select State","Tamil Nadu","Kerala","Karnataka"],

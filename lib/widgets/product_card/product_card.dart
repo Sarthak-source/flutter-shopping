@@ -129,7 +129,7 @@ class _ProductCardState extends State<ProductCard> {
                         Hero(
                           tag: 'productDetailName',
                           child: Text(
-                           titleCase(widget.product?['name'].toLowerCase() ?? "Not given"),
+                            widget.product?['name'].toLowerCase() ?? "Not given",
 
                             maxLines: 1,
                             style: Theme.of(context)

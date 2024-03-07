@@ -13,7 +13,7 @@ class AddButton extends StatefulWidget {
   final Function() onAddPressed;
   final Function(String) onChangedPressed;
   final int qty;
-  final TextEditingController qtyController;
+  final TextEditingController? qtyController;
   final bool isLoading;
   const AddButton({Key? key,
     required this.onPlusPressed,
@@ -39,7 +39,7 @@ class _AddButtonState extends State<AddButton> {
   void initState() {
     super.initState();
     focusNode = FocusNode();
-    print('quantityCtrlr.text in addscren ${widget.qtyController.text}');
+    print('quantityCtrlr.text in addscren ${widget.qtyController?.text}');
   }
 
   @override

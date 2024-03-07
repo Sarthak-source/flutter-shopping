@@ -86,11 +86,13 @@ class ExploreNewCategory extends StatelessWidget {
                     },
                   ),
                 ),
-                GridView.count(
+              /*  GridView.count(
                   shrinkWrap: true,
                   crossAxisCount: 3,
                   physics: NeverScrollableScrollPhysics(),
-                  children: List.generate(9, (index) {
+                  children: List.generate(
+                      setCatLength(controller.categories.length),
+                          (index) {
                     var catList = controller.categories;
 
                     return Container(
@@ -143,11 +145,85 @@ class ExploreNewCategory extends StatelessWidget {
                       ),
                     );
                   }),
-                ),
+                ),*/
+
+                GridView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3, // number of items in each row
+                    mainAxisSpacing: 8.0, // spacing between rows
+                    crossAxisSpacing: 8.0, // spacing between columns
+                  ),
+                  padding: EdgeInsets.all(8.0), // padding around the grid
+                  itemCount: setCatLength(controller.categories.length), // total number of items
+                  itemBuilder: (context, index) {
+                    var catList = controller.categories;
+
+                    return Container(
+                      margin: EdgeInsets.all(8.0),
+                      // color: Colors.blue[100 * (index % 9)],
+                      //  color: Colors.blue[100 * (1 % 9)],
+
+                      decoration: BoxDecoration(
+                          color: Colors.grey.shade100,
+                          border: Border.all(
+                              color: Colors.grey
+                          ),
+                          borderRadius: BorderRadius.circular(12)
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: InkWell(
+                          onTap: () {
+                            Get.toNamed(
+                              PoductsListScreen.routeName,
+                              arguments: PoductsListArguments(
+                                title: catList.isNotEmpty ? controller.categories[index]['name'] : "",
+                                categoryId: controller.categories[index]['id'].toString(),
+                              ),
+                            );
+                          },
+                          child: Container(
+                              child: Column(
+                                children: [
+                                  Expanded(child: Image.network(
+                                      catList.isNotEmpty
+                                          ? catList[index]['categories_img']
+                                          : 'http://170.187.232.148/static/images/dilicia.png')),
+                                  Text(catList[index]['name'],
+                                    // titleCase(catList.isNotEmpty ? catList[index]['name'].toLowerCase() : "",),
+                                    style: Theme
+                                        .of(context)
+                                        .textTheme
+                                        .headlineMedium
+                                        ?.copyWith(
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: getProportionateScreenWidth(11),
+                                    ),),
+                                ],
+                              )
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                )
+
               ],
             );
           }
         }
     );
+  }
+
+  int setCatLength(int length) {
+    if(length >9){
+      return 9;
+    }else if(length == 6){
+      return 6;
+    }else{
+      return length;
+    }
   }
 }

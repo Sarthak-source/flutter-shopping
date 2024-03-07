@@ -132,8 +132,7 @@ final TextEditingController quantityCtrlr =TextEditingController();
                 SizedBox(
                   width: 150,
                   child: Text(
-                    titleCase(
-                        widget.product?['name'].toLowerCase() ?? "Not given"),
+                    widget.product?['name'] ?? "Not given",
                     maxLines: 1,
                     style: Theme.of(context)
                         .textTheme

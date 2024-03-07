@@ -29,7 +29,8 @@ class CategoryTab extends StatelessWidget {
             TabTitle(
                 title: "",
                 seeAll: () {
-                  Get.toNamed(CategoryScreen.routeName);
+                 // Get.toNamed(CategoryScreen.routeName);
+                 Navigator.push(context, MaterialPageRoute(builder: (context) =>CategoryScreen(subCatId: null)));
                 }),
 
           /*  Row(
@@ -93,13 +94,23 @@ class CategoryTab extends StatelessWidget {
                       itemBuilder: (context, index) {
                         return InkWell(
                           onTap: () {
-                            Get.toNamed(
-                              PoductsListScreen.routeName,
-                              arguments: PoductsListArguments(
-                                title: catData.isNotEmpty?catData[index]['name']:"",
-                                categoryId: controller.categories[index]['id'].toString(),
-                              ),
-                            );
+                          //  print('has_sub_category:: ${catData[index]["has_sub_category"]}');
+                      var checkSubCat = catData[index]["has_sub_category"];
+                            if(checkSubCat != null && checkSubCat == true){
+                             // Get.toNamed(CategoryScreen.routeName);
+                              if(catData[index]["id"] !=null) {
+                                Navigator.push(context, MaterialPageRoute(builder: (context) =>CategoryScreen(subCatId: catData[index]["id"].toString())));
+                              }
+                            }else{
+                              Get.toNamed(
+                                PoductsListScreen.routeName,
+                                arguments: PoductsListArguments(
+                                  title: catData.isNotEmpty?catData[index]['name']:"",
+                                  categoryId: controller.categories[index]['id'].toString(),
+                                ),
+                              );
+                            }
+
                           },
                           child: CategoryCard(
                             from: "homecategory",

@@ -12,6 +12,7 @@ class StateDropdown extends StatefulWidget {
   final Map<String,dynamic>? selectedValue;
   final double devicewidth;
   final RxList options;
+  final String hinttxt;
   final ValueChanged<dynamic?> onChanged;
 
   const StateDropdown({
@@ -19,6 +20,7 @@ class StateDropdown extends StatefulWidget {
     required this.selectedValue,
     required this.devicewidth,
     required this.options,
+    required this.hinttxt,
     required this.onChanged,
   }) : super(key: key);
 
@@ -63,7 +65,7 @@ class _StateDropdownState extends State<StateDropdown> {
             //icon: SvgPicture.asset(dropdwnicon ?? LocalSVGImages.dropdwn),
             value: widget.selectedValue,
             iconSize: 35,
-            hint: Text('Select State', style: Theme
+            hint: Text(widget.hinttxt, style: Theme
                 .of(context)
                 .textTheme
                 .headlineMedium

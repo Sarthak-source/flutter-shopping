@@ -18,8 +18,9 @@ class OrderCard extends StatefulWidget {
     required this.onMinusinCard,
     required this.onAddItem,
     required this.onDeleteItem,
-
-   this.mycartItem
+    required this.onChangeQty,
+    this.Txtctrlr,
+    this.mycartItem
   }) : super(key: key);
 
   final bool isSelected;
@@ -28,7 +29,8 @@ class OrderCard extends StatefulWidget {
   final Function(int) onMinusinCard;
   final Function(int) onAddItem;
   final Function(int) onDeleteItem;
-
+  final Function(int) onChangeQty;
+  final TextEditingController? Txtctrlr;
 final dynamic mycartItem;
   @override
   createState() => _OrderCardState();
@@ -36,7 +38,7 @@ final dynamic mycartItem;
 
 class _OrderCardState extends State<OrderCard> {
   //final textController = TextEditingController(text: '1');
-  final TextEditingController quantityCtrlr =TextEditingController();
+
   final AddToCartController addToCartController = Get.put(AddToCartController());
   int quantity = 0;
 @override
@@ -55,13 +57,17 @@ class _OrderCardState extends State<OrderCard> {
   }
   @override
   Widget build(BuildContext context) {
-    print("count::: ${widget.mycartItem["count"].toString()}");
 
 
-    double? d = double.parse(widget.mycartItem["count"].toString());
-    print('double count $d');
-    print('int count ${d.toInt()}');
-    quantity = d.toInt();
+if(widget.mycartItem["count"] != null){
+  print("count::: ${widget.mycartItem["count"].toString()}");
+  double? d = double.parse(widget.mycartItem["count"].toString());
+  print('double count $d');
+  print('int count ${d.toInt()}');
+  quantity = d.toInt();
+  widget.Txtctrlr?.text=quantity.toString();
+}
+
     return
       Row(
         children: [
@@ -142,7 +148,7 @@ class _OrderCardState extends State<OrderCard> {
                     ),
                     const Spacer(),
 
-                    Card(
+                   /* Card(
                       elevation: 0,
                       shape: RoundedRectangleBorder(
                         side: const BorderSide(
@@ -200,46 +206,47 @@ class _OrderCardState extends State<OrderCard> {
 
 
                       ),
+                    ),*/
+                    AddButton(
+                      isLoading: false,
+                      qty: quantity,
+                      onChangedPressed: (value){
+                        quantity = int.parse(value);
+                        widget.Txtctrlr?.text =quantity.toString();
+                        controller.rxQty.value = quantity.toString();
+                        widget.onChangeQty(quantity);
+
+                      },
+                      onAddPressed: (){
+
+                        log('widget.mycartItem["product"]["name"] ${widget.mycartItem["product"]["name"].toString()}');
+                        setState(() {
+                          quantity++;
+                          log(quantity.toString());
+                          widget.onAddItem(quantity);
+                        });
+
+                      },
+                      onPlusPressed: (){
+                        setState(() {
+                          quantity++;
+                          widget.onPlusinCard(quantity);
+                        });
+                      },
+                      onMinusPressed: (){
+                        if (quantity != 0) {
+                          setState(() {
+                            quantity--;
+                            widget.onMinusinCard(quantity);
+                          });
+
+                        }
+                      },
+                      qtyController: widget.Txtctrlr,
                     ),
                   ],
                 ),
-               /* AddButton(
-                  isLoading: false,
-                  qty: quantity,
-                  onChangedPressed: (value){
-                    quantity = int.parse(value);
-                    quantityCtrlr.text =quantity.toString();
-                    controller.rxQty.value = quantity.toString();
 
-
-                  },
-                  onAddPressed: (){
-
-                    log('widget.mycartItem["product"]["name"] ${widget.mycartItem["product"]["name"].toString()}');
-                    setState(() {
-                      quantity++;
-                      log(quantity.toString());
-                      widget.onAddItem(quantity);
-                    });
-
-                  },
-                  onPlusPressed: (){
-                    setState(() {
-                      quantity++;
-                      widget.onPlusinCard(quantity);
-                    });
-                  },
-                  onMinusPressed: (){
-                    if (quantity != 0) {
-                      setState(() {
-                        quantity--;
-                        widget.onMinusinCard(quantity);
-                      });
-
-                    }
-                  },
-                  qtyController: quantityCtrlr,
-                ),*/
               ],
             ),
           ),

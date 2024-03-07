@@ -15,6 +15,7 @@ import '../../constants/colors.dart';
 import '../../controllers/add_to_cart_controller.dart';
 import '../../controllers/product_detail_controller.dart';
 import '../../utils/screen_utils.dart';
+import '../../widgets/add_button.dart';
 
 //arguments: ProductDetailArguments(phoneNumber: phoneNumberTyped)
 
@@ -124,7 +125,7 @@ class _ProductBodyState extends State<ProductBody> {
   bool isExpanded = false;
 
   RxInt quantity = 0.obs;
-
+TextEditingController Txtctrlr =TextEditingController();
   @override
   void initState() {
     super.initState();
@@ -135,6 +136,7 @@ class _ProductBodyState extends State<ProductBody> {
           double.tryParse(widget.product["cart_count"].toString());
       if (parsedCount != null) {
         quantity.value = parsedCount.toInt();
+        Txtctrlr.text = quantity.value.toString();
       }
     }
   }
@@ -205,7 +207,7 @@ class _ProductBodyState extends State<ProductBody> {
                         ),
                   ),
                   const Spacer(),
-                  Card(
+                  /*Card(
                     elevation: 0,
                     shape: RoundedRectangleBorder(
                       side: const BorderSide(
@@ -282,9 +284,61 @@ class _ProductBodyState extends State<ProductBody> {
                             ),
                       // :
                     ),
+                  ),*/
+                  AddButton(
+                    isLoading: false,
+                    qty: quantity.value,
+                    onChangedPressed: (value){
+
+                    },
+                    onAddPressed: (){
+                      setState(() {
+                        quantity++;
+                        log(quantity.toString());
+                        addToCartController.productCount++;
+                        addToCartController.addToCart(
+                            quantity.value, widget.product?['id'], '1');
+
+                        addToCartController.update();
+                        //widget.onAddItem(quantity);
+                      });
+
+                    },
+                    onPlusPressed: (){
+                      setState(() {
+                        quantity++;
+                        addToCartController.productCount++;
+                        addToCartController.addToCart(
+                            quantity.value, widget.product?['id'], '1');
+
+                        addToCartController.update();
+
+                        //widget.onPlusinCard(quantity);
+                      });
+                    },
+                    onMinusPressed: (){
+                      if (quantity != 0) {
+                        setState(() {
+
+                          quantity.value--;
+
+                          addToCartController.productCount--;
+                          addToCartController.addToCart(
+                              quantity.value,
+                              widget.product?['id'],
+                              '1');
+
+                          addToCartController.update();
+
+                          //widget.onMinusinCard(quantity);
+                        });
+                      }
+                    },
+                    qtyController: Txtctrlr,
                   ),
                 ],
               ),
+
               SizedBox(
                 height: getProportionateScreenHeight(8.0),
               ),

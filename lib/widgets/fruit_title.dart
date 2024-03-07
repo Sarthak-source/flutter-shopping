@@ -15,7 +15,7 @@ class FruitTitle extends StatelessWidget {
       children: [
         Expanded(
           child: Text(
-            titleCase(_title.toLowerCase()),
+            _title,
             style: Theme.of(context)
                 .textTheme
                 .displaySmall
