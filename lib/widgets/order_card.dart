@@ -19,7 +19,7 @@ class OrderCard extends StatefulWidget {
     required this.onAddItem,
     required this.onDeleteItem,
     required this.onChangeQty,
-    this.Txtctrlr,
+
     this.mycartItem
   }) : super(key: key);
 
@@ -30,7 +30,7 @@ class OrderCard extends StatefulWidget {
   final Function(int) onAddItem;
   final Function(int) onDeleteItem;
   final Function(int) onChangeQty;
-  final TextEditingController? Txtctrlr;
+
 final dynamic mycartItem;
   @override
   createState() => _OrderCardState();
@@ -38,7 +38,7 @@ final dynamic mycartItem;
 
 class _OrderCardState extends State<OrderCard> {
   //final textController = TextEditingController(text: '1');
-
+  late TextEditingController _controller;
   final AddToCartController addToCartController = Get.put(AddToCartController());
   int quantity = 0;
 @override
@@ -54,18 +54,25 @@ class _OrderCardState extends State<OrderCard> {
   print('int count ${d.toInt()}');
   quantity = d.toInt();*/
     //}
+
+
+ // widget.Txtctrlr?.text=quantity.toString();
+
   }
+
+
   @override
   Widget build(BuildContext context) {
 
 
 if(widget.mycartItem["count"] != null){
-  print("count::: ${widget.mycartItem["count"].toString()}");
-  double? d = double.parse(widget.mycartItem["count"].toString());
-  print('double count $d');
-  print('int count ${d.toInt()}');
-  quantity = d.toInt();
-  widget.Txtctrlr?.text=quantity.toString();
+    print("count::: ${widget.mycartItem["count"].toString()}");
+    double? d = double.parse(widget.mycartItem["count"].toString());
+    print('double count $d');
+    print('int count ${d.toInt()}');
+    quantity = d.toInt();
+    _controller = TextEditingController(text: quantity.toString());
+ // widget.Txtctrlr?.text=quantity.toString();
 }
 
     return
@@ -212,8 +219,8 @@ if(widget.mycartItem["count"] != null){
                       qty: quantity,
                       onChangedPressed: (value){
                         quantity = int.parse(value);
-                        widget.Txtctrlr?.text =quantity.toString();
-                        controller.rxQty.value = quantity.toString();
+                        //  widget.Txtctrlr?.text =quantity.toString();
+                        // controller.rxQty.value = quantity.toString();
                         widget.onChangeQty(quantity);
 
                       },
@@ -242,7 +249,7 @@ if(widget.mycartItem["count"] != null){
 
                         }
                       },
-                      qtyController: widget.Txtctrlr,
+                      qtyController: _controller,//widget.Txtctrlr,
                     ),
                   ],
                 ),

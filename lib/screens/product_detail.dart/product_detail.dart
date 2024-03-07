@@ -289,7 +289,16 @@ TextEditingController Txtctrlr =TextEditingController();
                     isLoading: false,
                     qty: quantity.value,
                     onChangedPressed: (value){
+                      setState(() {
 
+                        log(quantity.toString());
+                        addToCartController.productCount++;
+                        addToCartController.addToCart(
+                            value, widget.product?['id'], '1');
+
+                        addToCartController.update();
+                        //widget.onAddItem(quantity);
+                      });
                     },
                     onAddPressed: (){
                       setState(() {

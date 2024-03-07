@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:sutra_ecommerce/controllers/add_to_cart_controller.dart';
 import 'package:sutra_ecommerce/widgets/go_cart/go_to_cart.dart';
 
+import '../../config/common.dart';
 import '../../controllers/catagories_controller.dart';
 import '../../controllers/get_deals_controller.dart';
 import '../../controllers/popular_controller.dart';
@@ -37,6 +38,7 @@ class TabScreenState extends State<TabScreen> {
     super.initState();
     curTab = widget.pageIndex ?? 0;
     print('tab screen:::');
+
     popularController.fetchPopularDeals();
     popularController.update();
     dealsController.fetchDealss();

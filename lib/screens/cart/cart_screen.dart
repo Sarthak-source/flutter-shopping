@@ -150,7 +150,7 @@ class CartScreen extends StatelessWidget {
                                             "1");
                                       },
                                       mycartItem: controller.mycartItems[index],
-                                        Txtctrlr: quantityCtrlr,
+
                                     );
                                   }),
                         ),
