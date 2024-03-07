@@ -14,14 +14,14 @@ import '../../widgets/order_card.dart';
 class CartScreen extends StatelessWidget {
   static const routeName = '/cartscreen';
   CartScreen({super.key});
-  final TextEditingController quantityCtrlr =TextEditingController();
+  final TextEditingController quantityCtrlr = TextEditingController();
   final MyCartController controller = Get.put(MyCartController());
   final AddToCartController addToCartController =
       Get.put(AddToCartController());
   //AddToCartController addToCartController = AddToCartController();
   @override
   Widget build(BuildContext context) {
- /*   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    /*   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       setPDCount(controller.mycartItems,addToCartController);
     });*/
 
@@ -43,7 +43,10 @@ class CartScreen extends StatelessWidget {
                       children: [
                         Text(
                           'My Cart',
-                          style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                          style: Theme.of(context)
+                              .textTheme
+                              .displaySmall!
+                              .copyWith(
                                 fontWeight: FontWeight.w700,
                                 fontSize: getProportionateScreenWidth(
                                   20,
@@ -65,20 +68,24 @@ class CartScreen extends StatelessWidget {
                         child: SingleChildScrollView(
                           child: controller.mycartItems.isEmpty
                               ? Container(
-                            height: Get.height/2+150,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  height: Get.height / 2 + 150,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       SizedBox(
-                                        height: getProportionateScreenHeight(16.0),
+                                        height:
+                                            getProportionateScreenHeight(16.0),
                                       ),
                                       Lottie.asset('assets/lotties/cart.json',
                                           repeat: false,
                                           frameRate: FrameRate(30),
-                                          height: getProportionateScreenHeight(250.0),
-                                          width: getProportionateScreenWidth(250.0)),
+                                          height: getProportionateScreenHeight(
+                                              250.0),
+                                          width: getProportionateScreenWidth(
+                                              250.0)),
                                       SizedBox(
-                                        height: getProportionateScreenHeight(10.0),
+                                        height:
+                                            getProportionateScreenHeight(10.0),
                                       ),
                                       Text(
                                         'Oops! your cart is empty',
@@ -91,15 +98,17 @@ class CartScreen extends StatelessWidget {
                                       ),
                                     ],
                                   ),
-                              )
+                                )
                               : ListView.builder(
                                   shrinkWrap: true,
                                   physics: const NeverScrollableScrollPhysics(),
                                   itemCount: controller.mycartItems.length,
                                   itemBuilder: (context, index) {
-                                    setPDCount(controller.mycartItems,addToCartController);
+                                    setPDCount(controller.mycartItems,
+                                        addToCartController);
                                     return OrderCard(
-                                      onChangeQty: (n){
+                                      index: index,
+                                      onChangeQty: (n) {
                                         addToCartController.updateCart(
                                             n,
                                             controller.mycartItems[index]["id"],
@@ -108,7 +117,7 @@ class CartScreen extends StatelessWidget {
                                       },
                                       onPlusinCard: (n) {
                                         print('add qty $n');
-        
+
                                         addToCartController.updateCart(
                                             n,
                                             controller.mycartItems[index]["id"],
@@ -116,22 +125,22 @@ class CartScreen extends StatelessWidget {
                                             "1");
                                       },
                                       onMinusinCard: (n) {
-        
-                                        if(n==0){
+                                        if (n == 0) {
                                           addToCartController.updateCart(
                                               n,
-                                              controller.mycartItems[index]["id"],
+                                              controller.mycartItems[index]
+                                                  ["id"],
                                               "delete",
                                               "1");
-                                        }else{
+                                        } else {
                                           print('remove qty $n');
                                           addToCartController.updateCart(
                                               n,
-                                              controller.mycartItems[index]["id"],
+                                              controller.mycartItems[index]
+                                                  ["id"],
                                               "update",
                                               "1");
                                         }
-        
                                       },
                                       onAddItem: (n) {
                                         log('add qty $n');
@@ -150,6 +159,7 @@ class CartScreen extends StatelessWidget {
                                             "1");
                                       },
                                       mycartItem: controller.mycartItems[index],
+                                      Txtctrlr: quantityCtrlr,
 
                                     );
                                   }),
@@ -182,8 +192,9 @@ class CartScreen extends StatelessWidget {
                                       style: Theme.of(context)
                                           .textTheme
                                           .headlineLarge!
-                                          .copyWith(fontWeight: FontWeight.w700,
-                                      fontSize: 20),
+                                          .copyWith(
+                                              fontWeight: FontWeight.w700,
+                                              fontSize: 20),
                                     ),
                                   ],
                                 ),
@@ -253,9 +264,9 @@ class CartScreen extends StatelessWidget {
 
   void setPDCount(RxList mycartItems, AddToCartController addToCartController) {
     print('mycartItems length ${mycartItems.length}');
-  if(mycartItems.isEmpty){
-    addToCartController.productCount.value=0;
-    addToCartController.update();
-  }
+    if (mycartItems.isEmpty) {
+      addToCartController.productCount.value = 0;
+      addToCartController.update();
+    }
   }
 }

@@ -6,7 +6,6 @@ import 'package:sutra_ecommerce/utils/network_repository.dart';
 
 import '../config/common.dart';
 import '../screens/order_success_screen/order_success_screen.dart';
-import 'add_to_cart_controller.dart';
 
 class MyCartController extends GetxController {
   // AddToCartController addToCardController =Get.find();
@@ -38,7 +37,7 @@ class MyCartController extends GetxController {
 
     mycartItems.assignAll(newCartItems);
     popController.fetchPopularDeals();
-  /*  for(var i =0; i<newCartItems.length ; i++){
+    /*  for(var i =0; i<newCartItems.length ; i++){
       if(newCartItems.isNotEmpty){
         addToCardController.productCount.value=newCartItems[i]['party_cart_count'].toInt();
       }
@@ -50,9 +49,10 @@ class MyCartController extends GetxController {
   void getMyCart() async {
     try {
       // Assuming NetworkRepository.getCategories returns a Future<dynamic>
-      Map storedUserData=box!.get('userData');
-      print('userdata in mycart ${ storedUserData['party']['id'].toString()}');
-      var responseData = await NetworkRepository.getMyCart(party:storedUserData['party']['id'].toString());
+      Map storedUserData = box!.get('userData');
+      print('userdata in mycart ${storedUserData['party']['id'].toString()}');
+      var responseData = await NetworkRepository.getMyCart(
+          party: storedUserData['party']['id'].toString());
       List myCartData = responseData['body']['cart_list'];
       log(myCartData.toString());
       dynamic totalValue = responseData['body']['total_value'];
@@ -61,14 +61,12 @@ class MyCartController extends GetxController {
       log("hello $totalAmount");
       Map userData = responseData['body'];
 
-     // for(List item in myCartData){
-   /*   for(var i =0; i<myCartData.length ; i++){
+      // for(List item in myCartData){
+      /*   for(var i =0; i<myCartData.length ; i++){
         if(myCartData.isNotEmpty){
           addToCardController.productCount.value=myCartData[i]['party_cart_count'].toInt();
         }
       }*/
-
-
 
       mycartTotalValue = RxString(totalValue.toString());
       mycartTotalGst = RxString(totalGst.toString());
@@ -86,10 +84,13 @@ class MyCartController extends GetxController {
   void createOrderApi(party, shift, deliverydate, address) async {
     try {
       isLoading.value = true;
-      Map storedUserData=box!.get('userData');
+      Map storedUserData = box!.get('userData');
 
       var responseData = await NetworkRepository.CreateOrderApi(
-          party: storedUserData['party']['id'].toString(), shift: "1", deliverydate: deliverydate, address: address);
+          party: storedUserData['party']['id'].toString(),
+          shift: "1",
+          deliverydate: deliverydate,
+          address: address);
       log('CreateOrderApiresponseData $responseData');
 
       List addToCartData = responseData['body'];
