@@ -1,7 +1,7 @@
 // ignore_for_file: non_constant_identifier_names, prefer_typing_uninitialized_variables
 
 import 'dart:developer';
-import '../models/stateResponseModel.dart';
+
 //import 'package:geolocator/geolocator.dart';
 // ignore: depend_on_referenced_packages
 import 'package:dio/dio.dart';
@@ -108,21 +108,23 @@ class NetworkRepository {
 
       final body = apiResponse['body'];
 
-      if (body.isEmpty &&
-          body['detail'] != null ) {
+      if (body.isEmpty && body['detail'] != null) {
         Fluttertoast.showToast(msg: body['error'].toString());
       }
 
       return apiResponse;
-    }on AppException catch (appException)  {
+    } on AppException catch (appException) {
       print('appException.type in net repo ${appException.type.toString()}');
       String errorMsg = '';
       errorMsg = errorHandler(appException);
       print('ERROR MESSAGE :: ${errorMsg}');
-      if (appException.res != null && appException.res?.data['detail'] != null ) {
-        Fluttertoast.showToast(msg: appException.res?.data['detail'].toString() ?? "Something went wrong");
+      if (appException.res != null &&
+          appException.res?.data['detail'] != null) {
+        Fluttertoast.showToast(
+            msg: appException.res?.data['detail'].toString() ??
+                "Something went wrong");
       }
-      return  null;
+      return null;
     }
   }
 
@@ -162,13 +164,12 @@ class NetworkRepository {
     log("${ApiAppConstants.apiEndPoint}${ApiAppConstants.getstates}?page=1");
     try {
       final apiResponse = await NetworkDioHttp.getDioHttpMethod(
-        url: "${ApiAppConstants.apiEndPoint}${ApiAppConstants.getstates}?page=1",
+        url:
+            "${ApiAppConstants.apiEndPoint}${ApiAppConstants.getstates}?page=1",
         header: Options(headers: <String, String>{'authorization': auth}),
       );
 
-
       if (apiResponse != null) {
-
         return apiResponse;
       } else {
         //Failed returning null
@@ -176,8 +177,7 @@ class NetworkRepository {
         return null;
       }
 
-
-  /*    print('\x1b[97m getstates Response : $apiResponse');
+      /*    print('\x1b[97m getstates Response : $apiResponse');
 
       final body = apiResponse['body'];
 
@@ -187,15 +187,18 @@ class NetworkRepository {
       }
 
       return apiResponse;*/
-    }on AppException catch (appException)  {
+    } on AppException catch (appException) {
       print('appException.type in net repo ${appException.type.toString()}');
       String errorMsg = '';
       errorMsg = errorHandler(appException);
       print('ERROR MESSAGE :: ${errorMsg}');
-      if (appException.res != null && appException.res?.data['detail'] != null ) {
-        Fluttertoast.showToast(msg: appException.res?.data['detail'].toString() ?? "Something went wrong");
+      if (appException.res != null &&
+          appException.res?.data['detail'] != null) {
+        Fluttertoast.showToast(
+            msg: appException.res?.data['detail'].toString() ??
+                "Something went wrong");
       }
-      return  null;
+      return null;
     }
   }
 
@@ -218,10 +221,41 @@ class NetworkRepository {
       }
 
       return apiResponse;
-    } on AppException catch (appException)  {
-      if(appException.statusCode == 500 || appException.statusCode == 400|| appException.statusCode == 404){
+    } on AppException catch (appException) {
+      if (appException.statusCode == 500 ||
+          appException.statusCode == 400 ||
+          appException.statusCode == 404) {
         Fluttertoast.showToast(msg: "Something went wrong in getCategories!");
+      }
 
+      return appException.res?.statusCode.toString();
+    }
+  }
+
+  static Future getPayments({required String dispatchParty}) async {
+    try {
+      final apiResponse = await NetworkDioHttp.getDioHttpMethod(
+        url:
+            "${ApiAppConstants.apiEndPoint}${ApiAppConstants.payment}?invoice__dispatch__order__part=$dispatchParty",
+        header: Options(headers: <String, String>{'authorization': auth}),
+      );
+
+      debugPrint('\x1b[97m checkSeller Response : $apiResponse');
+
+      final body = apiResponse['body'];
+
+      if (body != null &&
+          body['error'] != null &&
+          body['error'] == 'User not exist please sign up') {
+        Fluttertoast.showToast(msg: body['error'].toString());
+      }
+
+      return apiResponse;
+    } on AppException catch (appException) {
+      if (appException.statusCode == 500 ||
+          appException.statusCode == 400 ||
+          appException.statusCode == 404) {
+        Fluttertoast.showToast(msg: "Something went wrong in getCategories!");
       }
 
       return appException.res?.statusCode.toString();
@@ -232,7 +266,7 @@ class NetworkRepository {
     try {
       final apiResponse = await NetworkDioHttp.getDioHttpMethod(
         url:
-        "${ApiAppConstants.apiEndPoint}${ApiAppConstants.productCategories}?parent=$subcatId",
+            "${ApiAppConstants.apiEndPoint}${ApiAppConstants.productCategories}?parent=$subcatId",
         header: Options(headers: <String, String>{'authorization': auth}),
       );
 
@@ -247,10 +281,11 @@ class NetworkRepository {
       }
 
       return apiResponse;
-    } on AppException catch (appException)  {
-      if(appException.statusCode == 500 || appException.statusCode == 400|| appException.statusCode == 404){
+    } on AppException catch (appException) {
+      if (appException.statusCode == 500 ||
+          appException.statusCode == 400 ||
+          appException.statusCode == 404) {
         Fluttertoast.showToast(msg: "Something went wrong in getCategories!");
-
       }
 
       return appException.res?.statusCode.toString();
@@ -277,10 +312,11 @@ class NetworkRepository {
       }
 
       return apiResponse;
-    } on AppException catch (appException)  {
-      if(appException.statusCode == 500 || appException.statusCode == 400|| appException.statusCode == 404){
+    } on AppException catch (appException) {
+      if (appException.statusCode == 500 ||
+          appException.statusCode == 400 ||
+          appException.statusCode == 404) {
         Fluttertoast.showToast(msg: "Something went wrong in mycart!");
-
       }
 
       return appException.res?.statusCode.toString();
@@ -312,10 +348,11 @@ class NetworkRepository {
       }
 
       return apiResponse;
-    } on AppException catch (appException)  {
-      if(appException.statusCode == 500 || appException.statusCode == 400|| appException.statusCode == 404){
+    } on AppException catch (appException) {
+      if (appException.statusCode == 500 ||
+          appException.statusCode == 400 ||
+          appException.statusCode == 404) {
         Fluttertoast.showToast(msg: "Something went wrong in myOrders!");
-
       }
 
       return appException.res?.statusCode.toString();
@@ -343,10 +380,11 @@ class NetworkRepository {
       }
 
       return apiResponse;
-    } on AppException catch (appException)  {
-      if(appException.statusCode == 500 || appException.statusCode == 400|| appException.statusCode == 404){
+    } on AppException catch (appException) {
+      if (appException.statusCode == 500 ||
+          appException.statusCode == 400 ||
+          appException.statusCode == 404) {
         Fluttertoast.showToast(msg: "Something went wrong in order detail!");
-
       }
 
       return appException.res?.statusCode.toString();
@@ -372,11 +410,12 @@ class NetworkRepository {
       }
 
       return apiResponse;
-    } on AppException catch (appException)  {
-     if(appException.statusCode == 500 || appException.statusCode == 400|| appException.statusCode == 404){
-       Fluttertoast.showToast(msg: "Something went wrong in myaddress!");
-
-     }
+    } on AppException catch (appException) {
+      if (appException.statusCode == 500 ||
+          appException.statusCode == 400 ||
+          appException.statusCode == 404) {
+        Fluttertoast.showToast(msg: "Something went wrong in myaddress!");
+      }
 
       return appException.res?.statusCode.toString();
     }
@@ -393,7 +432,7 @@ class NetworkRepository {
         url:
             "${ApiAppConstants.apiEndPoint}${ApiAppConstants.products}?category=$category&status=$status&search=$search&party=$partyId&page=$page",
         header: Options(headers: <String, String>{'authorization': auth}),
-       );
+      );
 
       print('\x1b[97m products Response : $apiResponse');
 
@@ -406,20 +445,19 @@ class NetworkRepository {
       }
 
       return apiResponse;
-    } on AppException catch (appException)  {
-      if(appException.statusCode == 500 || appException.statusCode == 400|| appException.statusCode == 404){
+    } on AppException catch (appException) {
+      if (appException.statusCode == 500 ||
+          appException.statusCode == 400 ||
+          appException.statusCode == 404) {
         Fluttertoast.showToast(msg: "Something went wrong in products!");
-
       }
 
       return appException.res?.statusCode.toString();
     }
   }
 
-   static getProductDetail({String? partyId, String? product}) async {
-
+  static getProductDetail({String? partyId, String? product}) async {
     log(product.toString());
-
 
     try {
       final apiResponse = await NetworkDioHttp.getDioHttpMethod(
@@ -655,10 +693,11 @@ class NetworkRepository {
       }
 
       return apiResponse;
-    } on AppException catch (appException)  {
-      if(appException.statusCode == 500 || appException.statusCode == 400|| appException.statusCode == 404){
+    } on AppException catch (appException) {
+      if (appException.statusCode == 500 ||
+          appException.statusCode == 400 ||
+          appException.statusCode == 404) {
         Fluttertoast.showToast(msg: "Something went wrong in deals!");
-
       }
 
       return appException.res?.statusCode.toString();

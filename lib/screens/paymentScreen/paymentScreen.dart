@@ -1,5 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sutra_ecommerce/constants/colors.dart';
+import 'package:sutra_ecommerce/controllers/payment_controller.dart';
 import 'package:sutra_ecommerce/screens/paymentScreen/addPayemntDetail.dart';
 import 'package:sutra_ecommerce/utils/screen_utils.dart';
 
@@ -18,7 +22,7 @@ class Payment {
 }
 
 class PaymentScreen extends StatefulWidget {
-  const PaymentScreen({Key? key});
+  const PaymentScreen({super.key});
 
   @override
   State<PaymentScreen> createState() => _PaymentScreenState();
@@ -41,6 +45,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
     ),
     // Add more payment details as needed
   ];
+
+   final PaymentController paymentController =
+        Get.put(PaymentController());
 
   @override
   Widget build(BuildContext context) {
@@ -87,65 +94,71 @@ class _PaymentScreenState extends State<PaymentScreen> {
               ],
             ),
           ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: payments.length,
-              itemBuilder: (BuildContext context, int index) {
-                final payment = payments[index];
-                return Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
-                  child: Container(
-                    height: 120,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(
-                        color: Colors.grey, // Border color
-                        width: 1.0, // Border width
-                      ),
-                      borderRadius: BorderRadius.circular(
-                        getProportionateScreenWidth(
-                          8,
+          Obx(
+             () {
+            List paymentsList=  paymentController.payment;
+            log(paymentsList.toString());
+              return Expanded(
+                child: ListView.builder(
+                  itemCount: payments.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final payment = payments[index];
+                    return Padding(
+                      padding:
+                          const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
+                      child: Container(
+                        height: 120,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(
+                            color: Colors.grey, // Border color
+                            width: 1.0, // Border width
+                          ),
+                          borderRadius: BorderRadius.circular(
+                            getProportionateScreenWidth(
+                              8,
+                            ),
+                          ),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Text(payment.invoice),
+                                  const Spacer(),
+                                  //Text('Payment Type: ${payment.paymentType}'),
+                                ],
+                              ),
+                              const Spacer(),
+                               Row(
+                                 children: [
+                                   Text(
+                                          payment.date),
+                                          const Spacer(),
+                                  Text('Payment Type: ${payment.paymentType}'),
+                                 ],
+                               ),
+                               const Spacer(),
+                              Row(
+                                children: [
+                                  Text(
+                                      'Amount: ${payment.amount.toStringAsFixed(2)}'),
+                                  const Spacer(),
+                                  // Check if date is not null before displaying
+                                 
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              Text(payment.invoice),
-                              const Spacer(),
-                              //Text('Payment Type: ${payment.paymentType}'),
-                            ],
-                          ),
-                          Spacer(),
-                           Row(
-                             children: [
-                               Text(
-                                      payment.date),
-                                      const Spacer(),
-                              Text('Payment Type: ${payment.paymentType}'),
-                             ],
-                           ),
-                           Spacer(),
-                          Row(
-                            children: [
-                              Text(
-                                  'Amount: ${payment.amount.toStringAsFixed(2)}'),
-                              const Spacer(),
-                              // Check if date is not null before displaying
-                             
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                );
-              },
-            ),
+                    );
+                  },
+                ),
+              );
+            }
           ),
         ],
       ),

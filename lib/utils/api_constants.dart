@@ -38,6 +38,8 @@ static const String addToCart = 'add_cart/';
   static const String updatecart = 'update_cart/';
   static const String createorderapi = 'create_order/';
 
+  static const String payment ='payment/';
+
   static const String myOrders='orders/';
   static const String myOrderDetail='order_detail/';
   static const String postaddress='inventory/address_post/';
