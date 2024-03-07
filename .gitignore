@@ -17,6 +17,7 @@
 
 # Visual Studio Code related
 .vscode/
+.dart_tool/
 
 # Flutter/Dart/Pub related
 **/doc/api/
