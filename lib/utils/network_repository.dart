@@ -126,6 +126,38 @@ class NetworkRepository {
     }
   }
 
+
+  Future partyConfig() async {
+    log("${ApiAppConstants.apiEndPoint}${ApiAppConstants.partyConfig}?party=1");
+    try {
+      final apiResponse = await NetworkDioHttp.getDioHttpMethod(
+        url:
+        "${ApiAppConstants.apiEndPoint}${ApiAppConstants.partyConfig}?party=1",
+        header: Options(headers: <String, String>{'authorization': auth}),
+      );
+
+      print('\x1b[97m partyConfig Response : $apiResponse');
+
+      final body = apiResponse['body'];
+
+      if (body.isEmpty &&
+          body['detail'] != null ) {
+        Fluttertoast.showToast(msg: body['error'].toString());
+      }
+
+      return apiResponse;
+    }on AppException catch (appException)  {
+      print('appException.type in net repo ${appException.type.toString()}');
+      String errorMsg = '';
+      errorMsg = errorHandler(appException);
+      print('ERROR MESSAGE :: ${errorMsg}');
+      if (appException.res != null && appException.res?.data['detail'] != null ) {
+        Fluttertoast.showToast(msg: appException.res?.data['detail'].toString() ?? "Something went wrong");
+      }
+      return  null;
+    }
+  }
+
   Future getStates() async {
     log("${ApiAppConstants.apiEndPoint}${ApiAppConstants.getstates}?page=1");
     try {
