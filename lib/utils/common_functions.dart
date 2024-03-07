@@ -14,12 +14,14 @@ String convertTimestampToDateString(String? timestampString) {
   return formattedDate;
 }
 
-String convertDoubleToString(String value){
+String convertDoubleToString(String? value){
   String s = "";
-  if(value != "null"){
-    double d = double.parse(value);
+  if(value != null||value != "null"){
+    double d = double.parse(value!);
     int i = d.toInt();
      s = i.toString();
+  }else{
+    return "0";
   }
 
   return s;

@@ -54,23 +54,21 @@ class _AddButtonState extends State<AddButton> {
   Widget build(BuildContext context) {
     quantity = widget.qty;
     return quantity == 0
-        ? Obx(
-           () {
-            return SizedBox(
-                width: 80,
-                height: 32,
-                child: OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                    side: const BorderSide(
-                        color: kPrimaryBlue), // Specify the border color here
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(
-                          8.0), // Adjust the border radius as needed
-                    ),
-                  ),
-                  onPressed: widget.onAddPressed,
+        ? SizedBox(
+      width: 80,
+      height: 32,
+      child: OutlinedButton(
+        style: OutlinedButton.styleFrom(
+          side: const BorderSide(
+              color: kPrimaryBlue), // Specify the border color here
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(
+                8.0), // Adjust the border radius as needed
+          ),
+        ),
+        onPressed: widget.onAddPressed,
 
-                  /*() {
+        /*() {
                     setState(() {
                       quantity = 1;
                       qtyCtrl.text =quantity.toString();
@@ -78,11 +76,9 @@ class _AddButtonState extends State<AddButton> {
                       print('controller.rxQty.value::: ${controller.rxQty.value}');
                     });
                   },*/
-                  child: const Text('Add'),
-                ),
-              );
-          }
-        )
+        child: const Text('Add'),
+      ),
+    )
         :
         //  Obx(() =>
         widget.isLoading
