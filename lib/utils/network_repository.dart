@@ -127,8 +127,8 @@ class NetworkRepository {
   }
 
 
-  Future partyConfig() async {
-    log("${ApiAppConstants.apiEndPoint}${ApiAppConstants.partyConfig}?party=1");
+  Future partyConfig(String partyId) async {
+    log("${ApiAppConstants.apiEndPoint}${ApiAppConstants.partyConfig}?party=$partyId");
     try {
       final apiResponse = await NetworkDioHttp.getDioHttpMethod(
         url:

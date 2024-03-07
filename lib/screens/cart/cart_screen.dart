@@ -107,7 +107,7 @@ class CartScreen extends StatelessWidget {
                                     setPDCount(controller.mycartItems,
                                         addToCartController);
                                     return OrderCard(
-                                      index: index,
+
                                       onChangeQty: (n) {
                                         addToCartController.updateCart(
                                             n,
@@ -159,7 +159,6 @@ class CartScreen extends StatelessWidget {
                                             "1");
                                       },
                                       mycartItem: controller.mycartItems[index],
-                                      Txtctrlr: quantityCtrlr,
 
                                     );
                                   }),

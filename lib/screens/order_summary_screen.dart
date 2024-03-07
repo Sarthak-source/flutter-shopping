@@ -123,7 +123,7 @@ class OrderListState extends State<OrderList> {
                 setState(() {
                   totalItem--;
                 });
-              }, index: index,
+              },
             ),
             SizedBox(
               height: getProportionateScreenHeight(8.0),

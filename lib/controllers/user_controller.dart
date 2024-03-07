@@ -35,8 +35,8 @@ class UserController extends GetxController {
     log('=============================');
     try {
       Map storedUserData=box!.get('userData');
-      var responseData = await networkRepository.checkUser(
-        number: storedUserData['party']['phone'],
+      var responseData = await networkRepository.partyConfig(
+        storedUserData['party']['id'],
       );
 
       log('responseData message  ${responseData.toString()}');
