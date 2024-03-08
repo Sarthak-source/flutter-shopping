@@ -169,24 +169,28 @@ class IllustrationPageView extends StatelessWidget {
             SizedBox(
               height: getProportionateScreenHeight(50),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                TextButton(
-                  onPressed: () {
-                    Get.toNamed(LoginScreen.routeName);
-                  },
-                  child: Text(
-                    'Skip',
-                    style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                          color: kTextColorForth,
-                        ),
+            Container(
+             // color: Colors.red,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      Get.toNamed(LoginScreen.routeName);
+                    },
+                    child: Text(
+                      'Skip',
+                      style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                            color: kTextColorForth,
+                        fontSize: 12
+                          ),
+                    ),
                   ),
-                ),
-                SizedBox(
-                  width: getProportionateScreenWidth(20),
-                )
-              ],
+               /*   SizedBox(
+                    width: getProportionateScreenWidth(20),
+                  )*/
+                ],
+              ),
             ),
             SizedBox(
               height: getProportionateScreenHeight(40),

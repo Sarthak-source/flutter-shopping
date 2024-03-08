@@ -58,12 +58,13 @@ class _PopularCardState extends State<PopularCard> {
   final MyCartController myCartController = Get.put(MyCartController());
   final ProductDetailController prodDetailController =
       Get.put(ProductDetailController());
-
+  String newCrateValue ="";
   @override
   Widget build(BuildContext context) {
     var productdeal = widget.product;
     if (widget.product != null && widget.product!["cart_count"] != null) {
       final cartCount = widget.product!["cart_count"];
+
       if (cartCount != null) {
         log("count::: ${cartCount.toString()}");
         final double? parsedCount = double.tryParse(cartCount.toString());
@@ -176,9 +177,7 @@ class _PopularCardState extends State<PopularCard> {
                     // addToCartController.isLoading.value?Loader():
                     AddButton(
                       isLoading: widget.loader ?? false,
-                      qty: quantity.value <
-                              int.parse(convertDoubleToString(
-                                  widget.product['min_order_qty'] ?? "0.0"))
+                      qty: quantity.value < int.parse(convertDoubleToString(widget.product['min_order_qty'] ?? "0.0"))
                           ? 0
                           : quantity.value,
                       onChangedPressed: (value) {
@@ -372,8 +371,9 @@ class _PopularCardState extends State<PopularCard> {
                     quantity.value == 0
                         ? Text("")
                         : Text(
-                            setCrateRate(quantity.value,
-                                widget.product?['multipack_qty'] ?? 0),
+                        //newCrateValue,
+                        setCrateRate(quantity.value, widget.product?['multipack_qty'] ?? "0.0").toString(),
+                    //  setCrateRate(quantity.value, widget.product?['multipack_qty'] ?? 0).toString(),
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium!
@@ -414,17 +414,19 @@ class _PopularCardState extends State<PopularCard> {
     );
   }
 
-  setCrateRate(int qty, int multiPackQty) {
+ String setCrateRate(int qty, String multiPackQty) {
     double crateValue = 0.0;
+
     if (qty != null && multiPackQty != null) {
-      crateValue = qty / multiPackQty;
+      crateValue = qty / int.parse(convertDoubleToString(multiPackQty));
       // crateValue = 3.0;
       print(
           "Crate:: qty===${qty} multiPackQty== ${multiPackQty} crateValue=== $crateValue");
       print(crateValue.round());
-
-      return crateValue.round().toString();
+      newCrateValue = crateValue.round().toString();
+      return newCrateValue;
     }
+return newCrateValue;
   }
 
   setPackingValue(int qty, String noOfPieces) {

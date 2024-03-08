@@ -48,6 +48,7 @@ class _LandingScreenState extends State<LandingScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: kPrimaryBlueTest,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -121,9 +122,11 @@ class IntroWidget extends StatelessWidget {
               height: 16,
             ),
             Text(
-              'The delightful experience with purely rich taste.',
+            //  'The delightful experience with purely rich taste.',
+              'Purely rich taste.',
               style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                    color: kTextColorAccent,
+                   // color: kTextColorAccent,
+                    color: Colors.white,
                   ),
             ),
             const Spacer(),
