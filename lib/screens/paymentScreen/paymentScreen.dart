@@ -1,53 +1,20 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:sutra_ecommerce/constants/colors.dart';
 import 'package:sutra_ecommerce/controllers/payment_controller.dart';
 import 'package:sutra_ecommerce/screens/paymentScreen/addPayemntDetail.dart';
 import 'package:sutra_ecommerce/utils/screen_utils.dart';
 
-class Payment {
-  final String invoice;
-  final double amount;
-  final String paymentType;
-  final String date;
-
-  Payment({
-    required this.invoice,
-    required this.amount,
-    required this.paymentType,
-    required this.date,
-  });
-}
-
 class PaymentScreen extends StatefulWidget {
-  const PaymentScreen({super.key});
+  const PaymentScreen({Key? key}) : super(key: key);
 
   @override
   State<PaymentScreen> createState() => _PaymentScreenState();
 }
 
 class _PaymentScreenState extends State<PaymentScreen> {
-  // Define a list of payment details using the Payment class
-  final List<Payment> payments = [
-    Payment(
-      invoice: 'Invoice 1',
-      amount: 100.0,
-      paymentType: 'Cash',
-      date: '12/09/2024',
-    ),
-    Payment(
-      invoice: 'Invoice 2',
-      amount: 150.0,
-      paymentType: 'Credit Card',
-      date: '12/09/2024',
-    ),
-    // Add more payment details as needed
-  ];
-
-   final PaymentController paymentController =
-        Get.put(PaymentController());
+  final PaymentController paymentController = Get.put(PaymentController());
 
   @override
   Widget build(BuildContext context) {
@@ -94,18 +61,18 @@ class _PaymentScreenState extends State<PaymentScreen> {
               ],
             ),
           ),
-          Obx(
-             () {
-            List paymentsList=  paymentController.payment;
-            log(paymentsList.toString());
-              return Expanded(
-                child: ListView.builder(
-                  itemCount: payments.length,
+          Expanded(
+            child: Obx(
+              () {
+                List paymentsList =
+                    paymentController.payment;
+                return ListView.builder(
+                  itemCount: paymentsList.length,
                   itemBuilder: (BuildContext context, int index) {
-                    final payment = payments[index];
+                    final payment = paymentsList[index];
                     return Padding(
-                      padding:
-                          const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 4, horizontal: 12),
                       child: Container(
                         height: 120,
                         decoration: BoxDecoration(
@@ -126,28 +93,29 @@ class _PaymentScreenState extends State<PaymentScreen> {
                             children: [
                               Row(
                                 children: [
-                                  Text(payment.invoice),
+                                  Text(
+                                    'Invoice: ${payment['invoice']}',
+                                    style: const TextStyle(fontWeight: FontWeight.bold),
+                                  ),
                                   const Spacer(),
-                                  //Text('Payment Type: ${payment.paymentType}'),
+                                  Text(
+                                    'Payment Type: ${payment['payment_mode']}',
+                                    style: const TextStyle(fontWeight: FontWeight.bold),
+                                  ),
                                 ],
                               ),
                               const Spacer(),
-                               Row(
-                                 children: [
-                                   Text(
-                                          payment.date),
-                                          const Spacer(),
-                                  Text('Payment Type: ${payment.paymentType}'),
-                                 ],
-                               ),
-                               const Spacer(),
                               Row(
                                 children: [
                                   Text(
-                                      'Amount: ${payment.amount.toStringAsFixed(2)}'),
+      'Date: ${DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.parse(payment['payment_date']))}',
+      style: const TextStyle(fontWeight: FontWeight.bold),
+    ),
                                   const Spacer(),
-                                  // Check if date is not null before displaying
-                                 
+                                  Text(
+                                    'Amount: ${payment['amount']}',
+                                    style: const TextStyle(fontWeight: FontWeight.bold),
+                                  ),
                                 ],
                               ),
                             ],
@@ -156,9 +124,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       ),
                     );
                   },
-                ),
-              );
-            }
+                );
+              },
+            ),
           ),
         ],
       ),

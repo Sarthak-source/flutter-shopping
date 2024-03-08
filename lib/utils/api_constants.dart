@@ -38,7 +38,9 @@ class ApiAppConstants {
   static const String updatecart = 'update_cart/';
   static const String createorderapi = 'create_order/';
 
-  static const String payment = 'payment/';
+  
+static const String invoices ='invoices/';
+  static const String payment = 'payment/payment/';
   static const String addPayment = 'payment/payment/';
 
   static const String exploreCategories = 'explore_categories/';

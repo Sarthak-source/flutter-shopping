@@ -28,7 +28,7 @@ class CategoryCard extends StatelessWidget {
           child: Center(
             child: Text(
               "${category.catName[0].toUpperCase()}${category.catName.substring(1,category.catName.length).toLowerCase()}",
-              style:  TextStyle(fontSize: from == "allcategories"?14:10,fontWeight: FontWeight.w700,),maxLines: 1,
+              style:  TextStyle(fontSize: from == "allcategories"?14:10,fontWeight: FontWeight.w600,),maxLines: 1,
               textAlign: TextAlign.center,
             ),
           ),

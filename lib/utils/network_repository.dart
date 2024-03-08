@@ -133,7 +133,40 @@ class NetworkRepository {
     try {
       final apiResponse = await NetworkDioHttp.getDioHttpMethod(
         url:
-            "${ApiAppConstants.apiEndPoint}${ApiAppConstants.partyConfig}?party=1",
+            "${ApiAppConstants.apiEndPoint}${ApiAppConstants.partyConfig}?party=$partyId",
+        header: Options(headers: <String, String>{'authorization': auth}),
+      );
+
+      print('\x1b[97m partyConfig Response : $apiResponse');
+
+      final body = apiResponse['body'];
+
+      if (body.isEmpty && body['detail'] != null) {
+        Fluttertoast.showToast(msg: body['error'].toString());
+      }
+
+      return apiResponse;
+    } on AppException catch (appException) {
+      print('appException.type in net repo ${appException.type.toString()}');
+      String errorMsg = '';
+      errorMsg = errorHandler(appException);
+      print('ERROR MESSAGE :: ${errorMsg}');
+      if (appException.res != null &&
+          appException.res?.data['detail'] != null) {
+        Fluttertoast.showToast(
+            msg: appException.res?.data['detail'].toString() ??
+                "Something went wrong");
+      }
+      return null;
+    }
+  }
+
+ static Future invoiceList(String partyId) async {
+    log("${ApiAppConstants.apiEndPoint}${ApiAppConstants.partyConfig}?party=$partyId");
+    try {
+      final apiResponse = await NetworkDioHttp.getDioHttpMethod(
+        url:
+            "${ApiAppConstants.apiEndPoint}${ApiAppConstants.invoices}?dispatch__order__party=$partyId&dispatch__order=",
         header: Options(headers: <String, String>{'authorization': auth}),
       );
 
@@ -234,6 +267,7 @@ class NetworkRepository {
   }
 
   static Future getPayments({required String dispatchParty}) async {
+    log("${ApiAppConstants.apiEndPoint}${ApiAppConstants.payment}?invoice__dispatch__order__part=$dispatchParty");
     try {
       final apiResponse = await NetworkDioHttp.getDioHttpMethod(
         url:
@@ -268,7 +302,19 @@ class NetworkRepository {
       required String amount,
       required String paymentMode,
       required String paymentDate,
+      required String status,
       required String collectedBy}) async {
+
+        log({
+          'invoice': invoice,
+          'amount': amount,
+          'payment_mode': paymentMode,
+          'status':status,
+          'payment_date': paymentDate,
+          'collected_by': collectedBy,
+        }.toString());
+
+
     try {
       final apiResponse = await NetworkDioHttp.postDioHttpMethod(
         url: "${ApiAppConstants.apiEndPoint}${ApiAppConstants.addPayment}",
@@ -277,6 +323,7 @@ class NetworkRepository {
           'invoice': invoice,
           'amount': amount,
           'payment_mode': paymentMode,
+          'status':status,
           'payment_date': paymentDate,
           'collected_by': collectedBy,
         },

@@ -7,6 +7,8 @@ import 'package:sutra_ecommerce/utils/network_repository.dart';
 class PaymentController extends GetxController {
   var payment = [].obs;
 
+  var invoicesList = [].obs;
+
   var isLoading = true.obs;
   var hasError = false.obs;
   var errorMsg = ''.obs;
@@ -15,6 +17,7 @@ class PaymentController extends GetxController {
   void onInit() {
     super.onInit();
     fetchPayments();
+    fetchInvoice();
   }
 
   @override
@@ -31,12 +34,36 @@ class PaymentController extends GetxController {
 
       isLoading.value = true;
       var responseData = await NetworkRepository.getPayments(
-          dispatchParty: storedUserData['party']['id']);
-      List popularDealData = responseData['body']['results'];
-      payment.value = popularDealData;
+          dispatchParty: storedUserData['party']['id'].toString());
+          log("paymentData ${responseData.toString()}");
+      List paymentData = responseData['body']['results'];
+      log(paymentData.toString());
+      payment.value = paymentData;
       log(payment.toString());
     } catch (e) {
       errorMsg.value = e.toString();
+      log("paymentDataError ${e.toString()}");
+      hasError.value = true;
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  Future<dynamic> fetchInvoice() async {
+    try {
+      Map storedUserData = box!.get('userData');
+
+      //log(categoryId.toString());
+
+      isLoading.value = true;
+      var responseData =
+          await NetworkRepository.invoiceList(storedUserData['party']['id'].toString());
+      List invoicesDataList = responseData['body'][0]['invoice_items'];
+      invoicesList.value = invoicesDataList;
+      //log(invoicesList.toString());
+    } catch (e) {
+      errorMsg.value = e.toString();
+      log('invoice ${e.toString()}');
       hasError.value = true;
     } finally {
       isLoading.value = false;
@@ -48,6 +75,7 @@ class PaymentController extends GetxController {
       required String amount,
       required String paymentMode,
       required String paymentDate,
+      required String status,
       required String collectedBy}) async {
     try {
       //log(categoryId.toString());
@@ -58,10 +86,10 @@ class PaymentController extends GetxController {
           amount: amount,
           paymentMode: paymentMode,
           paymentDate: paymentDate,
-          collectedBy: collectedBy);
-      List popularDealData = responseData['body']['results'];
-      payment.value = popularDealData;
-      log(payment.toString());
+          collectedBy: collectedBy, status: status);
+      var popularDealData = responseData;
+      
+      log(popularDealData.toString());
     } catch (e) {
       errorMsg.value = e.toString();
       hasError.value = true;

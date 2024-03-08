@@ -18,7 +18,7 @@ class CustomTheme {
     return (inputHeight / designHeight) * constraints.maxHeight;
   }
 
-  nunito() => GoogleFonts.nunitoTextTheme(
+  nunito() => GoogleFonts.poppinsTextTheme(
         TextTheme(
           displayLarge: TextStyle(
             fontSize: _getProportionateScreenWidth(60),
