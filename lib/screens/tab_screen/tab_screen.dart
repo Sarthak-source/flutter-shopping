@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:sutra_ecommerce/controllers/add_to_cart_controller.dart';
 import 'package:sutra_ecommerce/widgets/go_cart/go_to_cart.dart';
 
-import '../../config/common.dart';
 import '../../controllers/catagories_controller.dart';
 import '../../controllers/get_deals_controller.dart';
 import '../../controllers/popular_controller.dart';
@@ -31,6 +30,7 @@ class TabScreenState extends State<TabScreen> {
   final categoriesController = Get.put( CategoriesController(),permanent: true);
   final popularController = Get.put( PopularDealController(categoryId: ""),permanent: true);
   final prodDetailController = Get.put( ProductDetailController(),permanent: true);
+  //final userController = Get.put(UserController());
 
 
   @override
@@ -45,6 +45,7 @@ class TabScreenState extends State<TabScreen> {
     dealsController.update();
     categoriesController.getCategories();
     categoriesController.update();
+    //userController.getUserData();
 
 
   }
@@ -52,11 +53,11 @@ class TabScreenState extends State<TabScreen> {
   Widget build(BuildContext context) {
 
     List<Widget> pages = [
-       HomeScreen(),
-       FavScreen(),
+       const HomeScreen(),
+       const FavScreen(),
       CartScreen(),
       UserScreen(),
-      PaymentScreen(),
+      const PaymentScreen(),
     ];
 
     final AddToCartController addToCartController =
