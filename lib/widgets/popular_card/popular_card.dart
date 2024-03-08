@@ -58,7 +58,7 @@ class _PopularCardState extends State<PopularCard> {
   final MyCartController myCartController = Get.put(MyCartController());
   final ProductDetailController prodDetailController =
       Get.put(ProductDetailController());
-  String newCrateValue ="";
+
   @override
   Widget build(BuildContext context) {
     var productdeal = widget.product;
@@ -81,7 +81,7 @@ class _PopularCardState extends State<PopularCard> {
       () => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: Container(
-          width: 185,
+          width: 190,
           decoration: BoxDecoration(
             color: Colors.white,
             border: Border.all(
@@ -191,14 +191,9 @@ class _PopularCardState extends State<PopularCard> {
                       onAddPressed: () {
                         //  quantity.value++;
                         String minOrder =
-                            widget.product['min_order_qty'] == null
-                                ? "0.0"
-                                : widget.product['min_order_qty'].toString();
-
-                        quantity.value = quantity.value +
-                            int.parse(convertDoubleToString(minOrder));
-                        print(
-                            'onClick of Add ${int.parse(convertDoubleToString(minOrder))} :: ${quantity.value}');
+                        widget.product['min_order_qty'] == null ? "0.0" : widget.product['min_order_qty'].toString();
+                        quantity.value = quantity.value + int.parse(convertDoubleToString(minOrder));
+                        print('onClick of Add ${int.parse(convertDoubleToString(minOrder))} :: ${quantity.value}');
                         addToCartController.productCount++;
                         addToCartController.addToCart(
                             quantity.value, widget.product?['id'], '1');
@@ -209,14 +204,10 @@ class _PopularCardState extends State<PopularCard> {
                       onPlusPressed: () {
                         widget.onCardAddClicked();
                         //  final ValueNotifier<bool> isLoadingButton1 = ValueNotifier(false);
-                        print(
-                            'isloading in addtocart ${addToCartController.isLoading.value}');
+                        print('isloading in addtocart ${addToCartController.isLoading.value}');
                         controller.rxQty.value = quantity.value.toString();
-                        String minOrder =
-                            widget.product['increment_order_qty'].toString() ??
-                                "0.0";
-                        quantity.value = quantity.value +
-                            int.parse(convertDoubleToString(minOrder));
+                        String minOrder = widget.product['increment_order_qty'].toString() ?? "0.0";
+                        quantity.value = quantity.value + int.parse(convertDoubleToString(minOrder));
                         quantityCtrlr.text = quantity.value.toString();
                         addToCartController.addToCart(
                             quantity.value, widget.product?['id'], '1');
@@ -228,11 +219,8 @@ class _PopularCardState extends State<PopularCard> {
                         widget.onCardMinusClicked();
                         //   if (quantity.value > 0) {
                         // quantity.value--;
-                        String minOrder =
-                            widget.product['increment_order_qty'].toString() ??
-                                "0.0";
-                        quantity.value = quantity.value -
-                            int.parse(convertDoubleToString(minOrder));
+                        String minOrder = widget.product['increment_order_qty'].toString() ?? "0.0";
+                        quantity.value = quantity.value - int.parse(convertDoubleToString(minOrder));
                         addToCartController.productCount--;
                         quantityCtrlr.text = quantity.value.toString();
                         controller.rxQty.value = quantity.value.toString();
@@ -414,34 +402,36 @@ class _PopularCardState extends State<PopularCard> {
     );
   }
 
- String setCrateRate(int qty, String multiPackQty) {
-    double crateValue = 0.0;
+}
 
-    if (qty != null && multiPackQty != null) {
-      crateValue = qty / int.parse(convertDoubleToString(multiPackQty));
-      // crateValue = 3.0;
-      print(
-          "Crate:: qty===${qty} multiPackQty== ${multiPackQty} crateValue=== $crateValue");
-      print(crateValue.round());
-      newCrateValue = crateValue.round().toString();
-      return newCrateValue;
-    }
-return newCrateValue;
+String setCrateRate(int qty, String multiPackQty) {
+  double crateValue = 0.0;
+  String newCrateValue="";
+
+  if (qty != null && multiPackQty != null) {
+    crateValue = qty / int.parse(convertDoubleToString(multiPackQty));
+    // crateValue = 3.0;
+    print(
+        "Crate:: qty===${qty} multiPackQty== ${multiPackQty} crateValue=== $crateValue");
+    print(crateValue.round());
+    newCrateValue = crateValue.round().toString();
+    return newCrateValue;
   }
+  return newCrateValue;
+}
 
-  setPackingValue(int qty, String noOfPieces) {
-    if (qty != null && noOfPieces != null && noOfPieces != "0"&& noOfPieces != "0.0") {
-      double noOfPi = qty * 1000 / int.parse(convertDoubleToString(noOfPieces));
-      // Check if noOfPi is finite and not NaN
-      if (noOfPi.isFinite && !noOfPi.isNaN) {
-        print('Packing type::== $noOfPi');
-        return noOfPi.round().toString();
-      } else {
-        // Handle division by zero or other cases resulting in Infinity or NaN
-        return "0";
-      }
+setPackingValue(int qty, String noOfPieces) {
+  if (qty != null && noOfPieces != null && noOfPieces != "0"&& noOfPieces != "0.0") {
+    double noOfPi = qty * 1000 / int.parse(convertDoubleToString(noOfPieces));
+    // Check if noOfPi is finite and not NaN
+    if (noOfPi.isFinite && !noOfPi.isNaN) {
+      print('Packing type::== $noOfPi');
+      return noOfPi.round().toString();
     } else {
-      return "";
+      // Handle division by zero or other cases resulting in Infinity or NaN
+      return "0";
     }
+  } else {
+    return "";
   }
 }

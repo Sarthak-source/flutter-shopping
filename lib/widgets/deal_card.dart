@@ -63,7 +63,7 @@ class DealCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ShadowText(
-                data:  heading??'Not given',
+                data:  "",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: getProportionateScreenWidth(20),

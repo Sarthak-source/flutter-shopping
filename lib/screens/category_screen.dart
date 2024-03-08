@@ -40,6 +40,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
     ScreenUtils().init(context);
     return GetBuilder<CategoriesController>(builder: (controller) {
       return Scaffold(
+        backgroundColor: Colors.grey.shade300,
+      //  backgroundColor: kPrimaryBlueTest,
         body: SafeArea(
           child: catcontroller.isLoading.value
               ? Loader()

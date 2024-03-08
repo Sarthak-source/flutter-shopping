@@ -8,6 +8,7 @@ import 'package:sutra_ecommerce/screens/select_time/select_time.dart';
 
 import '../../constants/colors.dart';
 import '../../controllers/add_to_cart_controller.dart';
+import '../../utils/common_functions.dart';
 import '../../utils/screen_utils.dart';
 import '../../widgets/order_card.dart';
 
@@ -125,7 +126,8 @@ class CartScreen extends StatelessWidget {
                                             "1");
                                       },
                                       onMinusinCard: (n) {
-                                        if (n == 0) {
+
+                                        if (n == 0 || n<int.parse(convertDoubleToString(controller.mycartItems[index]["product"]['min_order_qty'] ?? "0.0"))) {
                                           addToCartController.updateCart(
                                               n,
                                               controller.mycartItems[index]

@@ -67,7 +67,8 @@ class _HomeScreenState extends State<HomeScreen> {
         slivers: [
           SliverToBoxAdapter(
             child: Container(
-              color:  Colors.grey.shade200,
+            //  color:  Colors.grey.shade200,
+              color:  kPrimaryBlueTest2,
               height: 80,
              // color:  Colors.red,
               child: Column(
@@ -80,6 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Container(
                         height: 50,
                         decoration: BoxDecoration(
+                       //   color:  Colors.grey.shade200,
                           color:  Colors.grey.shade200,
                           border: Border.all(
                             color: Colors.grey, // Border color
@@ -153,7 +155,8 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           SliverToBoxAdapter(
             child: Container(
-              color: Colors.grey.shade300,
+             // color: Colors.grey.shade300,
+              color: kPrimaryBlueTest,
               child: TabTitle(
                 title: 'Popular Products',
                 seeAll: () {
@@ -170,7 +173,8 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Container(
               //height: 200,
               width: Get.width,
-              color: Colors.grey.shade300,
+            //  color: Colors.grey.shade300,
+              color: kPrimaryBlueTest,
              child: ExploreNewCategory(),
             ),
           ),
@@ -181,7 +185,8 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Container(
               height: 20,
               width: Get.width,
-              color: Colors.grey.shade300,
+             // color: Colors.grey.shade300,
+              color: kPrimaryBlueTest,
 
             ),
           ),
@@ -211,7 +216,8 @@ class DealsTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: controller.deals.isEmpty?Colors.white:Colors.grey.shade300,
+     // color: controller.deals.isEmpty?Colors.white:Colors.grey.shade300,
+      color: controller.deals.isEmpty?Colors.white:kPrimaryBlueTest,
       child: Column(
        // crossAxisAlignment: CrossAxisAlignment.start,
         //mainAxisAlignment: MainAxisAlignment.start,
@@ -303,7 +309,8 @@ class HomeAppBar extends StatelessWidget {
     return Obx(() {
       return Container(
       //  height: 80,
-        color: Colors.grey.shade200,
+        //color: Colors.grey.shade200,
+        color: kPrimaryBlueTest,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

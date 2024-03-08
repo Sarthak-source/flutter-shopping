@@ -91,7 +91,7 @@ class _AddButtonState extends State<AddButton> {
                   borderRadius:
                       BorderRadius.circular(5), // Set the border radius here
                   border: Border.all(
-                    color: kPrimaryBlue, // Specify the border color here
+                    color: Colors.black, // Specify the border color here
                   ),
                 ),
                 width: quantity.toString().length == 1
@@ -115,17 +115,19 @@ class _AddButtonState extends State<AddButton> {
                       child: Container(
                         width: 25,
                         height: 30,
-                        decoration: const BoxDecoration(
+                        decoration:  BoxDecoration(
                           //shape: BoxShape.circle,
-                          color: kPrimaryBlue,
+                          color: kTextColorThird,
+                         // borderRadius:  BorderRadius.circular(5),
+                            borderRadius:  BorderRadius.only(topLeft: Radius.circular(5),bottomLeft: Radius.circular(5))
                         ),
                         child: const Icon(Icons.remove,
-                            size: 20, color: Colors.white),
+                            size: 20, color: Colors.black),
                       ),
                     ),
                     const Spacer(),
                     Container(
-                      width: 12.0 * quantity.toString().length,
+                      width: 10.0 * quantity.toString().length,
                       //  width: 12.0 * controller.rxQty.value.length,
 //width: 80,
                       height: 30,
@@ -160,7 +162,7 @@ class _AddButtonState extends State<AddButton> {
                         },
                         textAlign: TextAlign.center,
                         style:
-                            const TextStyle(color: kPrimaryBlue, fontSize: 16),
+                            const TextStyle(color: Colors.black, fontSize: 16),
                         controller: widget
                             .qtyController, //TextEditingController(text: quantity.toString()),
                       ),
@@ -178,12 +180,13 @@ class _AddButtonState extends State<AddButton> {
                       child: Container(
                         width: 25,
                         height: 30,
-                        decoration: const BoxDecoration(
+                        decoration:  BoxDecoration(
                           //shape: BoxShape.circle,
-                          color: kPrimaryBlue,
+                          color: kTextColorThird,
+                            borderRadius:  BorderRadius.only(topRight: Radius.circular(5),bottomRight: Radius.circular(5))
                         ),
                         child: const Icon(Icons.add,
-                            size: 20, color: Colors.white),
+                            size: 20, color: Colors.black),
                       ),
                     ),
                   ],

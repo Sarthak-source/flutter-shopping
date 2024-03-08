@@ -6,6 +6,7 @@ import 'package:shimmer/shimmer.dart';
 import 'package:sutra_ecommerce/controllers/popular_controller.dart';
 import 'package:sutra_ecommerce/widgets/popular_card/popular_card.dart';
 
+import '../../constants/colors.dart';
 import '../../utils/screen_utils.dart';
 import '../../widgets/tab_title.dart';
 import '../product_grid_screen/produts_grid_screen.dart';
@@ -57,7 +58,8 @@ class ExploreMoreProducts extends StatelessWidget {
         return Column(
           children: [
             Container(
-              color: Colors.grey.shade300,
+             // color: Colors.grey.shade300,
+              color: kPrimaryBlueTest,
               child: TabTitle(
                 title: 'Explore More Products',
                 seeAll: () {
@@ -67,7 +69,8 @@ class ExploreMoreProducts extends StatelessWidget {
             ),
             Container(
               height: 180,
-              color: controller.popularDeals.isEmpty?Colors.white:Colors.grey.shade300,
+             // color: controller.popularDeals.isEmpty?Colors.white:Colors.grey.shade300,
+              color: kPrimaryBlueTest,
 
               child: ListView.builder(
                 clipBehavior: Clip.none,

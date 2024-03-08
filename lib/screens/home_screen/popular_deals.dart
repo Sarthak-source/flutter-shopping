@@ -6,6 +6,7 @@ import 'package:shimmer/shimmer.dart';
 import 'package:sutra_ecommerce/controllers/popular_controller.dart';
 import 'package:sutra_ecommerce/widgets/popular_card/popular_card.dart';
 
+import '../../constants/colors.dart';
 import '../../controllers/add_to_cart_controller.dart';
 import '../product_grid_screen/produts_grid_screen.dart';
 
@@ -67,7 +68,8 @@ class _PopularDealTabState extends State<PopularDealTab> {
           children: [
             Container(
               height: 200,
-              color: popularDeals.isEmpty ? Colors.white : Colors.grey.shade300,
+            //  color: popularDeals.isEmpty ? Colors.white : Colors.grey.shade300,
+              color: popularDeals.isEmpty ? Colors.white : kPrimaryBlueTest,
               child: ListView.builder(
                 clipBehavior: Clip.none,
                 scrollDirection: Axis.horizontal,

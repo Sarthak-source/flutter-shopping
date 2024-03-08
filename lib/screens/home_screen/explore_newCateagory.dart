@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sutra_ecommerce/controllers/explore_more_controller.dart';
 
+import '../../constants/colors.dart';
 import '../../utils/screen_utils.dart';
 import '../../widgets/tab_title.dart';
 import '../category_screen.dart';
@@ -69,10 +70,12 @@ class ExploreNewCategory extends StatelessWidget {
           children: [
             Container(
               height: 14,
-              color: Colors.grey.shade300,
+            //  color: Colors.grey.shade300,
+              color: kPrimaryBlueTest,
             ),
             Container(
-              color: Colors.grey.shade300,
+              //color: Colors.grey.shade300,
+              color: kPrimaryBlueTest,
               child: TabTitle(
                 title: 'Explore More Catrgories',
                 seeAll: () {

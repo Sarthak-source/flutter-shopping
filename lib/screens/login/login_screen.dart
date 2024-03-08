@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:sutra_ecommerce/assets/logo.dart';
+import 'package:sutra_ecommerce/constants/colors.dart';
 import 'package:sutra_ecommerce/controllers/login_controller.dart';
 import 'package:sutra_ecommerce/screens/signup_screen.dart';
 
@@ -44,6 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
     // }
 
     return Scaffold(
+      backgroundColor: Colors.white,
         body: SafeArea(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

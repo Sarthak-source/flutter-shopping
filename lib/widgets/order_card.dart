@@ -6,6 +6,7 @@ import 'package:get/get_core/src/get_main.dart';
 
 import '../constants/colors.dart';
 import '../controllers/add_to_cart_controller.dart';
+import '../utils/common_functions.dart';
 import '../utils/screen_utils.dart';
 import 'add_button.dart';
 
@@ -216,7 +217,9 @@ if(widget.mycartItem["count"] != null){
                     ),*/
                     AddButton(
                       isLoading: false,
-                      qty: quantity,
+                      qty: quantity < int.parse(convertDoubleToString(widget.mycartItem["product"]['min_order_qty'] ?? "0.0"))
+                         ? 0
+                         : quantity,
                       onChangedPressed: (value){
                         quantity = int.parse(value);
                         //  widget.Txtctrlr?.text =quantity.toString();
@@ -228,7 +231,11 @@ if(widget.mycartItem["count"] != null){
 
                         log('widget.mycartItem["product"]["name"] ${widget.mycartItem["product"]["name"].toString()}');
                         setState(() {
-                          quantity++;
+                         // quantity++;
+                          String minOrder =
+                          widget.mycartItem["product"]['min_order_qty'] == null ? "0.0" : widget.mycartItem["product"]['min_order_qty'].toString();
+
+                          quantity = quantity + int.parse(convertDoubleToString(minOrder));
                           log(quantity.toString());
                           widget.onAddItem(quantity);
                         });
@@ -236,14 +243,18 @@ if(widget.mycartItem["count"] != null){
                       },
                       onPlusPressed: (){
                         setState(() {
-                          quantity++;
+                        //  quantity++;
+                          String minOrder = widget.mycartItem["product"]['increment_order_qty'].toString() ?? "0.0";
+                          quantity = quantity + int.parse(convertDoubleToString(minOrder));
                           widget.onPlusinCard(quantity);
                         });
                       },
                       onMinusPressed: (){
                         if (quantity != 0) {
                           setState(() {
-                            quantity--;
+                          //  quantity--;
+                            String minOrder = widget.mycartItem["product"]['increment_order_qty'].toString() ?? "0.0";
+                            quantity = quantity - int.parse(convertDoubleToString(minOrder));
                             widget.onMinusinCard(quantity);
                           });
 
