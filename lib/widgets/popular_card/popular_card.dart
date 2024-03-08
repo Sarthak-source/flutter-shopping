@@ -166,7 +166,7 @@ final TextEditingController quantityCtrlr =TextEditingController();
                     Text(" / ${widget.product?['order_uom'] == null? "":widget.product?['order_uom']}",style:  Theme.of(context)
                         .textTheme
                         .bodyMedium!
-                        .copyWith(fontSize: 14,color: kTextColorAccent),),
+                        .copyWith(fontSize: 10,color: kTextColorAccent),),
                     const Spacer(),
                    // addToCartController.isLoading.value?Loader():
                     AddButton(
@@ -360,7 +360,7 @@ final TextEditingController quantityCtrlr =TextEditingController();
                        .textTheme
                        .bodyMedium!
                        .copyWith(fontSize: 12,color: kTextColorAccent),),
-                    Text(" ${ widget.product?['multipack_uom'] == null? "" :widget.product?['multipack_uom'].toLowerCase()}",style:  Theme.of(context)
+                    Text(" ${ widget.product?['multipack_uom'] == null? "" :widget.product?['multipack_uom']}",style:  Theme.of(context)
                         .textTheme
                         .bodyMedium!
                         .copyWith(fontSize: 12,color: kTextColorAccent),),
