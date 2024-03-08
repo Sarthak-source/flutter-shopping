@@ -373,7 +373,7 @@ class _PopularCardState extends State<PopularCard> {
                         ? Text("")
                         : Text(
                             setCrateRate(quantity.value,
-                                widget.product?['multipack_qty'] ?? 0),
+                                widget.product?['multipack_qty'] ?? '0.0'),
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium!

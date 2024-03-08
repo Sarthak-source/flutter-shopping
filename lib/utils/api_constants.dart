@@ -31,18 +31,21 @@ class ApiAppConstants {
   static const String partyConfig = 'party_config/';
   static const String productCategories = 'product/product_categories/';
   static const String products = 'products/';
-static const String addToCart = 'add_cart/';
+  static const String addToCart = 'add_cart/';
   static const String mycart = 'cart';
   static const String myaddress = 'inventory/address_list/';
   static const String deals = 'product/deals/';
   static const String updatecart = 'update_cart/';
   static const String createorderapi = 'create_order/';
 
-  static const String payment ='payment/';
+  static const String payment = 'payment/';
+  static const String addPayment = 'payment/payment/';
 
-  static const String myOrders='orders/';
-  static const String myOrderDetail='order_detail/';
-  static const String postaddress='inventory/address_post/';
-  static const String getstates='inventory/state/';
+  static const String exploreCategories = 'explore_categories/';
+
+  static const String myOrders = 'orders/';
+  static const String myOrderDetail = 'order_detail/';
+  static const String postaddress = 'inventory/address_post/';
+  static const String getstates = 'inventory/state/';
   static const String addressListPost = 'addressListPost/';
 }

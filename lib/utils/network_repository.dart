@@ -128,13 +128,12 @@ class NetworkRepository {
     }
   }
 
-
   Future partyConfig(String partyId) async {
     log("${ApiAppConstants.apiEndPoint}${ApiAppConstants.partyConfig}?party=$partyId");
     try {
       final apiResponse = await NetworkDioHttp.getDioHttpMethod(
         url:
-        "${ApiAppConstants.apiEndPoint}${ApiAppConstants.partyConfig}?party=1",
+            "${ApiAppConstants.apiEndPoint}${ApiAppConstants.partyConfig}?party=1",
         header: Options(headers: <String, String>{'authorization': auth}),
       );
 
@@ -142,21 +141,23 @@ class NetworkRepository {
 
       final body = apiResponse['body'];
 
-      if (body.isEmpty &&
-          body['detail'] != null ) {
+      if (body.isEmpty && body['detail'] != null) {
         Fluttertoast.showToast(msg: body['error'].toString());
       }
 
       return apiResponse;
-    }on AppException catch (appException)  {
+    } on AppException catch (appException) {
       print('appException.type in net repo ${appException.type.toString()}');
       String errorMsg = '';
       errorMsg = errorHandler(appException);
       print('ERROR MESSAGE :: ${errorMsg}');
-      if (appException.res != null && appException.res?.data['detail'] != null ) {
-        Fluttertoast.showToast(msg: appException.res?.data['detail'].toString() ?? "Something went wrong");
+      if (appException.res != null &&
+          appException.res?.data['detail'] != null) {
+        Fluttertoast.showToast(
+            msg: appException.res?.data['detail'].toString() ??
+                "Something went wrong");
       }
-      return  null;
+      return null;
     }
   }
 
@@ -238,6 +239,47 @@ class NetworkRepository {
         url:
             "${ApiAppConstants.apiEndPoint}${ApiAppConstants.payment}?invoice__dispatch__order__part=$dispatchParty",
         header: Options(headers: <String, String>{'authorization': auth}),
+      );
+
+      debugPrint('\x1b[97m checkSeller Response : $apiResponse');
+
+      final body = apiResponse['body'];
+
+      if (body != null &&
+          body['error'] != null &&
+          body['error'] == 'User not exist please sign up') {
+        Fluttertoast.showToast(msg: body['error'].toString());
+      }
+
+      return apiResponse;
+    } on AppException catch (appException) {
+      if (appException.statusCode == 500 ||
+          appException.statusCode == 400 ||
+          appException.statusCode == 404) {
+        Fluttertoast.showToast(msg: "Something went wrong in getCategories!");
+      }
+
+      return appException.res?.statusCode.toString();
+    }
+  }
+
+  static Future addPayments(
+      {required String invoice,
+      required String amount,
+      required String paymentMode,
+      required String paymentDate,
+      required String collectedBy}) async {
+    try {
+      final apiResponse = await NetworkDioHttp.postDioHttpMethod(
+        url: "${ApiAppConstants.apiEndPoint}${ApiAppConstants.addPayment}",
+        header: Options(headers: <String, String>{'authorization': auth}),
+        data: {
+          'invoice': invoice,
+          'amount': amount,
+          'payment_mode': paymentMode,
+          'payment_date': paymentDate,
+          'collected_by': collectedBy,
+        },
       );
 
       debugPrint('\x1b[97m checkSeller Response : $apiResponse');
@@ -431,6 +473,39 @@ class NetworkRepository {
       final apiResponse = await NetworkDioHttp.getDioHttpMethod(
         url:
             "${ApiAppConstants.apiEndPoint}${ApiAppConstants.products}?category=$category&status=$status&search=$search&party=$partyId&page=$page",
+        header: Options(headers: <String, String>{'authorization': auth}),
+      );
+
+      print('\x1b[97m products Response : $apiResponse');
+
+      final body = apiResponse['body'];
+
+      if (body != null &&
+          body['error'] != null &&
+          body['error'] == 'User not exist please sign up') {
+        Fluttertoast.showToast(msg: body['error'].toString());
+      }
+
+      return apiResponse;
+    } on AppException catch (appException) {
+      if (appException.statusCode == 500 ||
+          appException.statusCode == 400 ||
+          appException.statusCode == 404) {
+        Fluttertoast.showToast(msg: "Something went wrong in products!");
+      }
+
+      return appException.res?.statusCode.toString();
+    }
+  }
+
+  static getExploreMore({
+    String? level,
+    String? party,
+  }) async {
+    try {
+      final apiResponse = await NetworkDioHttp.getDioHttpMethod(
+        url:
+            "${ApiAppConstants.apiEndPoint}${ApiAppConstants.exploreCategories}?level=$level&parent=&party=$party",
         header: Options(headers: <String, String>{'authorization': auth}),
       );
 
