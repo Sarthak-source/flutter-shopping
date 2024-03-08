@@ -6,7 +6,8 @@ import 'generic_exception.dart';
 
 String convertTimestampToDateString(String? timestampString) {
   // Parse the timestamp string to a DateTime object
-  DateTime dateTime = DateTime.parse(timestampString ?? "2024-02-19T06:28:57.510795Z");
+  DateTime dateTime =
+      DateTime.parse(timestampString ?? "2024-02-19T06:28:57.510795Z");
 
   // Format the DateTime object as dd/mm/yy
   String formattedDate = DateFormat('dd/MM/yy').format(dateTime);
@@ -14,18 +15,21 @@ String convertTimestampToDateString(String? timestampString) {
   return formattedDate;
 }
 
-String convertDoubleToString(String? value){
-  String s = "";
-  if(value != null||value != "null"){
-    double d = double.parse(value!);
-    int i = d.toInt();
-     s = i.toString();
-  }else{
-    return "0";
+String convertDoubleToString(String? value) {
+  if (value == null || value == "null") {
+    // Handle null or "null" input values
+    return "0.0";
   }
-
-  return s;
+  try {
+    double d = double.parse(value);
+    int i = d.toInt();
+    return i.toString();
+  } catch (e) {
+    // Handle parsing errors gracefully
+    return "0.0";
+  }
 }
+
 
 String titleCase(String text) {
   if (text.length <= 1) return text.toUpperCase();
@@ -43,8 +47,7 @@ String errorHandler(AppException appException) {
   if (appException.error is String) {
     //Something went wrong error
     errorMsg = appException.error as String;
-  }
-  else if (appException.type == ErrorType.dioError) {
+  } else if (appException.type == ErrorType.dioError) {
     //Dio code error
     var dioError = appException.error as DioError;
     errorMsg = DataException.errorResponseHandler(dioError);
