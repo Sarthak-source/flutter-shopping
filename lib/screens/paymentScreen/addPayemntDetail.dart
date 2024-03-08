@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+import 'package:sutra_ecommerce/controllers/payment_controller.dart';
 
 import '../../constants/colors.dart';
-import '../../controllers/add_address_controller.dart';
 import '../../utils/StateDropDown.dart';
 import '../../utils/screen_utils.dart';
 import '../../widgets/back_button_ls.dart';
-import '../../widgets/common_textfield_withicon.dart';
 import '../../widgets/custom_text_field.dart';
 import '../../widgets/loading_widgets/loader.dart';
 
@@ -20,22 +18,25 @@ class AddPaymentPage extends StatefulWidget {
 }
 
 class _AddPaymentPageState extends State<AddPaymentPage> {
-
-  Map<String,dynamic>? selectedState ;
+  Map<String, dynamic>? selectedState;
   RxList invoicelist = [
-    {"name":"invoice1"},{"name":"invoice2"},{"name":"invoice3"}].obs;
+    {"name": "invoice1"},
+    {"name": "invoice2"},
+    {"name": "invoice3"}
+  ].obs;
   TextEditingController pincodecontroller = TextEditingController();
   TextEditingController gstcontroller = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  final AddAddressController controller = Get.put(AddAddressController());
+  final PaymentController controller = Get.put(PaymentController());
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<AddAddressController>(
-        builder: (controller){
-          return Scaffold(
-            body: Obx(()=>
-                SafeArea(
-                  child: controller.isLoading.value?const Loader():Form(
+    return GetBuilder<PaymentController>(builder: (controller) {
+      return Scaffold(
+        body: Obx(
+          () => SafeArea(
+            child: controller.isLoading.value
+                ? const Loader()
+                : Form(
                     key: _formKey,
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
@@ -56,7 +57,8 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
                                     child: Text(
                                       'Add Payment Details',
                                       style: TextStyle(
-                                        fontSize: getProportionateScreenWidth(17),
+                                        fontSize:
+                                            getProportionateScreenWidth(17),
                                         fontWeight: FontWeight.w600,
                                       ),
                                     ),
@@ -67,43 +69,45 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
                             const SizedBox(
                               height: 20,
                             ),
-                            Text("Select Invoice", style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                              color: kTextColorAccent,
-                            )),
+                            Text("Select Invoice",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headlineMedium!
+                                    .copyWith(
+                                      color: kTextColorAccent,
+                                    )),
                             StateDropdown(
                               hinttxt: "",
                               devicewidth: Get.width / 2 + 10,
                               selectedValue: selectedState,
-                                options: invoicelist,
-
+                              options: invoicelist,
                               onChanged: (value) {
-                                if(value != null){
+                                if (value != null) {
                                   setState(() {
                                     selectedState = value;
-                                    print("selected state :: ${selectedState?["name"]}");
-
+                                    print(
+                                        "selected state :: ${selectedState?["name"]}");
                                   });
                                 }
-
                               },
                             ),
-
                             const SizedBox(
                               height: 20,
                             ),
-                            Text("Amount", style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                              color: kTextColorAccent,
-                            )),
-
-                            CustomTextField(
-                               // controller: nameController,
+                            Text("Amount",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headlineMedium!
+                                    .copyWith(
+                                      color: kTextColorAccent,
+                                    )),
+                            const CustomTextField(
+                                // controller: nameController,
                                 hint: '',
-                                TextInputType: TextInputType.text
-                            ),
+                                TextInputType: TextInputType.text),
                             const SizedBox(
                               height: 20,
                             ),
-
                             const SizedBox(
                               height: 60,
                             ),
@@ -114,7 +118,12 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
                               child: ElevatedButton(
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
-
+                                    controller.addPayments(
+                                        invoice: 'invoice',
+                                        amount: 'amount',
+                                        paymentMode: 'paymentMode',
+                                        paymentDate: 'paymentDate',
+                                        collectedBy: 'collectedBy');
                                   }
                                 },
                                 child: const Text('Submit'),
@@ -125,9 +134,9 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
                       ),
                     ),
                   ),
-                ),
-            ),
-          );}
-    );
+          ),
+        ),
+      );
+    });
   }
 }

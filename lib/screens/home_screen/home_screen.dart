@@ -174,7 +174,7 @@ class _HomeScreenState extends State<HomeScreen> {
              child: ExploreNewCategory(),
             ),
           ),
-          SliverToBoxAdapter(
+          const SliverToBoxAdapter(
             child:  ExploreMoreProducts(categoryId: "",)
           ),
           SliverToBoxAdapter(
