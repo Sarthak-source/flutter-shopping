@@ -46,7 +46,7 @@ class _PopularDealTabState extends State<PopularDealTab> {
               baseColor: Colors.grey[300]!,
               highlightColor: Colors.grey[100]!,
               child: SizedBox(
-                height: 140,
+                height: 145,
                 child: ListView.builder(
                   clipBehavior: Clip.none,
                   scrollDirection: Axis.horizontal,
@@ -67,7 +67,7 @@ class _PopularDealTabState extends State<PopularDealTab> {
         return Column(
           children: [
             Container(
-              height: 200,
+              height: 190,
             //  color: popularDeals.isEmpty ? Colors.white : Colors.grey.shade300,
               color: popularDeals.isEmpty ? Colors.white : kPrimaryBlueTest,
               child: ListView.builder(

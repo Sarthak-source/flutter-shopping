@@ -41,10 +41,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
     return GetBuilder<CategoriesController>(builder: (controller) {
       return Scaffold(
         backgroundColor: Colors.grey.shade300,
-      //  backgroundColor: kPrimaryBlueTest,
+        //  backgroundColor: kPrimaryBlueTest,
         body: SafeArea(
           child: catcontroller.isLoading.value
-              ? Loader()
+              ? const Loader()
               : Column(
                   children: [
                     CustomAppBar(
@@ -113,7 +113,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                             }
                           },
                           child: Container(
-                            margin: const EdgeInsets.all(8.0),
+                            margin: const EdgeInsets.all(4.0),
                             // color: Colors.blue[100 * (index % 9)],
                             //  color: Colors.blue[100 * (1 % 9)],
 

@@ -56,8 +56,9 @@ class TabScreenState extends State<TabScreen> {
        const HomeScreen(),
        const FavScreen(),
       CartScreen(),
-      UserScreen(),
       const PaymentScreen(),
+      UserScreen(),
+      
     ];
 
     final AddToCartController addToCartController =

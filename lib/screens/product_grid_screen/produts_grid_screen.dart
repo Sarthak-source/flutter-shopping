@@ -43,6 +43,7 @@ class PoductsListScreenState extends State<PoductsListScreen> {
 
     return Obx(() {
       return Scaffold(
+        backgroundColor: kPrimaryBlueTest2,
         body: Stack(
           children: [
             SafeArea(
@@ -62,7 +63,7 @@ class PoductsListScreenState extends State<PoductsListScreen> {
                               },
                               child: const Icon(
                                 Icons.search,
-                                color: kPrimaryBlue,
+                                color: Colors.black,
                               ),
                             ),
                             SizedBox(
@@ -90,17 +91,23 @@ class PoductsListScreenState extends State<PoductsListScreen> {
                         ? args.categoryId
                         : "",
                   ),
-                  const SizedBox(
-                    height: 220,
-                  ),
+                  (addToCartController.productCount.value > 0)
+                      ? const SizedBox(
+                          height: 70,
+                        )
+                      : const SizedBox(
+                          height: 0,
+                        )
                 ],
               ),
             ),
           ],
         ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        floatingActionButton: (addToCartController.productCount > 0)
-            ? const GoToCart()
+        //floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        bottomSheet: (addToCartController.productCount > 0)
+            ? const GoToCart(
+                usedIn: 'PoductsListScreen',
+              )
             : Container(),
       );
     });
@@ -211,13 +218,13 @@ class CustomStaggerGrid extends StatelessWidget {
 
 class ProductCardPlaceholder extends StatelessWidget {
   final String? isFrom;
-  const ProductCardPlaceholder({Key? key,this.isFrom}) : super(key: key);
+  const ProductCardPlaceholder({Key? key, this.isFrom}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: Get.width / 2,
-      height: isFrom == "homepop"?5:10,
+      height: isFrom == "homepop" ? 5 : 10,
       margin: const EdgeInsets.only(right: 12.0),
       decoration: BoxDecoration(
         color: Colors.grey[300],

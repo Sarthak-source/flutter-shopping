@@ -7,7 +7,6 @@ import 'package:sutra_ecommerce/controllers/popular_controller.dart';
 import 'package:sutra_ecommerce/widgets/popular_card/popular_card.dart';
 
 import '../../constants/colors.dart';
-import '../../utils/screen_utils.dart';
 import '../../widgets/tab_title.dart';
 import '../product_grid_screen/produts_grid_screen.dart';
 
@@ -35,7 +34,7 @@ class ExploreMoreProducts extends StatelessWidget {
               baseColor: Colors.grey[300]!,
               highlightColor: Colors.grey[100]!,
               child: SizedBox(
-                height: 140,
+                height: 145,
                 child: ListView.builder(
                   clipBehavior: Clip.none,
                   scrollDirection: Axis.horizontal,
@@ -68,7 +67,7 @@ class ExploreMoreProducts extends StatelessWidget {
               ),
             ),
             Container(
-              height: 180,
+              height: 190,
              // color: controller.popularDeals.isEmpty?Colors.white:Colors.grey.shade300,
               color: kPrimaryBlueTest,
 

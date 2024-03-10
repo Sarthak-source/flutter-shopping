@@ -30,7 +30,7 @@ class CategoryTab extends StatelessWidget {
                 title: "",
                 seeAll: () {
                  // Get.toNamed(CategoryScreen.routeName);
-                 Navigator.push(context, MaterialPageRoute(builder: (context) =>CategoryScreen(subCatId: null)));
+                 Navigator.push(context, MaterialPageRoute(builder: (context) =>const CategoryScreen(subCatId: null)));
                 }),
 
           /*  Row(

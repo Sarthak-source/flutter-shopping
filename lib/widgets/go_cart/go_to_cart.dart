@@ -32,7 +32,7 @@ class _GoToCartState extends State<GoToCart> {
           mainAxisSize: MainAxisSize.min,
           children: [
             SizedBox(
-              height: 50,
+              height: 60,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -48,14 +48,14 @@ class _GoToCartState extends State<GoToCart> {
                             .copyWith(fontWeight: FontWeight.w700, fontSize: 20),
                       ),
 
-                      Text(" | ${addToCartController.productCount.value}")
+                      Text(" | ${addToCartController.productCount.value} items")
                     ],
                   ),
                 ],
               ),
             ),
             const SizedBox(
-              width: 110,
+              width: 90,
             ),
             Expanded(
               flex: 2,
@@ -76,7 +76,7 @@ class _GoToCartState extends State<GoToCart> {
                 onPressed: () {
                   Navigator.of(context).pushNamed(CartScreen.routeName);
                 },
-                child: const Text('View cart'),
+                child: const Text('View cart', maxLines: 1, overflow: TextOverflow.ellipsis,),
               ),
             ),
           ],

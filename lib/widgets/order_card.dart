@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 import '../constants/colors.dart';
 import '../controllers/add_to_cart_controller.dart';
@@ -77,198 +76,224 @@ if(widget.mycartItem["count"] != null){
 }
 
     return
-      Row(
-        children: [
-          SizedBox(
-            width: getProportionateScreenWidth(80),
-            child: Image.network( widget.mycartItem["product"]["product_img"] ?? "http://170.187.232.148/static/images/dilicia.png",),
-          ),
-          SizedBox(
-            width: getProportionateScreenWidth(8),
-          ),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      Padding(
+        padding: const EdgeInsets.only(bottom: 10),
+        child: Container(
+          decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.all(
+                color: Colors.grey, // Border color
+                width: 1.0, // Border width
+              ),
+              borderRadius: BorderRadius.circular(getProportionateScreenWidth(8)),
+              // boxShadow: [
+              //   BoxShadow(
+              //     color: kShadowColor,
+              //     offset: Offset(
+              //       getProportionateScreenWidth(3),
+              //       getProportionateScreenWidth(3),
+              //     ),
+              //     blurRadius: 1,
+              //   )
+              // ],
+            ),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
               children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        widget.mycartItem["product"]["name"] ?? "",
-                        style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                              fontWeight: FontWeight.w700,
-                              fontSize: getProportionateScreenWidth(14),
-                            ),
-                      ),
-                    ),
-              /*      Text(
-                      widget.mycartItem["product"]["price"].toString(),
-                      style: TextStyle(
-                        color: kTextColorAccent,
-                        fontSize: getProportionateScreenWidth(
-                          12,
-                        ),
-                      ),
-                    ),*/
-                    const SizedBox(width: 8,),
-                    InkWell(
-                        onTap: (){
-                          setState(() {
-                            widget.onDeleteItem(quantity);
-                          });
-
-                        },
-                        child: const Icon(Icons.delete,color: Colors.grey,))
-                  ],
+                SizedBox(
+                  width: getProportionateScreenWidth(80),
+                  child: Image.network( widget.mycartItem["product"]["product_img"] ?? "http://170.187.232.148/static/images/dilicia.png",),
                 ),
-              rateCard("price ",widget.mycartItem["product"]["price"].toString() ),
-              rateCard("gst ",widget.mycartItem["total_gst"].toString()),
-              rateCard("value ",widget.mycartItem["total_value"].toString()),
-
-            /*    Text(
-                  widget.mycartItem["total_value"].toString(),
-                  style: TextStyle(
-                    color: kTextColorAccent,
-                    fontSize: getProportionateScreenWidth(
-                      12,
-                    ),
-                  ),
+                SizedBox(
+                  width: getProportionateScreenWidth(8),
                 ),
-                Text(
-                  widget.mycartItem["total_gst"].toString(),
-                  style: TextStyle(
-                    color: kTextColorAccent,
-                    fontSize: getProportionateScreenWidth(
-                      12,
-                    ),
-                  ),
-                ),*/
-
-                Row(
-                  children: [
-                    Text(
-                      '₹ ${ widget.mycartItem["total_amount"].toString()}',
-                      style: TextStyle(
-                        fontSize: getProportionateScreenWidth(14),
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    const Spacer(),
-
-                   /* Card(
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        side: const BorderSide(
-                          color: kPrimaryBlue, // Set your desired border color
-                          width: 1.0, // Set the border width
-                        ),
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      child: SizedBox(
-                        height: 35,
-                        width:  quantity == 0 ? 75
-                            : ( quantity.toString().length * 11) + 75,
-                        child:  quantity == 0
-                            ? OutlinedButton(
-                                style: OutlinedButton.styleFrom(
-                                  side: const BorderSide(color: kPrimaryBlue),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(
-                                        10.0), // Set your desired border radius
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              widget.mycartItem["product"]["name"] ?? "",
+                              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: getProportionateScreenWidth(14),
                                   ),
-                                ),
-                                onPressed: () {
-                                  log('widget.mycartItem["product"]["name"] ${widget.mycartItem["product"]["name"].toString()}');
-                                    setState(() {
-                                    quantity++;
-                                    log(quantity.toString());
-                                    widget.onAddItem(quantity);
-                                  });
-                                },
-                                child: const Text(
-                                  'Add',
-                                  style: TextStyle(
-                                      color: kPrimaryBlue, fontSize: 14),
-                                ),
-                              )
-                            : PlusMinusUI(
-                          onPlusPressed: (){
+                            ),
+                          ),
+                    /*      Text(
+                            widget.mycartItem["product"]["price"].toString(),
+                            style: TextStyle(
+                              color: kTextColorAccent,
+                              fontSize: getProportionateScreenWidth(
+                                12,
+                              ),
+                            ),
+                          ),*/
+                          const SizedBox(width: 8,),
+                          InkWell(
+                              onTap: (){
                                 setState(() {
-                                  quantity++;
-                                  widget.onPlusinCard(quantity);
+                                  widget.onDeleteItem(quantity);
                                 });
-                                },
-                              onMinusPressed: (){
-                                if (quantity != 0) {
-                                  setState(() {
-                                    quantity--;
-                                    widget.onMinusinCard(quantity);
-                                  });
-
-                                }
+                
                               },
-                              qty: quantity,
-                        ),
-                            // :
-
-
+                              child: const Icon(Icons.delete_outline_outlined,color: Colors.grey,))
+                        ],
                       ),
-                    ),*/
-                    AddButton(
-                      isLoading: false,
-                      qty: quantity < int.parse(convertDoubleToString(widget.mycartItem["product"]['min_order_qty'] ?? "0.0"))
-                         ? 0
-                         : quantity,
-                      onChangedPressed: (value){
-                        quantity = int.parse(value);
-                        //  widget.Txtctrlr?.text =quantity.toString();
-                        // controller.rxQty.value = quantity.toString();
-                        widget.onChangeQty(quantity);
-
-                      },
-                      onAddPressed: (){
-
-                        log('widget.mycartItem["product"]["name"] ${widget.mycartItem["product"]["name"].toString()}');
-                        setState(() {
-                         // quantity++;
-                          String minOrder =
-                          widget.mycartItem["product"]['min_order_qty'] == null ? "0.0" : widget.mycartItem["product"]['min_order_qty'].toString();
-
-                          quantity = quantity + int.parse(convertDoubleToString(minOrder));
-                          log(quantity.toString());
-                          widget.onAddItem(quantity);
-                        });
-
-                      },
-                      onPlusPressed: (){
-                        setState(() {
-                        //  quantity++;
-                          String minOrder = widget.mycartItem["product"]['increment_order_qty'].toString() ?? "0.0";
-                          quantity = quantity + int.parse(convertDoubleToString(minOrder));
-                          widget.onPlusinCard(quantity);
-                        });
-                      },
-                      onMinusPressed: (){
-                        if (quantity != 0) {
-                          setState(() {
-                          //  quantity--;
-                            String minOrder = widget.mycartItem["product"]['increment_order_qty'].toString() ?? "0.0";
-                            quantity = quantity - int.parse(convertDoubleToString(minOrder));
-                            widget.onMinusinCard(quantity);
-                          });
-
-                        }
-                      },
-                      qtyController: _controller,//widget.Txtctrlr,
-                    ),
-                  ],
+                    rateCard("Price ",widget.mycartItem["product"]["price"].toString() ),
+                    rateCard("Gst ",widget.mycartItem["total_gst"].toString()),
+                    rateCard("Value ",widget.mycartItem["total_value"].toString()),
+                
+                  /*    Text(
+                        widget.mycartItem["total_value"].toString(),
+                        style: TextStyle(
+                          color: kTextColorAccent,
+                          fontSize: getProportionateScreenWidth(
+                            12,
+                          ),
+                        ),
+                      ),
+                      Text(
+                        widget.mycartItem["total_gst"].toString(),
+                        style: TextStyle(
+                          color: kTextColorAccent,
+                          fontSize: getProportionateScreenWidth(
+                            12,
+                          ),
+                        ),
+                      ),*/
+                
+                      Row(
+                        children: [
+                          Text(
+                            '₹ ${ widget.mycartItem["total_amount"].toString()}',
+                            style: TextStyle(
+                              fontSize: getProportionateScreenWidth(14),
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                          const Spacer(),
+                
+                         /* Card(
+                            elevation: 0,
+                            shape: RoundedRectangleBorder(
+                              side: const BorderSide(
+                                color: kPrimaryBlue, // Set your desired border color
+                                width: 1.0, // Set the border width
+                              ),
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            child: SizedBox(
+                              height: 35,
+                              width:  quantity == 0 ? 75
+                                  : ( quantity.toString().length * 11) + 75,
+                              child:  quantity == 0
+                                  ? OutlinedButton(
+                                      style: OutlinedButton.styleFrom(
+                                        side: const BorderSide(color: kPrimaryBlue),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(
+                                              10.0), // Set your desired border radius
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        log('widget.mycartItem["product"]["name"] ${widget.mycartItem["product"]["name"].toString()}');
+                                          setState(() {
+                                          quantity++;
+                                          log(quantity.toString());
+                                          widget.onAddItem(quantity);
+                                        });
+                                      },
+                                      child: const Text(
+                                        'Add',
+                                        style: TextStyle(
+                                            color: kPrimaryBlue, fontSize: 14),
+                                      ),
+                                    )
+                                  : PlusMinusUI(
+                                onPlusPressed: (){
+                                      setState(() {
+                                        quantity++;
+                                        widget.onPlusinCard(quantity);
+                                      });
+                                      },
+                                    onMinusPressed: (){
+                                      if (quantity != 0) {
+                                        setState(() {
+                                          quantity--;
+                                          widget.onMinusinCard(quantity);
+                                        });
+                
+                                      }
+                                    },
+                                    qty: quantity,
+                              ),
+                                  // :
+                
+                
+                            ),
+                          ),*/
+                          AddButton(
+                            isLoading: false,
+                            qty: quantity < int.parse(convertDoubleToString(widget.mycartItem["product"]['min_order_qty'] ?? "0.0"))
+                               ? 0
+                               : quantity,
+                            onChangedPressed: (value){
+                              quantity = int.parse(value);
+                              //  widget.Txtctrlr?.text =quantity.toString();
+                              // controller.rxQty.value = quantity.toString();
+                              widget.onChangeQty(quantity);
+                
+                            },
+                            onAddPressed: (){
+                
+                              log('widget.mycartItem["product"]["name"] ${widget.mycartItem["product"]["name"].toString()}');
+                              setState(() {
+                               // quantity++;
+                                String minOrder =
+                                widget.mycartItem["product"]['min_order_qty'] == null ? "0.0" : widget.mycartItem["product"]['min_order_qty'].toString();
+                
+                                quantity = quantity + int.parse(convertDoubleToString(minOrder));
+                                log(quantity.toString());
+                                widget.onAddItem(quantity);
+                              });
+                
+                            },
+                            onPlusPressed: (){
+                              setState(() {
+                              //  quantity++;
+                                String minOrder = widget.mycartItem["product"]['increment_order_qty'].toString() ?? "0.0";
+                                quantity = quantity + int.parse(convertDoubleToString(minOrder));
+                                widget.onPlusinCard(quantity);
+                              });
+                            },
+                            onMinusPressed: (){
+                              if (quantity != 0) {
+                                setState(() {
+                                //  quantity--;
+                                  String minOrder = widget.mycartItem["product"]['increment_order_qty'].toString() ?? "0.0";
+                                  quantity = quantity - int.parse(convertDoubleToString(minOrder));
+                                  widget.onMinusinCard(quantity);
+                                });
+                
+                              }
+                            },
+                            qtyController: _controller,//widget.Txtctrlr,
+                          ),
+                        ],
+                      ),
+                
+                    ],
+                  ),
                 ),
-
               ],
             ),
           ),
-        ],
+        ),
       );
 
   }

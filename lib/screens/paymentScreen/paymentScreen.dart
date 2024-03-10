@@ -19,6 +19,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: kPrimaryBlueTest2,
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(bottom: 80.0),
         child: FloatingActionButton.extended(
@@ -64,8 +65,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
           Expanded(
             child: Obx(
               () {
-                List paymentsList =
-                    paymentController.payment;
+                List paymentsList = paymentController.payment;
                 return ListView.builder(
                   itemCount: paymentsList.length,
                   itemBuilder: (BuildContext context, int index) {
@@ -95,12 +95,14 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                 children: [
                                   Text(
                                     'Invoice: ${payment['invoice']}',
-                                    style: const TextStyle(fontWeight: FontWeight.bold),
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
                                   ),
                                   const Spacer(),
                                   Text(
                                     'Payment Type: ${payment['payment_mode']}',
-                                    style: const TextStyle(fontWeight: FontWeight.bold),
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
                                   ),
                                 ],
                               ),
@@ -108,13 +110,15 @@ class _PaymentScreenState extends State<PaymentScreen> {
                               Row(
                                 children: [
                                   Text(
-      'Date: ${DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.parse(payment['payment_date']))}',
-      style: const TextStyle(fontWeight: FontWeight.bold),
-    ),
+                                    'Date: ${DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.parse(payment['payment_date']))}',
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
+                                  ),
                                   const Spacer(),
                                   Text(
                                     'Amount: ${payment['amount']}',
-                                    style: const TextStyle(fontWeight: FontWeight.bold),
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
                                   ),
                                 ],
                               ),

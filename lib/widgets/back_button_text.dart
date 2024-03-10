@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sutra_ecommerce/utils/screen_utils.dart';
 
-import '../constants/colors.dart';
-
 class BackButtonText extends StatelessWidget {
   const BackButtonText({super.key});
 
@@ -17,12 +15,12 @@ class BackButtonText extends StatelessWidget {
         children: [
           const Icon(
             Icons.arrow_back_ios,
-            color: kPrimaryBlue,
+            color: Colors.black,
           ),
           Text(
             'Back',
             style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                  color: kPrimaryBlue,
+                  color: Colors.black,
                   fontSize: getProportionateScreenWidth(14),
                 ),
           ),

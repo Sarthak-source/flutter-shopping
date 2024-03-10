@@ -152,14 +152,14 @@ class ExploreNewCategory extends StatelessWidget {
                 mainAxisSpacing: 8.0, // spacing between rows
                 crossAxisSpacing: 8.0, // spacing between columns
               ),
-              padding: const EdgeInsets.all(8.0), // padding around the grid
+              padding: const EdgeInsets.symmetric(horizontal: 4), // padding around the grid
               itemCount: setCatLength(
                   controller.exploreMores.length), // total number of items
               itemBuilder: (context, index) {
                 var catList = controller.exploreMores;
 
                 return Container(
-                  margin: const EdgeInsets.all(8.0),
+                  margin: const EdgeInsets.all(1.0),
                   // color: Colors.blue[100 * (index % 9)],
                   //  color: Colors.blue[100 * (1 % 9)],
 
@@ -168,7 +168,7 @@ class ExploreNewCategory extends StatelessWidget {
                       border: Border.all(color: Colors.grey),
                       borderRadius: BorderRadius.circular(12)),
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(1.0),
                     child: InkWell(
                       onTap: () {
                         Get.toNamed(

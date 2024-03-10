@@ -8,9 +8,9 @@ import 'package:sutra_ecommerce/controllers/mycart_controller.dart';
 import 'package:sutra_ecommerce/screens/product_detail.dart/product_detail.dart';
 import 'package:sutra_ecommerce/utils/common_functions.dart';
 import 'package:sutra_ecommerce/utils/screen_utils.dart';
+import 'package:sutra_ecommerce/widgets/add_button.dart';
 
 import '../../controllers/product_detail_controller.dart';
-import '../add_button.dart';
 
 class PopularCard extends StatefulWidget {
   final dynamic product;
@@ -18,7 +18,7 @@ class PopularCard extends StatefulWidget {
   final bool? loader;
   final Function() onCardAddClicked;
   final Function() onCardMinusClicked;
-  PopularCard(
+  const PopularCard(
       {super.key,
       this.product,
       this.isFrom,
@@ -81,7 +81,7 @@ class _PopularCardState extends State<PopularCard> {
       () => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: Container(
-          width: 190,
+          width: 160,
           decoration: BoxDecoration(
             color: Colors.white,
             border: Border.all(
@@ -154,12 +154,10 @@ class _PopularCardState extends State<PopularCard> {
                         color: kTextColorAccent,
                       ),
                     ),
+
                     const Spacer(),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Text(
+
+                     Text(
                       "₹ ${convertDoubleToString(widget.product?['price'].toString() ?? '0.0 ')}",
                       style: Theme.of(context)
                           .textTheme
@@ -173,195 +171,218 @@ class _PopularCardState extends State<PopularCard> {
                           .bodyMedium!
                           .copyWith(fontSize: 10, color: kTextColorAccent),
                     ),
-                    const Spacer(),
-                    // addToCartController.isLoading.value?Loader():
-                    AddButton(
-                      isLoading: widget.loader ?? false,
-                      qty: quantity.value < int.parse(convertDoubleToString(widget.product['min_order_qty'] ?? "0.0"))
-                          ? 0
-                          : quantity.value,
-                      onChangedPressed: (value) {
-                        quantity.value = int.parse(value);
-                        quantityCtrlr.text = quantity.value.toString();
-                        controller.rxQty.value = quantity.value.toString();
+                    
+                  ],
+                ),
+                // Row(
+                //   children: [
+                   
+                //     const Spacer(),
+                //     // addToCartController.isLoading.value?Loader():
 
-                        addToCartController.addToCart(
-                            quantity.value, widget.product?['id'], '1');
-                      },
-                      onAddPressed: () {
-                        //  quantity.value++;
-                        String minOrder =
-                        widget.product['min_order_qty'] == null ? "0.0" : widget.product['min_order_qty'].toString();
-                        quantity.value = quantity.value + int.parse(convertDoubleToString(minOrder));
-                        print('onClick of Add ${int.parse(convertDoubleToString(minOrder))} :: ${quantity.value}');
-                        addToCartController.productCount++;
-                        addToCartController.addToCart(
-                            quantity.value, widget.product?['id'], '1');
-                        addToCartController.update();
-                        quantityCtrlr.text = quantity.value.toString();
-                        controller.rxQty.value = quantity.value.toString();
-                      },
-                      onPlusPressed: () {
-                        widget.onCardAddClicked();
-                        //  final ValueNotifier<bool> isLoadingButton1 = ValueNotifier(false);
-                        print('isloading in addtocart ${addToCartController.isLoading.value}');
-                        controller.rxQty.value = quantity.value.toString();
-                        String minOrder = widget.product['increment_order_qty'].toString() ?? "0.0";
-                        quantity.value = quantity.value + int.parse(convertDoubleToString(minOrder));
-                        quantityCtrlr.text = quantity.value.toString();
-                        addToCartController.addToCart(
-                            quantity.value, widget.product?['id'], '1');
+                //     /* Card(
+                //       elevation: 0,
+                //       shape: RoundedRectangleBorder(
+                //         side: const BorderSide(
+                //           color: kPrimaryBlue, // Set your desired border color
+                //           width: 1.0, // Set the border width
+                //         ),
+                //         borderRadius:
+                //             BorderRadius.circular(10.0), // Set the border radius
+                //       ),
+                //       child: SizedBox(
+                //         height: 35,
+                //         width: quantity.value == 0
+                //             ? 76
+                //             : (quantity.toString().length * 11) + 75,
+                //         child: quantity.value == 0
+                //             ? OutlinedButton(
+                //                 style: OutlinedButton.styleFrom(
+                //                   side: const BorderSide(color: kPrimaryBlue),
+                //                   shape: RoundedRectangleBorder(
+                //                     borderRadius: BorderRadius.circular(
+                //                         10.0), // Set your desired border radius
+                //                   ),
+                //                 ),
+                //                 onPressed: () async {
+                //                   log('20');
+                //                   quantity.value++;
+                //                   addToCartController.productCount++;
+                //                   addToCartController.addToCart(
+                //                       quantity.value, widget.product?['id'], '1');
 
-                        addToCartController.productCount++;
-                        addToCartController.update();
-                      },
-                      onMinusPressed: () {
-                        widget.onCardMinusClicked();
-                        //   if (quantity.value > 0) {
-                        // quantity.value--;
-                        String minOrder = widget.product['increment_order_qty'].toString() ?? "0.0";
-                        quantity.value = quantity.value - int.parse(convertDoubleToString(minOrder));
-                        addToCartController.productCount--;
-                        quantityCtrlr.text = quantity.value.toString();
-                        controller.rxQty.value = quantity.value.toString();
-                        addToCartController.addToCart(
-                            quantity.value, widget.product?['id'], '1');
-                        addToCartController.update();
-                        //  }
+                //                   addToCartController.update();
+                //                 },
+                //                 child: Text(
+                //                   'Add',
+                //                   style: TextStyle(
+                //                       color: kPrimaryBlue,
+                //                       fontSize: getProportionateScreenWidth(14)),
+                //                 ),
+                //               )
+                //             : Row(
+                //                 mainAxisAlignment: MainAxisAlignment.center,
+                //                 mainAxisSize: MainAxisSize.max,
+                //                 crossAxisAlignment: CrossAxisAlignment.center,
+                //                 children: [
+                //                   Transform.translate(
+                //                     offset: const Offset(-12, 0),
+                //                     child: SizedBox(
+                //                       width: 12,
+                //                       child: IconButton(
+                //                         padding: EdgeInsets.zero,
+                //                         icon: const Icon(
+                //                           Icons.remove,
+                //                           color: kPrimaryBlue,
+                //                           size: 20,
+                //                         ),
+                //                         onPressed: () {
+                //                           quantity.value--;
+                //                           addToCartController.productCount--;
+                //                           addToCartController.addToCart(
+                //                               quantity.value,
+                //                               widget.product?['id'],
+                //                               '1');
+                //                           addToCartController.update();
 
-                        /* quantity.value--;
+                //                    },
+                //                       ),
+                //                     ),
+                //                   ),
+                //                   Container(
+                //                     height: 35,
+                //                     width:
+                //                         (quantity.value.toString().length * 11) +
+                //                             20,
+                //                     color: kPrimaryBlue,
+                //                     child: Center(
+                //                       child: Text(
+                //                         quantity.value.toString(),
+                //                         style: const TextStyle(
+                //                             fontWeight: FontWeight.bold,
+                //                             color: Colors.white,
+                //                             fontSize: 14),
+                //                       ),
+                //                     ),
+                //                   ),
+                //                   Transform.translate(
+                //                     offset: const Offset(3.5, 0),
+                //                     child: SizedBox(
+                //                       width: 12,
+                //                       child: IconButton(
+                //                         padding: EdgeInsets.zero,
+                //                         color: Colors.green,
+                //                         icon: const Icon(
+                //                           Icons.add,
+                //                           color: kPrimaryBlue,
+                //                           size: 20,
+                //                         ),
+                //                         onPressed: () {
+                //                           quantity.value++;
+                //                           addToCartController.addToCart(quantity.value, widget.product?['id'], '1');
+
+                //                           addToCartController.productCount++;
+                //                           addToCartController.update();
+                //                         },
+                //                       ),
+                //                     ),
+                //                   ),
+                //                 ],
+                //               ),
+                //       ),
+                //     ),*/
+                //   ],
+                // ),
+                const Spacer(),
+                
+                AddButton(
+                  width: 135,
+                  textWidth: 120,
+                  isLoading: widget.loader ?? false,
+                  qty: quantity.value <
+                          int.parse(convertDoubleToString(
+                              widget.product['min_order_qty'] ?? "0.0"))
+                      ? 0
+                      : quantity.value,
+                  onChangedPressed: (value) {
+                    quantity.value = int.parse(value);
+                    quantityCtrlr.text = quantity.value.toString();
+                    controller.rxQty.value = quantity.value.toString();
+
+                    addToCartController.addToCart(
+                        quantity.value, widget.product?['id'], '1');
+                  },
+                  onAddPressed: () {
+                    //  quantity.value++;
+                    String minOrder = widget.product['min_order_qty'] == null
+                        ? "0.0"
+                        : widget.product['min_order_qty'].toString();
+                    quantity.value = quantity.value +
+                        int.parse(convertDoubleToString(minOrder));
+                    print(
+                        'onClick of Add ${int.parse(convertDoubleToString(minOrder))} :: ${quantity.value}');
+                    addToCartController.productCount++;
+                    addToCartController.addToCart(
+                        quantity.value, widget.product?['id'], '1');
+                    addToCartController.update();
+                    quantityCtrlr.text = quantity.value.toString();
+                    controller.rxQty.value = quantity.value.toString();
+                  },
+                  onPlusPressed: () {
+                    widget.onCardAddClicked();
+                    //  final ValueNotifier<bool> isLoadingButton1 = ValueNotifier(false);
+                    print(
+                        'isloading in addtocart ${addToCartController.isLoading.value}');
+                    controller.rxQty.value = quantity.value.toString();
+                    String minOrder =
+                        widget.product['increment_order_qty'].toString() ??
+                            "0.0";
+                    quantity.value = quantity.value +
+                        int.parse(convertDoubleToString(minOrder));
+                    quantityCtrlr.text = quantity.value.toString();
+                    addToCartController.addToCart(
+                        quantity.value, widget.product?['id'], '1');
+
+                    addToCartController.productCount++;
+                    addToCartController.update();
+                  },
+                  onMinusPressed: () {
+                    widget.onCardMinusClicked();
+                    //   if (quantity.value > 0) {
+                    // quantity.value--;
+                    String minOrder =
+                        widget.product['increment_order_qty'].toString() ??
+                            "0.0";
+                    quantity.value = quantity.value -
+                        int.parse(convertDoubleToString(minOrder));
+                    addToCartController.productCount--;
+                    quantityCtrlr.text = quantity.value.toString();
+                    controller.rxQty.value = quantity.value.toString();
+                    addToCartController.addToCart(
+                        quantity.value, widget.product?['id'], '1');
+                    addToCartController.update();
+                    //  }
+
+                    /* quantity.value--;
                     addToCartController.productCount--;
                     addToCartController.addToCart(
                         quantity.value,
                         widget.product?['id'],
                         '1');
                     addToCartController.update();*/
-                      },
-                      qtyController: quantityCtrlr,
-                    ),
-                    /* Card(
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        side: const BorderSide(
-                          color: kPrimaryBlue, // Set your desired border color
-                          width: 1.0, // Set the border width
-                        ),
-                        borderRadius:
-                            BorderRadius.circular(10.0), // Set the border radius
-                      ),
-                      child: SizedBox(
-                        height: 35,
-                        width: quantity.value == 0
-                            ? 76
-                            : (quantity.toString().length * 11) + 75,
-                        child: quantity.value == 0
-                            ? OutlinedButton(
-                                style: OutlinedButton.styleFrom(
-                                  side: const BorderSide(color: kPrimaryBlue),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(
-                                        10.0), // Set your desired border radius
-                                  ),
-                                ),
-                                onPressed: () async {
-                                  log('20');
-                                  quantity.value++;
-                                  addToCartController.productCount++;
-                                  addToCartController.addToCart(
-                                      quantity.value, widget.product?['id'], '1');
-
-                                  addToCartController.update();
-                                },
-                                child: Text(
-                                  'Add',
-                                  style: TextStyle(
-                                      color: kPrimaryBlue,
-                                      fontSize: getProportionateScreenWidth(14)),
-                                ),
-                              )
-                            : Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                mainAxisSize: MainAxisSize.max,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Transform.translate(
-                                    offset: const Offset(-12, 0),
-                                    child: SizedBox(
-                                      width: 12,
-                                      child: IconButton(
-                                        padding: EdgeInsets.zero,
-                                        icon: const Icon(
-                                          Icons.remove,
-                                          color: kPrimaryBlue,
-                                          size: 20,
-                                        ),
-                                        onPressed: () {
-                                          quantity.value--;
-                                          addToCartController.productCount--;
-                                          addToCartController.addToCart(
-                                              quantity.value,
-                                              widget.product?['id'],
-                                              '1');
-                                          addToCartController.update();
-
-                                   },
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    height: 35,
-                                    width:
-                                        (quantity.value.toString().length * 11) +
-                                            20,
-                                    color: kPrimaryBlue,
-                                    child: Center(
-                                      child: Text(
-                                        quantity.value.toString(),
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white,
-                                            fontSize: 14),
-                                      ),
-                                    ),
-                                  ),
-                                  Transform.translate(
-                                    offset: const Offset(3.5, 0),
-                                    child: SizedBox(
-                                      width: 12,
-                                      child: IconButton(
-                                        padding: EdgeInsets.zero,
-                                        color: Colors.green,
-                                        icon: const Icon(
-                                          Icons.add,
-                                          color: kPrimaryBlue,
-                                          size: 20,
-                                        ),
-                                        onPressed: () {
-                                          quantity.value++;
-                                          addToCartController.addToCart(quantity.value, widget.product?['id'], '1');
-
-                                          addToCartController.productCount++;
-                                          addToCartController.update();
-                                        },
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                      ),
-                    ),*/
-                  ],
+                  },
+                  qtyController: quantityCtrlr,
                 ),
                 const Spacer(),
-                Row(
-                  children: [
-                    const Spacer(),
-                    quantity.value == 0
+
+                Row(children: [quantity.value == 0
                         ? Text("")
                         : Text(
-                        //newCrateValue,
-                        setCrateRate(quantity.value, widget.product?['multipack_qty'] ?? "0.0").toString(),
-                    //  setCrateRate(quantity.value, widget.product?['multipack_qty'] ?? 0).toString(),
+                            //newCrateValue,
+                            setCrateRate(quantity.value,
+                                    widget.product?['multipack_qty'] ?? "0.0")
+                                .toString(),
+                            //  setCrateRate(quantity.value, widget.product?['multipack_qty'] ?? 0).toString(),
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium!
@@ -376,7 +397,7 @@ class _PopularCardState extends State<PopularCard> {
                           .copyWith(fontSize: 12, color: kTextColorAccent),
                     ),
                     // const Spacer(),
-                    SizedBox(width: 8),
+                    Spacer(),
                     Text(
                       "${setPackingValue(quantity.value, widget.product['packing_qty'] ?? "0.0")} ",
                       style: Theme.of(context)
@@ -390,10 +411,7 @@ class _PopularCardState extends State<PopularCard> {
                           .textTheme
                           .bodyMedium!
                           .copyWith(fontSize: 12, color: kTextColorAccent),
-                    )
-                  ],
-                ),
-                const Spacer(),
+                    )],)
               ],
             ),
           ),
@@ -401,12 +419,11 @@ class _PopularCardState extends State<PopularCard> {
       ),
     );
   }
-
 }
 
 String setCrateRate(int qty, String multiPackQty) {
   double crateValue = 0.0;
-  String newCrateValue="";
+  String newCrateValue = "";
 
   if (qty != null && multiPackQty != null) {
     crateValue = qty / int.parse(convertDoubleToString(multiPackQty));
@@ -421,7 +438,10 @@ String setCrateRate(int qty, String multiPackQty) {
 }
 
 setPackingValue(int qty, String noOfPieces) {
-  if (qty != null && noOfPieces != null && noOfPieces != "0"&& noOfPieces != "0.0") {
+  if (qty != null &&
+      noOfPieces != null &&
+      noOfPieces != "0" &&
+      noOfPieces != "0.0") {
     double noOfPi = qty * 1000 / int.parse(convertDoubleToString(noOfPieces));
     // Check if noOfPi is finite and not NaN
     if (noOfPi.isFinite && !noOfPi.isNaN) {

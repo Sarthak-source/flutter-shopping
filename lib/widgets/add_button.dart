@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:sutra_ecommerce/constants/colors.dart';
 import 'package:sutra_ecommerce/controllers/common_controller.dart';
 
 import 'loading_widgets/loader.dart';
@@ -14,6 +13,8 @@ class AddButton extends StatefulWidget {
   final int qty;
   final TextEditingController? qtyController;
   final bool isLoading;
+  final double? width;
+  final double? textWidth;
   const AddButton({
     Key? key,
     required this.onPlusPressed,
@@ -23,6 +24,8 @@ class AddButton extends StatefulWidget {
     required this.qty,
     required this.qtyController,
     required this.isLoading,
+    this.width = 80.0,
+    this.textWidth=60,
   }) : super(key: key);
 
   @override
@@ -39,7 +42,7 @@ class _AddButtonState extends State<AddButton> {
   @override
   void initState() {
     super.initState();
-    widget.qtyController?.text=widget.qty.toString();
+    widget.qtyController?.text = widget.qty.toString();
     focusNode = FocusNode();
     print('quantityCtrlr.text in addscren ${widget.qtyController?.text}');
   }
@@ -55,20 +58,20 @@ class _AddButtonState extends State<AddButton> {
     quantity = widget.qty;
     return quantity == 0
         ? SizedBox(
-      width: 80,
-      height: 32,
-      child: OutlinedButton(
-        style: OutlinedButton.styleFrom(
-          side: const BorderSide(
-              color: kPrimaryBlue), // Specify the border color here
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(
-                8.0), // Adjust the border radius as needed
-          ),
-        ),
-        onPressed: widget.onAddPressed,
+            width: widget.width,
+            height: 32,
+            child: OutlinedButton(
+              style: OutlinedButton.styleFrom(
+                side: const BorderSide(
+                    color: Colors.grey), // Specify the border color here
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(
+                      8.0), // Adjust the border radius as needed
+                ),
+              ),
+              onPressed: widget.onAddPressed,
 
-        /*() {
+              /*() {
                     setState(() {
                       quantity = 1;
                       qtyCtrl.text =quantity.toString();
@@ -76,9 +79,9 @@ class _AddButtonState extends State<AddButton> {
                       print('controller.rxQty.value::: ${controller.rxQty.value}');
                     });
                   },*/
-        child: const Text('Add'),
-      ),
-    )
+              child: const Text('Add', style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: Colors.grey),),
+            ),
+          )
         :
         //  Obx(() =>
         widget.isLoading
@@ -91,12 +94,12 @@ class _AddButtonState extends State<AddButton> {
                   borderRadius:
                       BorderRadius.circular(5), // Set the border radius here
                   border: Border.all(
-                    color: Colors.black, // Specify the border color here
+                    color: Colors.grey, // Specify the border color here
                   ),
                 ),
                 width: quantity.toString().length == 1
-                    ? 80
-                    : 60 + 18.0 * quantity.toString().length,
+                    ? (widget.textWidth!+20)
+                    : widget.textWidth! + 18.0 * quantity.toString().length,
                 // : 60 + 18.0 * controller.rxQty.value.length,
                 child: Row(
                   children: [
@@ -115,14 +118,15 @@ class _AddButtonState extends State<AddButton> {
                       child: Container(
                         width: 25,
                         height: 30,
-                        decoration:  BoxDecoration(
-                          //shape: BoxShape.circle,
-                          color: kTextColorThird,
-                         // borderRadius:  BorderRadius.circular(5),
-                            borderRadius:  BorderRadius.only(topLeft: Radius.circular(5),bottomLeft: Radius.circular(5))
-                        ),
+                        decoration: const BoxDecoration(
+                            //shape: BoxShape.circle,
+                            color: Colors.grey,
+                            // borderRadius:  BorderRadius.circular(5),
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(5),
+                                bottomLeft: Radius.circular(5))),
                         child: const Icon(Icons.remove,
-                            size: 20, color: Colors.black),
+                            size: 20, color: Color.fromARGB(255, 213, 213, 213)),
                       ),
                     ),
                     const Spacer(),
@@ -180,13 +184,14 @@ class _AddButtonState extends State<AddButton> {
                       child: Container(
                         width: 25,
                         height: 30,
-                        decoration:  BoxDecoration(
-                          //shape: BoxShape.circle,
-                          color: kTextColorThird,
-                            borderRadius:  BorderRadius.only(topRight: Radius.circular(5),bottomRight: Radius.circular(5))
-                        ),
+                        decoration: const BoxDecoration(
+                            //shape: BoxShape.circle,
+                            color: Colors.grey,
+                            borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(5),
+                                bottomRight: Radius.circular(5))),
                         child: const Icon(Icons.add,
-                            size: 20, color: Colors.black),
+                            size: 20, color: Color.fromARGB(255, 213, 213, 213)),
                       ),
                     ),
                   ],

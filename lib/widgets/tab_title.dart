@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sutra_ecommerce/constants/colors.dart';
 
 import '../utils/screen_utils.dart';
 
@@ -32,7 +31,7 @@ class TabTitle extends StatelessWidget {
             //flex: 4,
             child: Text(
               title!,
-              style: TextStyle(
+              style: const TextStyle(
                   fontSize: 13,fontWeight: FontWeight.bold,
               )
             ),
