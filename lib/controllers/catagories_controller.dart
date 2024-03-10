@@ -47,8 +47,10 @@ class CategoriesController extends GetxController {
       );
       List categoriesData = responseData['body']['results'];
       if(type =="1"){
+        Subcategories.clear;
         Subcategories.assignAll(categoriesData);
       }else if(type == "2"){
+        Subcategories.clear;
         Subcategories2.assignAll(categoriesData);
       }
 

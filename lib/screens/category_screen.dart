@@ -141,13 +141,13 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                     child: Column(
                                   children: [
                                     Expanded(
-                                        child: Image.network(controller
-                                                .categories.isNotEmpty
-                                            ? controller.categories[index]
-                                                ['categories_img']
-                                            : 'http://170.187.232.148/static/images/dilicia.png')),
+                                        child: Image.network(
+                                            widget.subCatId != null? controller.Subcategories[index]['categories_img'] : controller.categories[index]['categories_img']
+                                            //: 'http://170.187.232.148/static/images/dilicia.png'
+                                        )
+                                    ),
                                     Text(
-                                      controller.categories[index]['name'],
+                                      widget.subCatId != null? controller.Subcategories[index]['name']:controller.categories[index]['name'],
                                       // titleCase(catList.isNotEmpty ? catList[index]['name'].toLowerCase() : "",),
                                       style: Theme.of(context)
                                           .textTheme
