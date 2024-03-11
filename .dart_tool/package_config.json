@@ -200,6 +200,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "flutter_launcher_icons",
+      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/flutter_launcher_icons-0.9.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "flutter_lints",
       "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/flutter_lints-2.0.3",
       "packageUri": "lib/",
@@ -324,6 +330,12 @@
       "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/http_parser-4.0.2",
       "packageUri": "lib/",
       "languageVersion": "2.12"
+    },
+    {
+      "name": "image",
+      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/image-3.3.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.15"
     },
     {
       "name": "infinite_scroll_pagination",
@@ -788,7 +800,7 @@
       "languageVersion": "3.1"
     }
   ],
-  "generated": "2024-03-07T06:24:43.037693Z",
+  "generated": "2024-03-10T14:11:10.609624Z",
   "generator": "pub",
   "generatorVersion": "3.1.5"
 }
