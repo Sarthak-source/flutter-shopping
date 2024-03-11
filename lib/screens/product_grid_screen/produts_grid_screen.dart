@@ -114,7 +114,7 @@ class PoductsListScreenState extends State<PoductsListScreen> {
   }
 }
 
-class CustomStaggerGrid extends StatelessWidget {
+class CustomStaggerGrid extends StatefulWidget {
   final Function()? addCallback;
   final String? categoryId;
   final double? childAspectRatio;
@@ -124,9 +124,16 @@ class CustomStaggerGrid extends StatelessWidget {
       : super(key: key);
 
   @override
+  State<CustomStaggerGrid> createState() => _CustomStaggerGridState();
+}
+
+class _CustomStaggerGridState extends State<CustomStaggerGrid> {
+    int _selectedIndex = -1;
+
+  @override
   Widget build(BuildContext context) {
     final ProductController controller = Get.put(ProductController(
-      categoryId: categoryId ?? '',
+      categoryId: widget.categoryId ?? '',
     ));
 
     return Expanded(
@@ -154,7 +161,7 @@ class CustomStaggerGrid extends StatelessWidget {
                       crossAxisSpacing: getProportionateScreenWidth(8),
                       mainAxisSpacing: getProportionateScreenHeight(5),
                       childAspectRatio:
-                          childAspectRatio ?? (Get.width / Get.height) * 1.75),
+                          widget.childAspectRatio ?? (Get.width / Get.height) * 1.75),
                 ),
               ),
             ),
@@ -166,7 +173,7 @@ class CustomStaggerGrid extends StatelessWidget {
           // If the Future is complete with data, display the GridView
           List products = controller.products;
 
-          if (products.isEmpty || categoryId == "") {
+          if (products.isEmpty || widget.categoryId == "") {
             return Column(
               children: [
                 Lottie.asset('assets/lotties/no-data.json',
@@ -189,23 +196,54 @@ class CustomStaggerGrid extends StatelessWidget {
                   crossAxisSpacing: getProportionateScreenWidth(8),
                   mainAxisSpacing: getProportionateScreenHeight(5),
                   childAspectRatio:
-                      childAspectRatio ?? (Get.width / Get.height) * 1.70),
+                      widget.childAspectRatio ?? (Get.width / Get.height) * 1.70),
               itemBuilder: (ctx, index) {
                 if (index % 2 != 0) {
                   return ProductCard(
                     isLeft: false,
                     product: products[index],
+                    onCardAddClicked: () {
+                      setState(() {
+                        _selectedIndex = index;
+                      });
+                    },
+                    onCardMinusClicked: () {
+                      setState(() {
+                        _selectedIndex = index;
+                      });
+                    },
+                    
                   );
                 } else if (index == 0) {
                   return ProductCard(
                     isLeft: true,
-                    addHandler: addCallback,
+                    addHandler: widget.addCallback,
                     product: products[index],
+                    onCardAddClicked: () {
+                      setState(() {
+                        _selectedIndex = index;
+                      });
+                    },
+                    onCardMinusClicked: () {
+                      setState(() {
+                        _selectedIndex = index;
+                      });
+                    },
                   );
                 }
                 return ProductCard(
                   isLeft: true,
                   product: products[index],
+                  onCardAddClicked: () {
+                      setState(() {
+                        _selectedIndex = index;
+                      });
+                    },
+                    onCardMinusClicked: () {
+                      setState(() {
+                        _selectedIndex = index;
+                      });
+                    },
                 );
               },
             );

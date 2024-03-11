@@ -9,9 +9,14 @@ import '../../widgets/list_card.dart';
 import '../../widgets/product_card/product_card.dart';
 import '../../widgets/tab_title.dart';
 
-class FavScreen extends StatelessWidget {
+class FavScreen extends StatefulWidget {
   const FavScreen({super.key});
 
+  @override
+  State<FavScreen> createState() => _FavScreenState();
+}
+
+class _FavScreenState extends State<FavScreen> {
   @override
   Widget build(BuildContext context) {
     List<Widget> emptyCartWidgets = [
@@ -77,17 +82,59 @@ class FavScreen extends StatelessWidget {
         height: getProportionateScreenHeight(240),
         child: Row(
           children: [
-            const Expanded(
+             Expanded(
               child: ProductCard(
                 noPadding: true,
+                onCardAddClicked: () {
+                      setState(() {
+                        //_selectedIndex = index;
+
+                        /*  if(_selectedIndex == index){
+                        _selectedIndex= -1;
+                      }else{
+                        _selectedIndex= index;
+                      }*/
+                      });
+                    },
+                    onCardMinusClicked: () {
+                      setState(() {
+                        //_selectedIndex = index;
+                        /*  if(_selectedIndex == index){
+                        _selectedIndex= -1;
+                      }else{
+                        _selectedIndex= index;
+                      }*/
+                      });
+                    },
               ),
             ),
             SizedBox(
               width: getProportionateScreenWidth(8),
             ),
-            const Expanded(
+             Expanded(
               child: ProductCard(
                 noPadding: true,
+                onCardAddClicked: () {
+                      setState(() {
+                        //_selectedIndex = index;
+
+                        /*  if(_selectedIndex == index){
+                        _selectedIndex= -1;
+                      }else{
+                        _selectedIndex= index;
+                      }*/
+                      });
+                    },
+                    onCardMinusClicked: () {
+                      setState(() {
+                        //_selectedIndex = index;
+                        /*  if(_selectedIndex == index){
+                        _selectedIndex= -1;
+                      }else{
+                        _selectedIndex= index;
+                      }*/
+                      });
+                    },
               ),
             ),
           ],

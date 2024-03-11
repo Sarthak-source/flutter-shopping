@@ -14,7 +14,7 @@ class PopularDealTab extends StatefulWidget {
   final String categoryId;
   final String? isfrom;
 
-  PopularDealTab({Key? key, required this.categoryId, this.isfrom})
+  const PopularDealTab({Key? key, required this.categoryId, this.isfrom})
       : super(key: key);
 
   @override
@@ -79,22 +79,11 @@ class _PopularDealTabState extends State<PopularDealTab> {
                     onCardAddClicked: () {
                       setState(() {
                         _selectedIndex = index;
-
-                        /*  if(_selectedIndex == index){
-                        _selectedIndex= -1;
-                      }else{
-                        _selectedIndex= index;
-                      }*/
                       });
                     },
                     onCardMinusClicked: () {
                       setState(() {
                         _selectedIndex = index;
-                        /*  if(_selectedIndex == index){
-                        _selectedIndex= -1;
-                      }else{
-                        _selectedIndex= index;
-                      }*/
                       });
                     },
                     product: popularDeals[index],

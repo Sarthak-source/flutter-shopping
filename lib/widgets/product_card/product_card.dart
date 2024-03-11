@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sutra_ecommerce/controllers/add_to_cart_controller.dart';
 import 'package:sutra_ecommerce/utils/common_functions.dart';
+import 'package:sutra_ecommerce/widgets/add_button.dart';
 
 import '../../constants/colors.dart';
 import '../../utils/screen_utils.dart';
@@ -13,21 +14,28 @@ class ProductCard extends StatefulWidget {
 
   final bool? isLeft;
   final bool? noPadding;
+  final bool? loader;
   final Function()? addHandler;
+  final Function() onCardAddClicked;
+  final Function() onCardMinusClicked;
 
-  const ProductCard({
-    super.key,
-    this.isLeft,
-    this.addHandler,
-    this.noPadding = false,
-    this.product,
-  });
+  const ProductCard(
+      {super.key,
+      this.isLeft,
+      this.addHandler,
+      this.loader,
+      this.noPadding = false,
+      this.product,
+      required this.onCardAddClicked,
+      required this.onCardMinusClicked});
 
   @override
   State<ProductCard> createState() => _ProductCardState();
 }
 
 class _ProductCardState extends State<ProductCard> {
+  final TextEditingController quantityCtrlr = TextEditingController();
+
   RxInt quantity =
       0.obs; // Initialize quantity as observable RxInt with value 0
 
@@ -76,9 +84,9 @@ class _ProductCardState extends State<ProductCard> {
             decoration: BoxDecoration(
               color: Colors.white,
               border: Border.all(
-                    color: Colors.grey, // Border color
-                    width: 1.0, // Border width
-                  ),
+                color: Colors.grey, // Border color
+                width: 1.0, // Border width
+              ),
               borderRadius: BorderRadius.circular(
                 getProportionateScreenWidth(
                   8,
@@ -105,8 +113,8 @@ class _ProductCardState extends State<ProductCard> {
                     image: DecorationImage(
                       image: NetworkImage(
                           widget.product?['product_img'] ?? "Not given"),
-                      fit: BoxFit.cover, 
-                      scale: 0.4,// Adjust the fit based on your needs
+                      fit: BoxFit.cover,
+                      scale: 0.4, // Adjust the fit based on your needs
                     ),
                     borderRadius: BorderRadius.circular(
                       getProportionateScreenWidth(10.0),
@@ -129,7 +137,6 @@ class _ProductCardState extends State<ProductCard> {
                           tag: 'productDetailName',
                           child: Text(
                             widget.product?['name'] ?? "Not given",
-
                             maxLines: 1,
                             style: Theme.of(context)
                                 .textTheme
@@ -162,130 +169,92 @@ class _ProductCardState extends State<ProductCard> {
                                 ],
                               ),
                             ),
-                            Card(
-                              elevation: 0,
-                              shape: RoundedRectangleBorder(
-                                side: const BorderSide(
-                                  color:
-                                      kPrimaryBlue, // Set your desired border color
-                                  width: 1.0, // Set the border width
-                                ),
-                                borderRadius: BorderRadius.circular(
-                                    10.0), // Set the border radius
-                              ),
-                              child: SizedBox(
-                                height: 35,
-                                width: quantity.value == 0
-                                    ? 76
-                                    : (quantity.toString().length * 11) + 75,
-                                child: quantity.value == 0
-                                    ? OutlinedButton(
-                                        style: OutlinedButton.styleFrom(
-                                          side: const BorderSide(
-                                              color: kPrimaryBlue),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(
-                                                10.0), // Set your desired border radius
-                                          ),
-                                        ),
-                                        onPressed: () async {
-                                          log('20');
-                                          quantity.value++;
-                                          addToCartController.productCount++;
-                                          addToCartController.addToCart(
-                                              quantity.value,
-                                              widget.product['id'],
-                                              '1');
+                            AddButton(
+                              // width: 135,
+                              // textWidth: 120,
+                              isLoading: widget.loader ?? false,
+                              qty: quantity.value <
+                                      int.parse(convertDoubleToString(
+                                          widget.product['min_order_qty'] ??
+                                              "0.0"))
+                                  ? 0
+                                  : quantity.value,
+                              onChangedPressed: (value) {
+                                quantity.value = int.parse(value);
+                                quantityCtrlr.text = quantity.value.toString();
+                                controller.rxQty.value =
+                                    quantity.value.toString();
 
-                                          addToCartController.update();
-                                        },
-                                        child: Text(
-                                          'Add',
-                                          style: TextStyle(
-                                              color: kPrimaryBlue,
-                                              fontSize:
-                                                  getProportionateScreenWidth(
-                                                      14)),
-                                        ),
-                                      )
-                                    : Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        mainAxisSize: MainAxisSize.max,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Transform.translate(
-                                            offset: const Offset(-12, 0),
-                                            child: SizedBox(
-                                              width: 12,
-                                              child: IconButton(
-                                                padding: EdgeInsets.zero,
-                                                icon: const Icon(
-                                                  Icons.remove,
-                                                  color: kPrimaryBlue,
-                                                  size: 20,
-                                                ),
-                                                onPressed: () {
-                                                  quantity.value--;
-                                                  addToCartController
-                                                      .productCount--;
-                                                  addToCartController.addToCart(
-                                                      quantity.value,
-                                                      widget.product['id'],
-                                                      '1');
+                                addToCartController.addToCart(
+                                    quantity.value, widget.product?['id'], '1');
+                              },
+                              onAddPressed: () {
+                                //  quantity.value++;
+                                String minOrder =
+                                    widget.product['min_order_qty'] == null
+                                        ? "0.0"
+                                        : widget.product['min_order_qty']
+                                            .toString();
+                                quantity.value = quantity.value +
+                                    int.parse(convertDoubleToString(minOrder));
+                                print(
+                                    'onClick of Add ${int.parse(convertDoubleToString(minOrder))} :: ${quantity.value}');
+                                addToCartController.productCount++;
+                                addToCartController.addToCart(
+                                    quantity.value, widget.product?['id'], '1');
+                                addToCartController.update();
+                                quantityCtrlr.text = quantity.value.toString();
+                                controller.rxQty.value =
+                                    quantity.value.toString();
+                              },
+                              onPlusPressed: () {
+                                widget.onCardAddClicked();
+                                //  final ValueNotifier<bool> isLoadingButton1 = ValueNotifier(false);
+                                print(
+                                    'isloading in addtocart ${addToCartController.isLoading.value}');
+                                controller.rxQty.value =
+                                    quantity.value.toString();
+                                String minOrder = widget
+                                        .product['increment_order_qty']
+                                        .toString() ??
+                                    "0.0";
+                                quantity.value = quantity.value +
+                                    int.parse(convertDoubleToString(minOrder));
+                                quantityCtrlr.text = quantity.value.toString();
+                                addToCartController.addToCart(
+                                    quantity.value, widget.product?['id'], '1');
 
-                                                  addToCartController.update();
-                                                },
-                                              ),
-                                            ),
-                                          ),
-                                          Container(
-                                            height: 35,
-                                            width: (quantity.value
-                                                        .toString()
-                                                        .length *
-                                                    11) +
-                                                20,
-                                            color: kPrimaryBlue,
-                                            child: Center(
-                                              child: Text(
-                                                quantity.value.toString(),
-                                                style: const TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.white,
-                                                    fontSize: 14),
-                                              ),
-                                            ),
-                                          ),
-                                          Transform.translate(
-                                            offset: const Offset(3.5, 0),
-                                            child: SizedBox(
-                                              width: 12,
-                                              child: IconButton(
-                                                padding: EdgeInsets.zero,
-                                                icon: const Icon(
-                                                  Icons.add,
-                                                  color: kPrimaryBlue,
-                                                  size: 20,
-                                                ),
-                                                onPressed: () {
-                                                  quantity.value++;
-                                                  addToCartController.addToCart(
-                                                      quantity.value,
-                                                      widget.product['id'],
-                                                      '1');
+                                addToCartController.productCount++;
+                                addToCartController.update();
+                              },
+                              onMinusPressed: () {
+                                widget.onCardMinusClicked();
+                                //   if (quantity.value > 0) {
+                                // quantity.value--;
+                                String minOrder = widget
+                                        .product['increment_order_qty']
+                                        .toString() ??
+                                    "0.0";
+                                quantity.value = quantity.value -
+                                    int.parse(convertDoubleToString(minOrder));
+                                addToCartController.productCount--;
+                                quantityCtrlr.text = quantity.value.toString();
+                                controller.rxQty.value =
+                                    quantity.value.toString();
+                                addToCartController.addToCart(
+                                    quantity.value, widget.product?['id'], '1');
+                                addToCartController.update();
+                                //  }
 
-                                                  addToCartController
-                                                      .productCount++;
-                                                  addToCartController.update();
-                                                },
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                              ),
+                                /* quantity.value--;
+                    addToCartController.productCount--;
+                    addToCartController.addToCart(
+                        quantity.value,
+                        widget.product?['id'],
+                        '1');
+                    addToCartController.update();*/
+                              },
+                              qtyController: quantityCtrlr,
                             ),
                           ],
                         )
