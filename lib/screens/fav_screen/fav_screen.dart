@@ -6,8 +6,6 @@ import '../../constants/colors.dart';
 import '../../models/item.dart';
 import '../../utils/screen_utils.dart';
 import '../../widgets/list_card.dart';
-import '../../widgets/product_card/product_card.dart';
-import '../../widgets/tab_title.dart';
 
 class FavScreen extends StatefulWidget {
   const FavScreen({super.key});
@@ -74,72 +72,72 @@ class _FavScreenState extends State<FavScreen> {
       SizedBox(
         height: getProportionateScreenHeight(16.0),
       ),
-      const TabTitle(
-        title: 'Recommendation for you',
-        padding: 0,
-      ),
-      SizedBox(
-        height: getProportionateScreenHeight(240),
-        child: Row(
-          children: [
-             Expanded(
-              child: ProductCard(
-                noPadding: true,
-                onCardAddClicked: () {
-                      setState(() {
-                        //_selectedIndex = index;
+      // const TabTitle(
+      //   title: 'Recommendation for you',
+      //   padding: 0,
+      // ),
+      // SizedBox(
+      //   height: getProportionateScreenHeight(240),
+      //   child: Row(
+      //     children: [
+      //        Expanded(
+      //         child: ProductCard(
+      //           noPadding: true,
+      //           onCardAddClicked: () {
+      //                 setState(() {
+      //                   //_selectedIndex = index;
 
-                        /*  if(_selectedIndex == index){
-                        _selectedIndex= -1;
-                      }else{
-                        _selectedIndex= index;
-                      }*/
-                      });
-                    },
-                    onCardMinusClicked: () {
-                      setState(() {
-                        //_selectedIndex = index;
-                        /*  if(_selectedIndex == index){
-                        _selectedIndex= -1;
-                      }else{
-                        _selectedIndex= index;
-                      }*/
-                      });
-                    },
-              ),
-            ),
-            SizedBox(
-              width: getProportionateScreenWidth(8),
-            ),
-             Expanded(
-              child: ProductCard(
-                noPadding: true,
-                onCardAddClicked: () {
-                      setState(() {
-                        //_selectedIndex = index;
+      //                   /*  if(_selectedIndex == index){
+      //                   _selectedIndex= -1;
+      //                 }else{
+      //                   _selectedIndex= index;
+      //                 }*/
+      //                 });
+      //               },
+      //               onCardMinusClicked: () {
+      //                 setState(() {
+      //                   //_selectedIndex = index;
+      //                   /*  if(_selectedIndex == index){
+      //                   _selectedIndex= -1;
+      //                 }else{
+      //                   _selectedIndex= index;
+      //                 }*/
+      //                 });
+      //               },
+      //         ),
+      //       ),
+      //       SizedBox(
+      //         width: getProportionateScreenWidth(8),
+      //       ),
+      //       //  Expanded(
+      //       //   child: ProductCard(
+      //       //     noPadding: true,
+      //       //     onCardAddClicked: () {
+      //       //           setState(() {
+      //       //             //_selectedIndex = index;
 
-                        /*  if(_selectedIndex == index){
-                        _selectedIndex= -1;
-                      }else{
-                        _selectedIndex= index;
-                      }*/
-                      });
-                    },
-                    onCardMinusClicked: () {
-                      setState(() {
-                        //_selectedIndex = index;
-                        /*  if(_selectedIndex == index){
-                        _selectedIndex= -1;
-                      }else{
-                        _selectedIndex= index;
-                      }*/
-                      });
-                    },
-              ),
-            ),
-          ],
-        ),
-      ),
+      //       //             /*  if(_selectedIndex == index){
+      //       //             _selectedIndex= -1;
+      //       //           }else{
+      //       //             _selectedIndex= index;
+      //       //           }*/
+      //       //           });
+      //       //         },
+      //       //         onCardMinusClicked: () {
+      //       //           setState(() {
+      //       //             //_selectedIndex = index;
+      //       //             /*  if(_selectedIndex == index){
+      //       //             _selectedIndex= -1;
+      //       //           }else{
+      //       //             _selectedIndex= index;
+      //       //           }*/
+      //       //           });
+      //       //         },
+      //       //   ),
+      //       // ),
+      //     ],
+      //   ),
+      //),
     ];
 
     List<Widget> cartWidgets = List.generate(
