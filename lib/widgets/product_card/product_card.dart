@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sutra_ecommerce/controllers/add_to_cart_controller.dart';
-import 'package:sutra_ecommerce/screens/product_detail.dart/product_detail.dart';
 import 'package:sutra_ecommerce/utils/common_functions.dart';
 
 import '../../constants/colors.dart';
@@ -67,8 +66,8 @@ class _ProductCardState extends State<ProductCard> {
         child: InkWell(
           onTap: () {
             //log(widget.product.toString());
-            Get.toNamed(ProductDetailScreen.routeName,
-                arguments: ProductDetailArguments(productDetailData: widget.product));
+            // Get.toNamed(ProductDetailScreen.routeName,
+            //     arguments: ProductDetailArguments(productDetailData: widget.product));
           },
           child: Container(
             padding: EdgeInsets.all(

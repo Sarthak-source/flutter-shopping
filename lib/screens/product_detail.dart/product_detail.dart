@@ -8,7 +8,6 @@ import 'package:sutra_ecommerce/widgets/discount_text.dart';
 import 'package:sutra_ecommerce/widgets/fruit_title.dart';
 import 'package:sutra_ecommerce/widgets/go_cart/go_to_cart.dart';
 import 'package:sutra_ecommerce/widgets/loading_widgets/loader.dart';
-import 'package:sutra_ecommerce/widgets/order_card.dart';
 import 'package:sutra_ecommerce/widgets/tab_title.dart';
 
 import '../../constants/colors.dart';
@@ -37,77 +36,80 @@ class ProductDetailScreen extends StatefulWidget {
 }
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
-  final ProductDetailController prodDetailController = Get.put(ProductDetailController());
+  final ProductDetailController prodDetailController =
+      Get.put(ProductDetailController());
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    var args = ModalRoute.of(context)?.settings.arguments as ProductDetailArguments;
+    var args =
+        ModalRoute.of(context)?.settings.arguments as ProductDetailArguments;
     log("ProductDetailController ${args.productDetailData.toString()}");
 
-    prodDetailController.fetchProductDetail( args.productDetailData['id'].toString());
+    prodDetailController
+        .fetchProductDetail(args.productDetailData['id'].toString());
   }
 
   final AddToCartController addToCartController =
-        Get.put(AddToCartController());
+      Get.put(AddToCartController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-bottomSheet: (addToCartController.productCount > 0 )
-            ? const GoToCart()
-            : const SizedBox.shrink(),
+      bottomSheet: (addToCartController.productCount > 0)
+          ? const GoToCart()
+          : const SizedBox.shrink(),
       body: SafeArea(
         child: GetBuilder<ProductDetailController>(
           //init: ProductDetailController(product: args.productDetailData['id'].toString()),
           builder: (controller) {
             //if (controller.isLoading.value) {
-              //return const Center(child: Loader());
+            //return const Center(child: Loader());
             //} else {
-              return Column(
-                children: [
-                  Expanded(
-                    child: SingleChildScrollView(
-                      child: ProductBody(
-                        product: controller.productDetail,
-                      ),
+            return Column(
+              children: [
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: ProductBody(
+                      product: controller.productDetail,
                     ),
                   ),
-                  // Padding(
-                  //   padding: EdgeInsets.symmetric(
-                  //     horizontal: getProportionateScreenWidth(16.0),
-                  //     vertical: getProportionateScreenHeight(5.0),
-                  //   ),
-                  //   child: Row(
-                  //     children: [
-                  //       Expanded(
-                  //         child: SizedBox(
-                  //           width: getProportionateScreenWidth(32),
-                  //           child: IconButton(
-                  //             onPressed: () {
-                  //               Navigator.of(context)
-                  //                   .pushNamed(OrderSummaryScreen.routeName);
-                  //             },
-                  //             icon: const Icon(Icons.shopping_cart_checkout),
-                  //           ),
-                  //         ),
-                  //       ),
-                  //       SizedBox(
-                  //         width: getProportionateScreenWidth(16),
-                  //       ),
-                  //       Expanded(
-                  //         flex: 4,
-                  //         child: ElevatedButton(
-                  //           onPressed: () {},
-                  //           child: const Text('Buy Now'),
-                  //         ),
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
-                ],
-              );
-           // }
+                ),
+                // Padding(
+                //   padding: EdgeInsets.symmetric(
+                //     horizontal: getProportionateScreenWidth(16.0),
+                //     vertical: getProportionateScreenHeight(5.0),
+                //   ),
+                //   child: Row(
+                //     children: [
+                //       Expanded(
+                //         child: SizedBox(
+                //           width: getProportionateScreenWidth(32),
+                //           child: IconButton(
+                //             onPressed: () {
+                //               Navigator.of(context)
+                //                   .pushNamed(OrderSummaryScreen.routeName);
+                //             },
+                //             icon: const Icon(Icons.shopping_cart_checkout),
+                //           ),
+                //         ),
+                //       ),
+                //       SizedBox(
+                //         width: getProportionateScreenWidth(16),
+                //       ),
+                //       Expanded(
+                //         flex: 4,
+                //         child: ElevatedButton(
+                //           onPressed: () {},
+                //           child: const Text('Buy Now'),
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ),
+              ],
+            );
+            // }
           },
         ),
       ),
@@ -127,36 +129,36 @@ class _ProductBodyState extends State<ProductBody> {
   bool isExpanded = false;
 
   RxInt quantity = 0.obs;
- TextEditingController Txtctrlr =TextEditingController() ;
+  TextEditingController Txtctrlr = TextEditingController();
   @override
   void initState() {
     super.initState();
     // Initialize quantity based on the arguments passed via ModalRoute
     if (widget.product["cart_count"] != null) {
       final double? parsedCount =
-      double.tryParse(widget.product["cart_count"].toString());
+          double.tryParse(widget.product["cart_count"].toString());
       if (parsedCount != null) {
         quantity.value = parsedCount.toInt();
         print('quantity in prod detail ${quantity.value}');
         Txtctrlr = TextEditingController(text: quantity.value.toString());
       }
     }
-
   }
+
   @override
   void didChangeDependencies() {
     // TODO: implement didChangeDependencies
     super.didChangeDependencies();
   }
 
-    final AddToCartController addToCartController = Get.put(AddToCartController());
-
+  final AddToCartController addToCartController =
+      Get.put(AddToCartController());
 
   @override
   Widget build(BuildContext context) {
     log("widget.product ${widget.product.toString()}");
 
-    return  GetBuilder<ProductDetailController>(
+    return GetBuilder<ProductDetailController>(
         //init: ProductDetailController(product: args.productDetailData['id'].toString()),
         builder: (controller) {
       return Column(
@@ -205,7 +207,10 @@ class _ProductBodyState extends State<ProductBody> {
                 SizedBox(
                   height: getProportionateScreenHeight(14),
                 ),
-                FruitTitle(title: widget.product?['name']==null?"":widget.product?['name']),
+                FruitTitle(
+                    title: widget.product?['name'] == null
+                        ? ""
+                        : widget.product?['name']),
                 SizedBox(
                   height: getProportionateScreenHeight(10),
                 ),
@@ -226,10 +231,11 @@ class _ProductBodyState extends State<ProductBody> {
                   children: [
                     Text(
                       "₹ ${widget.product?['price'].toString()}",
-                      style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
+                      style:
+                          Theme.of(context).textTheme.headlineSmall!.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
                     ),
                     Text(
                       " / ${widget.product?['order_uom'] == null ? "" : widget.product?['order_uom']}",
@@ -321,98 +327,112 @@ class _ProductBodyState extends State<ProductBody> {
                     //return const Center(child: Loader());
                     //} else {
 
-                    controller.isLoading.value?Loader():
-                    AddButton(
-                      isLoading: false,
-                      qty: quantity.value < int.parse(convertDoubleToString(widget.product?['min_order_qty'] ?? "0.0"))
-                         ? 0
-                        : quantity.value,
-                      onChangedPressed: (value){
-                        setState(() {
+                    controller.isLoading.value
+                        ? Loader()
+                        : AddButton(
+                            isLoading: false,
+                            qty: quantity.value <
+                                    int.parse(convertDoubleToString(
+                                        widget.product?['min_order_qty'] ??
+                                            "0.0"))
+                                ? 0
+                                : quantity.value,
+                            onChangedPressed: (value) {
+                              setState(() {
+                                log(quantity.toString());
+                                addToCartController.productCount++;
+                                addToCartController.addToCart(
+                                    value, widget.product?['id'], '1');
 
-                          log(quantity.toString());
-                          addToCartController.productCount++;
-                          addToCartController.addToCart(
-                              value, widget.product?['id'], '1');
+                                addToCartController.update();
+                                //widget.onAddItem(quantity);
+                              });
+                            },
+                            onAddPressed: () {
+                              setState(() {
+                                // quantity++;
+                                String minOrder =
+                                    widget.product['min_order_qty'] == null
+                                        ? "0.0"
+                                        : widget.product['min_order_qty']
+                                            .toString();
 
-                          addToCartController.update();
-                          //widget.onAddItem(quantity);
-                        });
-                      },
-                      onAddPressed: (){
-                        setState(() {
-                         // quantity++;
-                          String minOrder =
-                          widget.product['min_order_qty'] == null ? "0.0" : widget.product['min_order_qty'].toString();
+                                quantity.value = quantity.value +
+                                    int.parse(convertDoubleToString(minOrder));
+                                log(quantity.toString());
+                                addToCartController.productCount++;
+                                addToCartController.addToCart(
+                                    quantity.value, widget.product?['id'], '1');
 
-                          quantity.value = quantity.value + int.parse(convertDoubleToString(minOrder));
-                          log(quantity.toString());
-                          addToCartController.productCount++;
-                          addToCartController.addToCart(
-                              quantity.value, widget.product?['id'], '1');
+                                addToCartController.update();
+                                //widget.onAddItem(quantity);
+                              });
+                            },
+                            onPlusPressed: () {
+                              setState(() {
+                                //  quantity++;
 
-                          addToCartController.update();
-                          //widget.onAddItem(quantity);
-                        });
+                                String minOrder = widget
+                                        .product?['increment_order_qty']
+                                        .toString() ??
+                                    "0.0";
+                                quantity = quantity +
+                                    int.parse(convertDoubleToString(minOrder));
 
-                      },
-                      onPlusPressed: (){
-                        setState(() {
-                        //  quantity++;
+                                addToCartController.productCount++;
+                                addToCartController.addToCart(
+                                    quantity.value, widget.product?['id'], '1');
 
-                          String minOrder = widget.product?['increment_order_qty'].toString() ?? "0.0";
-                          quantity = quantity + int.parse(convertDoubleToString(minOrder));
+                                addToCartController.update();
 
-                          addToCartController.productCount++;
-                          addToCartController.addToCart(
-                              quantity.value, widget.product?['id'], '1');
+                                //widget.onPlusinCard(quantity);
+                              });
+                            },
+                            onMinusPressed: () {
+                              if (quantity != 0) {
+                                setState(() {
+                                  //  quantity.value--;
+                                  String minOrder = widget
+                                          .product?['increment_order_qty']
+                                          .toString() ??
+                                      "0.0";
+                                  quantity = quantity -
+                                      int.parse(
+                                          convertDoubleToString(minOrder));
+                                  addToCartController.productCount--;
+                                  addToCartController.addToCart(quantity.value,
+                                      widget.product?['id'], '1');
 
-                          addToCartController.update();
+                                  addToCartController.update();
 
-                          //widget.onPlusinCard(quantity);
-                        });
-                      },
-                      onMinusPressed: (){
-                        if (quantity != 0) {
-                          setState(() {
-
-                          //  quantity.value--;
-                            String minOrder = widget.product?['increment_order_qty'].toString() ?? "0.0";
-                            quantity = quantity - int.parse(convertDoubleToString(minOrder));
-                            addToCartController.productCount--;
-                            addToCartController.addToCart(
-                                quantity.value,
-                                widget.product?['id'],
-                                '1');
-
-                            addToCartController.update();
-
-                            //widget.onMinusinCard(quantity);
-                          });
-                        }
-                      },
-                      qtyController: Txtctrlr,
-                    ),
-
-
+                                  //widget.onMinusinCard(quantity);
+                                });
+                              }
+                            },
+                            qtyController: Txtctrlr,
+                          ),
                   ],
                 ),
-                SizedBox(height: 12,),
+                SizedBox(
+                  height: 12,
+                ),
                 Row(
                   children: [
                     const Spacer(),
                     quantity.value == 0
                         ? Text("")
                         : Text(
-                      //newCrateValue,
-                      setCrateRate(quantity.value, widget.product?['multipack_qty'] ?? "0.0").toString(),
-                      //  setCrateRate(quantity.value, widget.product?['multipack_qty'] ?? 0).toString(),
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyMedium!
-                          .copyWith(
-                          fontSize: 12, color: kTextColorAccent),
-                    ),
+                            //newCrateValue,
+                            setCrateRate(quantity.value,
+                                    widget.product?['multipack_qty'] ?? "0.0")
+                                .toString(),
+                            //  setCrateRate(quantity.value, widget.product?['multipack_qty'] ?? 0).toString(),
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(
+                                    fontSize: 12, color: kTextColorAccent),
+                          ),
                     Text(
                       " ${widget.product?['multipack_uom'] == null ? "" : widget.product?['multipack_uom']}",
                       style: Theme.of(context)
@@ -480,7 +500,8 @@ class _ProductBodyState extends State<ProductBody> {
                       children: [
                         ExpansionPanel(
                           backgroundColor: null,
-                          headerBuilder: (BuildContext context, bool isExpanded) {
+                          headerBuilder:
+                              (BuildContext context, bool isExpanded) {
                             return const ListTile(
                               title: Text('Description'),
                             );
@@ -505,12 +526,12 @@ class _ProductBodyState extends State<ProductBody> {
                   padding: 0,
                 ),
                 SizedBox(
-                  //  height: getProportionateScreenHeight(155),
+                    //  height: getProportionateScreenHeight(155),
                     child: PopularDealTab(
-                      categoryId: widget.product?['category'].toString() ?? '',
-                      isfrom: 'more',
-                      //childAspectRatio: 0.72,
-                    )),
+                  categoryId: widget.product?['category'].toString() ?? '',
+                  isfrom: 'more',
+                  //childAspectRatio: 0.72,
+                )),
                 SizedBox(
                   height: getProportionateScreenHeight(48),
                 ),
@@ -518,8 +539,8 @@ class _ProductBodyState extends State<ProductBody> {
             ),
           ),
         ],
-      );}
-    );
+      );
+    });
   }
 }
 

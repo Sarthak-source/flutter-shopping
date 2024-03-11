@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:sutra_ecommerce/constants/colors.dart';
 import 'package:sutra_ecommerce/controllers/add_to_cart_controller.dart';
 import 'package:sutra_ecommerce/controllers/mycart_controller.dart';
-import 'package:sutra_ecommerce/screens/product_detail.dart/product_detail.dart';
 import 'package:sutra_ecommerce/utils/common_functions.dart';
 import 'package:sutra_ecommerce/utils/screen_utils.dart';
 import 'package:sutra_ecommerce/widgets/add_button.dart';
@@ -38,18 +37,18 @@ class _PopularCardState extends State<PopularCard> {
   void initState() {
     super.initState();
 
-    // if (widget.product != null && widget.product!["cart_count"] != null) {
-    //   final cartCount = widget.product!["cart_count"];
-    //   if (cartCount != null) {
-    //     log("count::: ${cartCount.toString()}");
-    //     final double? parsedCount = double.tryParse(cartCount.toString());
-    //     if (parsedCount != null) {
-    //       log('double count $parsedCount');
-    //       log('int count ${parsedCount.toInt()}');
-    //       quantity.value = parsedCount.toInt();
-    //     }
-    //   }
-    // }
+    if (widget.product != null && widget.product!["cart_count"] != null) {
+      final cartCount = widget.product!["cart_count"];
+      if (cartCount != null) {
+        log("count::: ${cartCount.toString()}");
+        final double? parsedCount = double.tryParse(cartCount.toString());
+        if (parsedCount != null) {
+          log('double count $parsedCount');
+          log('int count ${parsedCount.toInt()}');
+          quantity.value = parsedCount.toInt();
+        }
+      }
+    }
   }
 
   final TextEditingController quantityCtrlr = TextEditingController();
@@ -61,22 +60,22 @@ class _PopularCardState extends State<PopularCard> {
 
   @override
   Widget build(BuildContext context) {
-    var productdeal = widget.product;
-    if (widget.product != null && widget.product!["cart_count"] != null) {
-      final cartCount = widget.product!["cart_count"];
+    // var productdeal = widget.product;
+    // if (widget.product != null && widget.product!["cart_count"] != null) {
+    //   final cartCount = widget.product!["cart_count"];
 
-      if (cartCount != null) {
-        log("count::: ${cartCount.toString()}");
-        final double? parsedCount = double.tryParse(cartCount.toString());
-        if (parsedCount != null) {
-          log('double count $parsedCount');
-          log('int count ${parsedCount.toInt()}');
-          quantity.value = parsedCount.toInt();
-          quantityCtrlr.text = quantity.value.toString();
-          print('quantityCtrlr.text:: ${quantityCtrlr.text}');
-        }
-      }
-    }
+    //   if (cartCount != null) {
+    //     log("count::: ${cartCount.toString()}");
+    //     final double? parsedCount = double.tryParse(cartCount.toString());
+    //     if (parsedCount != null) {
+    //       log('double count $parsedCount');
+    //       log('int count ${parsedCount.toInt()}');
+    //       quantity.value = parsedCount.toInt();
+    //       quantityCtrlr.text = quantity.value.toString();
+    //       print('quantityCtrlr.text:: ${quantityCtrlr.text}');
+    //     }
+    //   }
+    // }
     return Obx(
       () => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -116,9 +115,9 @@ class _PopularCardState extends State<PopularCard> {
                       /* Get.offNamed(ProductDetailScreen.routeName,
                 arguments: ProductDetailArguments(productDetailData: widget.product));*/
                     } else {
-                      Get.toNamed(ProductDetailScreen.routeName,
-                          arguments: ProductDetailArguments(
-                              productDetailData: widget.product));
+                      // Get.toNamed(ProductDetailScreen.routeName,
+                      //     arguments: ProductDetailArguments(
+                      //         productDetailData: widget.product));
                     }
                   },
                   child: Padding(
