@@ -237,26 +237,28 @@ class _DealsTabState extends State<DealsTab> {
   }
 
   void _startTimer() {
-    _timer = Timer.periodic(const Duration(seconds: 5), (timer) {
-      if (_scrollController.hasClients) {
-        if (_scrollController.position.pixels ==
-            _scrollController.position.maxScrollExtent) {
-          _scrollController.animateTo(
-            0,
-            duration: const Duration(milliseconds: 500),
-            curve: Curves.easeOut,
-          );
-        } else {
-          _scrollController.animateTo(
-            _scrollController.position.pixels +
-                getProportionateScreenWidth(280),
-            duration: const Duration(milliseconds: 500),
-            curve: Curves.easeOut,
-          );
-        }
+  _timer = Timer.periodic(const Duration(seconds: 5), (timer) {
+    if (_scrollController.hasClients) {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+       
+        _scrollController.animateTo(
+          0,
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeOut,
+        );
+      } else {
+        
+        _scrollController.animateTo(
+          _scrollController.position.pixels + getProportionateScreenWidth(280),
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeOut,
+        );
       }
-    });
-  }
+    }
+  });
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -280,7 +282,7 @@ class _DealsTabState extends State<DealsTab> {
                 child: SizedBox(
                   height: 140,
                   child: ListView.builder(
-                    controller: _scrollController,
+                     controller: _scrollController,
                     clipBehavior: Clip.none,
                     scrollDirection: Axis.horizontal,
                     itemCount: 5, // Use a placeholder count
@@ -299,7 +301,7 @@ class _DealsTabState extends State<DealsTab> {
               return SizedBox(
                 height: 200,
                 child: ListView.builder(
-                  controller: _scrollController,
+                   controller: _scrollController,
                   scrollDirection: Axis.horizontal,
                   itemCount:
                       controller.deals.length, // Set the total number of items

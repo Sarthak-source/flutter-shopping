@@ -132,10 +132,10 @@ class _PopularCardState extends State<PopularCard> {
                 ),
                 const Spacer(),
                 SizedBox(
-                  width: 150,
+                  width: 130,
                   child: Text(
                     widget.product?['name'] ?? "Not given",
-                    maxLines: 1,
+                    maxLines: 2,
                     style: Theme.of(context)
                         .textTheme
                         .bodyMedium

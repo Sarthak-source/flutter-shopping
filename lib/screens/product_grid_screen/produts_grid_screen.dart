@@ -5,12 +5,12 @@ import 'package:shimmer/shimmer.dart';
 import 'package:sutra_ecommerce/controllers/add_to_cart_controller.dart';
 import 'package:sutra_ecommerce/controllers/products_controller.dart';
 import 'package:sutra_ecommerce/widgets/go_cart/go_to_cart.dart';
+import 'package:sutra_ecommerce/widgets/product_card/product_card.dart';
 import 'package:sutra_ecommerce/widgets/search_bar.dart' as search;
 
 import '../../constants/colors.dart';
 import '../../utils/screen_utils.dart';
 import '../../widgets/custom_app_bar.dart';
-import '../../widgets/product_card/product_card.dart';
 
 class PoductsListArguments {
   final String title;
@@ -108,7 +108,7 @@ class PoductsListScreenState extends State<PoductsListScreen> {
             ? const GoToCart(
                 usedIn: 'PoductsListScreen',
               )
-            : Container(),
+            : const SizedBox.shrink(),
       );
     });
   }
@@ -128,7 +128,7 @@ class CustomStaggerGrid extends StatefulWidget {
 }
 
 class _CustomStaggerGridState extends State<CustomStaggerGrid> {
-    int _selectedIndex = -1;
+    int selectedIndex = -1;
 
   @override
   Widget build(BuildContext context) {
@@ -189,6 +189,7 @@ class _CustomStaggerGridState extends State<CustomStaggerGrid> {
               ],
             );
           } else {
+            //return Text(controller.products.toString());
             return GridView.builder(
               itemCount: products.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -196,7 +197,7 @@ class _CustomStaggerGridState extends State<CustomStaggerGrid> {
                   crossAxisSpacing: getProportionateScreenWidth(8),
                   mainAxisSpacing: getProportionateScreenHeight(5),
                   childAspectRatio:
-                      widget.childAspectRatio ?? (Get.width / Get.height) * 1.70),
+                      widget.childAspectRatio ?? (Get.width / Get.height) * 1.55),
               itemBuilder: (ctx, index) {
                 if (index % 2 != 0) {
                   return ProductCard(
@@ -204,12 +205,12 @@ class _CustomStaggerGridState extends State<CustomStaggerGrid> {
                     product: products[index],
                     onCardAddClicked: () {
                       setState(() {
-                        _selectedIndex = index;
+                        selectedIndex = index;
                       });
                     },
                     onCardMinusClicked: () {
                       setState(() {
-                        _selectedIndex = index;
+                        selectedIndex = index;
                       });
                     },
                     
@@ -221,12 +222,12 @@ class _CustomStaggerGridState extends State<CustomStaggerGrid> {
                     product: products[index],
                     onCardAddClicked: () {
                       setState(() {
-                        _selectedIndex = index;
+                        selectedIndex = index;
                       });
                     },
                     onCardMinusClicked: () {
                       setState(() {
-                        _selectedIndex = index;
+                        selectedIndex = index;
                       });
                     },
                   );
@@ -236,12 +237,12 @@ class _CustomStaggerGridState extends State<CustomStaggerGrid> {
                   product: products[index],
                   onCardAddClicked: () {
                       setState(() {
-                        _selectedIndex = index;
+                        selectedIndex = index;
                       });
                     },
                     onCardMinusClicked: () {
                       setState(() {
-                        _selectedIndex = index;
+                        selectedIndex = index;
                       });
                     },
                 );

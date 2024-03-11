@@ -67,7 +67,7 @@ class ExploreMoreProducts extends StatelessWidget {
               ),
             ),
             Container(
-              height: 190,
+              height: 205,
              // color: controller.popularDeals.isEmpty?Colors.white:Colors.grey.shade300,
               color: kPrimaryBlueTest,
 

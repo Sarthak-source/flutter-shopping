@@ -50,7 +50,7 @@ class _SelectTimeState extends State<SelectTime> {
               ],
             ),
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 50),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: DatePicker(
@@ -67,6 +67,7 @@ class _SelectTimeState extends State<SelectTime> {
               height: 100,
             ),
           ),
+          const SizedBox(height: 30),
           Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: SizedBox(
@@ -158,7 +159,7 @@ class _SelectTimeState extends State<SelectTime> {
             ),
           ),
           const SizedBox(
-            height: 30,
+            height: 80,
           ),
         ],
       ),
