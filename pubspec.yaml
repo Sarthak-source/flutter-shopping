@@ -58,6 +58,7 @@ dependencies:
   date_picker_timeline:
 
 dev_dependencies:
+  flutter_launcher_icons:
   flutter_test:
     sdk: flutter
 
@@ -83,6 +84,13 @@ flutter:
   assets:
     - assets/images/
     - assets/lotties/
+
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/dilicia-logo.jpeg"
+
     
 
   # An image asset can refer to one or more resolution-specific "variants", see

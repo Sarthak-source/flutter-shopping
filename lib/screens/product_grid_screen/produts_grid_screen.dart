@@ -43,7 +43,7 @@ class PoductsListScreenState extends State<PoductsListScreen> {
 
     return Obx(() {
       return Scaffold(
-        backgroundColor: kPrimaryBlueTest2,
+        //backgroundColor: kPrimaryBlueTest2,
         body: Stack(
           children: [
             SafeArea(

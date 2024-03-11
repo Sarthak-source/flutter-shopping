@@ -673,12 +673,12 @@ class NetworkRepository {
     required String address,
   }) async {
     try {
-      var data = FormData.fromMap({
+      var data = {
         "party": party,
         "shift": shift,
         "delivery_required_on": deliverydate,
         "address": address,
-      });
+      };
       log("dataposted $data");
       final apiResponse = await NetworkDioHttp.postDioHttpMethod(
         url:
