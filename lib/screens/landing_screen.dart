@@ -32,8 +32,8 @@ class _LandingScreenState extends State<LandingScreen>
     ).animate(_controller);
 
     _scaleAnimation = Tween<double>(
-      begin: 1.0,
-      end: 0.45,
+      begin: 0.8,
+      end: 0.30,
     ).animate(_controller);
 
     _controller.forward();
@@ -56,11 +56,14 @@ class _LandingScreenState extends State<LandingScreen>
             AnimatedBuilder(
               animation: _controller,
               builder: (context,child) {
-                return Transform.scale(
-                  scale: _scaleAnimation.value,
-                  child: CustomPaint(
-                    size: const Size(90, 90),
-                    painter: Logo(),
+                return Transform.translate(
+                  offset: const Offset(-25, -10),
+                  child: Transform.scale(
+                    scale: _scaleAnimation.value,
+                    child: CustomPaint(
+                      size: const Size(90, 90),
+                      painter: Logo(),
+                    ),
                   ),
                 );
               }
@@ -118,7 +121,7 @@ class IntroWidget extends StatelessWidget {
               ],
             ),
           //  const Spacer(),
-            SizedBox(
+            const SizedBox(
               height: 16,
             ),
             Text(
@@ -126,7 +129,7 @@ class IntroWidget extends StatelessWidget {
               'Purely rich taste.',
               style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                    // color: kTextColorAccent,
-                    color: Colors.white,
+                    color: Color.fromARGB(255, 118, 118, 118),
                   ),
             ),
             const Spacer(),

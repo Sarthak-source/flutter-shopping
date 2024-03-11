@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:sutra_ecommerce/assets/logo.dart';
-import 'package:sutra_ecommerce/constants/colors.dart';
 import 'package:sutra_ecommerce/controllers/login_controller.dart';
 import 'package:sutra_ecommerce/screens/signup_screen.dart';
 
@@ -62,9 +61,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: getProportionateScreenHeight(30),
                   ),
                   Transform.translate(
-                      offset: const Offset(-60, -50),
+                      offset: const Offset(-70, -50),
                       child: Transform.scale(
-                          scale: 0.5, child: const BouncingLogo())),
+                          scale: 0.30, child: const BouncingLogo())),
                   SizedBox(
                     height: getProportionateScreenHeight(60),
                   ),
