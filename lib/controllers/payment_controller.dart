@@ -90,6 +90,7 @@ class PaymentController extends GetxController {
           status: status);
       var popularDealData = responseData;
 
+      update();
       log(popularDealData.toString());
     } catch (e) {
       errorMsg.value = e.toString();
