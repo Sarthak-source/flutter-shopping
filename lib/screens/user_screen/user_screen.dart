@@ -2,9 +2,9 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sutra_ecommerce/config/common.dart';
 import 'package:sutra_ecommerce/controllers/user_controller.dart';
-import 'package:sutra_ecommerce/screens/add_address/add_address_screen.dart';
-import 'package:sutra_ecommerce/widgets/add_button.dart';
+import 'package:sutra_ecommerce/screens/login/login_screen.dart';
 
 import '../../constants/colors.dart';
 import '../../utils/screen_utils.dart';
@@ -34,24 +34,27 @@ class UserScreen extends StatelessWidget {
             SizedBox(
               height: getProportionateScreenHeight(8.0),
             ),
-           // const AddButton(),
+            // const AddButton(),
             // ...
 
 // ...
-
 
             //  CustomPaint(
             //     size: const Size(100, 100),
             //     painter: EveningPainter(),
             //   ),
             Text(
-                userController?.user!=null? userController!.user['party']['party_name'].toString(): "",
+              userController?.user != null
+                  ? userController!.user['party']['party_name'].toString()
+                  : "",
               style: Theme.of(context).textTheme.displaySmall!.copyWith(
                     fontWeight: FontWeight.w700,
                   ),
             ),
             Text(
-              userController?.user!=null? userController!.user['party']['email'].toString():"",
+              userController?.user != null
+                  ? userController!.user['party']['email'].toString()
+                  : "",
               style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                     color: kTextColorAccent,
                   ),
@@ -78,17 +81,17 @@ class UserScreen extends StatelessWidget {
             //     Get.toNamed(SelectTime.routeName);
             //   },
             // ),
-            SizedBox(
-              height: getProportionateScreenHeight(8.0),
-            ),
-            ProfileCard(
-              image: 'assets/images/map_user.png',
-              color: kAccentTosca,
-              title: 'My Address',
-              tapHandler: () {
-                Get.toNamed(AddAddressScreen.routeName);
-              },
-            ),
+            // SizedBox(
+            //   height: getProportionateScreenHeight(8.0),
+            // ),
+            // ProfileCard(
+            //   image: 'assets/images/map_user.png',
+            //   color: kAccentTosca,
+            //   title: 'My Address',
+            //   tapHandler: () {
+            //     Get.toNamed(AddAddressScreen.routeName);
+            //   },
+            // ),
             SizedBox(
               height: getProportionateScreenHeight(8.0),
             ),
@@ -120,11 +123,15 @@ class UserScreen extends StatelessWidget {
             SizedBox(
               height: getProportionateScreenHeight(8.0),
             ),
-            const ProfileCard(
-              image: 'assets/images/arrow_user.png',
-              color: kAccentRed,
-              title: 'Log out',
-            ),
+            ProfileCard(
+                image: 'assets/images/arrow_user.png',
+                color: kAccentRed,
+                title: 'Log out',
+                tapHandler: () {
+                  box!.deleteAll(['userData', 'login', 'isTestEnvironment']);
+
+                  Get.toNamed(LoginScreen.routeName);
+                }),
             const Spacer(),
             Text(
               'ver 1.01',

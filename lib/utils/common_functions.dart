@@ -5,15 +5,24 @@ import '../exceptions/data_exceptions.dart';
 import 'generic_exception.dart';
 
 String convertTimestampToDateString(String? timestampString) {
-  // Parse the timestamp string to a DateTime object
-  DateTime dateTime =
-      DateTime.parse(timestampString ?? "2024-02-19T06:28:57.510795Z");
+  if (timestampString == null) {
+    return ''; // Return an empty string for null values
+  }
 
-  // Format the DateTime object as dd/mm/yy
-  String formattedDate = DateFormat('dd/MM/yy').format(dateTime);
+  try {
+    // Parse the timestamp string to a DateTime object
+    DateTime dateTime = DateTime.parse(timestampString);
 
-  return formattedDate;
+    // Format the DateTime object as dd/mm/yy
+    String formattedDate = DateFormat('dd/MM/yy').format(dateTime);
+
+    return formattedDate;
+  } catch (e) {
+    print('Invalid date format: $timestampString');
+    return ''; // Return an empty string if the date format is invalid
+  }
 }
+
 
 String convertDoubleToString(String? value) {
   if (value == null || value == "null") {

@@ -25,9 +25,15 @@ class _TestScreenState extends State<TestScreen> {
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(18.0),
-          child: CustomPaint(
-            size: const Size(200, 200),
-            painter: Logo(),
+          child: Transform.translate(
+            offset: Offset(-80, 0),
+            child: Transform.scale(
+              scale: 0.5,
+              child: CustomPaint(
+                size: const Size(1600, 1600),
+                painter: Logo(),
+              ),
+            ),
           ),
         ),
       ),

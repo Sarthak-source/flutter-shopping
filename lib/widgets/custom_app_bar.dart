@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sutra_ecommerce/utils/common_functions.dart';
 
 import '../utils/screen_utils.dart';
 import '../widgets/back_button_text.dart';
@@ -14,7 +15,7 @@ class CustomAppBar extends StatelessWidget {
       super.key});
   @override
   Widget build(BuildContext context) {
-    String formatedTitle =title!=''?  "${title[0].toUpperCase()}${title.substring(1, title.length).toLowerCase()}":'';
+    
     return Padding(
       padding: EdgeInsets.only(
           right: 12.0, left: 12.0, bottom: marginBottom!, top: 16),
@@ -22,7 +23,7 @@ class CustomAppBar extends StatelessWidget {
         children: [
           const Expanded(child: BackButtonText()),
           Text(
-          formatedTitle,
+          titleCase(title),
             style: TextStyle(
               fontSize: getProportionateScreenWidth(14),
               fontWeight: FontWeight.w600,
