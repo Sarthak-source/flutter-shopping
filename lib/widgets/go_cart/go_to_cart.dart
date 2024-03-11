@@ -8,7 +8,7 @@ import '../../screens/cart/cart_screen.dart';
 
 class GoToCart extends StatefulWidget {
   final String usedIn;
-  const GoToCart({super.key, this.usedIn='all'});
+  const GoToCart({super.key, this.usedIn = 'all'});
 
   @override
   State<GoToCart> createState() => _GoToCartState();
@@ -18,14 +18,20 @@ class _GoToCartState extends State<GoToCart> {
   @override
   Widget build(BuildContext context) {
     final MyCartController controller = Get.put(MyCartController());
-
     final AddToCartController addToCartController =
         Get.put(AddToCartController());
 
     return Obx(() {
+      final double totalAmount =
+          double.parse(controller.mycartTotalAmount.value);
+      final int valueLength = totalAmount.toInt().toString().length;
+      final double fontSize =
+          20 - (valueLength - 1) * 2; // Adjust the scaling factor as needed
+
       return Padding(
         padding: EdgeInsets.symmetric(
-          vertical: getProportionateScreenHeight(widget.usedIn=='Home'? 20: 8.0),
+          vertical:
+              getProportionateScreenHeight(widget.usedIn == 'Home' ? 20 : 8.0),
           horizontal: getProportionateScreenWidth(16.0),
         ),
         child: Row(
@@ -45,38 +51,40 @@ class _GoToCartState extends State<GoToCart> {
                         style: Theme.of(context)
                             .textTheme
                             .headlineLarge!
-                            .copyWith(fontWeight: FontWeight.w700, fontSize: 20),
+                            .copyWith(
+                                fontWeight: FontWeight.w700,
+                                fontSize: fontSize),
                       ),
-
                       Text(" | ${addToCartController.productCount.value} items")
                     ],
                   ),
                 ],
               ),
             ),
-            const SizedBox(
-              width: 90,
-            ),
-            Expanded(
-              flex: 2,
-              child: ElevatedButton(
-                style: ButtonStyle(
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(
-                          30), // Adjust the radius as needed
-                    ),
-                  ),
-                  minimumSize: MaterialStateProperty.all(
-                    Size.fromHeight(
-                      getProportionateScreenHeight(48),
-                    ),
+            const Spacer(),
+            ElevatedButton(
+              style: ButtonStyle(
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(
+                        30), // Adjust the radius as needed
                   ),
                 ),
-                onPressed: () {
-                  Navigator.of(context).pushNamed(CartScreen.routeName);
-                },
-                child: const Text('View cart', maxLines: 1, overflow: TextOverflow.ellipsis,),
+                minimumSize: MaterialStateProperty.all(
+                  Size(
+                    getProportionateScreenWidth(2), // Width
+                    getProportionateScreenHeight(40), // Height
+                  ),
+                ),
+              ),
+              onPressed: () {
+                Navigator.of(context).pushNamed(CartScreen.routeName);
+              },
+              child: const Text(
+                'View cart',
+                maxLines: 1,
+                style: TextStyle(fontSize: 16),
+                overflow: TextOverflow.ellipsis,
               ),
             ),
           ],

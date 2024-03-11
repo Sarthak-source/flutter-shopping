@@ -221,12 +221,13 @@ class _MyOrderDetailState extends State<MyOrderDetail> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
       child: Container(
-          alignment: Alignment.center,
-          child: Text(
-            title,
-            style: const TextStyle(
-                fontWeight: FontWeight.bold, fontSize: 10, color: Colors.black),
-          )),
+        alignment: Alignment.center,
+        child: Text(
+          title,
+          style: const TextStyle(
+              fontWeight: FontWeight.bold, fontSize: 10, color: Colors.black),
+        ),
+      ),
     );
   }
 
@@ -246,15 +247,17 @@ class _MyOrderDetailState extends State<MyOrderDetail> {
           width: 16,
         ),
         Expanded(
-            flex: 1,
-            child: Text(values,
-                style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: values == "Approved"
-                          ? kTextGreenColor
-                          : kTextBlackColor,
-                    ))),
+          flex: 1,
+          child: Text(
+            values,
+            style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color:
+                      values == "Approved" ? kTextGreenColor : kTextBlackColor,
+                ),
+          ),
+        ),
       ],
     );
   }

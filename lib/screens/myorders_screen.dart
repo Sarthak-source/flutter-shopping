@@ -562,8 +562,10 @@ class MyOrderCards extends StatelessWidget {
 
 }
 setAddress(myOrderList, String s) {
+  log(myOrderList.toString());
+  log(s.toString());
   if(myOrderList != null){
-    return myOrderList[s];
+    return myOrderList[s].toString();
   }else {
     return "";
   }

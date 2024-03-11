@@ -164,10 +164,9 @@ class _OtpScreenState extends State<OtpScreen> {
               numberOfFields: 4,
               borderRadius: const BorderRadius.all(Radius.circular(15)),
               fillColor: const Color.fromARGB(255, 233, 233, 233),
-
               borderWidth: 1,
               filled: true,
-
+              textStyle: const TextStyle(fontSize: 20),
               focusedBorderColor: kPrimaryBlue,
               fieldWidth: 60,
               margin: const EdgeInsets.only(right: 10.0, left: 10.0),

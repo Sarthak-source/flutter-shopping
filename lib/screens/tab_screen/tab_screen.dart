@@ -26,39 +26,39 @@ class TabScreen extends StatefulWidget {
 
 class TabScreenState extends State<TabScreen> {
   int curTab = 0;
-  final dealsController = Get.put(DealsController(),permanent: true);
-  final categoriesController = Get.put( CategoriesController(),permanent: true);
-  final popularController = Get.put( PopularDealController(categoryId: ""),permanent: true);
-  final prodDetailController = Get.put( ProductDetailController(),permanent: true);
+  final dealsController = Get.put(DealsController(), permanent: true);
+  final categoriesController = Get.put(CategoriesController(), permanent: true);
+  final popularController =
+      Get.put(PopularDealController(categoryId: ""), permanent: true);
+  final prodDetailController =
+      Get.put(ProductDetailController(), permanent: true);
   //final userController = Get.put(UserController());
-
 
   @override
   void initState() {
     super.initState();
     curTab = widget.pageIndex ?? 0;
     print('tab screen:::');
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      popularController.fetchPopularDeals();
+      popularController.update();
+      dealsController.fetchDealss();
+      dealsController.update();
+      categoriesController.getCategories();
+      categoriesController.update();
+    });
 
-    popularController.fetchPopularDeals();
-    popularController.update();
-    dealsController.fetchDealss();
-    dealsController.update();
-    categoriesController.getCategories();
-    categoriesController.update();
     //userController.getUserData();
-
-
   }
+
   @override
   Widget build(BuildContext context) {
-
     List<Widget> pages = [
-       const HomeScreen(),
-       const FavScreen(),
+      const HomeScreen(),
+      const FavScreen(),
       CartScreen(),
       const PaymentScreen(),
       UserScreen(),
-      
     ];
 
     final AddToCartController addToCartController =
@@ -66,9 +66,10 @@ class TabScreenState extends State<TabScreen> {
 
     return Obx(() {
       return Scaffold(
-       
-        bottomSheet: (addToCartController.productCount > 0 && curTab!=2)
-            ? const GoToCart( usedIn: 'home',)
+        bottomSheet: (addToCartController.productCount > 0 && curTab != 2)
+            ? const GoToCart(
+                usedIn: 'home',
+              )
             : const SizedBox.shrink(),
         body: SafeArea(
           child: pages[curTab],

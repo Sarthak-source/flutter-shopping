@@ -40,14 +40,13 @@ class _HomeScreenState extends State<HomeScreen> {
 //  final CategoriesController categoriesController = Get.find();
   //final PopularDealController popularController = Get.find();
   final dealsController = Get.put(DealsController());
-  final categoriesController = Get.put( CategoriesController());
-  final popularController = Get.put( PopularDealController(categoryId: ""));
+  final categoriesController = Get.put(CategoriesController());
+  final popularController = Get.put(PopularDealController(categoryId: ""));
   final controller = Get.put(DealsController());
   @override
   void initState() {
     super.initState();
     print('home screen:::');
-
 
     /*dealsController.fetchDealss();
     dealsController.update();
@@ -62,32 +61,34 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     ScreenUtils().init(context);
 
-    return Obx( () =>
-       CustomScrollView(
+    return Obx(
+      () => CustomScrollView(
         slivers: [
           SliverToBoxAdapter(
             child: Container(
-            //  color:  Colors.grey.shade200,
-              color:  kPrimaryBlueTest2,
+              //  color:  Colors.grey.shade200,
+              color: kPrimaryBlueTest2,
               height: 80,
-             // color:  Colors.red,
+              // color:  Colors.red,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 0),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 14, vertical: 0),
                     child: Hero(
                       tag: 'search',
                       child: Container(
                         height: 50,
                         decoration: BoxDecoration(
-                       //   color:  Colors.grey.shade200,
-                          color:  Colors.grey.shade200,
+                          //   color:  Colors.grey.shade200,
+                          color: Colors.grey.shade200,
                           border: Border.all(
                             color: Colors.grey, // Border color
                             width: 1.0, // Border width
                           ),
-                          borderRadius: BorderRadius.circular(12), // Border radius
+                          borderRadius:
+                              BorderRadius.circular(12), // Border radius
                         ),
                         child: SearchBar(
                           elevation: MaterialStateProperty.resolveWith<double?>(
@@ -99,32 +100,36 @@ class _HomeScreenState extends State<HomeScreen> {
                               return 0.0; // Default elevation
                             },
                           ),
-                          backgroundColor:MaterialStateProperty.resolveWith<Color?>(
-                                (Set<MaterialState> states) {
+                          backgroundColor:
+                              MaterialStateProperty.resolveWith<Color?>(
+                            (Set<MaterialState> states) {
                               // Define the elevation based on different states
                               if (states.contains(MaterialState.pressed)) {
                                 return Colors.white; // Elevation when pressed
                               }
-                              return  Colors.grey.shade200; // Default elevation
+                              return Colors.grey.shade200; // Default elevation
                             },
                           ),
                           hintText: 'Search...',
-                          hintStyle: MaterialStateProperty.resolveWith<TextStyle?>(
+                          hintStyle:
+                              MaterialStateProperty.resolveWith<TextStyle?>(
                             (Set<MaterialState> states) {
                               // Define the TextStyle based on different states
                               if (states.contains(MaterialState.pressed)) {
                                 return const TextStyle(
                                   color:
-                                      Colors.blue, // Change the text color when pressed
+                                      kPrimaryBlueTest2, // Change the text color when pressed
                                   fontStyle: FontStyle
                                       .italic, // Change the font style when pressed
-                                  fontSize: 16, // Change the font size when pressed
+                                  fontSize:
+                                      16, // Change the font size when pressed
                                   // Add any other TextStyle properties you want to customize
                                 );
                               }
                               return const TextStyle(
                                 color: Colors.grey, // Default text color
-                                fontStyle: FontStyle.normal, // Default font style
+                                fontStyle:
+                                    FontStyle.normal, // Default font style
                                 fontSize: 16, // Default font size
                                 // Add any other TextStyle properties you want to customize
                               );
@@ -144,10 +149,8 @@ class _HomeScreenState extends State<HomeScreen> {
           SliverToBoxAdapter(
             child: HomeAppBar(),
           ),
-
-          SliverToBoxAdapter(
-              child: CategoryTab()),
-       /*   SliverToBoxAdapter(
+          SliverToBoxAdapter(child: CategoryTab()),
+          /*   SliverToBoxAdapter(
             child:     const Divider(),
           ),*/
           SliverToBoxAdapter(
@@ -155,7 +158,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           SliverToBoxAdapter(
             child: Container(
-             // color: Colors.grey.shade300,
+              // color: Colors.grey.shade300,
               color: kPrimaryBlueTest,
               child: TabTitle(
                 title: 'Popular Products',
@@ -166,31 +169,30 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           SliverToBoxAdapter(
-              child: PopularDealTab(categoryId: "",)),
-
-
+              child: PopularDealTab(
+            categoryId: "",
+          )),
           SliverToBoxAdapter(
             child: Container(
               //height: 200,
               width: Get.width,
-            //  color: Colors.grey.shade300,
+              //  color: Colors.grey.shade300,
               color: kPrimaryBlueTest,
-             child: ExploreNewCategory(),
+              child: ExploreNewCategory(),
             ),
           ),
           const SliverToBoxAdapter(
-            child:  ExploreMoreProducts(categoryId: "",)
-          ),
+              child: ExploreMoreProducts(
+            categoryId: "",
+          )),
           SliverToBoxAdapter(
             child: Container(
               height: 20,
               width: Get.width,
-             // color: Colors.grey.shade300,
+              // color: Colors.grey.shade300,
               color: kPrimaryBlueTest,
-
             ),
           ),
-
           (addToCardController.productCount.value > 0)
               ? const SliverToBoxAdapter(
                   child: SizedBox(
@@ -206,8 +208,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-
-
 class DealsTab extends StatelessWidget {
   final DealsController controller = Get.put(DealsController());
 
@@ -216,10 +216,10 @@ class DealsTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-     // color: controller.deals.isEmpty?Colors.white:Colors.grey.shade300,
-      color: controller.deals.isEmpty?Colors.white:kPrimaryBlueTest,
+      // color: controller.deals.isEmpty?Colors.white:Colors.grey.shade300,
+      color: controller.deals.isEmpty ? Colors.white : kPrimaryBlueTest,
       child: Column(
-       // crossAxisAlignment: CrossAxisAlignment.start,
+        // crossAxisAlignment: CrossAxisAlignment.start,
         //mainAxisAlignment: MainAxisAlignment.start,
         children: [
           TabTitle(
@@ -227,9 +227,8 @@ class DealsTab extends StatelessWidget {
               seeAll: () {
                 Get.toNamed(SpecialDealScreen.routeName);
               }),
-
           GetBuilder<DealsController>(builder: (context) {
-              if (controller.deals.isEmpty) {
+            if (controller.deals.isEmpty) {
               return Shimmer.fromColors(
                 baseColor: Colors.grey[300]!,
                 highlightColor: Colors.grey[100]!,
@@ -248,40 +247,39 @@ class DealsTab extends StatelessWidget {
                   ),
                 ),
               );
-            }
-            else if (controller.hasError.value) {
+            } else if (controller.hasError.value) {
               return Text('Error: ${controller.errorMsg.value}');
-            }else {
-                return SizedBox(
-                    height: 200,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount:
+            } else {
+              return SizedBox(
+                height: 200,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount:
                       controller.deals.length, // Set the total number of items
-                      itemBuilder: (BuildContext context, int index) {
-                        // Return your item widget based on the index
-                        //log(controller.deals.toString());
-                        return InkWell(
-                          onTap: () {
-                            log('message, ${controller.deals[index]}');
-                            Get.toNamed(
-                              PoductsListScreen.routeName,
-                              arguments: PoductsListArguments(
-                                title: controller.deals[index]['heading'],
-                                categoryId:
+                  itemBuilder: (BuildContext context, int index) {
+                    // Return your item widget based on the index
+                    //log(controller.deals.toString());
+                    return InkWell(
+                      onTap: () {
+                        log('message, ${controller.deals[index]}');
+                        Get.toNamed(
+                          PoductsListScreen.routeName,
+                          arguments: PoductsListArguments(
+                            title: controller.deals[index]['heading'],
+                            categoryId:
                                 controller.deals[index]['category'].toString(),
-                              ),
-                            );
-                          },
-                          child: DealCard(
-                            image: controller.deals[index]['deal_img'],
-                            heading: controller.deals[index]['heading'],
                           ),
-                        ); // Replace with your actual item widget
+                        );
                       },
-                    ),
-                  );
-              }
+                      child: DealCard(
+                        image: controller.deals[index]['deal_img'],
+                        heading: controller.deals[index]['heading'],
+                      ),
+                    ); // Replace with your actual item widget
+                  },
+                ),
+              );
+            }
             // SingleChildScrollView(
             //   scrollDirection: Axis.horizontal,
             //   child: Row(
@@ -308,9 +306,9 @@ class HomeAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(() {
       return Container(
-      //  height: 80,
+        //  height: 80,
         //color: Colors.grey.shade200,
-        color: kPrimaryBlueTest,
+        color: kPrimaryBlueTest2,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -326,11 +324,9 @@ class HomeAppBar extends StatelessWidget {
                 },
                 child: Row(
                   children: [
-
                     Expanded(
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
-
                         children: [
                           //Text(userController.user.toString()),
                           IconButton(
@@ -340,14 +336,15 @@ class HomeAppBar extends StatelessWidget {
                                 color: Colors.grey,
                               )),
                           Text(
-                            userController.user['party']?['address']?['address_line1'] ??
+                            userController.user['party']?['address']
+                                    ?['address_line1'] ??
                                 'Loading...',
                             style: TextStyle(
                               color: kTextColorAccent,
                               fontSize: getProportionateScreenWidth(12),
                             ),
                           ),
-                           const SizedBox(width: 10),
+                          const SizedBox(width: 10),
                           Text(
                             userController.user['party']?['address']
                                     ?['address_line2'] ??

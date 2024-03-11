@@ -35,7 +35,7 @@ class PaymentController extends GetxController {
       isLoading.value = true;
       var responseData = await NetworkRepository.getPayments(
           dispatchParty: storedUserData['party']['id'].toString());
-          log("paymentData ${responseData.toString()}");
+      log("paymentData ${responseData.toString()}");
       List paymentData = responseData['body']['results'];
       log(paymentData.toString());
       payment.value = paymentData;
@@ -56,8 +56,8 @@ class PaymentController extends GetxController {
       //log(categoryId.toString());
 
       isLoading.value = true;
-      var responseData =
-          await NetworkRepository.invoiceList(storedUserData['party']['id'].toString());
+      var responseData = await NetworkRepository.invoiceList(
+          storedUserData['party']['id'].toString());
       List invoicesDataList = responseData['body'][0]['invoice_items'];
       invoicesList.value = invoicesDataList;
       //log(invoicesList.toString());
@@ -86,9 +86,10 @@ class PaymentController extends GetxController {
           amount: amount,
           paymentMode: paymentMode,
           paymentDate: paymentDate,
-          collectedBy: collectedBy, status: status);
+          collectedBy: collectedBy,
+          status: status);
       var popularDealData = responseData;
-      
+
       log(popularDealData.toString());
     } catch (e) {
       errorMsg.value = e.toString();

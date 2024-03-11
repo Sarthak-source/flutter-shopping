@@ -161,7 +161,7 @@ class NetworkRepository {
     }
   }
 
- static Future invoiceList(String partyId) async {
+  static Future invoiceList(String partyId) async {
     log("${ApiAppConstants.apiEndPoint}${ApiAppConstants.partyConfig}?party=$partyId");
     try {
       final apiResponse = await NetworkDioHttp.getDioHttpMethod(
@@ -304,16 +304,14 @@ class NetworkRepository {
       required String paymentDate,
       required String status,
       required String collectedBy}) async {
-
-        log({
-          'invoice': invoice,
-          'amount': amount,
-          'payment_mode': paymentMode,
-          'status':status,
-          'payment_date': paymentDate,
-          'collected_by': collectedBy,
-        }.toString());
-
+    log({
+      'invoice': invoice,
+      'amount': amount,
+      'payment_mode': paymentMode,
+      'status': status,
+      'payment_date': paymentDate,
+      'collected_by': collectedBy,
+    }.toString());
 
     try {
       final apiResponse = await NetworkDioHttp.postDioHttpMethod(
@@ -323,7 +321,7 @@ class NetworkRepository {
           'invoice': invoice,
           'amount': amount,
           'payment_mode': paymentMode,
-          'status':status,
+          'status': status,
           'payment_date': paymentDate,
           'collected_by': collectedBy,
         },
@@ -680,6 +678,8 @@ class NetworkRepository {
         "address": address,
       };
       log("dataposted $data");
+
+      log('${ApiAppConstants.apiEndPoint}${ApiAppConstants.createorderapi}?party=$party');
       final apiResponse = await NetworkDioHttp.postDioHttpMethod(
         url:
             "${ApiAppConstants.apiEndPoint}${ApiAppConstants.createorderapi}?party=$party",

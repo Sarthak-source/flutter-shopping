@@ -25,7 +25,7 @@ class AddButton extends StatefulWidget {
     required this.qtyController,
     required this.isLoading,
     this.width = 80.0,
-    this.textWidth=60,
+    this.textWidth = 60,
   }) : super(key: key);
 
   @override
@@ -63,10 +63,10 @@ class _AddButtonState extends State<AddButton> {
             child: OutlinedButton(
               style: OutlinedButton.styleFrom(
                 side: const BorderSide(
-                    color: Colors.grey), // Specify the border color here
+                    color: Colors.pink), // Specify the border color here
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(
-                      8.0), // Adjust the border radius as needed
+                      10.0), // Adjust the border radius as needed
                 ),
               ),
               onPressed: widget.onAddPressed,
@@ -79,7 +79,13 @@ class _AddButtonState extends State<AddButton> {
                       print('controller.rxQty.value::: ${controller.rxQty.value}');
                     });
                   },*/
-              child: const Text('Add', style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: Colors.grey),),
+              child: const Text(
+                'Add',
+                style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.pink),
+              ),
             ),
           )
         :
@@ -92,13 +98,13 @@ class _AddButtonState extends State<AddButton> {
             : Container(
                 decoration: BoxDecoration(
                   borderRadius:
-                      BorderRadius.circular(5), // Set the border radius here
+                      BorderRadius.circular(10), // Set the border radius here
                   border: Border.all(
-                    color: Colors.grey, // Specify the border color here
+                    color: Colors.pink, // Specify the border color here
                   ),
                 ),
                 width: quantity.toString().length == 1
-                    ? (widget.textWidth!+20)
+                    ? (widget.textWidth! + 20)
                     : widget.textWidth! + 18.0 * quantity.toString().length,
                 // : 60 + 18.0 * controller.rxQty.value.length,
                 child: Row(
@@ -120,13 +126,14 @@ class _AddButtonState extends State<AddButton> {
                         height: 30,
                         decoration: const BoxDecoration(
                             //shape: BoxShape.circle,
-                            color: Colors.grey,
+                            color: Colors.pink,
                             // borderRadius:  BorderRadius.circular(5),
                             borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(5),
-                                bottomLeft: Radius.circular(5))),
+                                topLeft: Radius.circular(10),
+                                bottomLeft: Radius.circular(10))),
                         child: const Icon(Icons.remove,
-                            size: 20, color: Color.fromARGB(255, 213, 213, 213)),
+                            size: 20,
+                            color: Color.fromARGB(255, 213, 213, 213)),
                       ),
                     ),
                     const Spacer(),
@@ -186,12 +193,13 @@ class _AddButtonState extends State<AddButton> {
                         height: 30,
                         decoration: const BoxDecoration(
                             //shape: BoxShape.circle,
-                            color: Colors.grey,
+                            color: Colors.pink,
                             borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(5),
-                                bottomRight: Radius.circular(5))),
+                                topRight: Radius.circular(10),
+                                bottomRight: Radius.circular(10))),
                         child: const Icon(Icons.add,
-                            size: 20, color: Color.fromARGB(255, 213, 213, 213)),
+                            size: 20,
+                            color: Color.fromARGB(255, 213, 213, 213)),
                       ),
                     ),
                   ],
