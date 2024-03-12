@@ -66,7 +66,7 @@ class AddToCartController extends GetxController {
       var addToCartData = responseData;
       //addToCartList.add(addToCartData);
 
-productCount.value = addToCartData['party_cart_count'].toInt();
+      productCount.value = addToCartData['party_cart_count']?.toInt() ?? 0;
 
       // Update productCount value
       log("productCount ${addToCartData['party_cart_count']}");
