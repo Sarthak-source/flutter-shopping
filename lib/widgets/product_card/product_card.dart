@@ -119,41 +119,39 @@ class _ProductCardState extends State<ProductCard> {
                 child: SizedBox(
                     height: getProportionateScreenHeight(55.0),
                     child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                   
-                    Text(
-                      widget.product?['name'] ?? "Not given",
-                      maxLines: 2,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyMedium
-                          ?.copyWith(fontWeight: FontWeight.w700, fontSize: 13),
-                    ),
-
-                    const Spacer(),
-
-                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "₹ ${convertDoubleToString(widget.product?['price'].toString() ?? '0.0 ')}",
+                          widget.product?['name'] ?? "Not given",
+                          maxLines: 2,
                           style: Theme.of(context)
                               .textTheme
-                              .bodyMedium!
-                              .copyWith(fontWeight: FontWeight.w600),
+                              .bodyMedium
+                              ?.copyWith(
+                                  fontWeight: FontWeight.w700, fontSize: 13),
                         ),
                         const Spacer(),
-                        Text(
-                          "${convertDoubleToString(widget.product?['packing_qty'].toString() ?? '0.0')} ${widget.product?['packing_uom']}",
-                          style: TextStyle(
-                            fontSize: getProportionateScreenWidth(12),
-                            color: kTextColorAccent,
-                          ),
+                        Row(
+                          children: [
+                            Text(
+                              "₹ ${convertDoubleToString(widget.product?['price'].toString() ?? '0.0 ')}",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .copyWith(fontWeight: FontWeight.w600),
+                            ),
+                            const Spacer(),
+                            Text(
+                              "${convertDoubleToString(widget.product?['packing_qty'].toString() ?? '0.0')} ${widget.product?['packing_uom']}",
+                              style: TextStyle(
+                                fontSize: getProportionateScreenWidth(12),
+                                color: kTextColorAccent,
+                              ),
+                            ),
+                          ],
                         ),
                       ],
-                    ),
-                  ],
-                )),
+                    )),
               ),
 
               const Spacer(),
@@ -228,6 +226,11 @@ class _ProductCardState extends State<ProductCard> {
                     controller.rxQty.value = quantity.value.toString();
                     addToCartController.addToCart(
                         quantity.value, widget.product?['id'], '1');
+                    if (quantity.value <
+                        int.parse(convertDoubleToString(
+                            widget.product['min_order_qty'] ?? "0.0"))) {
+                      quantity.value = 0;
+                    }
                     addToCartController.update();
                   },
                   qtyController: quantityCtrlr,

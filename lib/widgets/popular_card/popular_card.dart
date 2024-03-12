@@ -30,8 +30,7 @@ class PopularCard extends StatefulWidget {
 }
 
 class _PopularCardState extends State<PopularCard> {
-  RxInt quantity =
-      0.obs; // Initialize quantity as observable RxInt with value 0
+  RxInt quantity = 0.obs;
 
   @override
   void initState() {
@@ -323,9 +322,11 @@ class _PopularCardState extends State<PopularCard> {
                     addToCartController.update();
                     quantityCtrlr.text = quantity.value.toString();
                     controller.rxQty.value = quantity.value.toString();
+                    log("widget.product ${widget.product} ${quantity.value}");
                   },
                   onPlusPressed: () {
                     widget.onCardAddClicked();
+
                     //  final ValueNotifier<bool> isLoadingButton1 = ValueNotifier(false);
                     print(
                         'isloading in addtocart ${addToCartController.isLoading.value}');
@@ -339,26 +340,33 @@ class _PopularCardState extends State<PopularCard> {
                     addToCartController.addToCart(
                         quantity.value, widget.product?['id'], '1');
 
-                    addToCartController.productCount++;
+                    log("widget.product ${widget.product} ${quantity.value}");
                     addToCartController.update();
                   },
                   onMinusPressed: () {
                     widget.onCardMinusClicked();
                     //   if (quantity.value > 0) {
-                    // quantity.value--;
+                    quantity.value = widget.product['cart_count'];
+
                     String minOrder =
                         widget.product['increment_order_qty'].toString() ??
                             "0.0";
                     quantity.value = quantity.value -
                         int.parse(convertDoubleToString(minOrder));
-                    addToCartController.productCount--;
+                    //addToCartController.productCount--;
                     quantityCtrlr.text = quantity.value.toString();
                     controller.rxQty.value = quantity.value.toString();
                     addToCartController.addToCart(
                         quantity.value, widget.product?['id'], '1');
                     addToCartController.update();
                     //  }
+                    log("widget.product ${widget.product} ${quantity.value}");
 
+                    if (quantity.value <
+                        int.parse(convertDoubleToString(
+                            widget.product['min_order_qty'] ?? "0.0"))) {
+                      quantity.value = 0;
+                    }
                     /* quantity.value--;
                     addToCartController.productCount--;
                     addToCartController.addToCart(
