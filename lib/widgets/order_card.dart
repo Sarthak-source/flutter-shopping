@@ -244,7 +244,7 @@ class _OrderCardState extends State<OrderCard> {
                             ),
                           ),*/
                         AddButton(
-                          width: 200,
+                          width: 135,
                           textWidth: 110,
                           isLoading: false,
                           qty: quantity <

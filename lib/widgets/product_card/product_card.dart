@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:sutra_ecommerce/controllers/add_to_cart_controller.dart';
 import 'package:sutra_ecommerce/utils/common_functions.dart';
 import 'package:sutra_ecommerce/widgets/add_button.dart';
+import 'package:sutra_ecommerce/widgets/popular_card/popular_card.dart';
 
 import '../../constants/colors.dart';
 import '../../utils/screen_utils.dart';
@@ -36,7 +37,8 @@ class ProductCard extends StatefulWidget {
 class _ProductCardState extends State<ProductCard> {
   final TextEditingController quantityCtrlr = TextEditingController();
 
-  RxInt quantity = 0.obs; // Initialize quantity as observable RxInt with value 0
+  RxInt quantity =
+      0.obs; // Initialize quantity as observable RxInt with value 0
 
   @override
   void initState() {
@@ -60,90 +62,85 @@ class _ProductCardState extends State<ProductCard> {
       Get.put(AddToCartController());
   @override
   Widget build(BuildContext context) {
-   // log(widget.product.toString());
-
+    // log(widget.product.toString());
 
     return Padding(
-        padding: !widget.noPadding!
-            ? EdgeInsets.only(
-                left: widget.isLeft! ? getProportionateScreenWidth(16.0) : 0,
-                right: widget.isLeft! ? 0 : getProportionateScreenWidth(16.0),
-              )
-            : const EdgeInsets.all(0),
-        child: InkWell(
-          onTap: () {
-            //log(widget.product.toString());
-            // Get.toNamed(ProductDetailScreen.routeName,
-            //     arguments: ProductDetailArguments(productDetailData: widget.product));
-          },
-          child: Container(
-            padding: EdgeInsets.all(
-              getProportionateScreenWidth(1.0),
+      padding: !widget.noPadding!
+          ? EdgeInsets.only(
+              left: widget.isLeft! ? getProportionateScreenWidth(16.0) : 0,
+              right: widget.isLeft! ? 0 : getProportionateScreenWidth(16.0),
+            )
+          : const EdgeInsets.all(0),
+      child: InkWell(
+        onTap: () {
+          //log(widget.product.toString());
+          // Get.toNamed(ProductDetailScreen.routeName,
+          //     arguments: ProductDetailArguments(productDetailData: widget.product));
+        },
+        child: Container(
+          padding: EdgeInsets.all(
+            getProportionateScreenWidth(0.0),
+          ),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(
+              color: Colors.grey, // Border color
+              width: 1.0, // Border width
             ),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(
-                color: Colors.grey, // Border color
-                width: 1.0, // Border width
+            borderRadius: BorderRadius.circular(
+              getProportionateScreenWidth(
+                8,
               ),
-              borderRadius: BorderRadius.circular(
-                getProportionateScreenWidth(
-                  8,
-                ),
-              ),
-              // boxShadow: [
-              //   BoxShadow(
-              //     color: kShadowColor,
-              //     offset: Offset(
-              //       getProportionateScreenWidth(3),
-              //       getProportionateScreenWidth(3),
-              //     ),
-              //     blurRadius: 1,
-              //   )
-              // ],
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  height: getProportionateScreenHeight(130.0),
-                  decoration: BoxDecoration(
-                    color: kGreyShade5,
-                    image: DecorationImage(
-                      image: NetworkImage(
-                          widget.product?['product_img'] ?? "Not given"),
-                      fit: BoxFit.cover,
-                      scale: 0.4, // Adjust the fit based on your needs
-                    ),
-                    borderRadius: BorderRadius.circular(
-                      getProportionateScreenWidth(10.0),
-                    ),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                height: getProportionateScreenHeight(120.0),
+                decoration: BoxDecoration(
+                  color: kGreyShade5,
+                  image: DecorationImage(
+                    image: NetworkImage(
+                        widget.product?['product_img'] ?? "Not given"),
+                    fit: BoxFit.cover,
+                    scale: 0.4, // Adjust the fit based on your needs
+                  ),
+                  borderRadius: BorderRadius.circular(
+                    getProportionateScreenWidth(10.0),
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: getProportionateScreenWidth(10),
-                  ),
-                  child: SizedBox(
-                    height: getProportionateScreenHeight(80.0),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: getProportionateScreenWidth(10),
+                  vertical: getProportionateScreenHeight(5),
+                ),
+                child: SizedBox(
+                    height: getProportionateScreenHeight(55.0),
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                   
+                    Text(
+                      widget.product?['name'] ?? "Not given",
+                      maxLines: 2,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium
+                          ?.copyWith(fontWeight: FontWeight.w700, fontSize: 13),
+                    ),
+
+                    const Spacer(),
+
+                    Row(
                       children: [
-                        const Spacer(
-                          flex: 2,
-                        ),
-                        Hero(
-                          tag: 'productDetailName',
-                          child: Text(
-                            widget.product?['name'] ?? "Not given",
-                            maxLines: 1,
-                            style: Theme
-                                .of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.copyWith(
-                                fontWeight: FontWeight.w700, fontSize: 13),
-                          ),
+                        Text(
+                          "₹ ${convertDoubleToString(widget.product?['price'].toString() ?? '0.0 ')}",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium!
+                              .copyWith(fontWeight: FontWeight.w600),
                         ),
                         const Spacer(),
                         Text(
@@ -153,118 +150,140 @@ class _ProductCardState extends State<ProductCard> {
                             color: kTextColorAccent,
                           ),
                         ),
-                        const Spacer(),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: Row(
-                                children: [
-                                  Text(
-                                    "₹ ${convertDoubleToString(widget.product?['price'].toString() ?? '0.0 ')}",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium!
-                                        .copyWith(fontWeight: FontWeight.w600),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            
-                          ],
-                        )
                       ],
                     ),
-                  ),
+                  ],
+                )),
+              ),
+
+              const Spacer(),
+
+              //Text('data'),
+
+              //const Spacer(),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                child: AddButton(
+                  width: 165,
+                  textWidth: 150,
+                  isLoading: widget.loader ?? false,
+                  qty: quantity.value <
+                          int.parse(convertDoubleToString(
+                              widget.product['min_order_qty'] ?? "0.0"))
+                      ? 0
+                      : quantity.value,
+                  onChangedPressed: (value) {
+                    quantity.value = int.parse(value);
+                    quantityCtrlr.text = quantity.value.toString();
+                    controller.rxQty.value = quantity.value.toString();
+
+                    addToCartController.addToCart(
+                        quantity.value, widget.product?['id'], '1');
+                  },
+                  onAddPressed: () {
+                    //  quantity.value++;
+                    String minOrder = widget.product['min_order_qty'] == null
+                        ? "0.0"
+                        : widget.product['min_order_qty'].toString();
+                    quantity.value = quantity.value +
+                        int.parse(convertDoubleToString(minOrder));
+                    print(
+                        'onClick of Add ${int.parse(convertDoubleToString(minOrder))} :: ${quantity.value}');
+                    addToCartController.productCount++;
+                    addToCartController.addToCart(
+                        quantity.value, widget.product?['id'], '1');
+                    addToCartController.update();
+                    quantityCtrlr.text = quantity.value.toString();
+                    controller.rxQty.value = quantity.value.toString();
+                  },
+                  onPlusPressed: () {
+                    widget.onCardAddClicked();
+                    //  final ValueNotifier<bool> isLoadingButton1 = ValueNotifier(false);
+                    print(
+                        'isloading in addtocart ${addToCartController.isLoading.value}');
+                    controller.rxQty.value = quantity.value.toString();
+                    String minOrder =
+                        widget.product['increment_order_qty'].toString() ??
+                            "0.0";
+                    quantity.value = quantity.value +
+                        int.parse(convertDoubleToString(minOrder));
+                    quantityCtrlr.text = quantity.value.toString();
+                    addToCartController.addToCart(
+                        quantity.value, widget.product?['id'], '1');
+
+                    addToCartController.productCount++;
+                    addToCartController.update();
+                  },
+                  onMinusPressed: () {
+                    widget.onCardMinusClicked();
+                    //   if (quantity.value > 0) {
+                    // quantity.value--;
+                    String minOrder =
+                        widget.product['increment_order_qty'].toString() ??
+                            "0.0";
+                    quantity.value = quantity.value -
+                        int.parse(convertDoubleToString(minOrder));
+                    addToCartController.productCount--;
+                    quantityCtrlr.text = quantity.value.toString();
+                    controller.rxQty.value = quantity.value.toString();
+                    addToCartController.addToCart(
+                        quantity.value, widget.product?['id'], '1');
+                    addToCartController.update();
+                  },
+                  qtyController: quantityCtrlr,
                 ),
-                 const Spacer(),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                  child: AddButton(
-                                 width: 165,
-                                 textWidth: 150,
-                                isLoading: widget.loader ?? false,
-                                qty: quantity.value <
-                                        int.parse(convertDoubleToString(
-                                            widget.product['min_order_qty'] ??
-                                                "0.0"))
-                                    ? 0
-                                    : quantity.value,
-                                onChangedPressed: (value) {
-                                  quantity.value = int.parse(value);
-                                  quantityCtrlr.text = quantity.value.toString();
-                                  controller.rxQty.value =
-                                      quantity.value.toString();
-                
-                                  addToCartController.addToCart(
-                                      quantity.value, widget.product?['id'], '1');
-                                },
-                                onAddPressed: () {
-                                  //  quantity.value++;
-                                  String minOrder =
-                                      widget.product['min_order_qty'] == null
-                                          ? "0.0"
-                                          : widget.product['min_order_qty']
-                                              .toString();
-                                  quantity.value = quantity.value +
-                                      int.parse(convertDoubleToString(minOrder));
-                                  print(
-                                      'onClick of Add ${int.parse(convertDoubleToString(minOrder))} :: ${quantity.value}');
-                                  addToCartController.productCount++;
-                                  addToCartController.addToCart(
-                                      quantity.value, widget.product?['id'], '1');
-                                  addToCartController.update();
-                                  quantityCtrlr.text = quantity.value.toString();
-                                  controller.rxQty.value =
-                                      quantity.value.toString();
-                                },
-                                onPlusPressed: () {
-                                  widget.onCardAddClicked();
-                                  //  final ValueNotifier<bool> isLoadingButton1 = ValueNotifier(false);
-                                  print(
-                                      'isloading in addtocart ${addToCartController.isLoading.value}');
-                                  controller.rxQty.value =
-                                      quantity.value.toString();
-                                  String minOrder = widget
-                                          .product['increment_order_qty']
-                                          .toString() ??
-                                      "0.0";
-                                  quantity.value = quantity.value +
-                                      int.parse(convertDoubleToString(minOrder));
-                                  quantityCtrlr.text = quantity.value.toString();
-                                  addToCartController.addToCart(
-                                      quantity.value, widget.product?['id'], '1');
-                
-                                  addToCartController.productCount++;
-                                  addToCartController.update();
-                                },
-                                onMinusPressed: () {
-                                  widget.onCardMinusClicked();
-                                  //   if (quantity.value > 0) {
-                                  // quantity.value--;
-                                  String minOrder = widget
-                                          .product['increment_order_qty']
-                                          .toString() ??
-                                      "0.0";
-                                  quantity.value = quantity.value -
-                                      int.parse(convertDoubleToString(minOrder));
-                                  addToCartController.productCount--;
-                                  quantityCtrlr.text = quantity.value.toString();
-                                  controller.rxQty.value =
-                                      quantity.value.toString();
-                                  addToCartController.addToCart(
-                                      quantity.value, widget.product?['id'], '1');
-                                  addToCartController.update();
-                                  
-                                },
-                                qtyController: quantityCtrlr,
-                              ),
+              ),
+              const Spacer(),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  children: [
+                    quantity.value == 0
+                        ? const Text("")
+                        : Text(
+                            //newCrateValue,
+                            setCrateRate(quantity.value,
+                                    widget.product?['multipack_qty'] ?? "0.0")
+                                .toString(),
+                            //  setCrateRate(quantity.value, widget.product?['multipack_qty'] ?? 0).toString(),
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(
+                                    fontSize: 12, color: kTextColorAccent),
+                          ),
+                    Text(
+                      " ${widget.product?['multipack_uom'] == null ? "" : widget.product?['multipack_uom']}",
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium!
+                          .copyWith(fontSize: 12, color: kTextColorAccent),
+                    ),
+                    // const Spacer(),
+                    const Spacer(),
+                    Text(
+                      "${setPackingValue(quantity.value, widget.product['packing_qty'] ?? "0.0")} ",
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium!
+                          .copyWith(fontSize: 12, color: kTextColorAccent),
+                    ),
+                    Text(
+                      // "${widget.product?['packing_type'] ?? ""}",
+                      "no",
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium!
+                          .copyWith(fontSize: 12, color: kTextColorAccent),
+                    )
+                  ],
                 ),
-                 const Spacer(),
-              ],
-            ),
+              ),
+              const Spacer(),
+            ],
           ),
         ),
-      );
-  
+      ),
+    );
   }
 }

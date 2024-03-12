@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:sutra_ecommerce/constants/colors.dart';
 import 'package:sutra_ecommerce/controllers/payment_controller.dart';
 import 'package:sutra_ecommerce/screens/paymentScreen/addPayemntDetail.dart';
@@ -19,7 +20,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //backgroundColor: kPrimaryBlueTest2,
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(bottom: 80.0),
         child: FloatingActionButton.extended(
@@ -66,74 +66,102 @@ class _PaymentScreenState extends State<PaymentScreen> {
             child: Obx(
               () {
                 List paymentsList = paymentController.payment;
-                return ListView.builder(
-                  itemCount: paymentsList.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final payment = paymentsList[index];
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 4, horizontal: 12),
-                      child: Container(
-                        height: 120,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(
-                            color: Colors.grey, // Border color
-                            width: 1.0, // Border width
-                          ),
-                          borderRadius: BorderRadius.circular(
-                            getProportionateScreenWidth(
-                              8,
+                return paymentsList.isEmpty
+                    ? _buildShimmerLoading()
+                    : ListView.builder(
+                        itemCount: paymentsList.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          final payment = paymentsList[index];
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 4, horizontal: 12),
+                            child: Container(
+                              height: 90,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                border: Border.all(
+                                  color: Colors.grey,
+                                  width: 1.0,
+                                ),
+                                borderRadius: BorderRadius.circular(
+                                  getProportionateScreenWidth(8),
+                                ),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Text(
+                                          'Invoice: ${payment['invoice']}',
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        const Spacer(),
+                                        Text(
+                                          'Payment Type: ${payment['payment_mode']}',
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
+                                    const Spacer(),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          'Date: ${DateFormat('dd MMM yy').format(DateTime.parse(payment['payment_date']))}',
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        const Spacer(),
+                                        Text(
+                                          'Amount: ${payment['amount']}',
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Text(
-                                    'Invoice: ${payment['invoice']}',
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  const Spacer(),
-                                  Text(
-                                    'Payment Type: ${payment['payment_mode']}',
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              ),
-                              const Spacer(),
-                              Row(
-                                children: [
-                                  Text(
-                                    'Date: ${DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.parse(payment['payment_date']))}',
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  const Spacer(),
-                                  Text(
-                                    'Amount: ${payment['amount']}',
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                );
+                          );
+                        },
+                      );
               },
             ),
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildShimmerLoading() {
+    return ListView.builder(
+      itemCount: 5, // Placeholder count
+      itemBuilder: (context, index) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+          child: Shimmer.fromColors(
+            baseColor: Colors.grey[300]!,
+            highlightColor: Colors.grey[100]!,
+            child: Container(
+              height: 120,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border.all(
+                  color: Colors.grey,
+                  width: 1.0,
+                ),
+                borderRadius: BorderRadius.circular(
+                  getProportionateScreenWidth(8),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

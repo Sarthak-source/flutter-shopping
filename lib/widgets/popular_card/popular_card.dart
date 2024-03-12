@@ -153,10 +153,8 @@ class _PopularCardState extends State<PopularCard> {
                         color: kTextColorAccent,
                       ),
                     ),
-
                     const Spacer(),
-
-                     Text(
+                    Text(
                       "₹ ${convertDoubleToString(widget.product?['price'].toString() ?? '0.0 ')}",
                       style: Theme.of(context)
                           .textTheme
@@ -170,12 +168,11 @@ class _PopularCardState extends State<PopularCard> {
                           .bodyMedium!
                           .copyWith(fontSize: 10, color: kTextColorAccent),
                     ),
-                    
                   ],
                 ),
                 // Row(
                 //   children: [
-                   
+
                 //     const Spacer(),
                 //     // addToCartController.isLoading.value?Loader():
 
@@ -293,7 +290,7 @@ class _PopularCardState extends State<PopularCard> {
                 //   ],
                 // ),
                 const Spacer(),
-                
+
                 AddButton(
                   width: 135,
                   textWidth: 120,
@@ -374,8 +371,10 @@ class _PopularCardState extends State<PopularCard> {
                 ),
                 const Spacer(),
 
-                Row(children: [quantity.value == 0
-                        ? Text("")
+                Row(
+                  children: [
+                    quantity.value == 0
+                        ? const Text("")
                         : Text(
                             //newCrateValue,
                             setCrateRate(quantity.value,
@@ -396,7 +395,7 @@ class _PopularCardState extends State<PopularCard> {
                           .copyWith(fontSize: 12, color: kTextColorAccent),
                     ),
                     // const Spacer(),
-                    Spacer(),
+                    const Spacer(),
                     Text(
                       "${setPackingValue(quantity.value, widget.product['packing_qty'] ?? "0.0")} ",
                       style: Theme.of(context)
@@ -405,13 +404,15 @@ class _PopularCardState extends State<PopularCard> {
                           .copyWith(fontSize: 12, color: kTextColorAccent),
                     ),
                     Text(
-                     // "${widget.product?['packing_type'] ?? ""}",
+                      // "${widget.product?['packing_type'] ?? ""}",
                       "no",
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium!
                           .copyWith(fontSize: 12, color: kTextColorAccent),
-                    )],)
+                    )
+                  ],
+                )
               ],
             ),
           ),

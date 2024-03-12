@@ -8,7 +8,6 @@ import 'package:sutra_ecommerce/widgets/go_cart/go_to_cart.dart';
 import 'package:sutra_ecommerce/widgets/product_card/product_card.dart';
 import 'package:sutra_ecommerce/widgets/search_bar.dart' as search;
 
-import '../../constants/colors.dart';
 import '../../utils/screen_utils.dart';
 import '../../widgets/custom_app_bar.dart';
 
@@ -184,7 +183,7 @@ class _CustomStaggerGridState extends State<CustomStaggerGrid> {
                 const Text(
                   'No products found',
                   style: TextStyle(
-                      fontWeight: FontWeight.w600, color: kPrimaryBlue),
+                      fontWeight: FontWeight.w600, ),
                 ),
               ],
             );
@@ -197,7 +196,7 @@ class _CustomStaggerGridState extends State<CustomStaggerGrid> {
                   crossAxisSpacing: getProportionateScreenWidth(8),
                   mainAxisSpacing: getProportionateScreenHeight(5),
                   childAspectRatio:
-                      widget.childAspectRatio ?? (Get.width / Get.height) * 1.55),
+                      widget.childAspectRatio ?? (Get.width / Get.height) * 1.68),
               itemBuilder: (ctx, index) {
                 if (index % 2 != 0) {
                   return ProductCard(

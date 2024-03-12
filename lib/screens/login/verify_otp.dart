@@ -9,6 +9,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:sutra_ecommerce/constants/colors.dart';
 import 'package:sutra_ecommerce/screens/tab_screen/tab_screen.dart';
+import 'package:sutra_ecommerce/utils/network_repository.dart';
 import 'package:sutra_ecommerce/utils/screen_utils.dart';
 class OtpScreenArguments {
   final String phoneNumber;
@@ -66,31 +67,31 @@ class _OtpScreenState extends State<OtpScreen> {
       try {
       //  Get.toNamed(TabScreen.routeName);
 
-        Get.offNamed(TabScreen.routeName);
+        //Get.offNamed(TabScreen.routeName);
 
-        // var value = await networkRepository.verifyLogin(
-        //   number: args.phoneNumber,
-        //   otp: otpController.text,
-        // );
+        var value = await networkRepository.verifyLogin(
+          number: args.phoneNumber,
+          otp: otpController.text,
+        );
 
-        // //log(value.toString());
+        //log(value.toString());
 
-        // if (value["type"].toString() == "error") {
-        //   Fluttertoast.showToast(msg: 'wrong OTP');
-        //   otpController.clear();
-        // } else {
-        //   Future.delayed(Duration.zero, () async {
-        //     try {
-        //       //await sendFCMAndLocation();
-        //     } catch (e) {
-        //       Fluttertoast.showToast(msg: e.toString());
-        //     }
-        //   });
+        if (value["type"].toString() == "error") {
+          Fluttertoast.showToast(msg: 'wrong OTP');
+          otpController.clear();
+        } else {
+          Future.delayed(Duration.zero, () async {
+            try {
+              //await sendFCMAndLocation();
+            } catch (e) {
+              Fluttertoast.showToast(msg: e.toString());
+            }
+          });
 
-        //   box!.put("login", true);
-        //   if (!context.mounted) return;
-        //   Get.toNamed(TabScreen.routeName);
-        // }
+          //box!.put("login", true);
+          if (!context.mounted) return;
+          Get.toNamed(TabScreen.routeName);
+        }
       } catch (error) {
         Fluttertoast.showToast(msg: 'Error verifying OTP');
       }
