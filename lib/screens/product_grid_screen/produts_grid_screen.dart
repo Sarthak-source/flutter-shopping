@@ -80,15 +80,17 @@ class PoductsListScreenState extends State<PoductsListScreen> {
                         ),
 
                   //SizedBox(width: Get.width/4,child: Text('data')),
-                  CustomStaggerGrid(
-                    addCallback: () {
-                      // setState(() {
-                      //   isAdded = true;
-                      // });
-                    },
-                    categoryId: args != null && args.categoryId != null
-                        ? args.categoryId
-                        : "",
+                  Expanded(
+                    child: CustomStaggerGrid(
+                      addCallback: () {
+                        // setState(() {
+                        //   isAdded = true;
+                        // });
+                      },
+                      categoryId: args != null && args.categoryId != null
+                          ? args.categoryId
+                          : "",
+                    ),
                   ),
                   (addToCartController.productCount.value > 0)
                       ? const SizedBox(
@@ -135,8 +137,7 @@ class _CustomStaggerGridState extends State<CustomStaggerGrid> {
       categoryId: widget.categoryId ?? '',
     ));
 
-    return Expanded(
-      child: Obx(() {
+    return  Obx(() {
         if (controller.isLoading.value) {
           // If the Future is still running, show a loading indicator
           return Padding(
@@ -249,8 +250,8 @@ class _CustomStaggerGridState extends State<CustomStaggerGrid> {
             );
           }
         }
-      }),
-    );
+      });
+    
   }
 }
 
