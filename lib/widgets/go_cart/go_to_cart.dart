@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sutra_ecommerce/constants/colors.dart';
 import 'package:sutra_ecommerce/controllers/add_to_cart_controller.dart';
 import 'package:sutra_ecommerce/controllers/mycart_controller.dart';
 import 'package:sutra_ecommerce/utils/screen_utils.dart';
@@ -22,7 +23,8 @@ class _GoToCartState extends State<GoToCart> {
         Get.put(AddToCartController());
 
     return Obx(() {
-      final double totalAmount = double.parse(controller.mycartTotalAmount.value);
+      final double totalAmount =
+          double.parse(controller.mycartTotalAmount.value);
       final int valueLength = totalAmount.toInt().toString().length;
       final double fontSize =
           20 - (valueLength - 1) * 2; // Adjust the scaling factor as needed
@@ -36,6 +38,33 @@ class _GoToCartState extends State<GoToCart> {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
+            Transform.translate(
+              offset: const Offset(0, -6),
+              child: Container(
+                width: 40, // Adjust width and height as needed
+                height: 40,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 2,
+                      blurRadius: 3,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: const Icon(
+                  Icons.shopping_bag,
+                  size: 30,
+                  color: kPrimaryBlue,
+                ),
+              ),
+            ),
+            const SizedBox(
+              width: 10,
+            ),
             SizedBox(
               height: 60,
               child: Column(
