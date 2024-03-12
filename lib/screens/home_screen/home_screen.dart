@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -168,7 +169,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          SliverToBoxAdapter(
+          const SliverToBoxAdapter(
               child: PopularDealTab(
             categoryId: "",
           )),
@@ -208,10 +209,56 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-class DealsTab extends StatelessWidget {
+class DealsTab extends StatefulWidget {
+  DealsTab({super.key});
+
+  @override
+  State<DealsTab> createState() => _DealsTabState();
+}
+
+class _DealsTabState extends State<DealsTab> {
   final DealsController controller = Get.put(DealsController());
 
-  DealsTab({super.key});
+  final ScrollController _scrollController = ScrollController();
+
+  late Timer _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    _startTimer();
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _startTimer() {
+  _timer = Timer.periodic(const Duration(seconds: 5), (timer) {
+    if (_scrollController.hasClients) {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+       
+        _scrollController.animateTo(
+          0,
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeOut,
+        );
+      } else {
+        
+        _scrollController.animateTo(
+          _scrollController.position.pixels + getProportionateScreenWidth(280),
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeOut,
+        );
+      }
+    }
+  });
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -235,6 +282,7 @@ class DealsTab extends StatelessWidget {
                 child: SizedBox(
                   height: 140,
                   child: ListView.builder(
+                     controller: _scrollController,
                     clipBehavior: Clip.none,
                     scrollDirection: Axis.horizontal,
                     itemCount: 5, // Use a placeholder count
@@ -253,6 +301,7 @@ class DealsTab extends StatelessWidget {
               return SizedBox(
                 height: 200,
                 child: ListView.builder(
+                   controller: _scrollController,
                   scrollDirection: Axis.horizontal,
                   itemCount:
                       controller.deals.length, // Set the total number of items
