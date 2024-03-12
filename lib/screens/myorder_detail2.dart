@@ -39,59 +39,6 @@ class _MyOrderDetail2State extends State<MyOrderDetail2> {
 
   @override
   Widget build(BuildContext context) {
-    final List<ODdatas> oddatas = [
-      ODdatas(
-          image:
-              "http://www.dilicia.in/plugins/parallax2/images/product/full%20cream%20milk.png",
-          title: "Full Cream Milk",
-          qty: "2",
-          price: "20",
-          total: "100",
-          gst: "2",
-          sgst: "2"),
-      ODdatas(
-          image: "http://www.dilicia.in/images/product/Toned%20milk.png",
-          title: "Tonned Milk",
-          qty: "2",
-          price: "20",
-          total: "100",
-          gst: "2",
-          sgst: "2"),
-      ODdatas(
-          image:
-              "http://www.dilicia.in/images/product/Doubel%20toned%20milk.png",
-          title: "Double Tonned Milk",
-          qty: "2",
-          price: "20",
-          total: "100",
-          gst: "2",
-          sgst: "2"),
-      ODdatas(
-          image: "http://www.dilicia.in/images/product/standerd%20milk.png",
-          title: "Standardised Milk",
-          qty: "2",
-          price: "20",
-          total: "100",
-          gst: "2",
-          sgst: "2"),
-      ODdatas(
-          image: "http://www.dilicia.in/images/product/Ghee.png",
-          title: "Buffalo Ghee",
-          qty: "2",
-          price: "20",
-          total: "100",
-          gst: "2",
-          sgst: "2"),
-      ODdatas(
-          image: "http://www.dilicia.in/images/product/Cow%20Ghee.png",
-          title: "Cow Ghee",
-          qty: "2",
-          price: "20",
-          total: "100",
-          gst: "2",
-          sgst: "2"),
-    ];
-
     //var deviceheight = MediaQuery.of(context).size.height;
     var devicewidth = MediaQuery.of(context).size.width;
     return GetBuilder<MyOrderController>(builder: (controller) {
@@ -339,9 +286,10 @@ class _MyOrderDetail2State extends State<MyOrderDetail2> {
                               shrinkWrap: true,
                               itemCount: controller.myOrderDetailList.length,
                               itemBuilder: (context, index) {
-                                return OrderTile(context, oddatas[index],
+                                return OrderTile(context,
                                     controller.myOrderDetailList[index]);
-                              }),
+                              },
+                            ),
                 ),
               ),
             ],
@@ -351,7 +299,7 @@ class _MyOrderDetail2State extends State<MyOrderDetail2> {
     });
   }
 
-  Container OrderTile(BuildContext context, ODdatas oddata, myOrderDetailList) {
+  Container OrderTile(BuildContext context, myOrderDetailList) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,

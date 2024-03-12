@@ -64,7 +64,7 @@ class UserScreen extends StatelessWidget {
             ),
             ProfileCard(
               image: 'assets/images/profile_user.png',
-              color: kAccentGreen,
+              color: kPrimaryBlue.withOpacity(0.2),
               title: 'My profile',
               tapHandler: () {
                 Get.toNamed(MyProfileScreen.routeName);
@@ -95,17 +95,17 @@ class UserScreen extends StatelessWidget {
             SizedBox(
               height: getProportionateScreenHeight(8.0),
             ),
-            const ProfileCard(
+            ProfileCard(
               image: 'assets/images/noti_user.png',
-              color: kAccentYellow,
+              color: kPrimaryBlue.withOpacity(0.2),
               title: 'Notification',
             ),
             SizedBox(
               height: getProportionateScreenHeight(8.0),
             ),
-            const ProfileCard(
+            ProfileCard(
               image: 'assets/images/check_user.png',
-              color: kAccentPurple,
+              color: kPrimaryBlue.withOpacity(0.2),
               title: 'Help Center',
             ),
             SizedBox(
@@ -113,7 +113,7 @@ class UserScreen extends StatelessWidget {
             ),
             ProfileCard(
               image: 'assets/images/arrow_user.png',
-              color: kAccentRed,
+              color: kPrimaryBlue.withOpacity(0.2),
               title: 'My Orders',
               tapHandler: () {
                 // Navigator.of(context).pushNamed(MyOrders.routeName);
@@ -125,7 +125,7 @@ class UserScreen extends StatelessWidget {
             ),
             ProfileCard(
                 image: 'assets/images/arrow_user.png',
-                color: kAccentRed,
+                color: kPrimaryBlue.withOpacity(0.2),
                 title: 'Log out',
                 tapHandler: () {
                   box!.deleteAll(['userData', 'login', 'isTestEnvironment']);
@@ -174,19 +174,25 @@ class ProfileCard extends StatelessWidget {
         child: Row(
           children: [
             Container(
-              padding: EdgeInsets.all(
-                getProportionateScreenWidth(8.0),
-              ),
-              decoration: ShapeDecoration(
-                color: color,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(
-                    getProportionateScreenWidth(8.0),
+                padding: EdgeInsets.all(
+                  getProportionateScreenWidth(8.0),
+                ),
+                decoration: ShapeDecoration(
+                  color: color,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(
+                      getProportionateScreenWidth(8.0),
+                    ),
                   ),
                 ),
-              ),
-              child: Image.asset(image),
-            ),
+                child: ColorFiltered(
+                  colorFilter: const ColorFilter.mode(
+                    kPrimaryBlue, // Adjust opacity as needed
+                    BlendMode
+                        .srcIn, // Choose blend mode according to your requirement
+                  ),
+                  child: Image.asset(image),
+                )),
             SizedBox(
               width: getProportionateScreenWidth(8.0),
             ),
