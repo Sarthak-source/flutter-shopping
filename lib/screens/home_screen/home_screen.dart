@@ -9,7 +9,6 @@ import 'package:sutra_ecommerce/controllers/get_deals_controller.dart';
 import 'package:sutra_ecommerce/controllers/user_controller.dart';
 import 'package:sutra_ecommerce/screens/home_screen/categories.dart';
 import 'package:sutra_ecommerce/screens/home_screen/popular_deals.dart';
-import 'package:sutra_ecommerce/screens/map_screen.dart';
 import 'package:sutra_ecommerce/screens/product_grid_screen/produts_grid_screen.dart';
 
 import '../../constants/colors.dart';
@@ -210,7 +209,7 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 class DealsTab extends StatefulWidget {
-  DealsTab({super.key});
+  const DealsTab({super.key});
 
   @override
   State<DealsTab> createState() => _DealsTabState();

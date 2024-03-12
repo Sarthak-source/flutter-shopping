@@ -41,24 +41,22 @@ class AddToCartController extends GetxController {
 
     cartController.updateCart(newCartItems,
         responseData); // Call the method in CartController to update cart data
-    if(newCartItems.length ==0){
+    if (newCartItems.length == 0) {
       print('newcart length zero${newCartItems.length}');
-      productCount.value=0;
+      productCount.value = 0;
     }
-    for(var i =0; i<=newCartItems.length ; i++){
+    for (var i = 0; i <= newCartItems.length; i++) {
       print('newCartItems count ${newCartItems[i]['party_cart_count']}');
 
-        productCount.value=newCartItems[i]['party_cart_count'].toInt();
-
-
-        }
+      productCount.value = newCartItems[i]['party_cart_count'].toInt();
+    }
   }
 
   void addToCart(count, product, party) async {
     try {
-      Map storedUserData=box!.get('userData');
+      Map storedUserData = box!.get('userData');
 
-     isLoading.value = true;
+      isLoading.value = true;
       var responseData = await NetworkRepository.addToCart(
           count: count.toString(),
           product: product.toString(),
@@ -66,20 +64,22 @@ class AddToCartController extends GetxController {
       log('responseData $responseData');
 
       var addToCartData = responseData;
-      addToCartList.add(addToCartData);
+      //addToCartList.add(addToCartData);
+
+      productCount.value = addToCartData['party_cart_count']?.toInt() ?? 0;
 
       // Update productCount value
-      log(productCount.value.toString());
+      log("productCount ${addToCartData['party_cart_count']}");
       update(); // Notify observers about the change
       cartController.getMyCart();
       cartController.update();
       popController.fetchPopularDeals();
       popController.update();
-      prodDetailController.fetchProductDetail( product.toString());
+      prodDetailController.fetchProductDetail(product.toString());
       prodDetailController.update();
-if(responseData != null ){
-  isLoading.value = false;
-}
+      if (responseData != null) {
+        isLoading.value = false;
+      }
 
       //productCount.value = double.parse((productCount.value/2).toString()).toInt() + double.parse(count).toInt();
     } catch (e) {
@@ -94,7 +94,7 @@ if(responseData != null ){
 
   void updateCart(count, cart, type, party) async {
     try {
-      Map storedUserData=box!.get('userData');
+      Map storedUserData = box!.get('userData');
       var responseData = await NetworkRepository.UpdateCart(
           count: count.toString(),
           cart: cart.toString(),
@@ -127,8 +127,7 @@ class StoreBinding implements Bindings {
   StoreBinding();
   @override
   void dependencies() {
-
-  //  Get.lazyPut(() => ProfileController(), tag: tag);
+    //  Get.lazyPut(() => ProfileController(), tag: tag);
     Get.put(() => AddToCartController());
     Get.put(() => MyCartController());
     Get.put(() => UserController());
@@ -137,8 +136,6 @@ class StoreBinding implements Bindings {
     Get.put(() => CategoriesController());
     Get.put(() => ProductDetailController());
   }
-
-
 }
 
 Future<void> init() async {

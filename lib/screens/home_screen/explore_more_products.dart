@@ -34,7 +34,7 @@ class ExploreMoreProducts extends StatelessWidget {
               baseColor: Colors.grey[300]!,
               highlightColor: Colors.grey[100]!,
               child: SizedBox(
-                height: 145,
+                 height: Get.height/4.5,
                 child: ListView.builder(
                   clipBehavior: Clip.none,
                   scrollDirection: Axis.horizontal,
@@ -67,7 +67,7 @@ class ExploreMoreProducts extends StatelessWidget {
               ),
             ),
             Container(
-              height: 205,
+               height: Get.height/4.5,
              // color: controller.popularDeals.isEmpty?Colors.white:Colors.grey.shade300,
               color: kPrimaryBlueTest,
 
