@@ -22,8 +22,7 @@ class _GoToCartState extends State<GoToCart> {
         Get.put(AddToCartController());
 
     return Obx(() {
-      final double totalAmount =
-          double.parse(controller.mycartTotalAmount.value);
+      final double totalAmount = double.parse(controller.mycartTotalAmount.value);
       final int valueLength = totalAmount.toInt().toString().length;
       final double fontSize =
           20 - (valueLength - 1) * 2; // Adjust the scaling factor as needed

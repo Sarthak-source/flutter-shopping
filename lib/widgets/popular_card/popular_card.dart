@@ -405,7 +405,8 @@ class _PopularCardState extends State<PopularCard> {
                           .copyWith(fontSize: 12, color: kTextColorAccent),
                     ),
                     Text(
-                      "${widget.product?['packing_type'] ?? ""}",
+                     // "${widget.product?['packing_type'] ?? ""}",
+                      "no",
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium!
@@ -429,8 +430,8 @@ String setCrateRate(int qty, String multiPackQty) {
     // crateValue = 3.0;
     print(
         "Crate:: qty===${qty} multiPackQty== ${multiPackQty} crateValue=== $crateValue");
-    print(crateValue.round());
-    newCrateValue = crateValue.round().toString();
+    print(crateValue.ceil());
+    newCrateValue = crateValue.ceil().toString();
     return newCrateValue;
   }
   return newCrateValue;

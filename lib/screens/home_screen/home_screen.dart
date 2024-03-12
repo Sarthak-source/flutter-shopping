@@ -369,7 +369,7 @@ class HomeAppBar extends StatelessWidget {
               ),
               child: InkWell(
                 onTap: () {
-                  Get.toNamed(MapScreen.routeName);
+                 // Get.toNamed(MapScreen.routeName);
                 },
                 child: Row(
                   children: [

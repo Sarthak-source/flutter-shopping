@@ -303,7 +303,9 @@ class NetworkRepository {
       required String paymentMode,
       required String paymentDate,
       required String status,
-      required String collectedBy}) async {
+      required String collectedBy,
+      required String transId,
+      }) async {
     log({
       'invoice': invoice,
       'amount': amount,
@@ -311,6 +313,7 @@ class NetworkRepository {
       'status': status,
       'payment_date': paymentDate,
       'collected_by': collectedBy,
+      'ref_no': transId,
     }.toString());
 
     try {
@@ -324,10 +327,11 @@ class NetworkRepository {
           'status': status,
           'payment_date': paymentDate,
           'collected_by': collectedBy,
+          'ref_no': transId,
         },
       );
 
-      debugPrint('\x1b[97m checkSeller Response : $apiResponse');
+      debugPrint('\x1b[97m addPayment Response : $apiResponse');
 
       final body = apiResponse['body'];
 

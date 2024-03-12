@@ -23,7 +23,8 @@ class CustomAppBar extends StatelessWidget {
         children: [
           const Expanded(child: BackButtonText()),
           Text(
-          titleCase(title),
+          title,
+          //titleCase(title),
             style: TextStyle(
               fontSize: getProportionateScreenWidth(14),
               fontWeight: FontWeight.w600,

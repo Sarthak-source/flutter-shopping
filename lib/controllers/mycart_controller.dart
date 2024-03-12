@@ -17,7 +17,7 @@ class MyCartController extends GetxController {
   var myOrderItems = [].obs;
   var mycartTotalValue = "".obs;
   var mycartTotalGst = "".obs;
-  var mycartTotalAmount = "".obs;
+  var mycartTotalAmount = "0".obs;
 
   @override
   void onInit() {

@@ -1,5 +1,6 @@
 import 'dart:developer';
-
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:sutra_ecommerce/config/common.dart';
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -132,13 +133,22 @@ class _SelectTimeState extends State<SelectTime> {
             child: ElevatedButton(
               onPressed: () {
                 //Get.toNamed(AddAddressScreen.routeName);
-
-                String address = "${userCtlr.user['party']['address']['id']}";
+                Map storedUserData = box!.get('userData');
+               // print('userdata in select time ${storedUserData['party']['address']['id'].toString()}');
+                String address = "${storedUserData['party']['address'] != null?storedUserData['party']['address']['id'].toString():""}";
                 log('selected address: ${userCtlr.user}');
                 log('selected address: $address');
                 log('selectedIndex ${(selectedIndex+1).toString()}');
-                createOrderCtlr.createOrderApi(
-                    "1", (selectedIndex+2).toString(), _selectedDate.toString(), address);
+                if(address == null|| address ==""){
+                  Fluttertoast.showToast(
+                    msg: 'Enter Address',
+                    backgroundColor: Colors.red,
+                  );
+                }else{
+                  createOrderCtlr.createOrderApi(
+                      "1", (selectedIndex+2).toString(), _selectedDate.toString(), address);
+                }
+
                 //_selectDate(context); // Step 2
               },
               child: Column(

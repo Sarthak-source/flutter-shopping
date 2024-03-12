@@ -36,15 +36,14 @@ class ProductCard extends StatefulWidget {
 class _ProductCardState extends State<ProductCard> {
   final TextEditingController quantityCtrlr = TextEditingController();
 
-  RxInt quantity =
-      0.obs; // Initialize quantity as observable RxInt with value 0
+  RxInt quantity = 0.obs; // Initialize quantity as observable RxInt with value 0
 
   @override
   void initState() {
     super.initState();
 
     if (widget.product != null && widget.product!["cart_count"] != null) {
-      final cartCount = widget.product!["cart_count"];
+      final cartCount = widget.product["cart_count"] ?? "null";
       if (cartCount != null) {
         log("count::: ${cartCount.toString()}");
         final double? parsedCount = double.tryParse(cartCount.toString());
@@ -61,7 +60,8 @@ class _ProductCardState extends State<ProductCard> {
       Get.put(AddToCartController());
   @override
   Widget build(BuildContext context) {
-    log(widget.product.toString());
+   // log(widget.product.toString());
+
 
     return Padding(
         padding: !widget.noPadding!
@@ -137,11 +137,12 @@ class _ProductCardState extends State<ProductCard> {
                           child: Text(
                             widget.product?['name'] ?? "Not given",
                             maxLines: 1,
-                            style: Theme.of(context)
+                            style: Theme
+                                .of(context)
                                 .textTheme
                                 .bodyMedium
                                 ?.copyWith(
-                                    fontWeight: FontWeight.w700, fontSize: 13),
+                                fontWeight: FontWeight.w700, fontSize: 13),
                           ),
                         ),
                         const Spacer(),

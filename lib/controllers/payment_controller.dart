@@ -1,8 +1,12 @@
 import 'dart:developer';
 
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:sutra_ecommerce/config/common.dart';
 import 'package:sutra_ecommerce/utils/network_repository.dart';
+
+import '../screens/paymentScreen/paymentScreen.dart';
 
 class PaymentController extends GetxController {
   var payment = [].obs;
@@ -23,8 +27,11 @@ class PaymentController extends GetxController {
   @override
   void onReady() {
     // fetchPopularDeals();
+    fetchPayments();
+    fetchInvoice();
     super.onReady();
   }
+
 
   Future<dynamic> fetchPayments() async {
     try {
@@ -76,7 +83,9 @@ class PaymentController extends GetxController {
       required String paymentMode,
       required String paymentDate,
       required String status,
-      required String collectedBy}) async {
+      required String collectedBy,
+      required String transId,
+      }) async {
     try {
       //log(categoryId.toString());
 
@@ -87,7 +96,8 @@ class PaymentController extends GetxController {
           paymentMode: paymentMode,
           paymentDate: paymentDate,
           collectedBy: collectedBy,
-          status: status);
+          status: status,
+          transId: transId);
       var popularDealData = responseData;
 
       update();
@@ -97,6 +107,12 @@ class PaymentController extends GetxController {
       hasError.value = true;
     } finally {
       isLoading.value = false;
+      Fluttertoast.showToast(
+        msg: 'Payment Added Successfully!',
+        backgroundColor: Colors.green,
+      );
+     // Get.toNamed(PaymentScreen.routeName);
+      Get.back();
     }
   }
 }

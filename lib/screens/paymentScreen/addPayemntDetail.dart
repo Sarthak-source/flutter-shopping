@@ -24,7 +24,7 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
     {"name": "invoice2"},
     {"name": "invoice3"}
   ].obs;
-  TextEditingController pincodecontroller = TextEditingController();
+  TextEditingController transIdController = TextEditingController();
   TextEditingController paymentController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   final PaymentController controller = Get.put(PaymentController());
@@ -34,6 +34,7 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
 
   Map? selectedInvoice;
 
+
   @override
   @override
   Widget build(BuildContext context) {
@@ -42,9 +43,7 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
 
       RxList paymentsOptionList = paymentModes.values.toList().obs;
 
-      selectedPaymentMode = paymentsOptionList[0];
 
-      selectedInvoice = controller.invoicesList[0];
 
       return Scaffold(
         body: Obx(
@@ -145,12 +144,17 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
                                   )),
                               child: Center(
                                 child: DropdownButton<String>(
+                                  isDense: true,
+                                  isExpanded: true,
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: getProportionateScreenWidth(16.0),
+                                  ),
                                   underline: Container(
                                     height: 1,
                                     color: Colors.transparent,
                                   ),
                                   value: selectedPaymentMode,
-                                  hint: const Text('Select Payment Mode'),
+                                  hint: const Text(''),
                                   items: paymentsOptionList.map((mode) {
                                     return DropdownMenuItem<String>(
                                       value: mode,
@@ -160,8 +164,7 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
                                   onChanged: (value) {
                                     setState(() {
                                       selectedPaymentMode = value!;
-                                      print(
-                                          "Selected Payment Mode: $selectedPaymentMode");
+                                      print("Selected Payment Mode: $selectedPaymentMode");
                                     });
                                   },
                                 ),
@@ -191,13 +194,17 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
                               ),
                               child: Center(
                                 child: DropdownButton<String>(
+                                  isDense: true,
+                                  isExpanded: true,
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: getProportionateScreenWidth(16.0),
+                                  ),
                                   underline: Container(
                                     height: 1,
                                     color: Colors.transparent,
                                   ),
-                                  value: selectedInvoice?["id"]
-                                      .toString(), // Assuming 'id' is a unique identifier for each invoice
-                                  hint: const Text('Select Invoice'),
+                                  value: selectedInvoice?["id"].toString(), // Assuming 'id' is a unique identifier for each invoice
+                                  hint: const Text(''),
                                   items: controller.invoicesList.map((invoice) {
                                     return DropdownMenuItem<String>(
                                       value: invoice["id"]
@@ -213,8 +220,7 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
                                           .firstWhere((invoice) =>
                                               invoice["id"].toString() ==
                                               value);
-                                      print(
-                                          "Selected Invoice: $selectedInvoice");
+                                      print("Selected Invoice: $selectedInvoice");
                                     });
                                   },
                                 ),
@@ -235,9 +241,21 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
                                  controller: paymentController,
                                 hint: '',
                                 TextInputType: TextInputType.text),
+
                             const SizedBox(
                               height: 20,
                             ),
+                            selectedPaymentMode =="Online"? Text("Transaction ID",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headlineMedium!
+                                    .copyWith(
+                                  color: kTextColorAccent,
+                                )):SizedBox.shrink(),
+                            selectedPaymentMode =="Online"? CustomTextField(
+                                controller: transIdController,
+                                hint: '',
+                                TextInputType: TextInputType.text):SizedBox.shrink(),
 
                             //Text(selectedInvoice.toString()),
                             const SizedBox(
@@ -250,12 +268,14 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
                               child: ElevatedButton(
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
-                                    controller.addPayments(
+                                   // print('transIdController.text${transIdController.text}');
+                                     controller.addPayments(
                                         invoice: selectedInvoice!['invoice'].toString(),
                                         amount: paymentController.text,
                                         paymentMode: selectedPaymentMode!,
                                         paymentDate: DateTime.now().toString(),
-                                        collectedBy: '1', status: 'Created');
+                                        collectedBy: '1', status: 'Created',
+                                    transId:  selectedPaymentMode =="Online"?transIdController.text:"");
                                   }
 
                                   
