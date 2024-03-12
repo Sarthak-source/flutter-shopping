@@ -103,7 +103,7 @@ class _ProductCardState extends State<ProductCard> {
                   image: DecorationImage(
                     image: NetworkImage(
                         widget.product?['product_img'] ?? "Not given"),
-                    fit: BoxFit.cover,
+                    fit: BoxFit.contain,
                     scale: 0.4, // Adjust the fit based on your needs
                   ),
                   borderRadius: BorderRadius.circular(
