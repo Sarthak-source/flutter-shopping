@@ -37,6 +37,7 @@ class ApiAppConstants {
   static const String deals = 'product/deals/';
   static const String updatecart = 'update_cart/';
   static const String createorderapi = 'create_order/';
+  static const String reorderapi = 'reorder/';
 
   
 static const String invoices ='invoices/';

@@ -230,7 +230,9 @@ class _MyOrderDetail2State extends State<MyOrderDetail2> {
                                     width: 130,
                                     // color: Colors.red,
                                     child: ElevatedButton(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          controller.reOrderApi(widget.OrderId.toString());
+                                        },
                                         style: ElevatedButton.styleFrom(
                                           shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(

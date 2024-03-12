@@ -708,6 +708,45 @@ class NetworkRepository {
     }
   }
 
+
+  static Future ReOrderApi({
+    required String orderId,
+    required String partyid,
+
+  }) async {
+    try {
+      var data = FormData.fromMap({
+        "party": partyid,
+        "order": orderId,
+      });
+
+      print("dataposted $data");
+
+      log('${ApiAppConstants.apiEndPoint}${ApiAppConstants.reorderapi}');
+      final apiResponse = await NetworkDioHttp.postDioHttpMethod(
+        url: "${ApiAppConstants.apiEndPoint}${ApiAppConstants.reorderapi}",
+        header: Options(headers: <String, String>{'authorization': auth}),
+        data:  data
+      );
+      debugPrint('\x1b[97m  reorderapi  Response : $apiResponse');
+
+/*      final body = apiResponse['body'];
+
+      if (body != null &&
+          body['error'] != null) {
+        Fluttertoast.showToast(msg: body['error'].toString());
+      }*/
+
+      return apiResponse;
+    } catch (e) {
+      dynamic details = e;
+      log(e.toString());
+      Fluttertoast.showToast(msg: details["body"]["detail"].toString());
+      rethrow;
+    }
+  }
+
+
   static Future UpdateCart({
     required String count,
     required String cart,

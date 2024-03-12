@@ -405,7 +405,7 @@ class _PopularCardState extends State<PopularCard> {
                     ),
                     Text(
                       // "${widget.product?['packing_type'] ?? ""}",
-                      "no",
+                      "Nos",
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium!

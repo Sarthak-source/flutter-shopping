@@ -4,9 +4,11 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:sutra_ecommerce/screens/cart/cart_screen.dart';
 
 import '../config/common.dart';
 import '../utils/network_repository.dart';
+import 'mycart_controller.dart';
 
 
 class MyOrderController extends GetxController{
@@ -22,7 +24,7 @@ class MyOrderController extends GetxController{
   var myOrderList = [].obs;
   var myOrderDetailList = [].obs;
   RxMap orderdetailDatas = {}.obs;
-
+  final MyCartController controller = Get.put(MyCartController());
   @override
   void onInit() {
     super.onInit();
@@ -70,6 +72,38 @@ class MyOrderController extends GetxController{
       hasError.value = true;
     } finally {
       isLoading.value = false;
+    }
+  }
+
+  void reOrderApi(String orderId) async {
+    try {
+      isLoading.value = true;
+      Map storedUserData = box!.get('userData');
+
+      var responseData = await NetworkRepository.ReOrderApi(
+          partyid: storedUserData['party']['id'].toString(),
+           orderId:    orderId
+      );
+      log('ReOrderApiresponseData $responseData');
+
+      List addToCartData = responseData['body'];
+
+      update();
+   /*   if (myOrderItems.isNotEmpty) {
+        getMyCart();
+        popController.fetchPopularDeals();
+        Get.toNamed(OrderSuccessScreen.routeName);
+      }*/
+
+      update(); // Notify observers about the change
+    } catch (e) {
+      log(e.toString());
+      errorMsg.value = e.toString();
+      hasError.value = true;
+    } finally {
+      isLoading.value = false;
+      controller.getMyCart();
+      Get.toNamed(CartScreen.routeName);
     }
   }
   
