@@ -159,7 +159,7 @@ class _CustomStaggerGridState extends State<CustomStaggerGrid> {
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       crossAxisSpacing: getProportionateScreenWidth(8),
-                      mainAxisSpacing: getProportionateScreenHeight(5),
+                      mainAxisSpacing: getProportionateScreenHeight(8),
                       childAspectRatio:
                           widget.childAspectRatio ?? (Get.width / Get.height) * 1.75),
                 ),
@@ -195,7 +195,7 @@ class _CustomStaggerGridState extends State<CustomStaggerGrid> {
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   crossAxisSpacing: getProportionateScreenWidth(8),
-                  mainAxisSpacing: getProportionateScreenHeight(5),
+                  mainAxisSpacing: getProportionateScreenHeight(8),
                   childAspectRatio:
                       widget.childAspectRatio ?? (Get.width / Get.height) * 1.65),
               itemBuilder: (ctx, index) {
