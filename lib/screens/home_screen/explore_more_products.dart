@@ -14,12 +14,14 @@ class ExploreMoreProducts extends StatelessWidget {
   final String categoryId;
 
   // Constructor
-  const ExploreMoreProducts({Key? key, required this.categoryId}) : super(key: key);
+  const ExploreMoreProducts({Key? key, required this.categoryId})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     // Initialize the controller inside the build method
-    final PopularDealController controller = Get.put(PopularDealController(categoryId: categoryId));
+    final PopularDealController controller =
+        Get.put(PopularDealController(categoryId: categoryId));
 
     log(categoryId.toString());
 
@@ -30,11 +32,11 @@ class ExploreMoreProducts extends StatelessWidget {
         // If the Future is still running, show a loading indicator
         return Padding(
             padding: const EdgeInsets.all(8.0),
-            child:   Shimmer.fromColors(
+            child: Shimmer.fromColors(
               baseColor: Colors.grey[300]!,
               highlightColor: Colors.grey[100]!,
               child: SizedBox(
-                 height: Get.height/4.5,
+                height: 140,
                 child: ListView.builder(
                   clipBehavior: Clip.none,
                   scrollDirection: Axis.horizontal,
@@ -47,17 +49,15 @@ class ExploreMoreProducts extends StatelessWidget {
                   },
                 ),
               ),
-            )
-        );
+            ));
       } else if (controller.hasError.value) {
         // If there's an error, display it to the user
         return Center(child: Text('Error: ${controller.errorMsg.value}'));
-      }else {
-
+      } else {
         return Column(
           children: [
             Container(
-             // color: Colors.grey.shade300,
+              // color: Colors.grey.shade300,
               color: kPrimaryBlueTest,
               child: TabTitle(
                 title: 'Explore More Products',
@@ -67,21 +67,26 @@ class ExploreMoreProducts extends StatelessWidget {
               ),
             ),
             Container(
-               height: Get.height/4.5,
-             // color: controller.popularDeals.isEmpty?Colors.white:Colors.grey.shade300,
+             height:205,
+              // color: controller.popularDeals.isEmpty?Colors.white:Colors.grey.shade300,
               color: kPrimaryBlueTest,
 
               child: ListView.builder(
                 clipBehavior: Clip.none,
                 scrollDirection: Axis.horizontal,
-                itemCount: popularDeals.length ??0,
+                itemCount: popularDeals.length ?? 0,
                 itemBuilder: (context, index) {
-                  return PopularCard(product: popularDeals[index],onCardAddClicked: (){},onCardMinusClicked: (){},);
+                  return PopularCard(
+                    product: popularDeals[index],
+                    onCardAddClicked: () {},
+                    onCardMinusClicked: () {},
+                  );
                 },
               ),
             ),
           ],
         );
-      }});
+      }
+    });
   }
 }

@@ -197,7 +197,7 @@ class _CustomStaggerGridState extends State<CustomStaggerGrid> {
                   crossAxisSpacing: getProportionateScreenWidth(8),
                   mainAxisSpacing: getProportionateScreenHeight(5),
                   childAspectRatio:
-                      widget.childAspectRatio ?? (Get.width / Get.height) * 1.68),
+                      widget.childAspectRatio ?? (Get.width / Get.height) * 1.65),
               itemBuilder: (ctx, index) {
                 if (index % 2 != 0) {
                   return ProductCard(

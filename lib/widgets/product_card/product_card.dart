@@ -134,19 +134,19 @@ class _ProductCardState extends State<ProductCard> {
                         Row(
                           children: [
                             Text(
-                              "₹ ${convertDoubleToString(widget.product?['price'].toString() ?? '0.0 ')}",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium!
-                                  .copyWith(fontWeight: FontWeight.w600),
-                            ),
-                            const Spacer(),
-                            Text(
                               "${convertDoubleToString(widget.product?['packing_qty'].toString() ?? '0.0')} ${widget.product?['packing_uom']}",
                               style: TextStyle(
                                 fontSize: getProportionateScreenWidth(12),
                                 color: kTextColorAccent,
                               ),
+                            ),
+                            const Spacer(),
+                            Text(
+                              "₹ ${convertDoubleToString(widget.product?['price'].toString() ?? '0.0 ')}",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .copyWith(fontWeight: FontWeight.w600),
                             ),
                           ],
                         ),
