@@ -309,7 +309,7 @@
     },
     {
       "name": "geolocator",
-      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/geolocator-10.1.0",
+      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/geolocator-10.1.1",
       "packageUri": "lib/",
       "languageVersion": "2.15"
     },
@@ -321,13 +321,13 @@
     },
     {
       "name": "geolocator_apple",
-      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/geolocator_apple-2.3.5",
+      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/geolocator_apple-2.3.6",
       "packageUri": "lib/",
       "languageVersion": "2.15"
     },
     {
       "name": "geolocator_platform_interface",
-      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/geolocator_platform_interface-4.2.1",
+      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/geolocator_platform_interface-4.2.2",
       "packageUri": "lib/",
       "languageVersion": "2.15"
     },
@@ -339,7 +339,7 @@
     },
     {
       "name": "geolocator_windows",
-      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/geolocator_windows-0.2.2",
+      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/geolocator_windows-0.2.3",
       "packageUri": "lib/",
       "languageVersion": "2.15"
     },
@@ -579,7 +579,7 @@
     },
     {
       "name": "provider",
-      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/provider-6.1.1",
+      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/provider-6.1.2",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -801,7 +801,7 @@
     },
     {
       "name": "url_launcher_android",
-      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/url_launcher_android-6.2.2",
+      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/url_launcher_android-6.3.0",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
@@ -825,9 +825,9 @@
     },
     {
       "name": "url_launcher_platform_interface",
-      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/url_launcher_platform_interface-2.3.1",
+      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/url_launcher_platform_interface-2.3.2",
       "packageUri": "lib/",
-      "languageVersion": "3.0"
+      "languageVersion": "3.1"
     },
     {
       "name": "url_launcher_web",
@@ -908,7 +908,7 @@
       "languageVersion": "3.1"
     }
   ],
-  "generated": "2024-03-14T09:28:37.712663Z",
+  "generated": "2024-03-14T09:46:54.550845Z",
   "generator": "pub",
   "generatorVersion": "3.1.5"
 }
