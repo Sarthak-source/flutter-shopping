@@ -148,6 +148,14 @@ class _ProductCardState extends State<ProductCard> {
                                   .bodyMedium!
                                   .copyWith(fontWeight: FontWeight.w600),
                             ),
+                            Text(
+                              " / ${widget.product?['order_uom'] == null ? "" : widget.product?['order_uom']}",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .copyWith(
+                                      fontSize: 10, color: kTextColorAccent),
+                            ),
                           ],
                         ),
                       ],
@@ -245,7 +253,10 @@ class _ProductCardState extends State<ProductCard> {
                         ? const Text("")
                         : Text(
                             //newCrateValue,
-                            setCrateRate(quantity.value, widget.product?['multipack_qty'] ?? "0.0",widget.product?['multipack_uom']??"")
+                            setCrateRate(
+                                    quantity.value,
+                                    widget.product?['multipack_qty'] ?? "0.0",
+                                    widget.product?['multipack_uom'] ?? "")
                                 .toString(),
                             //  setCrateRate(quantity.value, widget.product?['multipack_qty'] ?? 0).toString(),
                             style: Theme.of(context)
@@ -264,7 +275,7 @@ class _ProductCardState extends State<ProductCard> {
                     // const Spacer(),
                     const Spacer(),
                     Text(
-                      "${setPackingValue(quantity.value, widget.product['packing_qty'] ?? "0.0",widget.product?['multipack_uom']??"",widget.product?['no_of_pieces']??0)} ",
+                      "${setPackingValue(quantity.value, widget.product['packing_qty'] ?? "0.0", widget.product?['multipack_uom'] ?? "", widget.product?['no_of_pieces'] ?? 0)} ",
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium!
