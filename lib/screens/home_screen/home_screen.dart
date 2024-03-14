@@ -61,148 +61,155 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     ScreenUtils().init(context);
 
-    return Obx(
-      () => CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
-            child: Container(
-              //  color:  Colors.grey.shade200,
-              color: kPrimaryBlueTest2,
-              height: 80,
-              // color:  Colors.red,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 14, vertical: 0),
-                    child: Hero(
-                      tag: 'search',
-                      child: Container(
-                        height: 50,
-                        decoration: BoxDecoration(
-                          //   color:  Colors.grey.shade200,
-                          color: Colors.grey.shade200,
-                          border: Border.all(
-                            color: Colors.grey, // Border color
-                            width: 1.0, // Border width
+    return WillPopScope(
+      onWillPop: () async {
+        return false;
+      },
+      child: Obx(
+        () => CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: Container(
+                //  color:  Colors.grey.shade200,
+                color: kPrimaryBlueTest2,
+                height: 80,
+                // color:  Colors.red,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 14, vertical: 0),
+                      child: Hero(
+                        tag: 'search',
+                        child: Container(
+                          height: 50,
+                          decoration: BoxDecoration(
+                            //   color:  Colors.grey.shade200,
+                            color: Colors.grey.shade200,
+                            border: Border.all(
+                              color: Colors.grey, // Border color
+                              width: 1.0, // Border width
+                            ),
+                            borderRadius:
+                                BorderRadius.circular(12), // Border radius
                           ),
-                          borderRadius:
-                              BorderRadius.circular(12), // Border radius
-                        ),
-                        child: SearchBar(
-                          elevation: MaterialStateProperty.resolveWith<double?>(
-                            (Set<MaterialState> states) {
-                              // Define the elevation based on different states
-                              if (states.contains(MaterialState.pressed)) {
-                                return 0.0; // Elevation when pressed
-                              }
-                              return 0.0; // Default elevation
-                            },
-                          ),
-                          backgroundColor:
-                              MaterialStateProperty.resolveWith<Color?>(
-                            (Set<MaterialState> states) {
-                              // Define the elevation based on different states
-                              if (states.contains(MaterialState.pressed)) {
-                                return Colors.white; // Elevation when pressed
-                              }
-                              return Colors.grey.shade200; // Default elevation
-                            },
-                          ),
-                          hintText: 'Search...',
-                          hintStyle:
-                              MaterialStateProperty.resolveWith<TextStyle?>(
-                            (Set<MaterialState> states) {
-                              // Define the TextStyle based on different states
-                              if (states.contains(MaterialState.pressed)) {
+                          child: SearchBar(
+                            elevation:
+                                MaterialStateProperty.resolveWith<double?>(
+                              (Set<MaterialState> states) {
+                                // Define the elevation based on different states
+                                if (states.contains(MaterialState.pressed)) {
+                                  return 0.0; // Elevation when pressed
+                                }
+                                return 0.0; // Default elevation
+                              },
+                            ),
+                            backgroundColor:
+                                MaterialStateProperty.resolveWith<Color?>(
+                              (Set<MaterialState> states) {
+                                // Define the elevation based on different states
+                                if (states.contains(MaterialState.pressed)) {
+                                  return Colors.white; // Elevation when pressed
+                                }
+                                return Colors
+                                    .grey.shade200; // Default elevation
+                              },
+                            ),
+                            hintText: 'Search...',
+                            hintStyle:
+                                MaterialStateProperty.resolveWith<TextStyle?>(
+                              (Set<MaterialState> states) {
+                                // Define the TextStyle based on different states
+                                if (states.contains(MaterialState.pressed)) {
+                                  return const TextStyle(
+                                    color:
+                                        kPrimaryBlueTest2, // Change the text color when pressed
+                                    fontStyle: FontStyle
+                                        .italic, // Change the font style when pressed
+                                    fontSize:
+                                        16, // Change the font size when pressed
+                                    // Add any other TextStyle properties you want to customize
+                                  );
+                                }
                                 return const TextStyle(
-                                  color:
-                                      kPrimaryBlueTest2, // Change the text color when pressed
-                                  fontStyle: FontStyle
-                                      .italic, // Change the font style when pressed
-                                  fontSize:
-                                      16, // Change the font size when pressed
+                                  color: Colors.grey, // Default text color
+                                  fontStyle:
+                                      FontStyle.normal, // Default font style
+                                  fontSize: 16, // Default font size
                                   // Add any other TextStyle properties you want to customize
                                 );
-                              }
-                              return const TextStyle(
-                                color: Colors.grey, // Default text color
-                                fontStyle:
-                                    FontStyle.normal, // Default font style
-                                fontSize: 16, // Default font size
-                                // Add any other TextStyle properties you want to customize
-                              );
+                              },
+                            ),
+                            onTap: () {
+                              Get.toNamed(SearchScreen.routeName);
                             },
                           ),
-                          onTap: () {
-                            Get.toNamed(SearchScreen.routeName);
-                          },
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-          SliverToBoxAdapter(
-            child: HomeAppBar(),
-          ),
-          SliverToBoxAdapter(child: CategoryTab()),
-          /*   SliverToBoxAdapter(
-            child:     const Divider(),
-          ),*/
-          const SliverToBoxAdapter(
-            child: DealsTab(),
-          ),
-          SliverToBoxAdapter(
-            child: Container(
-              // color: Colors.grey.shade300,
-              color: kPrimaryBlueTest,
-              child: TabTitle(
-                title: 'Popular Products',
-                seeAll: () {
-                  Get.toNamed(PoductsListScreen.routeName);
-                },
+            SliverToBoxAdapter(
+              child: HomeAppBar(),
+            ),
+            SliverToBoxAdapter(child: CategoryTab()),
+            /*   SliverToBoxAdapter(
+              child:     const Divider(),
+            ),*/
+            const SliverToBoxAdapter(
+              child: DealsTab(),
+            ),
+            SliverToBoxAdapter(
+              child: Container(
+                // color: Colors.grey.shade300,
+                color: kPrimaryBlueTest,
+                child: TabTitle(
+                  title: 'Popular Products',
+                  seeAll: () {
+                    Get.toNamed(PoductsListScreen.routeName);
+                  },
+                ),
               ),
             ),
-          ),
-          const SliverToBoxAdapter(
-              child: PopularDealTab(
-            categoryId: "",
-          )),
-          SliverToBoxAdapter(
-            child: Container(
-              //height: 200,
-              width: Get.width,
-              //  color: Colors.grey.shade300,
-              color: kPrimaryBlueTest,
-              child: ExploreNewCategory(),
+            const SliverToBoxAdapter(
+                child: PopularDealTab(
+              categoryId: "",
+            )),
+            SliverToBoxAdapter(
+              child: Container(
+                //height: 200,
+                width: Get.width,
+                //  color: Colors.grey.shade300,
+                color: kPrimaryBlueTest,
+                child: ExploreNewCategory(),
+              ),
             ),
-          ),
-          const SliverToBoxAdapter(
-              child: ExploreMoreProducts(
-            categoryId: "",
-          )),
-          SliverToBoxAdapter(
-            child: Container(
-              height: 20,
-              width: Get.width,
-              // color: Colors.grey.shade300,
-              color: kPrimaryBlueTest,
+            const SliverToBoxAdapter(
+                child: ExploreMoreProducts(
+              categoryId: "",
+            )),
+            SliverToBoxAdapter(
+              child: Container(
+                height: 20,
+                width: Get.width,
+                // color: Colors.grey.shade300,
+                color: kPrimaryBlueTest,
+              ),
             ),
-          ),
-          (addToCardController.productCount.value > 0)
-              ? const SliverToBoxAdapter(
-                  child: SizedBox(
-                  height: 70,
-                ))
-              : const SliverToBoxAdapter(
-                  child: SizedBox(
-                  height: 0,
-                ))
-        ],
+            (addToCardController.productCount.value > 0)
+                ? const SliverToBoxAdapter(
+                    child: SizedBox(
+                    height: 70,
+                  ))
+                : const SliverToBoxAdapter(
+                    child: SizedBox(
+                    height: 0,
+                  ))
+          ],
+        ),
       ),
     );
   }
@@ -236,28 +243,26 @@ class _DealsTabState extends State<DealsTab> {
   }
 
   void _startTimer() {
-  _timer = Timer.periodic(const Duration(seconds: 5), (timer) {
-    if (_scrollController.hasClients) {
-      if (_scrollController.position.pixels ==
-          _scrollController.position.maxScrollExtent) {
-       
-        _scrollController.animateTo(
-          0,
-          duration: const Duration(milliseconds: 500),
-          curve: Curves.easeOut,
-        );
-      } else {
-        
-        _scrollController.animateTo(
-          _scrollController.position.pixels + getProportionateScreenWidth(280),
-          duration: const Duration(milliseconds: 500),
-          curve: Curves.easeOut,
-        );
+    _timer = Timer.periodic(const Duration(seconds: 5), (timer) {
+      if (_scrollController.hasClients) {
+        if (_scrollController.position.pixels ==
+            _scrollController.position.maxScrollExtent) {
+          _scrollController.animateTo(
+            0,
+            duration: const Duration(milliseconds: 500),
+            curve: Curves.easeOut,
+          );
+        } else {
+          _scrollController.animateTo(
+            _scrollController.position.pixels +
+                getProportionateScreenWidth(280),
+            duration: const Duration(milliseconds: 500),
+            curve: Curves.easeOut,
+          );
+        }
       }
-    }
-  });
-}
-
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -281,7 +286,7 @@ class _DealsTabState extends State<DealsTab> {
                 child: SizedBox(
                   height: 140,
                   child: ListView.builder(
-                     controller: _scrollController,
+                    controller: _scrollController,
                     clipBehavior: Clip.none,
                     scrollDirection: Axis.horizontal,
                     itemCount: 5, // Use a placeholder count
@@ -300,7 +305,7 @@ class _DealsTabState extends State<DealsTab> {
               return SizedBox(
                 height: 200,
                 child: ListView.builder(
-                   controller: _scrollController,
+                  controller: _scrollController,
                   scrollDirection: Axis.horizontal,
                   itemCount:
                       controller.deals.length, // Set the total number of items
@@ -368,7 +373,7 @@ class HomeAppBar extends StatelessWidget {
               ),
               child: InkWell(
                 onTap: () {
-                 // Get.toNamed(MapScreen.routeName);
+                  // Get.toNamed(MapScreen.routeName);
                 },
                 child: Row(
                   children: [

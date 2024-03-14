@@ -108,7 +108,6 @@ class CartScreen extends StatelessWidget {
                                     setPDCount(controller.mycartItems,
                                         addToCartController);
                                     return OrderCard(
-
                                       onChangeQty: (n) {
                                         addToCartController.updateCart(
                                             n,
@@ -126,8 +125,14 @@ class CartScreen extends StatelessWidget {
                                             "1");
                                       },
                                       onMinusinCard: (n) {
-
-                                        if (n == 0 || n<int.parse(convertDoubleToString(controller.mycartItems[index]["product"]['min_order_qty'] ?? "0.0"))) {
+                                        if (n == 0 ||
+                                            n <
+                                                int.parse(convertDoubleToString(
+                                                    controller.mycartItems[
+                                                                    index]
+                                                                ["product"]
+                                                            ['min_order_qty'] ??
+                                                        "0.0"))) {
                                           addToCartController.updateCart(
                                               n,
                                               controller.mycartItems[index]
@@ -161,7 +166,6 @@ class CartScreen extends StatelessWidget {
                                             "1");
                                       },
                                       mycartItem: controller.mycartItems[index],
-
                                     );
                                   }),
                         ),
