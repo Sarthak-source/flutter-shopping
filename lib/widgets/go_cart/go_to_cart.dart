@@ -39,23 +39,12 @@ class _GoToCartState extends State<GoToCart> {
           children: [
             Transform.translate(
               offset: const Offset(0, -6),
-              child: Container(
+              child: const SizedBox(
                 width: 40, // Adjust width and height as needed
                 height: 40,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 2,
-                      blurRadius: 3,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: const Icon(
-                  Icons.shopping_bag,
+                
+                child: Icon(
+                  Icons.shopping_cart_outlined,
                   size: 30,
                   color: kPrimaryBlue,
                 ),

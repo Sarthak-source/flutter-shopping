@@ -59,22 +59,22 @@ class _PopularCardState extends State<PopularCard> {
 
   @override
   Widget build(BuildContext context) {
-    // var productdeal = widget.product;
-    // if (widget.product != null && widget.product!["cart_count"] != null) {
-    //   final cartCount = widget.product!["cart_count"];
+    var productdeal = widget.product;
+    if (widget.product != null && widget.product!["cart_count"] != null) {
+      final cartCount = widget.product!["cart_count"];
 
-    //   if (cartCount != null) {
-    //     log("count::: ${cartCount.toString()}");
-    //     final double? parsedCount = double.tryParse(cartCount.toString());
-    //     if (parsedCount != null) {
-    //       log('double count $parsedCount');
-    //       log('int count ${parsedCount.toInt()}');
-    //       quantity.value = parsedCount.toInt();
-    //       quantityCtrlr.text = quantity.value.toString();
-    //       print('quantityCtrlr.text:: ${quantityCtrlr.text}');
-    //     }
-    //   }
-    // }
+      if (cartCount != null) {
+        log("count::: ${cartCount.toString()}");
+        final double? parsedCount = double.tryParse(cartCount.toString());
+        if (parsedCount != null) {
+          log('double count $parsedCount');
+          log('int count ${parsedCount.toInt()}');
+          quantity.value = parsedCount.toInt();
+          quantityCtrlr.text = quantity.value.toString();
+          print('quantityCtrlr.text:: ${quantityCtrlr.text}');
+        }
+      }
+    }
     return Obx(
       () => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),

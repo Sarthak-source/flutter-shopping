@@ -2,13 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:sutra_ecommerce/utils/screen_utils.dart';
 
 class BackButtonText extends StatelessWidget {
-  const BackButtonText({super.key});
+  final Function()? navBack; // Callback function to navigate back
+
+  const BackButtonText({Key? key, this.navBack}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).pop();
+        if (navBack != null) {
+          navBack!(); // Execute the callback function if provided
+        } else {
+          Navigator.pop(context, true); // Navigate back if callback is not provided
+        }
       },
       child: Row(
         mainAxisSize: MainAxisSize.min,
