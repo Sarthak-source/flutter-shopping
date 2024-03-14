@@ -11,6 +11,7 @@ import '../../utils/screen_utils.dart';
 import '../../widgets/image_container.dart';
 import '../my_profile_screen.dart';
 import '../myorders_screen.dart';
+import '../paymentScreen/upi_screen.dart';
 
 class UserScreen extends StatelessWidget {
   final UserController? userController = Get.put(UserController());
@@ -120,6 +121,16 @@ class UserScreen extends StatelessWidget {
                 Get.toNamed(MyOrders.routeName);
               },
             ),
+            SizedBox(
+              height: getProportionateScreenHeight(8.0),
+            ),
+            ProfileCard(
+                image: 'assets/images/arrow_user.png',
+                color: kPrimaryBlue.withOpacity(0.2),
+                title: 'UPI Payment',
+                tapHandler: () {
+                  Get.toNamed(FlutterPayUPI.routeName);
+                }),
             SizedBox(
               height: getProportionateScreenHeight(8.0),
             ),

@@ -4,6 +4,7 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   connectivity_plus
+  flutter_pay_upi
   geolocator_windows
   url_launcher_windows
 )

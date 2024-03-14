@@ -3,6 +3,7 @@ import 'package:sutra_ecommerce/controllers/add_to_cart_controller.dart';
 import 'package:sutra_ecommerce/screens/add_address/post_address.dart';
 import 'package:sutra_ecommerce/screens/login/verify_otp.dart';
 import 'package:sutra_ecommerce/screens/paymentScreen/paymentScreen.dart';
+import 'package:sutra_ecommerce/screens/paymentScreen/upi_screen.dart';
 import 'package:sutra_ecommerce/screens/product_detail.dart/product_detail.dart';
 import 'package:sutra_ecommerce/screens/select_time/select_time.dart';
 
@@ -56,6 +57,7 @@ List<GetPage> pages = [
   GetPage(name: MyOrders.routeName, page: () => const MyOrders()),
   GetPage(name: CartScreen.routeName, page: () => CartScreen()),
   GetPage(name: PaymentScreen.routeName, page: () => PaymentScreen()),
+  GetPage(name: FlutterPayUPI.routeName, page: () => FlutterPayUPI()),
 
  // MyOrders.routeName: (ctx) => const MyOrders(),
 
