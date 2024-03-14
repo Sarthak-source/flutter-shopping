@@ -189,7 +189,7 @@ class CartScreen extends StatelessWidget {
                                               color: Colors.grey, fontSize: 14),
                                     ),*/
                                     Text(
-                                      "₹ ${controller.mycartTotalAmount.value}",
+                                      "₹ ${twodecimalDigit(double.parse(controller.mycartTotalAmount.value ?? "0.000"))}",
                                       style: Theme.of(context)
                                           .textTheme
                                           .headlineLarge!

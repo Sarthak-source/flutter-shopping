@@ -7,6 +7,7 @@ import 'package:sutra_ecommerce/controllers/add_to_cart_controller.dart';
 import 'package:sutra_ecommerce/controllers/mycart_controller.dart';
 
 import '../../constants/colors.dart';
+import '../../utils/common_functions.dart';
 import '../../utils/screen_utils.dart';
 import '../myorder_detail2.dart';
 import '../tab_screen/tab_screen.dart';
@@ -109,17 +110,10 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
                                   )),
                                   child: orderData(
                                       context,
-                                      createOrderCtlr.myOrderItems[index]["id"]
-                                          .toString(),
-                                      createOrderCtlr.myOrderItems[index]
-                                              ["total_value"]
-                                          .toString(),
-                                      createOrderCtlr.myOrderItems[index]
-                                              ["total_gst"]
-                                          .toString(),
-                                      createOrderCtlr.myOrderItems[index]
-                                              ["total_amount"]
-                                          .toString(),
+                                      createOrderCtlr.myOrderItems[index]["id"].toString(),
+                                      createOrderCtlr.myOrderItems[index]["total_value"].toString(),
+                                      createOrderCtlr.myOrderItems[index]["total_gst"].toString(),
+                                      createOrderCtlr.myOrderItems[index]["total_amount"].toString(),
                                       "value"),
                                 ),
                               );
@@ -155,9 +149,7 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
                                   flex: 1,
                                   child: Center(
                                       child: Text(
-                                          "₹ ${setTotalValue(
-                                            createOrderCtlr.myOrderItems,
-                                          )}",
+                                          "₹ ${twodecimalDigit(double.parse(setTotalValue(createOrderCtlr.myOrderItems,)))}",
                                           style: Theme.of(context)
                                               .textTheme
                                               .headlineLarge
@@ -301,8 +293,7 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
   }
 
   String setTotalValue(RxList myOrderItems) {
-    var amounts =
-        myOrderItems.map((item) => item["total_amount"]).cast<double>();
+    var amounts = myOrderItems.map((item) => item["total_amount"]).cast<double>();
     double totalAmount = 0.0;
     for (double amount in amounts) {
       totalAmount += amount;

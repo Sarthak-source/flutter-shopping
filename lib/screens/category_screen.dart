@@ -121,8 +121,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                     );
                                   }
                                 } else {
-                                  log(controller.categories[index]['id']
-                                      .toString());
+                            /*      log(controller.categories[index]['id'].toString());
                                   Get.toNamed(
                                     PoductsListScreen.routeName,
                                     arguments: PoductsListArguments(
@@ -132,7 +131,28 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                               ['id']
                                           .toString(),
                                     ),
-                                  );
+                                  );*/
+
+
+                                  var checkSubCat = controller.categories[index]["has_sub_category"];
+                                  if(checkSubCat != null && checkSubCat == true){
+                                    // Get.toNamed(CategoryScreen.routeName);
+                                    if(controller.categories[index]["id"] !=null) {
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) =>CategoryScreen(subCatId: controller.categories[index]["id"].toString())));
+                                    }
+                                  }else{
+                                    Get.toNamed(
+                                        PoductsListScreen.routeName,
+                                        arguments: PoductsListArguments(
+                                        title: controller.categories[index]
+                                        ['name'],
+                                        categoryId: controller.categories[index]
+                                        ['id']
+                                        .toString(),
+                                ));
+                                  }
+
+
                                 }
                                 // Get.toNamed(
                                 //   PoductsListScreen.routeName,

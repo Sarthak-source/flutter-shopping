@@ -159,7 +159,7 @@ class ExploreNewCategory extends StatelessWidget {
                 var catList = controller.exploreMores;
 
                 return Container(
-                  margin: const EdgeInsets.all(1.0),
+                  margin: const EdgeInsets.all(4.0),
                   // color: Colors.blue[100 * (index % 9)],
                   //  color: Colors.blue[100 * (1 % 9)],
 
@@ -168,20 +168,30 @@ class ExploreNewCategory extends StatelessWidget {
                       border: Border.all(color: Colors.grey),
                       borderRadius: BorderRadius.circular(12)),
                   child: Padding(
-                    padding: const EdgeInsets.all(1.0),
+                    padding: const EdgeInsets.all(8.0),
                     child: InkWell(
                       onTap: () {
-                        Get.toNamed(
-                          PoductsListScreen.routeName,
-                          arguments: PoductsListArguments(
-                            title: catList.isNotEmpty
-                                ? controller.exploreMores[index]['name']
-                                : "",
-                            categoryId:
-                                controller.exploreMores[index]['id'].toString(),
-                          ),
-                        );
-                      },
+
+
+                        var checkSubCat = controller.exploreMores[index]["has_sub_category"];
+                        if(checkSubCat != null && checkSubCat == true){
+                          // Get.toNamed(CategoryScreen.routeName);
+                          if(controller.exploreMores[index]["id"] !=null) {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) =>CategoryScreen(subCatId: controller.exploreMores[index]["id"].toString())));
+                          }
+                        }else{
+                          Get.toNamed(
+                            PoductsListScreen.routeName,
+                            arguments: PoductsListArguments(
+                              title: catList.isNotEmpty
+                                  ? controller.exploreMores[index]['name']
+                                  : "",
+                              categoryId:
+                              controller.exploreMores[index]['id'].toString(),
+                            ),
+                          );
+                        }
+                        },
                       child: Container(
                           child: Column(
                         children: [

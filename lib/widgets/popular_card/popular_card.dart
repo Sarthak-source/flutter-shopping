@@ -385,9 +385,7 @@ class _PopularCardState extends State<PopularCard> {
                         ? const Text("")
                         : Text(
                             //newCrateValue,
-                            setCrateRate(quantity.value,
-                                    widget.product?['multipack_qty'] ?? "0.0")
-                                .toString(),
+                            setCrateRate(quantity.value, widget.product?['multipack_qty'] ?? "0.0",widget.product?['multipack_uom']??"").toString(),
                             //  setCrateRate(quantity.value, widget.product?['multipack_qty'] ?? 0).toString(),
                             style: Theme.of(context)
                                 .textTheme
@@ -405,7 +403,7 @@ class _PopularCardState extends State<PopularCard> {
                     // const Spacer(),
                     const Spacer(),
                     Text(
-                      "${setPackingValue(quantity.value, widget.product['packing_qty'] ?? "0.0")} ",
+                      "${setPackingValue(quantity.value, widget.product['packing_qty'] ?? "0.0",widget.product?['multipack_uom']??"",widget.product?['no_of_pieces']??0)} ",
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium!
@@ -430,37 +428,55 @@ class _PopularCardState extends State<PopularCard> {
   }
 }
 
-String setCrateRate(int qty, String multiPackQty) {
+ setCrateRate(int qty, String multiPackQty, String multiPackUom) {
   double crateValue = 0.0;
   String newCrateValue = "";
-
-  if (qty != null && multiPackQty != null) {
-    crateValue = qty / int.parse(convertDoubleToString(multiPackQty));
-    // crateValue = 3.0;
-    print(
-        "Crate:: qty===${qty} multiPackQty== ${multiPackQty} crateValue=== $crateValue");
-    print(crateValue.ceil());
-    newCrateValue = crateValue.ceil().toString();
+  if(multiPackUom != null && multiPackUom== "CASE"){
+    return qty.toString();
+  }
+  else{
+    if (qty != null && multiPackQty != null) {
+      crateValue = qty / int.parse(convertDoubleToString(multiPackQty));
+      // crateValue = 3.0;
+      print(
+          "Crate:: qty===${qty} multiPackQty== ${multiPackQty} crateValue=== $crateValue");
+      print(crateValue.ceil());
+      newCrateValue = crateValue.ceil().toString();
+      return newCrateValue;
+    }
     return newCrateValue;
   }
-  return newCrateValue;
+
 }
 
-setPackingValue(int qty, String noOfPieces) {
-  if (qty != null &&
-      noOfPieces != null &&
-      noOfPieces != "0" &&
-      noOfPieces != "0.0") {
-    double noOfPi = qty * 1000 / int.parse(convertDoubleToString(noOfPieces));
-    // Check if noOfPi is finite and not NaN
-    if (noOfPi.isFinite && !noOfPi.isNaN) {
-      print('Packing type::== $noOfPi');
-      return noOfPi.round().toString();
-    } else {
-      // Handle division by zero or other cases resulting in Infinity or NaN
-      return "0";
+setPackingValue(int qty, String noOfPieces,String multiPackUom, int pieces) {
+
+  if(multiPackUom != null && multiPackUom== "CASE"){
+
+    if(qty != null && pieces !=null){
+      int noOfPI = qty * int.parse(pieces.toString());
+      if(noOfPI.isFinite && !noOfPI.isNaN){
+        return noOfPI.toString();
+      }
     }
-  } else {
-    return "";
+
+  }else{
+    if (qty != null &&
+        noOfPieces != null &&
+        noOfPieces != "0" &&
+        noOfPieces != "0.0") {
+      double noOfPi = qty * 1000 / int.parse(convertDoubleToString(noOfPieces));
+      // Check if noOfPi is finite and not NaN
+      if (noOfPi.isFinite && !noOfPi.isNaN) {
+        print('Packing type::== $noOfPi');
+        return noOfPi.round().toString();
+      } else {
+        // Handle division by zero or other cases resulting in Infinity or NaN
+        return "0";
+      }
+    } else {
+      return "";
+    }
   }
+
 }

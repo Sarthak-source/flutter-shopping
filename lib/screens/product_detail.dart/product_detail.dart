@@ -424,7 +424,7 @@ class _ProductBodyState extends State<ProductBody> {
                         : Text(
                             //newCrateValue,
                             setCrateRate(quantity.value,
-                                    widget.product?['multipack_qty'] ?? "0.0")
+                                    widget.product?['multipack_qty'] ?? "0.0",widget.product?['multipack_uom']??"")
                                 .toString(),
                             //  setCrateRate(quantity.value, widget.product?['multipack_qty'] ?? 0).toString(),
                             style: Theme.of(context)
@@ -443,7 +443,7 @@ class _ProductBodyState extends State<ProductBody> {
                     // const Spacer(),
                     SizedBox(width: 8),
                     Text(
-                      "${setPackingValue(quantity.value, widget.product['packing_qty'] ?? "0.0")} ",
+                      "${setPackingValue(quantity.value, widget.product['packing_qty'] ?? "0.0",widget.product?['multipack_uom']??"",widget.product?['no_of_pieces']??0)} ",
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium!

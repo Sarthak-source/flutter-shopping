@@ -6,6 +6,7 @@ import 'package:sutra_ecommerce/controllers/mycart_controller.dart';
 import 'package:sutra_ecommerce/utils/screen_utils.dart';
 
 import '../../screens/cart/cart_screen.dart';
+import '../../utils/common_functions.dart';
 
 class GoToCart extends StatefulWidget {
   final String usedIn;
@@ -23,11 +24,9 @@ class _GoToCartState extends State<GoToCart> {
         Get.put(AddToCartController());
 
     return Obx(() {
-      final double totalAmount =
-          double.parse(controller.mycartTotalAmount.value);
+      final double totalAmount = double.parse(controller.mycartTotalAmount.value??"0.000");
       final int valueLength = totalAmount.toInt().toString().length;
-      final double fontSize =
-          20 - (valueLength - 1) * 2; // Adjust the scaling factor as needed
+      final double fontSize = 20 - (valueLength - 1) * 2; // Adjust the scaling factor as needed
 
       return Padding(
         padding: EdgeInsets.symmetric(
@@ -75,7 +74,7 @@ class _GoToCartState extends State<GoToCart> {
                   Row(
                     children: [
                       Text(
-                        "₹ ${controller.mycartTotalAmount.value}",
+                        "₹ ${twodecimalDigit(totalAmount)}",
                         style: Theme.of(context)
                             .textTheme
                             .headlineLarge!

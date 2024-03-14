@@ -67,3 +67,10 @@ String errorHandler(AppException appException) {
   print('errorMsg:: $errorMsg');
   return errorMsg;
 }
+
+twodecimalDigit(double? v ){
+  double? value = v ?? 0.000;
+  String formattedValue = value.toStringAsFixed(2); // This will format the value to two decimal places
+  print("Decimal :: ${formattedValue}"); // Output will be "123.46"
+  return formattedValue;
+}
