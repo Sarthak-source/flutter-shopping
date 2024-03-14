@@ -142,11 +142,19 @@ class _ProductCardState extends State<ProductCard> {
                             ),
                             const Spacer(),
                             Text(
-                              "₹ ${convertDoubleToString(widget.product?['price'].toString() ?? '0.0 ')}/${widget.product['order_uom'] == null ? "" : widget.product['order_uom']}",
+                              "₹ ${convertDoubleToString(widget.product?['price'].toString() ?? '0.0 ')}",
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyMedium!
                                   .copyWith(fontWeight: FontWeight.w600),
+                            ),
+                            Text(
+                              " / ${widget.product?['order_uom'] == null ? "" : widget.product?['order_uom']}",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .copyWith(
+                                      fontSize: 10, color: kTextColorAccent),
                             ),
                           ],
                         ),
