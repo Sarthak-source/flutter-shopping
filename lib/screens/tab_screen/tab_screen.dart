@@ -64,22 +64,33 @@ class TabScreenState extends State<TabScreen> {
     final AddToCartController addToCartController =
         Get.put(AddToCartController());
 
-    return Obx(() {
-      return Scaffold(
-        bottomSheet: (addToCartController.productCount > 0 && curTab != 2)
-            ? const GoToCart(
-                usedIn: 'home',
-              )
-            : const SizedBox.shrink(),
-        body: SafeArea(
-          child: pages[curTab],
-        ),
-        bottomNavigationBar: CustomNavBar((index) {
+    return WillPopScope(
+      onWillPop: () async {
+        if (curTab != 0) {
           setState(() {
-            curTab = index;
+            curTab = 0;
           });
-        }, curTab),
-      );
-    });
+          return false;
+        }
+        return true;
+      },
+      child: Obx(() {
+        return Scaffold(
+          bottomSheet: (addToCartController.productCount > 0 && curTab != 2)
+              ? const GoToCart(
+                  usedIn: 'home',
+                )
+              : const SizedBox.shrink(),
+          body: SafeArea(
+            child: pages[curTab],
+          ),
+          bottomNavigationBar: CustomNavBar((index) {
+            setState(() {
+              curTab = index;
+            });
+          }, curTab),
+        );
+      }),
+    );
   }
 }

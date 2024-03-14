@@ -385,7 +385,11 @@ class _PopularCardState extends State<PopularCard> {
                         ? const Text("")
                         : Text(
                             //newCrateValue,
-                            setCrateRate(quantity.value, widget.product?['multipack_qty'] ?? "0.0",widget.product?['multipack_uom']??"").toString(),
+                            setCrateRate(
+                                    quantity.value,
+                                    widget.product?['multipack_qty'] ?? "0.0",
+                                    widget.product?['multipack_uom'] ?? "")
+                                .toString(),
                             //  setCrateRate(quantity.value, widget.product?['multipack_qty'] ?? 0).toString(),
                             style: Theme.of(context)
                                 .textTheme
@@ -403,7 +407,7 @@ class _PopularCardState extends State<PopularCard> {
                     // const Spacer(),
                     const Spacer(),
                     Text(
-                      "${setPackingValue(quantity.value, widget.product['packing_qty'] ?? "0.0",widget.product?['multipack_uom']??"",widget.product?['no_of_pieces']??0)} ",
+                      "${setPackingValue(quantity.value, widget.product['packing_qty'] ?? "0.0", widget.product?['multipack_uom'] ?? "", widget.product?['no_of_pieces'] ?? 0)} ",
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium!
@@ -428,13 +432,12 @@ class _PopularCardState extends State<PopularCard> {
   }
 }
 
- setCrateRate(int qty, String multiPackQty, String multiPackUom) {
+setCrateRate(int qty, String multiPackQty, String multiPackUom) {
   double crateValue = 0.0;
   String newCrateValue = "";
-  if(multiPackUom != null && multiPackUom== "CASE"){
+  if (multiPackUom != null && multiPackUom == "CASE") {
     return qty.toString();
-  }
-  else{
+  } else {
     if (qty != null && multiPackQty != null) {
       crateValue = qty / int.parse(convertDoubleToString(multiPackQty));
       // crateValue = 3.0;
@@ -446,21 +449,17 @@ class _PopularCardState extends State<PopularCard> {
     }
     return newCrateValue;
   }
-
 }
 
-setPackingValue(int qty, String noOfPieces,String multiPackUom, int pieces) {
-
-  if(multiPackUom != null && multiPackUom== "CASE"){
-
-    if(qty != null && pieces !=null){
+setPackingValue(int qty, String noOfPieces, String multiPackUom, int pieces) {
+  if (multiPackUom != null && multiPackUom == "CASE") {
+    if (qty != null && pieces != null) {
       int noOfPI = qty * int.parse(pieces.toString());
-      if(noOfPI.isFinite && !noOfPI.isNaN){
+      if (noOfPI.isFinite && !noOfPI.isNaN) {
         return noOfPI.toString();
       }
     }
-
-  }else{
+  } else {
     if (qty != null &&
         noOfPieces != null &&
         noOfPieces != "0" &&
@@ -478,5 +477,4 @@ setPackingValue(int qty, String noOfPieces,String multiPackUom, int pieces) {
       return "";
     }
   }
-
 }
