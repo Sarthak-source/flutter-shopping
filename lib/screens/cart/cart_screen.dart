@@ -256,7 +256,7 @@ class CartScreen extends StatelessWidget {
         Expanded(
           flex: 1,
           child: Text(
-            ": ₹ $value",
+            ": ₹ ${twodecimalDigit(double.parse(value==null?"0.000":value.toString()))}",
             style: Theme.of(context)
                 .textTheme
                 .headlineSmall!

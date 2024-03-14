@@ -121,7 +121,7 @@ class UserScreen extends StatelessWidget {
                 Get.toNamed(MyOrders.routeName);
               },
             ),
-            SizedBox(
+    /*        SizedBox(
               height: getProportionateScreenHeight(8.0),
             ),
             ProfileCard(
@@ -130,7 +130,7 @@ class UserScreen extends StatelessWidget {
                 title: 'UPI Payment',
                 tapHandler: () {
                   Get.toNamed(FlutterPayUPI.routeName);
-                }),
+                }),*/
             SizedBox(
               height: getProportionateScreenHeight(8.0),
             ),
