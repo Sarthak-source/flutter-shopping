@@ -363,7 +363,7 @@ class _PopularCardState extends State<PopularCard> {
                   onMinusPressed: () {
                     widget.onCardMinusClicked();
                     //   if (quantity.value > 0) {
-                    quantity.value = widget.product['cart_count'];
+                    //quantity.value = widget.product['cart_count']??0;
 
                     String minOrder =
                         widget.product['increment_order_qty'].toString() ??
