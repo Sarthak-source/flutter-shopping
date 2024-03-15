@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sutra_ecommerce/controllers/add_to_cart_controller.dart';
+import 'package:sutra_ecommerce/controllers/common_controller.dart';
 import 'package:sutra_ecommerce/widgets/go_cart/go_to_cart.dart';
 
 import '../../controllers/catagories_controller.dart';
@@ -28,16 +29,17 @@ class TabScreenState extends State<TabScreen> {
   int curTab = 0;
   final dealsController = Get.put(DealsController(), permanent: true);
   final categoriesController = Get.put(CategoriesController(), permanent: true);
-  final popularController =
-      Get.put(PopularDealController(categoryId: ""), permanent: true);
-  final prodDetailController =
-      Get.put(ProductDetailController(), permanent: true);
+  final popularController = Get.put(PopularDealController(categoryId: ""), permanent: true);
+  final prodDetailController = Get.put(ProductDetailController(), permanent: true);
+  final commonController = Get.put(CommonController(), permanent: true);
   //final userController = Get.put(UserController());
 
   @override
   void initState() {
     super.initState();
-    curTab = widget.pageIndex ?? 0;
+   // curTab = widget.pageIndex ?? 0;
+    commonController.commonCurTab.value = widget.pageIndex ?? 0;
+    commonController.update();
     print('tab screen:::');
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       popularController.fetchPopularDeals();
@@ -66,9 +68,9 @@ class TabScreenState extends State<TabScreen> {
 
     return WillPopScope(
       onWillPop: () async {
-        if (curTab != 0) {
+        if (commonController.commonCurTab.value != 0) {
           setState(() {
-            curTab = 0;
+            commonController.commonCurTab.value = 0;
           });
           return false;
         }
@@ -76,19 +78,22 @@ class TabScreenState extends State<TabScreen> {
       },
       child: Obx(() {
         return Scaffold(
-          bottomSheet: (addToCartController.productCount > 0 && curTab != 2)
+          bottomSheet: (addToCartController.productCount > 0 && commonController.commonCurTab.value != 2)
               ? const GoToCart(
                   usedIn: 'home',
                 )
               : const SizedBox.shrink(),
           body: SafeArea(
-            child: pages[curTab],
+            child: pages[commonController.commonCurTab.value],
           ),
           bottomNavigationBar: CustomNavBar((index) {
-            setState(() {
-              curTab = index;
-            });
-          }, curTab),
+           // setState(() {
+              commonController.commonCurTab.value = index;
+              commonController.update();
+
+           // });
+          },
+              commonController.commonCurTab.value),
         );
       }),
     );

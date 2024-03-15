@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sutra_ecommerce/constants/colors.dart';
 import 'package:sutra_ecommerce/controllers/add_to_cart_controller.dart';
+import 'package:sutra_ecommerce/controllers/common_controller.dart';
 import 'package:sutra_ecommerce/controllers/mycart_controller.dart';
 import 'package:sutra_ecommerce/utils/screen_utils.dart';
 
@@ -20,8 +21,8 @@ class _GoToCartState extends State<GoToCart> {
   @override
   Widget build(BuildContext context) {
     final MyCartController controller = Get.put(MyCartController());
-    final AddToCartController addToCartController =
-        Get.put(AddToCartController());
+    final CommonController cmncontroller = Get.put(CommonController());
+    final AddToCartController addToCartController = Get.put(AddToCartController());
 
     return Obx(() {
       final double totalAmount = double.parse(controller.mycartTotalAmount.value??"0.000");
@@ -94,7 +95,9 @@ class _GoToCartState extends State<GoToCart> {
                 ),
               ),
               onPressed: () {
-                Navigator.of(context).pushNamed(CartScreen.routeName);
+              //  Navigator.of(context).pushNamed(CartScreen.routeName);
+                cmncontroller.commonCurTab.value=2;
+                cmncontroller.update();
               },
               child: const Text(
                 'View cart',

@@ -113,6 +113,8 @@ class AddToCartController extends GetxController {
       updateCartData(myCartData, responseData);
       //  cartController.mycartItems.add(addToCartData);
       cartController.update();
+      popController.fetchPopularDeals();
+      popController.update();
       // mycartItems.add(addToCartData);
     } catch (e) {
       log(e.toString());

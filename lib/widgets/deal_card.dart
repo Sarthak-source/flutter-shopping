@@ -22,6 +22,7 @@ class DealCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
+
         alignment: Alignment.bottomLeft,
         width: getProportionateScreenWidth(280),
         height: getProportionateScreenHeight(170),
@@ -53,7 +54,7 @@ class DealCard extends StatelessWidget {
               kGradientColor.withOpacity(0),
             ],
           ),
-        ),
+                 ),
         child: Padding(
           padding: EdgeInsets.all(
             getProportionateScreenWidth(8),

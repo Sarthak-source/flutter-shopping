@@ -183,16 +183,10 @@ class _MyOrderDetail2State extends State<MyOrderDetail2> {
                                           children: [
                                             orderRateCard(
                                                 context,
-                                                "Total value",
-                                                controller.orderdetailDatas[
-                                                        "total_value"]
-                                                    .toString()),
+                                                "Total value", twodecimalDigit(double.parse(controller.orderdetailDatas["total_value"]==null?"0.000":controller.orderdetailDatas["total_value"].toString()))),
                                             orderRateCard(
                                                 context,
-                                                "Total gst",
-                                                controller.orderdetailDatas[
-                                                        "total_gst"]
-                                                    .toString()),
+                                                "Total gst", twodecimalDigit(double.parse(controller.orderdetailDatas["total_gst"]==null?"0.000":controller.orderdetailDatas["total_gst"].toString()))),
                                             Row(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.center,
@@ -202,7 +196,7 @@ class _MyOrderDetail2State extends State<MyOrderDetail2> {
                                                 Expanded(
                                                   flex: 1,
                                                   child: Text(
-                                                    ("₹ ${controller.orderdetailDatas["total_amount"]}"),
+                                                    ("₹ ${twodecimalDigit(double.parse(controller.orderdetailDatas["total_amount"]==null?"0.000":controller.orderdetailDatas["total_amount"].toString()))}"),
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .headlineMedium

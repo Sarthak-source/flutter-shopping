@@ -7,23 +7,33 @@ import 'package:sutra_ecommerce/controllers/popular_controller.dart';
 import 'package:sutra_ecommerce/widgets/popular_card/popular_card.dart';
 
 import '../../constants/colors.dart';
+import '../../controllers/add_to_cart_controller.dart';
 import '../../widgets/tab_title.dart';
 import '../product_grid_screen/produts_grid_screen.dart';
 
-class ExploreMoreProducts extends StatelessWidget {
+class ExploreMoreProducts extends StatefulWidget {
   final String categoryId;
+  final String? isfrom;
 
   // Constructor
-  const ExploreMoreProducts({Key? key, required this.categoryId})
+  const ExploreMoreProducts({Key? key, required this.categoryId, this.isfrom})
       : super(key: key);
 
+  @override
+  State<ExploreMoreProducts> createState() => _ExploreMoreProductsState();
+}
+
+class _ExploreMoreProductsState extends State<ExploreMoreProducts> {
+  int _selectedIndex = -1;
+  final AddToCartController addToCartController =
+  Get.put(AddToCartController());
   @override
   Widget build(BuildContext context) {
     // Initialize the controller inside the build method
     final PopularDealController controller =
-        Get.put(PopularDealController(categoryId: categoryId));
+        Get.put(PopularDealController(categoryId: widget.categoryId));
 
-    log(categoryId.toString());
+    log(widget.categoryId.toString());
 
     return Obx(() {
       final popularDeals = controller.popularDeals;
@@ -78,8 +88,20 @@ class ExploreMoreProducts extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return PopularCard(
                     product: popularDeals[index],
-                    onCardAddClicked: () {},
-                    onCardMinusClicked: () {},
+                    onCardAddClicked: () {
+                      setState(() {
+                        _selectedIndex = index;
+                      });
+                    },
+                    onCardMinusClicked: () {
+                      setState(() {
+                        _selectedIndex = index;
+                      });
+                    },
+                    isFrom: widget.isfrom,
+                    loader: index == _selectedIndex
+                        ? addToCartController.isLoading.value
+                        : false,
                   );
                 },
               ),

@@ -39,7 +39,7 @@ class _PopularCardState extends State<PopularCard> {
     if (widget.product != null && widget.product!["cart_count"] != null) {
       final cartCount = widget.product!["cart_count"];
       if (cartCount != null) {
-        log("count::: ${cartCount.toString()}");
+        log("count in popularcard::: ${cartCount.toString()}");
         final double? parsedCount = double.tryParse(cartCount.toString());
         if (parsedCount != null) {
           log('double count $parsedCount');
@@ -49,6 +49,23 @@ class _PopularCardState extends State<PopularCard> {
       }
     }
   }
+  @override
+  void didUpdateWidget(covariant PopularCard oldWidget) {
+        super.didUpdateWidget(oldWidget);
+        if (widget.product != null && widget.product!["cart_count"] != null) {
+          final cartCount = widget.product!["cart_count"];
+          if (cartCount != null) {
+            log("count in popularcard2 ${cartCount.toString()}");
+            final double? parsedCount = double.tryParse(cartCount.toString());
+            if (parsedCount != null) {
+              log('double count $parsedCount');
+              log('int count ${parsedCount.toInt()}');
+              quantity.value = parsedCount.toInt();
+            }
+          }
+        }
+  }
+
 
   final TextEditingController quantityCtrlr = TextEditingController();
   final AddToCartController addToCartController =
@@ -60,7 +77,7 @@ class _PopularCardState extends State<PopularCard> {
   @override
   Widget build(BuildContext context) {
     var productdeal = widget.product;
-    if (widget.product != null && widget.product!["cart_count"] != null) {
+/*    if (widget.product != null && widget.product!["cart_count"] != null) {
       final cartCount = widget.product!["cart_count"];
 
       if (cartCount != null) {
@@ -74,7 +91,7 @@ class _PopularCardState extends State<PopularCard> {
           print('quantityCtrlr.text:: ${quantityCtrlr.text}');
         }
       }
-    }
+    }*/
     return Obx(
       () => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),

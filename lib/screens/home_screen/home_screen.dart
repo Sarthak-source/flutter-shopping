@@ -187,10 +187,27 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: ExploreNewCategory(),
               ),
             ),
+            SliverToBoxAdapter(
+              child: Container(
+                // color: Colors.grey.shade300,
+                color: kPrimaryBlueTest,
+                child: TabTitle(
+                  title: 'Explore More Products',
+                  seeAll: () {
+                    Get.toNamed(PoductsListScreen.routeName);
+                  },
+                ),
+              ),
+            ),
             const SliverToBoxAdapter(
+                child: PopularDealTab(
+                  categoryId: "",
+                )),
+
+    /*        const SliverToBoxAdapter(
                 child: ExploreMoreProducts(
               categoryId: "",
-            )),
+            )),*/
             SliverToBoxAdapter(
               child: Container(
                 height: 20,
@@ -273,11 +290,14 @@ class _DealsTabState extends State<DealsTab> {
         // crossAxisAlignment: CrossAxisAlignment.start,
         //mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          TabTitle(
-              title: titleCase("special deals for you"),
-              seeAll: () {
-                Get.toNamed(SpecialDealScreen.routeName);
-              }),
+          Container(
+            color: kPrimaryBlueTest,
+            child: TabTitle(
+                title: titleCase("special deals for you"),
+                seeAll: () {
+                  Get.toNamed(SpecialDealScreen.routeName);
+                }),
+          ),
           GetBuilder<DealsController>(builder: (context) {
             if (controller.deals.isEmpty) {
               return Shimmer.fromColors(
@@ -302,7 +322,8 @@ class _DealsTabState extends State<DealsTab> {
             } else if (controller.hasError.value) {
               return Text('Error: ${controller.errorMsg.value}');
             } else {
-              return SizedBox(
+              return Container(
+                color: kPrimaryBlueTest,
                 height: 200,
                 child: ListView.builder(
                   controller: _scrollController,
@@ -344,7 +365,7 @@ class _DealsTabState extends State<DealsTab> {
             // );
           }),
           const SizedBox(height: 8),
-          const Divider()
+        //  const Divider()
         ],
       ),
     );

@@ -30,14 +30,14 @@ class _PopularDealTabState extends State<PopularDealTab> {
   @override
   Widget build(BuildContext context) {
     // Initialize the controller inside the build method
-    final PopularDealController controller =
-        Get.put(PopularDealController(categoryId: widget.categoryId));
+    final PopularDealController controller = Get.put(PopularDealController(categoryId: widget.categoryId));
 
     log(widget.categoryId.toString());
 
     return Obx(() {
       final popularDeals = controller.popularDeals;
-
+      controller.update();
+      print('populardeals::${popularDeals.length}');
       if (popularDeals.isEmpty) {
         // If the Future is still running, show a loading indicator
         return Padding(

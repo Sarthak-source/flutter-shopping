@@ -103,10 +103,7 @@ class _MyOrdersState extends State<MyOrders> {
                 SizedBox(
                   height: getProportionateScreenHeight(16.0),
                 ),
-               const Padding(
-                 padding: EdgeInsets.all(8.0),
-                 child: Text("No 101-E, 1st floor, Farah Winsford, 133, Infantry Rd, Shivaji Nagar, Bengaluru, Karnataka 560001",maxLines: 2,overflow: TextOverflow.ellipsis,),
-               ),
+
                Obx(
                      () => FittedBox(
                     child: EasyStepper(
@@ -514,7 +511,7 @@ class MyOrderCards extends StatelessWidget {
         Expanded(
           flex: 1,
           child: Text(
-            ": ₹ $value",
+            ": ₹ ${twodecimalDigit(double.parse(value==null?"0.000":value))}",
               style: TextStyle(
                 color: kTextColorAccent,
                 fontSize: getProportionateScreenWidth(

@@ -99,7 +99,7 @@ class _ProductCardState extends State<ProductCard> {
               Container(
                 height: getProportionateScreenHeight(120.0),
                 decoration: BoxDecoration(
-                  color: kGreyShade5,
+                  //color: kGreyShade5,
                   image: DecorationImage(
                     image: NetworkImage(
                         widget.product?['product_img'] ?? "Not given"),

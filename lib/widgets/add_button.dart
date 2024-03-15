@@ -46,6 +46,13 @@ class _AddButtonState extends State<AddButton> {
     focusNode = FocusNode();
     print('quantityCtrlr.text in addscren ${widget.qtyController?.text}');
   }
+  @override
+  void didUpdateWidget(covariant AddButton oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    widget.qtyController?.text = widget.qty.toString();
+    focusNode = FocusNode();
+    print('quantityCtrlr.text in addscren ${widget.qtyController?.text}');
+  }
 
   @override
   void dispose() {

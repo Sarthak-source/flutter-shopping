@@ -182,7 +182,7 @@ class _OrderCardState extends State<OrderCard> {
                     Row(
                       children: [
                         Text(
-                          '₹ ${widget.mycartItem["total_amount"].toString()}',
+                          '₹ ${twodecimalDigit(double.parse(widget.mycartItem["total_amount"]==null?"0.000":widget.mycartItem["total_amount"].toString()))}',
                           style: TextStyle(
                             fontSize: getProportionateScreenWidth(14),
                             fontWeight: FontWeight.w700,
