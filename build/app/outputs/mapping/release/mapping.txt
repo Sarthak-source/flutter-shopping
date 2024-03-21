@@ -3,8 +3,8 @@
 # min_api: 21
 # common_typos_disable
 # {"id":"com.android.tools.r8.mapping","version":"2.0"}
-# pg_map_id: 2e19dad
-# pg_map_hash: SHA-256 2e19dadef6468a5591fc3d41b54b86cdde164c76e8322035a16b6d4ce5ab2ad5
+# pg_map_id: d6fddc0
+# pg_map_hash: SHA-256 d6fddc0157db6aba5ed5916359beca528b1c1de3227da90df2c7c5a18c98ccb7
 android.app.AppComponentFactory -> android.app.AppComponentFactory:
 # {"id":"com.android.tools.r8.synthesized"}
     void <clinit>() -> <clinit>
@@ -1037,21 +1037,21 @@ androidx.appcompat.R$styleable -> b.j:
     int AppCompatImageView_srcCompat -> S
     int Toolbar_contentInsetEnd -> b3
 androidx.appcompat.app.ActionBar -> c.a:
-    boolean closeOptionsMenu() -> g
-    boolean collapseActionView() -> h
-    void dispatchMenuVisibilityChanged(boolean) -> i
-    int getDisplayOptions() -> j
-    android.content.Context getThemedContext() -> k
-    boolean invalidateOptionsMenu() -> l
-    void onConfigurationChanged(android.content.res.Configuration) -> m
-    void onDestroy() -> n
-    boolean onKeyShortcut(int,android.view.KeyEvent) -> o
-    boolean onMenuKeyEvent(android.view.KeyEvent) -> p
-    boolean openOptionsMenu() -> q
-    void setDefaultDisplayHomeAsUpEnabled(boolean) -> r
-    void setShowHideAnimationEnabled(boolean) -> s
-    void setWindowTitle(java.lang.CharSequence) -> t
-    androidx.appcompat.view.ActionMode startActionMode(androidx.appcompat.view.ActionMode$Callback) -> u
+    boolean closeOptionsMenu() -> f
+    boolean collapseActionView() -> g
+    void dispatchMenuVisibilityChanged(boolean) -> h
+    int getDisplayOptions() -> i
+    android.content.Context getThemedContext() -> j
+    boolean invalidateOptionsMenu() -> k
+    void onConfigurationChanged(android.content.res.Configuration) -> l
+    void onDestroy() -> m
+    boolean onKeyShortcut(int,android.view.KeyEvent) -> n
+    boolean onMenuKeyEvent(android.view.KeyEvent) -> o
+    boolean openOptionsMenu() -> p
+    void setDefaultDisplayHomeAsUpEnabled(boolean) -> q
+    void setShowHideAnimationEnabled(boolean) -> r
+    void setWindowTitle(java.lang.CharSequence) -> s
+    androidx.appcompat.view.ActionMode startActionMode(androidx.appcompat.view.ActionMode$Callback) -> t
 androidx.appcompat.app.ActionBar$LayoutParams -> c.a$a:
     int gravity -> a
 androidx.appcompat.app.ActionBar$OnMenuVisibilityListener -> c.a$b:
@@ -1660,40 +1660,39 @@ androidx.appcompat.app.WindowDecorActionBar -> c.n:
     boolean mShowHideAnimationEnabled -> z
     androidx.core.view.ViewPropertyAnimatorUpdateListener mUpdateListener -> D
     android.app.Activity mActivity -> c
-    androidx.appcompat.widget.DecorToolbar getDecorToolbar(android.view.View) -> A
-    int getNavigationMode() -> B
-    void hideForActionMode() -> C
-    void init(android.view.View) -> D
-    void setDisplayHomeAsUpEnabled(boolean) -> E
-    void setDisplayOptions(int,int) -> F
-    void setElevation(float) -> G
-    void setHasEmbeddedTabs(boolean) -> H
-    void setHideOnContentScrollEnabled(boolean) -> I
-    void setHomeButtonEnabled(boolean) -> J
-    boolean shouldAnimateContextView() -> K
-    void showForActionMode() -> L
-    void updateVisibility(boolean) -> M
+    int getNavigationMode() -> A
+    void hideForActionMode() -> B
+    void init(android.view.View) -> C
+    void setDisplayHomeAsUpEnabled(boolean) -> D
+    void setDisplayOptions(int,int) -> E
+    void setElevation(float) -> F
+    void setHasEmbeddedTabs(boolean) -> G
+    void setHideOnContentScrollEnabled(boolean) -> H
+    void setHomeButtonEnabled(boolean) -> I
+    boolean shouldAnimateContextView() -> J
+    void showForActionMode() -> K
+    void updateVisibility(boolean) -> L
     void showForSystem() -> a
     void onContentScrollStarted() -> b
-    void onWindowVisibilityChanged(int) -> c
-    void onContentScrollStopped() -> d
-    void enableContentAnimations(boolean) -> e
-    void hideForSystem() -> f
-    boolean collapseActionView() -> h
-    void dispatchMenuVisibilityChanged(boolean) -> i
-    int getDisplayOptions() -> j
-    android.content.Context getThemedContext() -> k
-    void onConfigurationChanged(android.content.res.Configuration) -> m
-    boolean onKeyShortcut(int,android.view.KeyEvent) -> o
-    void setDefaultDisplayHomeAsUpEnabled(boolean) -> r
-    void setShowHideAnimationEnabled(boolean) -> s
-    void setWindowTitle(java.lang.CharSequence) -> t
-    androidx.appcompat.view.ActionMode startActionMode(androidx.appcompat.view.ActionMode$Callback) -> u
-    void animateToMode(boolean) -> v
-    boolean checkShowingFlags(boolean,boolean,boolean) -> w
-    void completeDeferredDestroyActionMode() -> x
-    void doHide(boolean) -> y
-    void doShow(boolean) -> z
+    void onContentScrollStopped() -> c
+    void enableContentAnimations(boolean) -> d
+    void hideForSystem() -> e
+    boolean collapseActionView() -> g
+    void dispatchMenuVisibilityChanged(boolean) -> h
+    int getDisplayOptions() -> i
+    android.content.Context getThemedContext() -> j
+    void onConfigurationChanged(android.content.res.Configuration) -> l
+    boolean onKeyShortcut(int,android.view.KeyEvent) -> n
+    void setDefaultDisplayHomeAsUpEnabled(boolean) -> q
+    void setShowHideAnimationEnabled(boolean) -> r
+    void setWindowTitle(java.lang.CharSequence) -> s
+    androidx.appcompat.view.ActionMode startActionMode(androidx.appcompat.view.ActionMode$Callback) -> t
+    void animateToMode(boolean) -> u
+    boolean checkShowingFlags(boolean,boolean,boolean) -> v
+    void completeDeferredDestroyActionMode() -> w
+    void doHide(boolean) -> x
+    void doShow(boolean) -> y
+    androidx.appcompat.widget.DecorToolbar getDecorToolbar(android.view.View) -> z
 androidx.appcompat.app.WindowDecorActionBar$1 -> c.n$a:
     androidx.appcompat.app.WindowDecorActionBar this$0 -> a
     void onAnimationEnd(android.view.View) -> b
@@ -2797,10 +2796,9 @@ androidx.appcompat.widget.ActionBarOverlayLayout$3 -> androidx.appcompat.widget.
 androidx.appcompat.widget.ActionBarOverlayLayout$ActionBarVisibilityCallback -> androidx.appcompat.widget.ActionBarOverlayLayout$d:
     void showForSystem() -> a
     void onContentScrollStarted() -> b
-    void onWindowVisibilityChanged(int) -> c
-    void onContentScrollStopped() -> d
-    void enableContentAnimations(boolean) -> e
-    void hideForSystem() -> f
+    void onContentScrollStopped() -> c
+    void enableContentAnimations(boolean) -> d
+    void hideForSystem() -> e
 androidx.appcompat.widget.ActionBarOverlayLayout$LayoutParams -> androidx.appcompat.widget.ActionBarOverlayLayout$e:
 androidx.appcompat.widget.ActionMenuPresenter -> androidx.appcompat.widget.c:
     androidx.appcompat.widget.ActionMenuPresenter$OpenOverflowRunnable mPostedOpenRunnable -> E
