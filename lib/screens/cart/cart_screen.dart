@@ -211,8 +211,9 @@ class CartScreen extends StatelessWidget {
                                       const StadiumBorder(),
                                     ),
                                     minimumSize: MaterialStateProperty.all(
-                                      Size.fromHeight(
-                                        getProportionateScreenHeight(48),
+                                      Size(
+                                        getProportionateScreenWidth(1), // Width
+                                        44, // Height
                                       ),
                                     ),
                                   ),
@@ -220,7 +221,10 @@ class CartScreen extends StatelessWidget {
                                     //Navigator.of(context).pushNamed(AddAddressScreen.routeName);
                                     Get.toNamed(SelectTime.routeName);
                                   },
-                                  child: const Text('Buy Now'),
+                                  child: const Text(
+                                    'Buy Now',
+                                    style: TextStyle(fontSize: 16),
+                                  ),
                                 ),
                               ),
                             ],

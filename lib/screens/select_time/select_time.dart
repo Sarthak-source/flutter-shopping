@@ -24,7 +24,7 @@ class SelectTime extends StatefulWidget {
 
 class _SelectTimeState extends State<SelectTime> {
   DateTime _selectedDate = DateTime.now(); // Step 1
-  int selectedIndex = -1;
+  int selectedIndex = 0;
   final UserController userCtlr = Get.put(UserController());
   final MyCartController createOrderCtlr = Get.put(MyCartController());
 
@@ -131,7 +131,15 @@ class _SelectTimeState extends State<SelectTime> {
                   },
                 ),
               )),
-          const Spacer(),
+          const Spacer(flex: 10,),
+          Text(
+                    selectedIndex == 1
+                        ? 'Evening of ${_selectedDate.day}-${_selectedDate.month}-${_selectedDate.year}'
+                        : 'Morning of ${_selectedDate.day}-${_selectedDate.month}-${_selectedDate.year}',
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 15),
+                  ),
+                   const Spacer(),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24.0),
             child: ElevatedButton(
@@ -164,16 +172,10 @@ class _SelectTimeState extends State<SelectTime> {
               child: Column(
                 children: [
                   const Text(
-                    'Submit',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    'Create order',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
-                  Text(
-                    selectedIndex == 1
-                        ? 'Evening of ${_selectedDate.month}-${_selectedDate.day}-${_selectedDate.year}'
-                        : 'Morning of ${_selectedDate.month}-${_selectedDate.day}-${_selectedDate.year}',
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 15),
-                  ),
+
                 ],
               ),
             ),

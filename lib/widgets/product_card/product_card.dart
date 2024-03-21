@@ -171,8 +171,11 @@ class _ProductCardState extends State<ProductCard> {
 
               //const Spacer(),
               Padding(
+                
                 padding: const EdgeInsets.symmetric(horizontal: 12),
                 child: AddButton(
+                   minOrder: int.parse(convertDoubleToString(
+                      widget.product['min_order_qty'] ?? "0.0")),
                   units:
                       " ${widget.product?['order_uom'] == null ? "" : widget.product?['order_uom']}",
                   width: 165,

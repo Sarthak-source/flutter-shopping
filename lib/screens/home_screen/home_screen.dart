@@ -3,12 +3,10 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hive/hive.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sutra_ecommerce/controllers/add_to_cart_controller.dart';
 import 'package:sutra_ecommerce/controllers/get_deals_controller.dart';
 import 'package:sutra_ecommerce/controllers/user_controller.dart';
-import 'package:sutra_ecommerce/hive_models/cart/cart_item.dart';
 import 'package:sutra_ecommerce/screens/home_screen/categories.dart';
 import 'package:sutra_ecommerce/screens/home_screen/popular_deals.dart';
 import 'package:sutra_ecommerce/screens/product_grid_screen/produts_grid_screen.dart';
@@ -211,38 +209,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: kPrimaryBlueTest,
               ),
             ),
-            SliverToBoxAdapter(
-              child: FutureBuilder(
-                future: Hive.openBox<CartItem>('cart_items'),
-                builder: (BuildContext context,
-                    AsyncSnapshot<Box<CartItem>> snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (snapshot.hasError) {
-                    return Center(child: Text('Error: ${snapshot.error}'));
-                  } else {
-                    final box = snapshot.data!;
-                    final cartItems = box.values
-                        .toList(); // Retrieve all cart items from the box
-
-                    if (cartItems.isEmpty) {
-                      return const Center(child: Text('No items in the cart'));
-                    } else {
-                      return ListView.builder(
-                        itemCount: cartItems.length,
-                        itemBuilder: (context, index) {
-                          final cartItem = cartItems[index];
-                          return ListTile(
-                            title: Text('Product: ${cartItem.product}'),
-                            subtitle: Text('Quantity: ${cartItem.count}'),
-                          );
-                        },
-                      );
-                    }
-                  }
-                },
-              ),
-            ),
+            
             (addToCardController.productCount.value > 0)
                 ? const SliverToBoxAdapter(
                     child: SizedBox(
