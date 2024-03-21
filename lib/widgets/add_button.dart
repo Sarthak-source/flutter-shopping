@@ -20,6 +20,7 @@ class AddButton extends StatefulWidget {
   final double? textWidth;
   final int minOrder;
   final String units;
+  final bool constWidth;
 
   const AddButton({
     super.key,
@@ -34,6 +35,7 @@ class AddButton extends StatefulWidget {
     this.width = 80.0,
     this.textWidth = 60,
     this.units = 'items',
+    this.constWidth = false,
   });
 
   @override
@@ -50,7 +52,7 @@ class _AddButtonState extends State<AddButton> {
       ScrollOffsetController();
   final ItemPositionsListener itemPositionsListener =
       ItemPositionsListener.create();
-  int listLength = 150;
+  int listLength = 300;
 
   @override
   void initState() {
@@ -113,18 +115,18 @@ class _AddButtonState extends State<AddButton> {
             height: 32,
             child: OutlinedButton(
               style: OutlinedButton.styleFrom(
-                side: const BorderSide(color: Colors.grey),
+                side:  BorderSide(color: Colors.black.withOpacity(0.2)),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5.0),
                 ),
               ),
               onPressed: widget.onAddPressed,
-              child: const Text(
+              child:  Text(
                 'Add',
                 style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.bold,
-                  color: Colors.grey,
+                  color: Colors.black.withOpacity(0.5),
                 ),
               ),
             ),
@@ -136,12 +138,12 @@ class _AddButtonState extends State<AddButton> {
               )
             : Container(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(5.5),
                   border: Border.all(
-                    color: Colors.grey,
+                    color: Colors.black.withOpacity(0.2),
                   ),
                 ),
-                width: quantity.toString().length == 1
+                width:widget.constWidth? 140:quantity.toString().length == 1
                     ? (widget.textWidth! + 20)
                     : widget.textWidth! + 18.0 * quantity.toString().length,
                 child: Row(
@@ -149,25 +151,37 @@ class _AddButtonState extends State<AddButton> {
                     InkWell(
                       onTap: widget.onMinusPressed,
                       child: Container(
-                        width: 25,
+                        width: 35,
                         height: 30,
-                        decoration: const BoxDecoration(
-                          color: Colors.grey,
-                          borderRadius: BorderRadius.only(
+                        decoration:  BoxDecoration(
+                          color: Colors.grey.withOpacity(0.2),
+                          
+                          borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(5.0),
                             bottomLeft: Radius.circular(5.0),
                           ),
                         ),
-                        child: const Icon(
+                        child:  Icon(
                           Icons.remove,
+                         //widget.minOrder==quantity?Icons.delete_outline :Icons.remove,
                           size: 20,
-                          color: Color.fromARGB(255, 213, 213, 213),
+                          color: Colors.black.withOpacity(0.8),
                         ),
                       ),
                     ),
+                    Container(width: 1,
+                        height: 30,
+                        decoration:   BoxDecoration(
+                          color: Colors.black.withOpacity(0.2),
+                          
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(5.0),
+                            bottomLeft: Radius.circular(5.0),
+                          ),
+                        ),),
                     const Spacer(),
                     SizedBox(
-                      width: 10.0 * quantity.toString().length,
+                      width:widget.constWidth? 50:10.0 * quantity.toString().length,
                       height: 30,
                       child: TextField(
                         inputFormatters: [
@@ -198,7 +212,10 @@ class _AddButtonState extends State<AddButton> {
                                         onPressed: () {
                                           Navigator.pop(context);
                                         },
-                                        icon: const Icon(Icons.close))
+                                        icon: const Icon(
+                                          Icons.close,
+                                          color: Colors.grey,
+                                        ))
                                   ],
                                 ),
                                 content: SizedBox(
@@ -211,14 +228,16 @@ class _AddButtonState extends State<AddButton> {
                                     itemPositionsListener:
                                         itemPositionsListener,
                                     separatorBuilder: (context, index) {
-                                      return  Divider(color: Colors.grey.withOpacity(0.6), thickness: 0.5,);
+                                      return Divider(
+                                        color: Colors.grey.withOpacity(0.6),
+                                        thickness: 0.5,
+                                      );
                                     },
                                     itemCount: listLength,
                                     itemBuilder: (_, i) {
                                       return Container(
                                         color: indexOfQuantity == i
-                                            ? const Color.fromARGB(
-                                                255, 6, 183, 243)
+                                            ? Colors.grey.withOpacity(0.2)
                                             : Colors.white,
                                         child: InkWell(
                                           onTap: () {
@@ -234,23 +253,31 @@ class _AddButtonState extends State<AddButton> {
                                           },
                                           child: Padding(
                                             padding: const EdgeInsets.only(
-                                                bottom: 5, top: 5),
+                                                bottom: 5,
+                                                top: 5,
+                                                right: 5,
+                                                left: 5),
                                             child: Row(
                                               children: [
                                                 Text(
                                                   "${generateList(widget.minOrder, listLength)[i]}",
                                                   style: TextStyle(
-                                                    fontSize: 16,
-                                                      color: indexOfQuantity == i
-                                                          ? Colors.white
-                                                          : Colors.black),
+                                                      fontSize: 16,
+                                                      color:
+                                                          indexOfQuantity == i
+                                                              ? Colors.black.withOpacity(0.8)
+                                                              : Colors.black),
                                                 ),
                                                 const Spacer(),
-                                                Text(widget.units,style: TextStyle(
-                                                  fontSize: 13,
-                                                      color: indexOfQuantity == i
-                                                          ? Colors.white
-                                                          : Colors.grey),)
+                                                Text(
+                                                  widget.units,
+                                                  style: TextStyle(
+                                                      fontSize: 13,
+                                                      color:
+                                                          indexOfQuantity == i
+                                                              ? Colors.black.withOpacity(0.8)
+                                                              : Colors.grey),
+                                                )
                                               ],
                                             ),
                                           ),
@@ -278,22 +305,32 @@ class _AddButtonState extends State<AddButton> {
                       ),
                     ),
                     const Spacer(),
+                    Container(width: 1,
+                        height: 30,
+                        decoration:   BoxDecoration(
+                          color: Colors.black.withOpacity(0.2),
+                          
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(5.0),
+                            bottomLeft: Radius.circular(5.0),
+                          ),
+                        ),),
                     InkWell(
                       onTap: widget.onPlusPressed,
                       child: Container(
-                        width: 25,
+                        width: 35,
                         height: 30,
-                        decoration: const BoxDecoration(
-                          color: Colors.grey,
-                          borderRadius: BorderRadius.only(
+                        decoration:  BoxDecoration(
+                          color: Colors.grey.withOpacity(0.2),
+                          borderRadius: const BorderRadius.only(
                             topRight: Radius.circular(5.0),
                             bottomRight: Radius.circular(5.0),
                           ),
                         ),
-                        child: const Icon(
+                        child:  Icon(
                           Icons.add,
                           size: 20,
-                          color: Color.fromARGB(255, 213, 213, 213),
+                          color: Colors.black.withOpacity(0.8),
                         ),
                       ),
                     ),
