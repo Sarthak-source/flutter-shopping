@@ -19,6 +19,7 @@ import '../screens/my_profile_screen.dart';
 import '../screens/myorders_screen.dart';
 import '../screens/order_success_screen/order_success_screen.dart';
 import '../screens/order_summary_screen.dart';
+import '../screens/paymentScreen/selectPaymentMethod.dart';
 import '../screens/product_grid_screen/produts_grid_screen.dart';
 import '../screens/search_screen/search_fruit_screen.dart';
 import '../screens/search_screen/search_screen.dart';
@@ -58,6 +59,7 @@ List<GetPage> pages = [
   GetPage(name: CartScreen.routeName, page: () => CartScreen()),
   GetPage(name: PaymentScreen.routeName, page: () => PaymentScreen()),
   GetPage(name: FlutterPayUPI.routeName, page: () => FlutterPayUPI()),
+  GetPage(name: SelectPaymentMethod.routeName, page: () => SelectPaymentMethod()),
 
  // MyOrders.routeName: (ctx) => const MyOrders(),
 

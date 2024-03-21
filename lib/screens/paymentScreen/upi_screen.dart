@@ -6,8 +6,12 @@ import 'package:flutter_pay_upi/flutter_pay_upi_manager.dart';
 import 'package:flutter_pay_upi/model/upi_response.dart';
 import 'package:flutter_pay_upi/utils/widget/upi_app_list.dart';
 
+import '../../utils/screen_utils.dart';
+import '../../widgets/back_button_ls.dart';
+
 class FlutterPayUPI extends StatefulWidget {
-  const FlutterPayUPI({super.key});
+  String? paymentAmount;
+   FlutterPayUPI({super.key,this.paymentAmount});
   static const routeName = '/upiScreenr';
   @override
   _FlutterPayUPIState createState() => _FlutterPayUPIState();
@@ -29,65 +33,90 @@ class _FlutterPayUPIState extends State<FlutterPayUPI>
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+
+    payeeVpa = "169022734592@hdfcbank";
+    payeeName = "bhagini multicuisine";
+    transactionId = "12345khkkhjkkk";
+    payeeMerchantCode = "sddf367789";
+    description = "test";
+    amount = widget.paymentAmount ?? "1";
+
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Payment Details'),
-      ),
       resizeToAvoidBottomInset: true,
-      body: Form(
-        key: _formKey,
-        child: SingleChildScrollView(
-          child: Container(
-            height: MediaQuery.of(context).size.height,
-            padding: EdgeInsets.all(6.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                // buildTextField("Payment App", (value) => paymentApp = value),
-                buildTextField("Payee VPA", (value) => payeeVpa = value),
-                SizedBox(height: 8),
-                buildTextField("Payee Name", (value) => payeeName = value),
-                SizedBox(height: 8),
-                buildTextField("Payee Merchant Code",
-                        (value) => payeeMerchantCode = value),
-                SizedBox(height: 8),
-                buildTextField(
-                    "Transaction ID", (value) => transactionId = value),
-                SizedBox(height: 8),
-                buildTextField("Description", (value) => description = value),
-                SizedBox(height: 8),
-                buildTextField("Amount", (value) => amount = value,
-                    keyboardType: TextInputType.number),
-                SizedBox(height: 8),
-                buildCurrencyDropdown(),
-                SizedBox(height: 20),
-                Expanded(
-                  child: UPIAppList(onClick: (upiApp) async {
-                    if (_formKey.currentState!.validate()) {
-                      print('formkey validatedr');
-                      FlutterPayUpiManager.startPayment(
-                          paymentApp: upiApp!,
-                          payeeVpa: payeeVpa!,
-                          payeeName: payeeName!,
-                          transactionId: transactionId!,
-                          payeeMerchantCode: payeeMerchantCode!,
-                          description: description!,
-                          amount: amount!,
-                          response: (UpiResponse response, String amount) {
-                            _showTransactionDetailsDialog(response, amount);
-                          },
-                          error: (e) {
-                            _showRoundedDialog(context, e.toString());
-                          });
-                    }
-                  }), // UPIAppList takes the available height
+      body: SingleChildScrollView(
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          padding: EdgeInsets.all(6.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(
+                  top: getProportionateScreenWidth(50),
                 ),
-              ],
-            ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const BackButtonLS(),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Text(
+                        'Select UPI',
+                        style: TextStyle(
+                          fontSize: getProportionateScreenWidth(17),
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 50),
+
+
+        /*              // buildTextField("Payment App", (value) => paymentApp = value),
+              buildTextField("Payee VPA", (value) => payeeVpa = value),
+              SizedBox(height: 8),
+              buildTextField("Payee Name", (value) => payeeName = value),
+              SizedBox(height: 8),
+              buildTextField("Payee Merchant Code",
+                      (value) => payeeMerchantCode = value),
+              SizedBox(height: 8),
+              buildTextField(
+                  "Transaction ID", (value) => transactionId = value),
+              SizedBox(height: 8),
+              buildTextField("Description", (value) => description = value),
+              SizedBox(height: 8),
+              buildTextField("Amount", (value) => amount = value,
+                  keyboardType: TextInputType.number),
+              SizedBox(height: 8),
+              buildCurrencyDropdown(),
+              SizedBox(height: 20),
+
+              */
+              Expanded(
+                child: UPIAppList(onClick: (upiApp) async {
+                  FlutterPayUpiManager.startPayment(
+                        paymentApp: upiApp!,
+                        payeeVpa: payeeVpa!,
+                        payeeName: payeeName!,
+                        transactionId: transactionId!,
+                        payeeMerchantCode: payeeMerchantCode!,
+                        description: description!,
+                        amount: amount!,
+                        response: (UpiResponse response, String amount) {
+                          _showTransactionDetailsDialog(response, amount);
+                        },
+                        error: (e) {
+                          _showRoundedDialog(context, e.toString());
+                        });
+                }), // UPIAppList takes the available height
+              ),
+            ],
           ),
         ),
       ),
@@ -186,12 +215,9 @@ class _FlutterPayUPIState extends State<FlutterPayUPI>
           title: Text('Transaction Details'),
           children: [
             _buildDetailRow('Txn ID', upiRequestParams.transactionID ?? "N/A"),
-            _buildDetailRow(
-                'Response Code', upiRequestParams.responseCode ?? "N/A"),
-            _buildDetailRow('Approval Reference No',
-                upiRequestParams.approvalReferenceNo ?? "N/A"),
-            _buildDetailRow(
-                'Txn Ref Id', upiRequestParams.transactionReferenceId ?? "N/A"),
+            _buildDetailRow('Response Code', upiRequestParams.responseCode ?? "N/A"),
+            _buildDetailRow('Approval Reference No', upiRequestParams.approvalReferenceNo ?? "N/A"),
+            _buildDetailRow('Txn Ref Id', upiRequestParams.transactionReferenceId ?? "N/A"),
             _buildDetailRow('Status', upiRequestParams.status ?? "N/A"),
             _buildDetailRow('Amount', amount),
           ],

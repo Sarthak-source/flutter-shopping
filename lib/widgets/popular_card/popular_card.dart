@@ -458,11 +458,13 @@ setCrateRate(int qty, String multiPackQty, String multiPackUom) {
     if (qty != null && multiPackQty != null) {
       crateValue = qty / int.parse(convertDoubleToString(multiPackQty));
       // crateValue = 3.0;
-      print(
-          "Crate:: qty===${qty} multiPackQty== ${multiPackQty} crateValue=== $crateValue");
-      print(crateValue.ceil());
-      newCrateValue = crateValue.ceil().toString();
-      return newCrateValue;
+      if (crateValue.isFinite && !crateValue.isNaN) {
+        print("Crate:: qty===${qty} multiPackQty== ${multiPackQty} crateValue=== $crateValue");
+        print(crateValue.ceil());
+        newCrateValue = crateValue.ceil().toString();
+        return newCrateValue;
+      }
+
     }
     return newCrateValue;
   }

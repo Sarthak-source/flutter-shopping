@@ -240,7 +240,7 @@ class NetworkRepository {
     try {
       final apiResponse = await NetworkDioHttp.getDioHttpMethod(
         url:
-            "${ApiAppConstants.apiEndPoint}${ApiAppConstants.productCategories}?level=$level&parent=$parent",
+            "${ApiAppConstants.apiEndPoint}${ApiAppConstants.productCategories}?level=$level&parent=$parent&status=Active",
         header: Options(headers: <String, String>{'authorization': auth}),
       );
 

@@ -10,6 +10,8 @@ import 'package:sutra_ecommerce/controllers/user_controller.dart';
 import 'package:sutra_ecommerce/utils/screen_utils.dart';
 import 'package:sutra_ecommerce/widgets/back_button_ls.dart';
 
+import '../paymentScreen/selectPaymentMethod.dart';
+
 class SelectTime extends StatefulWidget {
   static const routeName = '/select_time_screen';
 
@@ -145,8 +147,8 @@ class _SelectTimeState extends State<SelectTime> {
                     backgroundColor: Colors.red,
                   );
                 }else{
-                  createOrderCtlr.createOrderApi(
-                      "1", (selectedIndex+2).toString(), _selectedDate.toString(), address);
+                 // createOrderCtlr.createOrderApi("1", (selectedIndex+2).toString(), _selectedDate.toString(), address);
+                  Get.toNamed(SelectPaymentMethod.routeName);
                 }
 
                 //_selectDate(context); // Step 2

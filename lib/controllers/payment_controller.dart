@@ -16,7 +16,8 @@ class PaymentController extends GetxController {
   var isLoading = true.obs;
   var hasError = false.obs;
   var errorMsg = ''.obs;
-
+  var cod = false.obs;
+  var upi = false.obs;
   @override
   void onInit() {
     super.onInit();
