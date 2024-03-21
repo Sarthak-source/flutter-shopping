@@ -66,7 +66,7 @@ class CategoryTab extends StatelessWidget {
                     baseColor: Colors.grey[300]!,
                     highlightColor: Colors.grey[100]!,
                     child: SizedBox(
-                      height:   Get.width>= 600? 160:150,
+                      height:   Get.width>= 600? 160:88,
                       child: ListView.builder(
                         clipBehavior: Clip.none,
                         scrollDirection: Axis.horizontal,

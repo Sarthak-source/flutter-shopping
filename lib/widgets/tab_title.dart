@@ -19,7 +19,7 @@ class TabTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(
-        vertical: 8,
+        vertical: 2,
         horizontal: getProportionateScreenWidth(
           padding,
         ),

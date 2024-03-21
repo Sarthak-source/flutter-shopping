@@ -15,7 +15,7 @@ import '../tab_screen/tab_screen.dart';
 class OrderSuccessScreen extends StatefulWidget {
   static const routeName = '/orderSuccess';
 
-  const OrderSuccessScreen({super.key});
+  const OrderSuccessScreen({Key? key}) : super(key: key);
 
   @override
   State<OrderSuccessScreen> createState() => _OrderSuccessScreenState();
@@ -31,7 +31,7 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
       AtCcontroller.productCount.value = 0;
       AtCcontroller.update();
     });
@@ -46,249 +46,176 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
         },
         child: Scaffold(
           body: SafeArea(
-            child:  Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Lottie.asset('assets/lotties/OrderSuccessAnimation.json',
-                        repeat: false,
-                        height: getProportionateScreenHeight(250.0),
-                        width: getProportionateScreenWidth(250.0)),
-                    Column(
-                      children: [
-                        Text(
-                          'Order successfully placed!',
-                          style: Theme.of(context)
-                              .textTheme
-                              .displaySmall!
-                              .copyWith(
-                                fontWeight: FontWeight.w700,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    children: [
+                      ColorFiltered(
+  colorFilter: ColorFilter.mode(
+    kPrimaryBlue, // The color you want to blend with
+    BlendMode.srcIn, // The blend mode you want to apply
+  ),
+  child: Lottie.asset(
+    'assets/lotties/OrderSuccessAnimation.json',
+    repeat: false,
+    height: getProportionateScreenHeight(200.0),
+    width: getProportionateScreenWidth(200.0),
+  ),
+),
+
+                      Text(
+                        'Order successfully placed!',
+                        style: Theme.of(context).textTheme.headline6!.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
+                      ),
+                      SizedBox(height: getProportionateScreenHeight(8.0)),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: getProportionateScreenWidth(16.0),
+                        ),
+                        child: Text(
+                          'Thank you for the order. Your order will be prepared and shipped by the given delivery date.',
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                                color: kTextColorAccent,
                               ),
                         ),
-                        SizedBox(
-                          height: getProportionateScreenHeight(8.0),
+                      ),
+                      const SizedBox(height: 12),
+                      SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+
+                        child: DataTable(
+                          columns: const [
+                            DataColumn(label: Text('Order Id',style: TextStyle(fontSize: 12),)),
+                            DataColumn(label: Text('Total Value',style: TextStyle(fontSize: 12),)),
+                            DataColumn(label: Text('GST',style: TextStyle(fontSize: 12),)),
+                            DataColumn(label: Text('Amount',style: TextStyle(fontSize: 12),)),
+                          ],
+                          rows: createOrderCtlr.myOrderItems.map((item) {
+                            return DataRow(
+                              cells: [
+                                DataCell(
+                                  Text(item["id"].toString(),style: const TextStyle(fontSize: 12),),
+
+
+                                ),
+                                DataCell(
+                                  Text(item["total_value"].toString(),style: const TextStyle(fontSize: 12),),
+                                ),
+                                DataCell(
+                                  Text(item["total_gst"].toString(),style: const TextStyle(fontSize: 12),),
+                                ),
+                                DataCell(
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => MyOrderDetail2(
+                                            OrderId: int.parse(item["id"].toString()),
+                                          ),
+                                        ),
+                                      );
+                                      log('od id ${item["id"].toString()}');
+                                    },
+                                    child:  SingleChildScrollView(
+                                      child: Column(
+                                          children: [
+                                            Text(item["total_amount"].toString(),style: const TextStyle(fontSize: 12),),
+                                            if (item["title"] != "title")
+                                              TextButton(
+                                                onPressed: () {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) => MyOrderDetail2(
+                                                        OrderId: int.parse(item["id"].toString()),
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                                child: const Text(
+                                                  "View Details",
+                                                  style: TextStyle(
+                                                    fontSize: 10,
+                                                    color: kPrimaryBlue,
+                                                    decoration: TextDecoration.underline,
+                                                    decorationColor: kPrimaryBlue,
+                                                  ),
+                                                ),
+                                              ),
+                                          ],
+                                        ),
+                                    ),
+                                    ),
+                                  ),
+
+                              ],
+                            );
+                          }).toList(),
                         ),
-                        Padding(
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      SizedBox(
+                        width: double.infinity,
+                        child: Row(
+                          children: [
+                            const Expanded(
+                              child: SizedBox.shrink(),
+                            ),
+                            Expanded(
+                              flex: 2,
+                              child: Text(
+                                "Total",
+                                style: Theme.of(context).textTheme.headline6!.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 2,
+                              child: Text(
+                                "₹ ${twodecimalDigit(double.parse(setTotalValue(createOrderCtlr.myOrderItems)))}",
+                                style: Theme.of(context).textTheme.headline6!.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        width: double.infinity,
+                        child: Padding(
                           padding: EdgeInsets.symmetric(
+                            vertical: getProportionateScreenWidth(16.0),
                             horizontal: getProportionateScreenWidth(16.0),
                           ),
-                          child: Text(
-                            'Thank you for the order Your order will be prepared and shipped by given delivery date',
-                            textAlign: TextAlign.center,
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineMedium!
-                                .copyWith(
-                                  color: kTextColorAccent,
-                                ),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.of(context).pushReplacementNamed(TabScreen.routeName);
+                            },
+                            child: const Text('Continue Shopping'),
                           ),
                         ),
-                        const SizedBox(
-                          height: 12,
-                        ),
-                        orderData(context, "Order Id", "Total Value", "GST",
-                            "Amount", "title"),
-                        const SizedBox(
-                          height: 12,
-                        ),
-                        ListView.builder(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: createOrderCtlr.myOrderItems.length,
-                            itemBuilder: (context, index) {
-                              return Padding(
-                                padding: const EdgeInsets.only(bottom: 8.0),
-                                child: Container(
-                                  decoration: const BoxDecoration(
-                                      border: Border(
-                                    bottom: BorderSide(
-                                      color: Colors.white,
-                                      width: 1,
-                                    ),
-                                  )),
-                                  child: orderData(
-                                      context,
-                                      createOrderCtlr.myOrderItems[index]["id"].toString(),
-                                      createOrderCtlr.myOrderItems[index]["total_value"].toString(),
-                                      createOrderCtlr.myOrderItems[index]["total_gst"].toString(),
-                                      createOrderCtlr.myOrderItems[index]["total_amount"].toString(),
-                                      "value"),
-                                ),
-                              );
-                            }),
-                        const SizedBox(
-                          height: 12,
-                        ),
-                        SizedBox(
-                          // color: Colors.red,
-                          width: Get.width,
-                          child: Row(
-                            //  mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Expanded(
-                                  flex: 1, child: Center(child: Text(""))),
-                              const Expanded(
-                                  flex: 1, child: Center(child: Text(""))),
-                              Expanded(
-                                  flex: 1,
-                                  child: Center(
-                                      child: Text(
-                                    "Total",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headlineLarge
-                                        ?.copyWith(
-                                            fontWeight: FontWeight.w700,
-                                            fontSize:
-                                                getProportionateScreenWidth(
-                                                    15)),
-                                  ))),
-                              Expanded(
-                                  flex: 1,
-                                  child: Center(
-                                      child: Text(
-                                          "₹ ${twodecimalDigit(double.parse(setTotalValue(createOrderCtlr.myOrderItems,)))}",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headlineLarge
-                                              ?.copyWith(
-                                                  fontWeight: FontWeight.w700,
-                                                  fontSize:
-                                                      getProportionateScreenWidth(
-                                                          15)))))
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      height: 260,
-                      width: Get.width,
-                      //  color: Colors.red,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                              vertical: getProportionateScreenWidth(16.0),
-                              horizontal: getProportionateScreenWidth(16.0),
-                            ),
-                            child: ElevatedButton(
-                              onPressed: () {
-                                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>const TabScreen(pageIndex: 0,)));
-                                //Get.toNamed(TabScreen.routeName);
-                              },
-                              child: const Text('Continue Shopping'),
-                            ),
-                          ),
-                        ],
                       ),
-                    ),
-                  ],
-                ),
+                    ],
+                  ),
+                ],
               ),
             ),
           ),
-      
+        ),
       );
     });
-  }
-
-  orderData(BuildContext context, String txt1, String txt2, String txt3,
-      String txt4, String txt5) {
-    return Padding(
-      padding: const EdgeInsets.all(6.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        //crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            flex: 1,
-            child: Center(
-              child: Text(txt1,
-                  style: txt5 == "title"
-                      ? Theme.of(context).textTheme.headlineLarge?.copyWith(
-                          fontWeight: FontWeight.w700,
-                          fontSize: getProportionateScreenWidth(15))
-                      : Theme.of(context).textTheme.headlineSmall?.copyWith(
-                          fontWeight: FontWeight.w700,
-                          fontSize: getProportionateScreenWidth(11))),
-            ),
-          ),
-          Expanded(
-            flex: 1,
-            child: Center(
-              child: Text(txt5 == "title" ? txt2 : "₹ $txt2",
-                  style: txt5 == "title"
-                      ? Theme.of(context).textTheme.headlineLarge?.copyWith(
-                          fontWeight: FontWeight.w700,
-                          fontSize: getProportionateScreenWidth(15))
-                      : Theme.of(context).textTheme.headlineSmall?.copyWith(
-                          fontWeight: FontWeight.w700,
-                          fontSize: getProportionateScreenWidth(11))),
-            ),
-          ),
-          Expanded(
-            flex: 1,
-            child: Center(
-              child: Text(txt5 == "title" ? txt3 : "₹ $txt3",
-                  style: txt5 == "title"
-                      ? Theme.of(context).textTheme.headlineLarge?.copyWith(
-                          fontWeight: FontWeight.w700,
-                          fontSize: getProportionateScreenWidth(15))
-                      : Theme.of(context).textTheme.headlineSmall?.copyWith(
-                          fontWeight: FontWeight.w700,
-                          fontSize: getProportionateScreenWidth(11))),
-            ),
-          ),
-          Expanded(
-            flex: 1,
-            child: Center(
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              MyOrderDetail2(OrderId: int.parse(txt1))));
-                  log('od id $txt1');
-                },
-                child: Column(
-                  children: [
-                    Text(txt5 == "title" ? txt4 : "₹ $txt4",
-                        style: txt5 == "title"
-                            ? Theme.of(context)
-                                .textTheme
-                                .headlineLarge
-                                ?.copyWith(
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: getProportionateScreenWidth(15))
-                            : Theme.of(context)
-                                .textTheme
-                                .headlineSmall
-                                ?.copyWith(
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: getProportionateScreenWidth(11))),
-                    txt5 == "title"
-                        ? const SizedBox.shrink()
-                        : const Text(
-                            "ViewDetails",
-                            style: TextStyle(
-                              fontSize: 10,
-                              color: kPrimaryBlue,
-                              decoration: TextDecoration.underline,
-                              decorationColor: kPrimaryBlue,
-                            ),
-                          )
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
   }
 
   String setTotalValue(RxList myOrderItems) {

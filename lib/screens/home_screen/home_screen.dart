@@ -71,22 +71,20 @@ class _HomeScreenState extends State<HomeScreen> {
           slivers: [
             SliverToBoxAdapter(
               child: Container(
-                //  color:  Colors.grey.shade200,
                 color: kPrimaryBlueTest2,
-                height: 80,
-                // color:  Colors.red,
+                height: 65,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Padding(
-                      padding:  EdgeInsets.symmetric(
-                          horizontal: getProportionateScreenWidth(14), vertical: 0),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: getProportionateScreenWidth(14),
+                          vertical: 0),
                       child: Hero(
                         tag: 'search',
                         child: Container(
                           height: 50,
                           decoration: BoxDecoration(
-                            //   color:  Colors.grey.shade200,
                             color: Colors.grey.shade200,
                             border: Border.all(
                               color: Colors.grey, // Border color
@@ -99,7 +97,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             elevation:
                                 MaterialStateProperty.resolveWith<double?>(
                               (Set<MaterialState> states) {
-                                // Define the elevation based on different states
                                 if (states.contains(MaterialState.pressed)) {
                                   return 0.0; // Elevation when pressed
                                 }
@@ -109,7 +106,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             backgroundColor:
                                 MaterialStateProperty.resolveWith<Color?>(
                               (Set<MaterialState> states) {
-                                // Define the elevation based on different states
                                 if (states.contains(MaterialState.pressed)) {
                                   return Colors.white; // Elevation when pressed
                                 }
@@ -130,7 +126,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                         .italic, // Change the font style when pressed
                                     fontSize:
                                         16, // Change the font size when pressed
-                                    // Add any other TextStyle properties you want to customize
                                   );
                                 }
                                 return const TextStyle(
@@ -138,7 +133,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                   fontStyle:
                                       FontStyle.normal, // Default font style
                                   fontSize: 16, // Default font size
-                                  // Add any other TextStyle properties you want to customize
                                 );
                               },
                             ),
@@ -202,10 +196,10 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             const SliverToBoxAdapter(
                 child: PopularDealTab(
-                  categoryId: "",
-                )),
+              categoryId: "",
+            )),
 
-    /*        const SliverToBoxAdapter(
+            /*        const SliverToBoxAdapter(
                 child: ExploreMoreProducts(
               categoryId: "",
             )),*/
@@ -219,37 +213,36 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             SliverToBoxAdapter(
               child: FutureBuilder(
-                    future: Hive.openBox<CartItem>('cart_items'),
-                    builder: (BuildContext context, AsyncSnapshot<Box<CartItem>> snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator());
-                      } else if (snapshot.hasError) {
-              return Center(child: Text('Error: ${snapshot.error}'));
-                      } else {
-              final box = snapshot.data!;
-              final cartItems = box.values.toList(); // Retrieve all cart items from the box
-            
-              if (cartItems.isEmpty) {
-                return Center(child: Text('No items in the cart'));
-              } else {
-                return ListView.builder(
-                  itemCount: cartItems.length,
-                  itemBuilder: (context, index) {
-                    final cartItem = cartItems[index];
-                    return ListTile(
-                      title: Text('Product: ${cartItem.product}'),
-                      subtitle: Text('Quantity: ${cartItem.count}'),
-                    );
-                  },
-                );
-              }
-                      }
-                    },
-                  ),
-            ),
-    
-  
+                future: Hive.openBox<CartItem>('cart_items'),
+                builder: (BuildContext context,
+                    AsyncSnapshot<Box<CartItem>> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return Center(child: Text('Error: ${snapshot.error}'));
+                  } else {
+                    final box = snapshot.data!;
+                    final cartItems = box.values
+                        .toList(); // Retrieve all cart items from the box
 
+                    if (cartItems.isEmpty) {
+                      return const Center(child: Text('No items in the cart'));
+                    } else {
+                      return ListView.builder(
+                        itemCount: cartItems.length,
+                        itemBuilder: (context, index) {
+                          final cartItem = cartItems[index];
+                          return ListTile(
+                            title: Text('Product: ${cartItem.product}'),
+                            subtitle: Text('Quantity: ${cartItem.count}'),
+                          );
+                        },
+                      );
+                    }
+                  }
+                },
+              ),
+            ),
             (addToCardController.productCount.value > 0)
                 ? const SliverToBoxAdapter(
                     child: SizedBox(
@@ -389,7 +382,6 @@ class _DealsTabState extends State<DealsTab> {
               );
             }
 
-
             // SingleChildScrollView(
             //   scrollDirection: Axis.horizontal,
             //   child: Row(
@@ -401,7 +393,7 @@ class _DealsTabState extends State<DealsTab> {
             // );
           }),
           const SizedBox(height: 8),
-        //  const Divider()
+          //  const Divider()
         ],
       ),
     );
@@ -449,21 +441,15 @@ class HomeAppBar extends StatelessWidget {
                             userController.user['party']?['address']
                                     ?['address_line1'] ??
                                 'Loading...',
+                                maxLines: 2,
                             style: const TextStyle(
                               color: kTextColorAccent,
                               fontSize: 14,
+                              
                             ),
                           ),
                           const SizedBox(width: 10),
-                          Text(
-                            userController.user['party']?['address']
-                                    ?['address_line2'] ??
-                                '',
-                            style: const TextStyle(
-                              color: kTextColorAccent,
-                              fontSize: 14,
-                            ),
-                          ),
+                         
                         ],
                       ),
                     ),
