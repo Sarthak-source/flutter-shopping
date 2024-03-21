@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
       const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
         statusBarIconBrightness:
-            Brightness.dark, // Change status bar icons color (light or dark)
+        Brightness.dark, // Change status bar icons color (light or dark)
       ),
     );
     return ChangeNotifierProvider(
@@ -58,7 +58,7 @@ class MyApp extends StatelessWidget {
             title: 'Ecommerce',
             navigatorObservers: [ChuckerFlutter.navigatorObserver],
             theme: ThemeData(
-                //primarySwatch: Colors.green,
+              //primarySwatch: Colors.green,
                 primarySwatch: const MaterialColor(
                   0xFF71C4ED,
                   <int, Color>{
@@ -83,7 +83,7 @@ class MyApp extends StatelessWidget {
             getPages: pages,
             initialBinding: StoreBinding(),
             home:
-                isLoggedIn == true ? const TestScreen() : const LandingScreen(),
+            isLoggedIn == true ? const TestScreen() : const LandingScreen(),
             // home: TestScreen(),
             //  const LandingScreen(),
           );

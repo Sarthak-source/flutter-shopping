@@ -176,8 +176,8 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
                             ),
                             child: ElevatedButton(
                               onPressed: () {
-                                Navigator.of(context)
-                                    .pushReplacementNamed(TabScreen.routeName);
+                                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>const TabScreen(pageIndex: 0,)));
+                                //Get.toNamed(TabScreen.routeName);
                               },
                               child: const Text('Continue Shopping'),
                             ),

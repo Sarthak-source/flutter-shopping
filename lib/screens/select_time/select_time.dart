@@ -149,8 +149,14 @@ class _SelectTimeState extends State<SelectTime> {
                     backgroundColor: Colors.red,
                   );
                 }else{
-                 // createOrderCtlr.createOrderApi("1", (selectedIndex+2).toString(), _selectedDate.toString(), address);
-                  Get.toNamed(SelectPaymentMethod.routeName);
+                // createOrderCtlr.createOrderApi("1", (selectedIndex+2).toString(), _selectedDate.toString(), address);
+                //  Get.toNamed(SelectPaymentMethod.routeName);
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => SelectPaymentMethod(
+                    shift: "1",
+                    selectedIndex: (selectedIndex+2),
+                    selectedDate: _selectedDate.toString(),
+                    address: address,
+                  )));
                 }
 
                 //_selectDate(context); // Step 2

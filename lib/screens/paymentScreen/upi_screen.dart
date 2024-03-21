@@ -35,9 +35,9 @@ class _FlutterPayUPIState extends State<FlutterPayUPI>
     WidgetsBinding.instance.addObserver(this);
 
     payeeVpa = "169022734592@hdfcbank";
-    payeeName = "bhagini multicuisine";
-    transactionId = "12345khkkhjkkk";
-    payeeMerchantCode = "sddf367789";
+    payeeName = "BHAGINI MULTICUISINE FAMILY RESTAURNAT";
+    transactionId = "dgafhAMNMmm123";
+    payeeMerchantCode = "sjhJJh455";
     description = "test";
     amount = widget.paymentAmount ?? "1";
 

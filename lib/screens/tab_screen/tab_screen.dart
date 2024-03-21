@@ -38,10 +38,11 @@ class TabScreenState extends State<TabScreen> {
   void initState() {
     super.initState();
    // curTab = widget.pageIndex ?? 0;
-    commonController.commonCurTab.value = widget.pageIndex ?? 0;
-    commonController.update();
+
     print('tab screen:::');
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      commonController.commonCurTab.value = widget.pageIndex ?? 0;
+      commonController.update();
       popularController.fetchPopularDeals();
       popularController.update();
       dealsController.fetchDealss();

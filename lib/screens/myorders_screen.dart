@@ -12,6 +12,7 @@ import '../utils/common_functions.dart';
 import '../utils/screen_utils.dart';
 import '../utils/shimmer_placeholders/myorder_shimmer.dart';
 import '../widgets/custom_app_bar.dart';
+import 'myorder_detail.dart';
 import 'myorder_detail2.dart';
 
 class MyOrders extends StatefulWidget {
@@ -290,7 +291,7 @@ class MyOrderCards extends StatelessWidget {
           },
           child: GestureDetector(
             onTap: (){
-            // Navigator.push(context, MaterialPageRoute(builder: (context) => MyOrderDetail(orderdetail: orderlist[index])));
+           //  Navigator.push(context, MaterialPageRoute(builder: (context) => MyOrderDetail(orderdetail: orderlist[index])));
              Navigator.push(context, MaterialPageRoute(builder: (context) => MyOrderDetail2(OrderId: myOrderList[index]["id"])));
             },
             child: Container(

@@ -48,8 +48,7 @@ class _TestScreenState extends State<TestScreen> {
           (route) => false, // This predicate removes all routes.
         );*/
 
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const TabScreen()));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => const TabScreen(pageIndex: 0,)));
     });
   }
 }
