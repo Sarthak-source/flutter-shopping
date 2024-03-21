@@ -18,7 +18,7 @@ class CategoryCard extends StatelessWidget {
           category.catIcon?? 
           'http://170.187.232.148/static/images/dilicia.png',
           fit: BoxFit.fill,
-          height: from == "allcategories"?getProportionateScreenHeight(80):getProportionateScreenHeight(40),
+          height: from == "allcategories"?getProportionateScreenHeight(80):getProportionateScreenHeight(45),
         ),
         from == "allcategories"? const Spacer() : const SizedBox.shrink(),
         Container(
@@ -28,7 +28,7 @@ class CategoryCard extends StatelessWidget {
           child: Center(
             child: Text(
               "${category.catName[0].toUpperCase()}${category.catName.substring(1,category.catName.length).toLowerCase()}",
-              style:  TextStyle(fontSize: from == "allcategories"?14:10,fontWeight: FontWeight.w600,),maxLines: 1,
+              style:  TextStyle(fontSize: from == "allcategories"?14:11,fontWeight: FontWeight.w600,),maxLines: 2,
               textAlign: TextAlign.center,
             ),
           ),

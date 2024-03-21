@@ -6,7 +6,6 @@ import 'package:lottie/lottie.dart';
 import 'package:sutra_ecommerce/controllers/mycart_controller.dart';
 import 'package:sutra_ecommerce/screens/select_time/select_time.dart';
 
-import '../../constants/colors.dart';
 import '../../controllers/add_to_cart_controller.dart';
 import '../../utils/common_functions.dart';
 import '../../utils/screen_utils.dart';
@@ -55,10 +54,10 @@ class CartScreen extends StatelessWidget {
                               ),
                         ),
                         const Spacer(),
-                        const Icon(
-                          Icons.search,
-                          color: kPrimaryBlue,
-                        ),
+                        // const Icon(
+                        //   Icons.search,
+                        //   color: kPrimaryBlue,
+                        // ),
                       ],
                     ),
                     SizedBox(
@@ -256,7 +255,7 @@ class CartScreen extends StatelessWidget {
         Expanded(
           flex: 1,
           child: Text(
-            ": ₹ ${twodecimalDigit(double.parse(value==null?"0.000":value.toString()))}",
+            ": ₹ ${twodecimalDigit(double.parse(value == null ? "0.000" : value.toString()))}",
             style: Theme.of(context)
                 .textTheme
                 .headlineSmall!

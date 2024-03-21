@@ -46,8 +46,7 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
         },
         child: Scaffold(
           body: SafeArea(
-            child: SingleChildScrollView(
-              child: Padding(
+            child:  Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -191,7 +190,7 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
               ),
             ),
           ),
-        ),
+      
       );
     });
   }

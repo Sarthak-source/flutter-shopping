@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:sutra_ecommerce/controllers/common_controller.dart';
 
 import 'loading_widgets/loader.dart';
@@ -15,8 +18,11 @@ class AddButton extends StatefulWidget {
   final bool isLoading;
   final double? width;
   final double? textWidth;
+  final int minOrder;
+  final String units;
+
   const AddButton({
-    Key? key,
+    super.key,
     required this.onPlusPressed,
     required this.onMinusPressed,
     required this.onAddPressed,
@@ -24,9 +30,11 @@ class AddButton extends StatefulWidget {
     required this.qty,
     required this.qtyController,
     required this.isLoading,
+    this.minOrder = 1,
     this.width = 80.0,
     this.textWidth = 60,
-  }) : super(key: key);
+    this.units = 'items',
+  });
 
   @override
   State<AddButton> createState() => _AddButtonState();
@@ -37,181 +45,260 @@ final CommonController controller = Get.put(CommonController());
 class _AddButtonState extends State<AddButton> {
   int quantity = 0;
   late FocusNode focusNode;
-  //TextEditingController qtyCtrl = TextEditingController();
+  ItemScrollController itemScrollController = ItemScrollController();
+  final ScrollOffsetController scrollOffsetController =
+      ScrollOffsetController();
+  final ItemPositionsListener itemPositionsListener =
+      ItemPositionsListener.create();
+  int listLength = 150;
 
   @override
   void initState() {
     super.initState();
-    widget.qtyController?.text = widget.qty.toString();
-    focusNode = FocusNode();
-    print('quantityCtrlr.text in addscren ${widget.qtyController?.text}');
   }
+
   @override
   void didUpdateWidget(covariant AddButton oldWidget) {
     super.didUpdateWidget(oldWidget);
     widget.qtyController?.text = widget.qty.toString();
+    //itemScrollController=ItemScrollController();
     focusNode = FocusNode();
-    print('quantityCtrlr.text in addscren ${widget.qtyController?.text}');
   }
 
   @override
   void dispose() {
     focusNode.dispose();
+
     super.dispose();
+  }
+
+  List<int> generateList(int minOrder, int length) {
+    return List.generate(length, (index) => (index + 1) * minOrder);
   }
 
   @override
   Widget build(BuildContext context) {
     quantity = widget.qty;
-    return quantity == 0
+    widget.qtyController?.text = widget.qty.toString();
+    focusNode = FocusNode();
+    itemScrollController = ItemScrollController();
+
+    int indexOfQuantity =
+        generateList(widget.minOrder, listLength).indexOf(widget.qty);
+
+    log(indexOfQuantity.toString());
+
+    int customCeil(int number, int increment) {
+      int quotient = number ~/ increment;
+      int result = (quotient + 1) * increment;
+      return result;
+    }
+
+    if (indexOfQuantity == -1) {
+      // If the quantity is not found in the list, set a default index
+      indexOfQuantity = 0;
+      //quantity = customCeil(quantity, widget.minOrder);
+
+      // indexOfQuantity =
+      //     generateList(widget.minOrder, listLength).indexOf(quantity);
+
+      log('------------------------------');
+      log("quantity.toString() ${quantity.toString()}");
+      log("test ${generateList(widget.minOrder, listLength).indexOf(quantity).toString()}");
+    }
+
+    return widget.qty == 0
         ? SizedBox(
             width: widget.width,
             height: 32,
             child: OutlinedButton(
               style: OutlinedButton.styleFrom(
-                side: const BorderSide(
-                    color: Colors.pink), // Specify the border color here
+                side: const BorderSide(color: Colors.pink),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(
-                      10.0), // Adjust the border radius as needed
+                  borderRadius: BorderRadius.circular(10.0),
                 ),
               ),
               onPressed: widget.onAddPressed,
-
-              /*() {
-                    setState(() {
-                      quantity = 1;
-                      qtyCtrl.text =quantity.toString();
-                      controller.rxQty.value = quantity.toString();
-                      print('controller.rxQty.value::: ${controller.rxQty.value}');
-                    });
-                  },*/
               child: const Text(
                 'Add',
                 style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.pink),
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.pink,
+                ),
               ),
             ),
           )
-        :
-        //  Obx(() =>
-        widget.isLoading
+        : widget.isLoading
             ? const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Loader(),
               )
             : Container(
                 decoration: BoxDecoration(
-                  borderRadius:
-                      BorderRadius.circular(10), // Set the border radius here
+                  borderRadius: BorderRadius.circular(10),
                   border: Border.all(
-                    color: Colors.pink, // Specify the border color here
+                    color: Colors.pink,
                   ),
                 ),
                 width: quantity.toString().length == 1
                     ? (widget.textWidth! + 20)
                     : widget.textWidth! + 18.0 * quantity.toString().length,
-                // : 60 + 18.0 * controller.rxQty.value.length,
                 child: Row(
                   children: [
                     InkWell(
                       onTap: widget.onMinusPressed,
-
-                      /*  () {
-                          setState(() {
-                            if (quantity > 0) {
-                              quantity--;
-                              qtyCtrl.text =quantity.toString();
-                              controller.rxQty.value = quantity.toString();
-                            }
-                          });
-                        },*/
                       child: Container(
                         width: 25,
                         height: 30,
                         decoration: const BoxDecoration(
-                            //shape: BoxShape.circle,
-                            color: Colors.pink,
-                            // borderRadius:  BorderRadius.circular(5),
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(10),
-                                bottomLeft: Radius.circular(10))),
-                        child: const Icon(Icons.remove,
-                            size: 20,
-                            color: Color.fromARGB(255, 213, 213, 213)),
+                          color: Colors.pink,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(10),
+                            bottomLeft: Radius.circular(10),
+                          ),
+                        ),
+                        child: const Icon(
+                          Icons.remove,
+                          size: 20,
+                          color: Color.fromARGB(255, 213, 213, 213),
+                        ),
                       ),
                     ),
                     const Spacer(),
-                    Container(
+                    SizedBox(
                       width: 10.0 * quantity.toString().length,
-                      //  width: 12.0 * controller.rxQty.value.length,
-//width: 80,
                       height: 30,
-                      decoration: const BoxDecoration(
-                          //shape: BoxShape.circle,
-                          //border: Border.all(color: kPrimaryBlue), // Circular border color
-                          ),
                       child: TextField(
-                        //readOnly: true, // Make the TextField read-only
                         inputFormatters: [
                           FilteringTextInputFormatter.digitsOnly
-                        ], // Allow only numeric input
-                        keyboardType:
-                            TextInputType.number, // Set keyboard type to number
+                        ],
+                        keyboardType: TextInputType.number,
+                        readOnly: true,
                         decoration: const InputDecoration(
                           isDense: true,
-
-                          border: InputBorder.none, // Remove default border
-                          contentPadding:
-                              EdgeInsets.only(top: 5), // Remove default padding
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.only(top: 5),
                         ),
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (_) {
+                              return AlertDialog(
+                                insetPadding: const EdgeInsets.symmetric(
+                                  horizontal: 100,
+                                  vertical: 30,
+                                ),
+                                //contentPadding: const EdgeInsets.all(12),
+                                title: Row(
+                                  children: [
+                                    const Text("Quantity"),
+                                    const Spacer(),
+                                    IconButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        icon: const Icon(Icons.cancel))
+                                  ],
+                                ),
+                                content: SizedBox(
+                                  width: double.maxFinite,
+                                  child: ScrollablePositionedList.separated(
+                                    scrollOffsetController:
+                                        scrollOffsetController,
+                                    initialScrollIndex: indexOfQuantity,
+                                    itemScrollController: itemScrollController,
+                                    itemPositionsListener:
+                                        itemPositionsListener,
+                                    separatorBuilder: (context, index) {
+                                      return  Divider(color: Colors.grey.withOpacity(0.6), thickness: 0.5,);
+                                    },
+                                    itemCount: listLength,
+                                    itemBuilder: (_, i) {
+                                      return Container(
+                                        color: indexOfQuantity == i
+                                            ? const Color.fromARGB(
+                                                255, 6, 183, 243)
+                                            : Colors.white,
+                                        child: InkWell(
+                                          onTap: () {
+                                            setState(() {
+                                              quantity = generateList(
+                                                  widget.minOrder,
+                                                  listLength)[i];
+                                            });
+                                            widget.onChangedPressed(
+                                                "${generateList(widget.minOrder, listLength)[i]}");
+
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                bottom: 5, top: 5),
+                                            child: Row(
+                                              children: [
+                                                Text(
+                                                  "${generateList(widget.minOrder, listLength)[i]}",
+                                                  style: TextStyle(
+                                                    fontSize: 16,
+                                                      color: indexOfQuantity == i
+                                                          ? Colors.white
+                                                          : Colors.black),
+                                                ),
+                                                const Spacer(),
+                                                Text(widget.units,style: TextStyle(
+                                                  fontSize: 13,
+                                                      color: indexOfQuantity == i
+                                                          ? Colors.white
+                                                          : Colors.grey),)
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              );
+                            },
+                          );
+                        },
                         onChanged: (value) {
                           widget.onChangedPressed(value);
-                          // if(int.parse(value))
-                          //  quantity = int.parse(value);
-                          //  qtyCtrl.text =quantity.toString();
-                          //  controller.rxQty.value = quantity.toString();
                         },
-
                         onEditingComplete: () {
                           setState(() {});
                         },
                         textAlign: TextAlign.center,
-                        style:
-                            const TextStyle(color: Colors.black, fontSize: 16),
-                        controller: widget
-                            .qtyController, //TextEditingController(text: quantity.toString()),
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 16,
+                        ),
+                        controller: widget.qtyController,
                       ),
                     ),
                     const Spacer(),
                     InkWell(
                       onTap: widget.onPlusPressed,
-                      /* () {
-                          setState(() {
-                            quantity++;
-                            qtyCtrl.text =quantity.toString();
-                            controller.rxQty.value = quantity.toString();
-                          });
-                        },*/
                       child: Container(
                         width: 25,
                         height: 30,
                         decoration: const BoxDecoration(
-                            //shape: BoxShape.circle,
-                            color: Colors.pink,
-                            borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(10),
-                                bottomRight: Radius.circular(10))),
-                        child: const Icon(Icons.add,
-                            size: 20,
-                            color: Color.fromARGB(255, 213, 213, 213)),
+                          color: Colors.pink,
+                          borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(10),
+                            bottomRight: Radius.circular(10),
+                          ),
+                        ),
+                        child: const Icon(
+                          Icons.add,
+                          size: 20,
+                          color: Color.fromARGB(255, 213, 213, 213),
+                        ),
                       ),
                     ),
                   ],
                 ),
               );
-    //  );
   }
 }

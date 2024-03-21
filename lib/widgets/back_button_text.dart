@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sutra_ecommerce/utils/screen_utils.dart';
 
 class BackButtonText extends StatelessWidget {
   final Function()? navBack; // Callback function to navigate back
@@ -27,7 +26,7 @@ class BackButtonText extends StatelessWidget {
             'Back',
             style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                   color: Colors.black,
-                  fontSize: getProportionateScreenWidth(14),
+                  fontSize: 16,
                 ),
           ),
         ],

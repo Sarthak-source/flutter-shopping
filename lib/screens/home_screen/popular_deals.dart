@@ -67,7 +67,7 @@ class _PopularDealTabState extends State<PopularDealTab> {
         return Column(
           children: [
             Container(
-              height:205,
+              height: Get.width>= 600? 265:205,
             //  color: popularDeals.isEmpty ? Colors.white : Colors.grey.shade300,
               color: popularDeals.isEmpty ? Colors.white : kPrimaryBlueTest,
               child: ListView.builder(

@@ -11,7 +11,7 @@ import 'add_button.dart';
 
 class OrderCard extends StatefulWidget {
   const OrderCard(
-      {Key? key,
+      {super.key,
       this.isSelected = false,
       this.onTapHandler,
       required this.onPlusinCard,
@@ -19,8 +19,7 @@ class OrderCard extends StatefulWidget {
       required this.onAddItem,
       required this.onDeleteItem,
       required this.onChangeQty,
-      this.mycartItem})
-      : super(key: key);
+      this.mycartItem});
 
   final bool isSelected;
   final Function()? onTapHandler;
@@ -102,6 +101,7 @@ class _OrderCardState extends State<OrderCard> {
                 child: Image.network(
                   widget.mycartItem["product"]["product_img"] ??
                       "http://170.187.232.148/static/images/dilicia.png",
+                  fit: BoxFit.contain,
                 ),
               ),
               SizedBox(
@@ -153,12 +153,21 @@ class _OrderCardState extends State<OrderCard> {
                     ),
                     rateCard(
                       "Price ",
-                      "${twodecimalDigit(double.parse(widget.mycartItem["product"]["price"]==null?"0.000":widget.mycartItem["product"]["price"].toString()))} / ${widget.mycartItem?["product"]['order_uom'] == null ? "" : widget.mycartItem?["product"]['order_uom']}",
+                      "${twodecimalDigit(double.parse(widget.mycartItem["product"]["price"] == null ? "0.000" : widget.mycartItem["product"]["price"].toString()))} / ${widget.mycartItem?["product"]['order_uom'] == null ? "" : widget.mycartItem?["product"]['order_uom']}",
                     ),
-
-                    rateCard("Gst ", twodecimalDigit(double.parse(widget.mycartItem["total_gst"]==null?"0.000":widget.mycartItem["total_gst"].toString()))),
-
-                    rateCard("Value ", twodecimalDigit(double.parse(widget.mycartItem["total_value"]==null?"0.000":widget.mycartItem["total_value"].toString()))),
+                    rateCard(
+                        "Gst ",
+                        twodecimalDigit(double.parse(
+                            widget.mycartItem["total_gst"] == null
+                                ? "0.000"
+                                : widget.mycartItem["total_gst"].toString()))),
+                    rateCard(
+                        "Value ",
+                        twodecimalDigit(double.parse(
+                            widget.mycartItem["total_value"] == null
+                                ? "0.000"
+                                : widget.mycartItem["total_value"]
+                                    .toString()))),
 
                     /*    Text(
                         widget.mycartItem["total_value"].toString(),
@@ -182,7 +191,7 @@ class _OrderCardState extends State<OrderCard> {
                     Row(
                       children: [
                         Text(
-                          '₹ ${twodecimalDigit(double.parse(widget.mycartItem["total_amount"]==null?"0.000":widget.mycartItem["total_amount"].toString()))}',
+                          '₹ ${twodecimalDigit(double.parse(widget.mycartItem["total_amount"] == null ? "0.000" : widget.mycartItem["total_amount"].toString()))}',
                           style: TextStyle(
                             fontSize: getProportionateScreenWidth(14),
                             fontWeight: FontWeight.w700,
@@ -252,8 +261,9 @@ class _OrderCardState extends State<OrderCard> {
                         Column(
                           children: [
                             AddButton(
-                              width: 135,
-                              textWidth: 110,
+                              units:  " ${widget.mycartItem?['order_uom'] == null ? "" : widget.mycartItem?['order_uom']}",
+                              width: 115,
+                              textWidth: 70,
                               isLoading: false,
                               qty: quantity <
                                       int.parse(convertDoubleToString(

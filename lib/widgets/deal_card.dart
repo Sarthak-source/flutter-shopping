@@ -24,7 +24,7 @@ class DealCard extends StatelessWidget {
       child: Container(
 
         alignment: Alignment.bottomLeft,
-        width: getProportionateScreenWidth(280),
+        width: 280,
         height: getProportionateScreenHeight(170),
         margin: EdgeInsets.only(
           left: isHorizontalScrolling
@@ -59,28 +59,7 @@ class DealCard extends StatelessWidget {
           padding: EdgeInsets.all(
             getProportionateScreenWidth(8),
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ShadowText(
-                data:  "",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: getProportionateScreenWidth(20),
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              
-              //  const ShadowText(
-              //    data: 'Fresh fruit Everyday we Serve to You',
-              //     style: TextStyle(
-              //       color: Colors.white,
-              //     ),
-              //   ),
-              
-            ],
-          ),
+          
         ),
       ),
     );

@@ -4,7 +4,6 @@ import 'package:shimmer/shimmer.dart';
 import 'package:sutra_ecommerce/controllers/explore_more_controller.dart';
 
 import '../../constants/colors.dart';
-import '../../utils/screen_utils.dart';
 import '../../widgets/tab_title.dart';
 import '../category_screen.dart';
 import '../product_grid_screen/produts_grid_screen.dart';
@@ -70,7 +69,7 @@ class ExploreNewCategory extends StatelessWidget {
           children: [
             Container(
               height: 14,
-            //  color: Colors.grey.shade300,
+              //  color: Colors.grey.shade300,
               color: kPrimaryBlueTest,
             ),
             Container(
@@ -147,12 +146,13 @@ class ExploreNewCategory extends StatelessWidget {
             GridView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3, // number of items in each row
+              gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: Get.width>= 600? 6:3,
                 mainAxisSpacing: 8.0, // spacing between rows
                 crossAxisSpacing: 8.0, // spacing between columns
               ),
-              padding: const EdgeInsets.symmetric(horizontal: 4), // padding around the grid
+              padding: const EdgeInsets.symmetric(
+                  horizontal: 4), // padding around the grid
               itemCount: setCatLength(
                   controller.exploreMores.length), // total number of items
               itemBuilder: (context, index) {
@@ -171,27 +171,32 @@ class ExploreNewCategory extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: InkWell(
                       onTap: () {
-
-
-                        var checkSubCat = controller.exploreMores[index]["has_sub_category"];
-                        if(checkSubCat != null && checkSubCat == true){
+                        var checkSubCat =
+                            controller.exploreMores[index]["has_sub_category"];
+                        if (checkSubCat != null && checkSubCat == true) {
                           // Get.toNamed(CategoryScreen.routeName);
-                          if(controller.exploreMores[index]["id"] !=null) {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) =>CategoryScreen(subCatId: controller.exploreMores[index]["id"].toString())));
+                          if (controller.exploreMores[index]["id"] != null) {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => CategoryScreen(
+                                        subCatId: controller.exploreMores[index]
+                                                ["id"]
+                                            .toString())));
                           }
-                        }else{
+                        } else {
                           Get.toNamed(
                             PoductsListScreen.routeName,
                             arguments: PoductsListArguments(
                               title: catList.isNotEmpty
                                   ? controller.exploreMores[index]['name']
                                   : "",
-                              categoryId:
-                              controller.exploreMores[index]['id'].toString(),
+                              categoryId: controller.exploreMores[index]['id']
+                                  .toString(),
                             ),
                           );
                         }
-                        },
+                      },
                       child: Container(
                           child: Column(
                         children: [
@@ -207,7 +212,7 @@ class ExploreNewCategory extends StatelessWidget {
                                 .headlineMedium
                                 ?.copyWith(
                                   fontWeight: FontWeight.w700,
-                                  fontSize: getProportionateScreenWidth(11),
+                                  fontSize: 11,
                                 ),
                           ),
                         ],

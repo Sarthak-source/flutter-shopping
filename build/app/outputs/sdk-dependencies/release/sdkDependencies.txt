@@ -509,6 +509,91 @@ library {
 }
 library {
   maven_library {
+    groupId: "dev.shreyaspatil.EasyUpiPayment"
+    artifactId: "EasyUpiPayment"
+    version: "3.0.3"
+  }
+  digests {
+    sha256: "c\367\202\263\234\323|\277*\030\252t~\025\374Q\"\267m\306\252\221B\356v\266\324_:E\036\v"
+  }
+  repo_index {
+    value: 1
+  }
+}
+library {
+  maven_library {
+    groupId: "androidx.appcompat"
+    artifactId: "appcompat"
+    version: "1.2.0"
+  }
+  digests {
+    sha256: "=!1\245Za\247w2.!&\340\001\200\021\357\2463\236S\264AS\353e\033\026\002\f\312p"
+  }
+  repo_index {
+  }
+}
+library {
+  maven_library {
+    groupId: "androidx.cursoradapter"
+    artifactId: "cursoradapter"
+    version: "1.0.0"
+  }
+  digests {
+    sha256: "\250\034\217\347\210\025\372G\337[t\235\353Rrz\321\037\223\227\332X\261`\027\364\353,\021\342\205d"
+  }
+  repo_index {
+  }
+}
+library {
+  maven_library {
+    groupId: "androidx.appcompat"
+    artifactId: "appcompat-resources"
+    version: "1.2.0"
+  }
+  digests {
+    sha256: "\304p)|\003\377=\341\303\321]\254\360\276\f\256c\253\301\vR\360!\335\a\256(\332\243\020\017\345"
+  }
+  repo_index {
+  }
+}
+library {
+  maven_library {
+    groupId: "androidx.vectordrawable"
+    artifactId: "vectordrawable"
+    version: "1.1.0"
+  }
+  digests {
+    sha256: "F\375c:\300\033I\267\374\253\302c\277\t\214Z\213\236\232iwM#N\334\312\004\373\002\337\216&"
+  }
+  repo_index {
+  }
+}
+library {
+  maven_library {
+    groupId: "androidx.vectordrawable"
+    artifactId: "vectordrawable-animated"
+    version: "1.1.0"
+  }
+  digests {
+    sha256: "v\332,P#q\331\303\200T\337^+$\215\000\332\207\200\236\320X\3636>\256\207\316^$\003\370"
+  }
+  repo_index {
+  }
+}
+library {
+  maven_library {
+    groupId: "androidx.drawerlayout"
+    artifactId: "drawerlayout"
+    version: "1.0.0"
+  }
+  digests {
+    sha256: "\224\002D,\334ZC\317b\373\024\370\317\230\3063B\324\331\331\270\005\310\003<l\367\350\002t\232\301"
+  }
+  repo_index {
+  }
+}
+library {
+  maven_library {
     groupId: "io.flutter"
     artifactId: "armeabi_v7a_release"
     version: "1.0.0-0545f8705df301877d787107bac1a6e9fc9ee1ad"
@@ -548,7 +633,7 @@ library {
 }
 library {
   digests {
-    sha256: "\312\261\325Q_\332\224o\207)\032`\310\252\r\2238\201v\326.\204\264\036\341r\243z,\323O\233"
+    sha256: "\260\361Z\321z\302\255td}\035!c\vD\365\a\035`Q\263\034\273\v>\3200g\312\2314\230"
   }
 }
 library_dependencies {
@@ -779,22 +864,70 @@ library_dependencies {
   library_dep_index: 32
   library_dep_index: 5
 }
+library_dependencies {
+  library_index: 42
+  library_dep_index: 43
+  library_dep_index: 19
+  library_dep_index: 33
+  library_dep_index: 2
+}
+library_dependencies {
+  library_index: 43
+  library_dep_index: 2
+  library_dep_index: 12
+  library_dep_index: 44
+  library_dep_index: 11
+  library_dep_index: 45
+  library_dep_index: 48
+  library_dep_index: 14
+}
+library_dependencies {
+  library_index: 44
+  library_dep_index: 2
+}
+library_dependencies {
+  library_index: 45
+  library_dep_index: 14
+  library_dep_index: 2
+  library_dep_index: 12
+  library_dep_index: 46
+  library_dep_index: 47
+}
+library_dependencies {
+  library_index: 46
+  library_dep_index: 2
+  library_dep_index: 12
+  library_dep_index: 14
+}
+library_dependencies {
+  library_index: 47
+  library_dep_index: 46
+  library_dep_index: 17
+  library_dep_index: 14
+}
+library_dependencies {
+  library_index: 48
+  library_dep_index: 2
+  library_dep_index: 12
+  library_dep_index: 21
+}
 module_dependencies {
   module_name: "base"
-  dependency_index: 32
-  dependency_index: 42
-  dependency_index: 43
-  dependency_index: 44
+  dependency_index: 33
+  dependency_index: 49
+  dependency_index: 50
+  dependency_index: 51
   dependency_index: 0
   dependency_index: 36
   dependency_index: 12
   dependency_index: 4
   dependency_index: 19
   dependency_index: 2
-  dependency_index: 33
   dependency_index: 40
   dependency_index: 41
-  dependency_index: 45
+  dependency_index: 42
+  dependency_index: 32
+  dependency_index: 52
 }
 repositories {
   maven_repo {

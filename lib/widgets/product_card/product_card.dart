@@ -97,7 +97,7 @@ class _ProductCardState extends State<ProductCard> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                height: getProportionateScreenHeight(120.0),
+                height: getProportionateScreenHeight(100.0),
                 decoration: BoxDecoration(
                   //color: kGreyShade5,
                   image: DecorationImage(
@@ -135,8 +135,8 @@ class _ProductCardState extends State<ProductCard> {
                           children: [
                             Text(
                               "${convertDoubleToString(widget.product?['packing_qty'].toString() ?? '0.0')} ${widget.product?['packing_uom']}",
-                              style: TextStyle(
-                                fontSize: getProportionateScreenWidth(12),
+                              style: const TextStyle(
+                                fontSize: 12,
                                 color: kTextColorAccent,
                               ),
                             ),
@@ -146,7 +146,10 @@ class _ProductCardState extends State<ProductCard> {
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyMedium!
-                                  .copyWith(fontWeight: FontWeight.w600),
+                                  .copyWith(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 12,
+                                  ),
                             ),
                             Text(
                               " / ${widget.product?['order_uom'] == null ? "" : widget.product?['order_uom']}",
@@ -170,6 +173,8 @@ class _ProductCardState extends State<ProductCard> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12),
                 child: AddButton(
+                  units:
+                      " ${widget.product?['order_uom'] == null ? "" : widget.product?['order_uom']}",
                   width: 165,
                   textWidth: 150,
                   isLoading: widget.loader ?? false,
@@ -183,8 +188,8 @@ class _ProductCardState extends State<ProductCard> {
                     quantityCtrlr.text = quantity.value.toString();
                     controller.rxQty.value = quantity.value.toString();
 
-                    addToCartController.addToCart(
-                        quantity.value, widget.product?['id'], '1');
+                    addToCartController.addToCart(quantity.value,
+                        widget.product?['id'], '1', widget.product);
                   },
                   onAddPressed: () {
                     //  quantity.value++;
@@ -196,8 +201,8 @@ class _ProductCardState extends State<ProductCard> {
                     print(
                         'onClick of Add ${int.parse(convertDoubleToString(minOrder))} :: ${quantity.value}');
                     addToCartController.productCount++;
-                    addToCartController.addToCart(
-                        quantity.value, widget.product?['id'], '1');
+                    addToCartController.addToCart(quantity.value,
+                        widget.product?['id'], '1', widget.product);
                     addToCartController.update();
                     quantityCtrlr.text = quantity.value.toString();
                     controller.rxQty.value = quantity.value.toString();
@@ -214,8 +219,8 @@ class _ProductCardState extends State<ProductCard> {
                     quantity.value = quantity.value +
                         int.parse(convertDoubleToString(minOrder));
                     quantityCtrlr.text = quantity.value.toString();
-                    addToCartController.addToCart(
-                        quantity.value, widget.product?['id'], '1');
+                    addToCartController.addToCart(quantity.value,
+                        widget.product?['id'], '1', widget.product);
 
                     addToCartController.productCount++;
                     addToCartController.update();
@@ -232,8 +237,8 @@ class _ProductCardState extends State<ProductCard> {
                     addToCartController.productCount--;
                     quantityCtrlr.text = quantity.value.toString();
                     controller.rxQty.value = quantity.value.toString();
-                    addToCartController.addToCart(
-                        quantity.value, widget.product?['id'], '1');
+                    addToCartController.addToCart(quantity.value,
+                        widget.product?['id'], '1', widget.product);
                     if (quantity.value <
                         int.parse(convertDoubleToString(
                             widget.product['min_order_qty'] ?? "0.0"))) {
@@ -256,7 +261,8 @@ class _ProductCardState extends State<ProductCard> {
                             setCrateRate(
                                     quantity.value,
                                     widget.product?['multipack_qty'] ?? "0.0",
-                                    widget.product?['multipack_uom'] ?? "")
+                                    widget.product?['multipack_uom'] ?? "",
+                                    )
                                 .toString(),
                             //  setCrateRate(quantity.value, widget.product?['multipack_qty'] ?? 0).toString(),
                             style: Theme.of(context)
@@ -275,7 +281,7 @@ class _ProductCardState extends State<ProductCard> {
                     // const Spacer(),
                     const Spacer(),
                     Text(
-                      "${setPackingValue(quantity.value, widget.product['packing_qty'] ?? "0.0", widget.product?['multipack_uom'] ?? "", widget.product?['no_of_pieces'] ?? 0)} ",
+                      "${setPackingValue(quantity.value, widget.product['packing_qty'] ?? "0.0", widget.product?['multipack_uom'] ?? "", widget.product?['no_of_pieces'] ?? 0,widget.product?['order_uom'] ??'',widget.product?['packing_uom'] ?? '')} ",
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium!

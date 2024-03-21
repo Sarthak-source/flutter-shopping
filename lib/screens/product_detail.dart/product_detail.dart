@@ -328,8 +328,9 @@ class _ProductBodyState extends State<ProductBody> {
                     //} else {
 
                     controller.isLoading.value
-                        ? Loader()
+                        ? const Loader()
                         : AddButton(
+                          units:  " ${widget.product?['order_uom'] == null ? "" : widget.product?['order_uom']}",
                             isLoading: false,
                             qty: quantity.value <
                                     int.parse(convertDoubleToString(
@@ -342,7 +343,7 @@ class _ProductBodyState extends State<ProductBody> {
                                 log(quantity.toString());
                                 addToCartController.productCount++;
                                 addToCartController.addToCart(
-                                    value, widget.product?['id'], '1');
+                                    value, widget.product?['id'], '1',widget.product);
 
                                 addToCartController.update();
                                 //widget.onAddItem(quantity);
@@ -362,7 +363,7 @@ class _ProductBodyState extends State<ProductBody> {
                                 log(quantity.toString());
                                 addToCartController.productCount++;
                                 addToCartController.addToCart(
-                                    quantity.value, widget.product?['id'], '1');
+                                    quantity.value, widget.product?['id'], '1',widget.product);
 
                                 addToCartController.update();
                                 //widget.onAddItem(quantity);
@@ -381,7 +382,7 @@ class _ProductBodyState extends State<ProductBody> {
 
                                 addToCartController.productCount++;
                                 addToCartController.addToCart(
-                                    quantity.value, widget.product?['id'], '1');
+                                    quantity.value, widget.product?['id'], '1',widget.product);
 
                                 addToCartController.update();
 
@@ -401,7 +402,7 @@ class _ProductBodyState extends State<ProductBody> {
                                           convertDoubleToString(minOrder));
                                   addToCartController.productCount--;
                                   addToCartController.addToCart(quantity.value,
-                                      widget.product?['id'], '1');
+                                      widget.product?['id'], '1',widget.product);
 
                                   addToCartController.update();
 
@@ -413,14 +414,14 @@ class _ProductBodyState extends State<ProductBody> {
                           ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 12,
                 ),
                 Row(
                   children: [
                     const Spacer(),
                     quantity.value == 0
-                        ? Text("")
+                        ? const Text("")
                         : Text(
                             //newCrateValue,
                             setCrateRate(quantity.value,
@@ -441,9 +442,9 @@ class _ProductBodyState extends State<ProductBody> {
                           .copyWith(fontSize: 12, color: kTextColorAccent),
                     ),
                     // const Spacer(),
-                    SizedBox(width: 8),
+                    const SizedBox(width: 8),
                     Text(
-                      "${setPackingValue(quantity.value, widget.product['packing_qty'] ?? "0.0",widget.product?['multipack_uom']??"",widget.product?['no_of_pieces']??0)} ",
+                      "${setPackingValue(quantity.value, widget.product['packing_qty'] ?? "0.0",widget.product?['multipack_uom']??"",widget.product?['no_of_pieces']??0,widget.product?['order_uom'] ??'',widget.product?['packing_uom'] ?? '')} ",
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium!
