@@ -4,10 +4,10 @@ import '../constants/colors.dart';
 
 class PriceBreakdown extends StatelessWidget {
   const PriceBreakdown({
-    Key? key,
+    super.key,
     this.title,
     this.price,
-  }) : super(key: key);
+  });
 
   final String? title;
   final String? price;

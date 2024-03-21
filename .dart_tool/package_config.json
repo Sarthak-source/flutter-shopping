@@ -3,15 +3,15 @@
   "packages": [
     {
       "name": "_fe_analyzer_shared",
-      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/_fe_analyzer_shared-22.0.0",
+      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/_fe_analyzer_shared-61.0.0",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.17"
     },
     {
       "name": "analyzer",
-      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/analyzer-1.7.2",
+      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/analyzer-5.13.0",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.19"
     },
     {
       "name": "archive",
@@ -39,39 +39,39 @@
     },
     {
       "name": "build",
-      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/build-2.3.1",
+      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/build-2.4.1",
       "packageUri": "lib/",
-      "languageVersion": "2.17"
+      "languageVersion": "2.19"
     },
     {
       "name": "build_config",
-      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/build_config-1.0.0",
+      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/build_config-1.1.1",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.14"
     },
     {
       "name": "build_daemon",
-      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/build_daemon-3.1.1",
+      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/build_daemon-4.0.1",
       "packageUri": "lib/",
-      "languageVersion": "2.14"
+      "languageVersion": "3.0"
     },
     {
       "name": "build_resolvers",
-      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/build_resolvers-2.0.4",
+      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/build_resolvers-2.4.2",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "3.0"
     },
     {
       "name": "build_runner",
-      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/build_runner-2.1.11",
+      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/build_runner-2.4.8",
       "packageUri": "lib/",
-      "languageVersion": "2.14"
+      "languageVersion": "3.0"
     },
     {
       "name": "build_runner_core",
-      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/build_runner_core-7.2.2",
+      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/build_runner_core-7.3.0",
       "packageUri": "lib/",
-      "languageVersion": "2.14"
+      "languageVersion": "3.0"
     },
     {
       "name": "built_collection",
@@ -93,9 +93,9 @@
     },
     {
       "name": "checked_yaml",
-      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/checked_yaml-2.0.1",
+      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/checked_yaml-2.0.3",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.19"
     },
     {
       "name": "chucker_flutter",
@@ -105,9 +105,9 @@
     },
     {
       "name": "cli_util",
-      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/cli_util-0.3.5",
+      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/cli_util-0.4.1",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "3.0"
     },
     {
       "name": "clock",
@@ -165,9 +165,9 @@
     },
     {
       "name": "dart_style",
-      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/dart_style-2.1.1",
+      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/dart_style-2.3.2",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.19"
     },
     {
       "name": "date_picker_timeline",
@@ -236,6 +236,18 @@
       "languageVersion": "2.19"
     },
     {
+      "name": "floor_annotation",
+      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/floor_annotation-1.4.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "floor_generator",
+      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/floor_generator-1.4.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "flutter",
       "rootUri": "file:///Users/fao/flutter/packages/flutter",
       "packageUri": "lib/",
@@ -249,15 +261,15 @@
     },
     {
       "name": "flutter_launcher_icons",
-      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/flutter_launcher_icons-0.9.3",
+      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/flutter_launcher_icons-0.13.1",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.18"
     },
     {
       "name": "flutter_lints",
-      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/flutter_lints-2.0.3",
+      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/flutter_lints-3.0.1",
       "packageUri": "lib/",
-      "languageVersion": "2.19"
+      "languageVersion": "3.0"
     },
     {
       "name": "flutter_localizations",
@@ -284,6 +296,12 @@
       "languageVersion": "2.17"
     },
     {
+      "name": "flutter_staggered_grid_view",
+      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/flutter_staggered_grid_view-0.7.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "flutter_test",
       "rootUri": "file:///Users/fao/flutter/packages/flutter_test",
       "packageUri": "lib/",
@@ -303,13 +321,13 @@
     },
     {
       "name": "frontend_server_client",
-      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/frontend_server_client-2.1.3",
+      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/frontend_server_client-3.2.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "geolocator",
-      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/geolocator-10.1.1",
+      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/geolocator-11.0.0",
       "packageUri": "lib/",
       "languageVersion": "2.15"
     },
@@ -333,7 +351,7 @@
     },
     {
       "name": "geolocator_web",
-      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/geolocator_web-2.2.1",
+      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/geolocator_web-3.0.0",
       "packageUri": "lib/",
       "languageVersion": "2.15"
     },
@@ -380,6 +398,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "hive_generator",
+      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/hive_generator-2.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "http",
       "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/http-1.1.0",
       "packageUri": "lib/",
@@ -399,15 +423,15 @@
     },
     {
       "name": "image",
-      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/image-3.3.0",
+      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/image-4.1.7",
       "packageUri": "lib/",
       "languageVersion": "2.15"
     },
     {
       "name": "infinite_scroll_pagination",
-      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/infinite_scroll_pagination-3.2.0",
+      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/infinite_scroll_pagination-4.0.0",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.14"
     },
     {
       "name": "intl",
@@ -429,21 +453,27 @@
     },
     {
       "name": "json_annotation",
-      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/json_annotation-4.1.0",
+      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/json_annotation-4.8.1",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.19"
     },
     {
       "name": "json_serializable",
-      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/json_serializable-4.1.4",
+      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/json_serializable-6.7.1",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "3.0"
     },
     {
       "name": "lints",
-      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/lints-2.1.1",
+      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/lints-3.0.0",
       "packageUri": "lib/",
       "languageVersion": "3.0"
+    },
+    {
+      "name": "lists",
+      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/lists-1.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
     },
     {
       "name": "logging",
@@ -542,12 +572,6 @@
       "languageVersion": "2.19"
     },
     {
-      "name": "pedantic",
-      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/pedantic-1.11.1",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
       "name": "petitparser",
       "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/petitparser-5.4.0",
       "packageUri": "lib/",
@@ -591,15 +615,33 @@
     },
     {
       "name": "pubspec_parse",
-      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/pubspec_parse-1.1.0",
+      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/pubspec_parse-1.2.3",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.18"
     },
     {
       "name": "quiver",
       "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/quiver-3.2.1",
       "packageUri": "lib/",
       "languageVersion": "2.17"
+    },
+    {
+      "name": "retrofit",
+      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/retrofit-3.3.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
+      "name": "retrofit_generator",
+      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/retrofit_generator-4.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
+      "name": "scrollable_positioned_list",
+      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/scrollable_positioned_list-0.3.8",
+      "packageUri": "lib/",
+      "languageVersion": "2.15"
     },
     {
       "name": "share_plus",
@@ -711,9 +753,15 @@
     },
     {
       "name": "source_gen",
-      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/source_gen-1.0.3",
+      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/source_gen-1.5.0",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "source_helper",
+      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/source_helper-1.3.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
     },
     {
       "name": "source_span",
@@ -764,6 +812,12 @@
       "languageVersion": "2.18"
     },
     {
+      "name": "strings",
+      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/strings-0.2.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "synchronized",
       "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/synchronized-3.1.0+1",
       "packageUri": "lib/",
@@ -783,15 +837,27 @@
     },
     {
       "name": "timing",
-      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/timing-1.0.0",
+      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/timing-1.0.1",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.14"
+    },
+    {
+      "name": "tuple",
+      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/tuple-2.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
     },
     {
       "name": "typed_data",
       "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/typed_data-1.3.2",
       "packageUri": "lib/",
       "languageVersion": "2.17"
+    },
+    {
+      "name": "unicode",
+      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/unicode-0.3.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
     },
     {
       "name": "url_launcher",
@@ -908,7 +974,7 @@
       "languageVersion": "3.1"
     }
   ],
-  "generated": "2024-03-14T13:19:30.025674Z",
+  "generated": "2024-03-18T13:20:37.573309Z",
   "generator": "pub",
   "generatorVersion": "3.1.5"
 }

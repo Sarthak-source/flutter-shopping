@@ -5,9 +5,9 @@ import '../utils/screen_utils.dart';
 
 class QuantityInput extends StatelessWidget {
   const QuantityInput({
-    Key? key,
+    super.key,
     @required this.textController,
-  }) : super(key: key);
+  });
 
   final TextEditingController? textController;
 

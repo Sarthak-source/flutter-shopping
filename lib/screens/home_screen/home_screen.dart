@@ -3,10 +3,12 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sutra_ecommerce/controllers/add_to_cart_controller.dart';
 import 'package:sutra_ecommerce/controllers/get_deals_controller.dart';
 import 'package:sutra_ecommerce/controllers/user_controller.dart';
+import 'package:sutra_ecommerce/hive_models/cart/cart_item.dart';
 import 'package:sutra_ecommerce/screens/home_screen/categories.dart';
 import 'package:sutra_ecommerce/screens/home_screen/popular_deals.dart';
 import 'package:sutra_ecommerce/screens/product_grid_screen/produts_grid_screen.dart';
@@ -21,7 +23,6 @@ import '../../widgets/deal_card.dart';
 import '../../widgets/tab_title.dart';
 import '../search_screen/search_screen.dart';
 import '../special_deal_screen.dart';
-import 'explore_more_products.dart';
 import 'explore_newCateagory.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -78,8 +79,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 14, vertical: 0),
+                      padding:  EdgeInsets.symmetric(
+                          horizontal: getProportionateScreenWidth(14), vertical: 0),
                       child: Hero(
                         tag: 'search',
                         child: Container(
@@ -216,6 +217,39 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: kPrimaryBlueTest,
               ),
             ),
+            SliverToBoxAdapter(
+              child: FutureBuilder(
+                    future: Hive.openBox<CartItem>('cart_items'),
+                    builder: (BuildContext context, AsyncSnapshot<Box<CartItem>> snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(child: CircularProgressIndicator());
+                      } else if (snapshot.hasError) {
+              return Center(child: Text('Error: ${snapshot.error}'));
+                      } else {
+              final box = snapshot.data!;
+              final cartItems = box.values.toList(); // Retrieve all cart items from the box
+            
+              if (cartItems.isEmpty) {
+                return Center(child: Text('No items in the cart'));
+              } else {
+                return ListView.builder(
+                  itemCount: cartItems.length,
+                  itemBuilder: (context, index) {
+                    final cartItem = cartItems[index];
+                    return ListTile(
+                      title: Text('Product: ${cartItem.product}'),
+                      subtitle: Text('Quantity: ${cartItem.count}'),
+                    );
+                  },
+                );
+              }
+                      }
+                    },
+                  ),
+            ),
+    
+  
+
             (addToCardController.productCount.value > 0)
                 ? const SliverToBoxAdapter(
                     child: SizedBox(
@@ -354,6 +388,8 @@ class _DealsTabState extends State<DealsTab> {
                 ),
               );
             }
+
+
             // SingleChildScrollView(
             //   scrollDirection: Axis.horizontal,
             //   child: Row(
@@ -413,9 +449,9 @@ class HomeAppBar extends StatelessWidget {
                             userController.user['party']?['address']
                                     ?['address_line1'] ??
                                 'Loading...',
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: kTextColorAccent,
-                              fontSize: getProportionateScreenWidth(12),
+                              fontSize: 14,
                             ),
                           ),
                           const SizedBox(width: 10),
@@ -423,9 +459,9 @@ class HomeAppBar extends StatelessWidget {
                             userController.user['party']?['address']
                                     ?['address_line2'] ??
                                 '',
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: kTextColorAccent,
-                              fontSize: getProportionateScreenWidth(12),
+                              fontSize: 14,
                             ),
                           ),
                         ],

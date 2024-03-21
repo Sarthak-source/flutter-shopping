@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
+import 'package:sutra_ecommerce/controllers/common_controller.dart';
 
 import '../../constants/colors.dart';
 import '../../models/item.dart';
@@ -15,6 +17,8 @@ class FavScreen extends StatefulWidget {
 }
 
 class _FavScreenState extends State<FavScreen> {
+  final CommonController cmncontroller = Get.put(CommonController());
+
   @override
   Widget build(BuildContext context) {
     List<Widget> emptyCartWidgets = [
@@ -27,10 +31,10 @@ class _FavScreenState extends State<FavScreen> {
                 ),
           ),
           const Spacer(),
-          const Icon(
-            Icons.search,
-            color: kPrimaryBlue,
-          ),
+          // const Icon(
+          //   Icons.search,
+          //   color: kPrimaryBlue,
+          // ),
         ],
       ),
       SizedBox(
@@ -43,7 +47,7 @@ class _FavScreenState extends State<FavScreen> {
       SizedBox(
         height: getProportionateScreenHeight(10.0),
       ),
-     
+
       Text(
         'Oops your wishlish is empty',
         style: Theme.of(context).textTheme.displaySmall?.copyWith(
@@ -64,7 +68,10 @@ class _FavScreenState extends State<FavScreen> {
         height: getProportionateScreenHeight(16.0),
       ),
       ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          cmncontroller.commonCurTab.value = 0;
+          cmncontroller.update();
+        },
         child: const Text(
           'Start Shopping',
         ),
@@ -186,11 +193,10 @@ class _FavScreenState extends State<FavScreen> {
       ),
       child: SingleChildScrollView(
         child: Column(
-        //  children: [Container()],
+            //  children: [Container()],
             children: Provider.of<Items>(context).favoriteItems.isEmpty
                 ? emptyCartWidgets
-                : cartWidgets
-        ),
+                : cartWidgets),
       ),
     );
   }

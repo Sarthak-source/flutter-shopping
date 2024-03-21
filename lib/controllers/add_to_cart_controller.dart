@@ -52,10 +52,15 @@ class AddToCartController extends GetxController {
     }
   }
 
-  void addToCart(count, product, party) async {
+  void addToCart(count, product, party, productBody) async {
     log(product.toString());
     try {
+
+    
+
       Map storedUserData = box!.get('userData');
+
+    
 
       isLoading.value = true;
      log("addToCart $count $product"); 

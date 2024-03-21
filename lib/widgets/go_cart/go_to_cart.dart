@@ -6,7 +6,6 @@ import 'package:sutra_ecommerce/controllers/common_controller.dart';
 import 'package:sutra_ecommerce/controllers/mycart_controller.dart';
 import 'package:sutra_ecommerce/utils/screen_utils.dart';
 
-import '../../screens/cart/cart_screen.dart';
 import '../../utils/common_functions.dart';
 
 class GoToCart extends StatefulWidget {
@@ -60,7 +59,7 @@ class _GoToCartState extends State<GoToCart> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('cart total:'),
+                  const Text('cart total:',style: TextStyle(fontSize: 15),),
                   Row(
                     children: [
                       Text(
@@ -72,7 +71,7 @@ class _GoToCartState extends State<GoToCart> {
                                 fontWeight: FontWeight.w700,
                                 fontSize: fontSize),
                       ),
-                      Text(" | ${addToCartController.productCount.value} items")
+                      Text(" | ${addToCartController.productCount.value} items",style: const TextStyle(fontSize: 15),)
                     ],
                   ),
                 ],
@@ -90,7 +89,7 @@ class _GoToCartState extends State<GoToCart> {
                 minimumSize: MaterialStateProperty.all(
                   Size(
                     getProportionateScreenWidth(2), // Width
-                    getProportionateScreenHeight(40), // Height
+                    44, // Height
                   ),
                 ),
               ),

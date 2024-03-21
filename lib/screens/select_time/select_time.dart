@@ -1,9 +1,10 @@
 import 'dart:developer';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:sutra_ecommerce/config/common.dart';
+
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:sutra_ecommerce/config/common.dart';
 import 'package:sutra_ecommerce/constants/colors.dart';
 import 'package:sutra_ecommerce/controllers/mycart_controller.dart';
 import 'package:sutra_ecommerce/controllers/user_controller.dart';
@@ -114,6 +115,7 @@ class _SelectTimeState extends State<SelectTime> {
                               Text(
                                 iconList[position].titleIcon,
                                 style: TextStyle(
+                                  fontSize: 16,
                                   color: (selectedIndex == position)
                                       ? Colors.white
                                       : null, // Set text color
