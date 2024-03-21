@@ -34,10 +34,10 @@ class _FlutterPayUPIState extends State<FlutterPayUPI>
     super.initState();
     WidgetsBinding.instance.addObserver(this);
 
-    payeeVpa = "169022734592@hdfcbank";
-    payeeName = "BHAGINI MULTICUISINE FAMILY RESTAURNAT";
-    transactionId = "dgafhAMNMmm123";
-    payeeMerchantCode = "sjhJJh455";
+    payeeVpa = "q42104021@ybl";
+    payeeName = "test";
+    transactionId = "gfdgfdgf78765";
+    payeeMerchantCode = "gfgfd7767";
     description = "test";
     amount = widget.paymentAmount ?? "1";
 
@@ -211,7 +211,9 @@ class _FlutterPayUPIState extends State<FlutterPayUPI>
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return SimpleDialog(
+        return
+
+          SimpleDialog(
           title: Text('Transaction Details'),
           children: [
             _buildDetailRow('Txn ID', upiRequestParams.transactionID ?? "N/A"),

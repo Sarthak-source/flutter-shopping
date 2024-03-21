@@ -381,6 +381,17 @@ class MyOrderCards extends StatelessWidget {
                           ),
                         ),
                     Container(
+                     // color: Colors.red,
+                        decoration: BoxDecoration(
+                          // color: Colors.red.shade50,
+                          border: Border(
+                            bottom: BorderSide(
+                                width: 1,
+                                color: Colors.grey,
+                                style: BorderStyle.solid), //BorderSide
+
+                          ), //
+                        ),
                       width: Get.width,
                         margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                         child: Padding(
@@ -393,7 +404,67 @@ class MyOrderCards extends StatelessWidget {
                             color: kTextColorAccent,
                             fontSize: getProportionateScreenWidth(14),
                           ),),
-
+                            Padding(
+                              padding: const EdgeInsets.all(0),
+                              child: Container(
+                                // height: 50,
+                                width: Get.width,
+                                decoration: BoxDecoration(
+                                  // color: Colors.red.shade50,
+                                    border: Border(
+                                      top: BorderSide(
+                                          width: 1,
+                                          color: Colors.grey,
+                                          style: BorderStyle.solid), //BorderSide
+                                       //BorderSide
+                                      left: BorderSide(
+                                          width: 1,
+                                          color: Colors.grey,
+                                          style: BorderStyle.solid), //Borderside
+                                      right: BorderSide(
+                                          width: 1,
+                                          color: Colors.grey,
+                                          style: BorderStyle.solid), //BorderSide
+                                    ), //
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    // Text(setCount(MyOrderList[index]["order_items"][index]["count"]),
+                                    SizedBox(
+                                      width: 8,
+                                    ),
+                                    Expanded(
+                                      flex:3,
+                                      child: Text("Product Name",
+                                        style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                                          fontWeight: FontWeight.w700,
+                                          color: kTextColorAccent,
+                                          fontSize: getProportionateScreenWidth(12),
+                                        ),),
+                                    ),
+                                    Expanded(
+                                      flex:1,
+                                      child: Text("Quantity",
+                                        style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                                          fontWeight: FontWeight.w700,
+                                          color: kTextColorAccent,
+                                          fontSize: getProportionateScreenWidth(12),
+                                        ),),
+                                    ),
+                                    Expanded(
+                                      flex:1,
+                                      child: Text("UOM",
+                                        style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                                          fontWeight: FontWeight.w700,
+                                          color: kTextColorAccent,
+                                          fontSize: getProportionateScreenWidth(12),
+                                        ),),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
                           ListView.builder(
                             shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
@@ -401,29 +472,59 @@ class MyOrderCards extends StatelessWidget {
                               itemBuilder: (context,newindex){
                                 return Padding(
                                   padding: const EdgeInsets.all(0),
-                                  child: SizedBox(
+                                  child: Container(
                                    // height: 50,
                                     width: Get.width,
-                                  //  color: Colors.red,
-                                    child: Column(
+                                    decoration: BoxDecoration(
+                                       // color: Colors.red.shade50,
+                                      border:Border(
+                                        top: BorderSide(
+                                        width: 1,
+                                        color: Colors.grey,
+                                        style: BorderStyle.solid), //BorderSide
+                                    //BorderSide
+                                    left: BorderSide(
+                                        width: 1,
+                                        color: Colors.grey,
+                                        style: BorderStyle.solid), //Borderside
+                                    right: BorderSide(
+                                        width: 1,
+                                        color: Colors.grey,
+                                        style: BorderStyle.solid), //BorderSide
+                                  ),
+                                ),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                       children: [
-                                        Row(
-                                          children: [
-                                           // Text(setCount(MyOrderList[index]["order_items"][index]["count"]),
-                                            Text(convertDoubleToString(myOrderList[index]["order_items"][newindex]["count"]),
+                                        SizedBox(
+                                          width: 8,
+                                        ),
+                                        Expanded(
+                                          flex:4,
+                                          child: Text(myOrderList[index]["order_items"][newindex]["product"]["name"],
 
-                                              style: const TextStyle(
+                                            style: const TextStyle(
                                               color: Colors.grey,
                                               fontSize: 12,
                                             ),),
-                                            const SizedBox(width: 10,),
-                                            Text(myOrderList[index]["order_items"][newindex]["product"]["name"],
+                                        ),
+                                        Expanded(
+                                          flex:1,
+                                          child: Text(convertDoubleToString(myOrderList[index]["order_items"][newindex]["count"]),
 
-                                              style: const TextStyle(
-                                                color: Colors.grey,
-                                                fontSize: 12,
-                                              ),)
-                                          ],
+                                            style: const TextStyle(
+                                            color: Colors.grey,
+                                            fontSize: 12,
+                                          ),),
+                                        ),
+                                        Expanded(
+                                          flex:1,
+                                          child: Text(myOrderList[index]["order_items"][newindex]["product"]["order_uom"],
+
+                                            style: const TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 12,
+                                            ),),
                                         )
                                       ],
                                     ),

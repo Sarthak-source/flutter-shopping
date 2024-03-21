@@ -95,8 +95,15 @@ class _GoToCartState extends State<GoToCart> {
               ),
               onPressed: () {
               //  Navigator.of(context).pushNamed(CartScreen.routeName);
-                cmncontroller.commonCurTab.value=2;
-                cmncontroller.update();
+                if(widget.usedIn =="PoductsListScreen"){
+                  Navigator.pop(context);
+                  cmncontroller.commonCurTab.value=2;
+                  cmncontroller.update();
+                }else{
+                  cmncontroller.commonCurTab.value=2;
+                  cmncontroller.update();
+                }
+
               },
               child: const Text(
                 'View cart',

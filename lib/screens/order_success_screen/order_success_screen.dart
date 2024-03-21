@@ -100,15 +100,13 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
                             return DataRow(
                               cells: [
                                 DataCell(
-                                  Text(item["id"].toString(),style: const TextStyle(fontSize: 12),),
-
-
+                                  Text(item["id"]==null?"":item["id"].toString(),style: const TextStyle(fontSize: 12),),
                                 ),
                                 DataCell(
-                                  Text(item["total_value"].toString(),style: const TextStyle(fontSize: 12),),
+                                  Text(item["total_value"]==null?"":item["total_value"].toString(),style: const TextStyle(fontSize: 12),),
                                 ),
                                 DataCell(
-                                  Text(item["total_gst"].toString(),style: const TextStyle(fontSize: 12),),
+                                  Text(item["total_gst"]==null?"":item["total_gst"].toString(),style: const TextStyle(fontSize: 12),),
                                 ),
                                 DataCell(
                                   GestureDetector(
@@ -183,7 +181,7 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
                             Expanded(
                               flex: 2,
                               child: Text(
-                                "₹ ${twodecimalDigit(double.parse(setTotalValue(createOrderCtlr.myOrderItems)))}",
+                                "₹ ${twodecimalDigit(double.parse(setTotalValue(createOrderCtlr.myOrderItems).toString()))}",
                                 style: Theme.of(context).textTheme.headline6!.copyWith(
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -219,10 +217,10 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
   }
 
   String setTotalValue(RxList myOrderItems) {
-    var amounts = myOrderItems.map((item) => item["total_amount"]).cast<double>();
+    var amounts = myOrderItems.map((item) => item["total_amount"]).cast<String>();
     double totalAmount = 0.0;
-    for (double amount in amounts) {
-      totalAmount += amount;
+    for (String amount in amounts) {
+      totalAmount += double.parse(amount);
     }
     log(totalAmount.toString());
     return totalAmount.toString();
