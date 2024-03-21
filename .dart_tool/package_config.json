@@ -272,16 +272,16 @@
       "languageVersion": "2.12"
     },
     {
-      "name": "flutter_slidable",
-      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/flutter_slidable-3.0.1",
+      "name": "flutter_pay_upi",
+      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/flutter_pay_upi-0.2.1",
       "packageUri": "lib/",
-      "languageVersion": "2.17"
+      "languageVersion": "3.1"
     },
     {
-      "name": "flutter_staggered_grid_view",
-      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/flutter_staggered_grid_view-0.4.1",
+      "name": "flutter_slidable",
+      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/flutter_slidable-3.1.0",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.17"
     },
     {
       "name": "flutter_test",
@@ -908,7 +908,7 @@
       "languageVersion": "3.1"
     }
   ],
-  "generated": "2024-03-14T10:05:21.792730Z",
+  "generated": "2024-03-14T13:19:30.025674Z",
   "generator": "pub",
   "generatorVersion": "3.1.5"
 }
