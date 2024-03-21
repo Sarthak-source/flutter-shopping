@@ -49,22 +49,22 @@ class _PopularCardState extends State<PopularCard> {
       }
     }
   }
-  // @override
-  // void didUpdateWidget(covariant PopularCard oldWidget) {
-  //       super.didUpdateWidget(oldWidget);
-  //       if (widget.product != null && widget.product!["cart_count"] != null) {
-  //         final cartCount = widget.product!["cart_count"];
-  //         if (cartCount != null) {
-  //           log("count in popularcard2 ${cartCount.toString()}");
-  //           final double? parsedCount = double.tryParse(cartCount.toString());
-  //           if (parsedCount != null) {
-  //             log('double count $parsedCount');
-  //             log('int count ${parsedCount.toInt()}');
-  //             quantity.value = parsedCount.toInt();
-  //           }
-  //         }
-  //       }
-  // }
+  @override
+  void didUpdateWidget(covariant PopularCard oldWidget) {
+        super.didUpdateWidget(oldWidget);
+        if (widget.product != null && widget.product!["cart_count"] != null) {
+          final cartCount = widget.product!["cart_count"];
+          if (cartCount != null) {
+            log("count in popularcard2 ${cartCount.toString()}");
+            final double? parsedCount = double.tryParse(cartCount.toString());
+            if (parsedCount != null) {
+              log('double count $parsedCount');
+              log('int count ${parsedCount.toInt()}');
+              quantity.value = parsedCount.toInt();
+            }
+          }
+        }
+  }
 
   final TextEditingController quantityCtrlr = TextEditingController();
   final AddToCartController addToCartController =
