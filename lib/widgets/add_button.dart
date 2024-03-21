@@ -113,9 +113,9 @@ class _AddButtonState extends State<AddButton> {
             height: 32,
             child: OutlinedButton(
               style: OutlinedButton.styleFrom(
-                side: const BorderSide(color: Colors.pink),
+                side: const BorderSide(color: Colors.grey),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
+                  borderRadius: BorderRadius.circular(5.0),
                 ),
               ),
               onPressed: widget.onAddPressed,
@@ -124,7 +124,7 @@ class _AddButtonState extends State<AddButton> {
                 style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.bold,
-                  color: Colors.pink,
+                  color: Colors.grey,
                 ),
               ),
             ),
@@ -138,7 +138,7 @@ class _AddButtonState extends State<AddButton> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   border: Border.all(
-                    color: Colors.pink,
+                    color: Colors.grey,
                   ),
                 ),
                 width: quantity.toString().length == 1
@@ -152,10 +152,10 @@ class _AddButtonState extends State<AddButton> {
                         width: 25,
                         height: 30,
                         decoration: const BoxDecoration(
-                          color: Colors.pink,
+                          color: Colors.grey,
                           borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(10),
-                            bottomLeft: Radius.circular(10),
+                            topLeft: Radius.circular(5.0),
+                            bottomLeft: Radius.circular(5.0),
                           ),
                         ),
                         child: const Icon(
@@ -198,7 +198,7 @@ class _AddButtonState extends State<AddButton> {
                                         onPressed: () {
                                           Navigator.pop(context);
                                         },
-                                        icon: const Icon(Icons.cancel))
+                                        icon: const Icon(Icons.close))
                                   ],
                                 ),
                                 content: SizedBox(
@@ -284,10 +284,10 @@ class _AddButtonState extends State<AddButton> {
                         width: 25,
                         height: 30,
                         decoration: const BoxDecoration(
-                          color: Colors.pink,
+                          color: Colors.grey,
                           borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(10),
-                            bottomRight: Radius.circular(10),
+                            topRight: Radius.circular(5.0),
+                            bottomRight: Radius.circular(5.0),
                           ),
                         ),
                         child: const Icon(
