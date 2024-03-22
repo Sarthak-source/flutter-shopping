@@ -263,9 +263,9 @@ class _OrderCardState extends State<OrderCard> {
                             AddButton(
                               constWidth:true,
                               minOrder: int.parse(convertDoubleToString(
-                                  widget.mycartItem['min_order_qty'] ?? "0.0")),
+                                  widget.mycartItem["product"]['min_order_qty'] ?? "0.0")),
                               units:
-                                  " ${widget.mycartItem?['order_uom'] == null ? "" : widget.mycartItem?['order_uom']}",
+                                  " ${widget.mycartItem?["product"]['order_uom'] == null ? "" : widget.mycartItem?["product"]['order_uom']}",
                               width: 115,
                               textWidth: 70,
                               isLoading: false,
