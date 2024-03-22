@@ -23,7 +23,7 @@ class BackButtonText extends StatelessWidget {
             color: Colors.black,
           ),
           Text(
-            'Back',
+            '',
             style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                   color: Colors.black,
                   fontSize: 16,

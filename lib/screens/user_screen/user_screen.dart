@@ -115,7 +115,7 @@ class UserScreen extends StatelessWidget {
               color: kPrimaryBlue.withOpacity(0.2),
               title: 'Help Center',
             ),
-            SizedBox(
+          /*  SizedBox(
               height: getProportionateScreenHeight(8.0),
             ),
             ProfileCard(
@@ -126,8 +126,8 @@ class UserScreen extends StatelessWidget {
                 // Navigator.of(context).pushNamed(MyOrders.routeName);
                 Get.toNamed(MyOrders.routeName);
               },
-            ),
-            SizedBox(
+            ),*/
+        /*    SizedBox(
               height: getProportionateScreenHeight(8.0),
             ),
             ProfileCard(
@@ -136,7 +136,7 @@ class UserScreen extends StatelessWidget {
                 title: 'Payment',
                 tapHandler: () {
                   Get.toNamed(PaymentScreen.routeName);
-                }),
+                }),*/
             SizedBox(
               height: getProportionateScreenHeight(8.0),
             ),

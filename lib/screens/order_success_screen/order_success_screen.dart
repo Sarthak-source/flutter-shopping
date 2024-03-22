@@ -71,7 +71,7 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
                           horizontal: getProportionateScreenWidth(16.0),
                         ),
                         child: Text(
-                          'Thank you for the order. Your order will be prepared and shipped by the given delivery date.',
+                          'Thank you for the order. Your order will be Processed.',
                           textAlign: TextAlign.center,
                           style:
                               Theme.of(context).textTheme.bodyText2!.copyWith(
@@ -120,7 +120,7 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
                                   Text(
                                     item["total_value"] == null
                                         ? ""
-                                        : item["total_value"].toString(),
+                                        :twodecimalDigit(double.parse(item["total_value"].toString())),
                                     style: const TextStyle(fontSize: 12),
                                   ),
                                 ),
@@ -128,7 +128,7 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
                                   Text(
                                     item["total_gst"] == null
                                         ? ""
-                                        : item["total_gst"].toString(),
+                                        : twodecimalDigit(double.parse(item["total_gst"].toString())),
                                     style: const TextStyle(fontSize: 12),
                                   ),
                                 ),
@@ -150,7 +150,7 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
                                       child: Column(
                                         children: [
                                           Text(
-                                            item["total_amount"].toString(),
+                                            item["total_amount"]==null?"":twodecimalDigit(double.parse(item["total_amount"].toString())),
                                             style:
                                                 const TextStyle(fontSize: 12),
                                           ),

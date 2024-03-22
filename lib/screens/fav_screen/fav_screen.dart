@@ -19,13 +19,22 @@ class _FavScreenState extends State<FavScreen> {
   @override
   Widget build(BuildContext context) {
     List<Widget> emptyCartWidgets = [
+      const SizedBox(
+        height: 18,
+      ),
       Row(
         children: [
           Text(
-            'My Favorite',
-            style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                  fontWeight: FontWeight.w700,
-                ),
+            'My Favourites',
+            style: Theme.of(context)
+                .textTheme
+                .displaySmall!
+                .copyWith(
+              fontWeight: FontWeight.w700,
+              fontSize: getProportionateScreenWidth(
+                20,
+              ),
+            ),
           ),
           const Spacer(),
           // const Icon(

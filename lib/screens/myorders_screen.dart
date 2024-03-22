@@ -27,6 +27,14 @@ class _MyOrdersState extends State<MyOrders> {
   final MyOrderController controller = Get.put(MyOrderController());
 
   @override
+  void initState() {
+        super.initState();
+        controller.selectedBtn.value = 1;
+        controller.update();
+        controller.getMyOrders("Approved");
+  }
+
+  @override
   Widget build(BuildContext context) {
 
     var deviceheight = MediaQuery.of(context).size.height;
@@ -92,164 +100,195 @@ class _MyOrdersState extends State<MyOrders> {
 
     ];
 
-    return GetBuilder<MyOrderController>(
-      init: MyOrderController(),
-       autoRemove: false,
-        builder:(controller){
-        return Scaffold(
-          body: SafeArea(
-            child: Column(
-              children: [
-                const CustomAppBar(  title: 'My Orders', actions: [],marginBottom: 10,),
-                SizedBox(
-                  height: getProportionateScreenHeight(16.0),
-                ),
-
-               Obx(
-                     () => FittedBox(
-                    child: EasyStepper(
-                      activeStep: controller.selectedBtn.value, // activeStep.value,
-                      /*   lineLength: 50,
-                    lineThickness: 1,
-                    lineSpace: 4,*/
-                      stepRadius: 15,
-                      unreachedStepIconColor: Colors.black87,
-                      unreachedStepBorderColor: Colors.black54,
-                      unreachedStepTextColor: Colors.grey,
-                      showTitle: true,
-                      // lineType: LineType.dotted,
-                      // unreachedLineColor: grey,
-                      finishedStepTextColor: Colors.grey,
-                      finishedStepBackgroundColor: Colors.grey,
-                      activeStepIconColor: kPrimaryBlue,
-                      activeStepBackgroundColor: kPrimaryBlue,
-                      activeStepTextColor: kPrimaryBlue,
-                      showLoadingAnimation: false,
-                      enableStepTapping: true,
-                      steps: const [
-                        EasyStep(
-                          customStep: Text("1"),
-                          title: "Created",
-                        ),
-                        EasyStep(
-                          customStep: Text("2"),
-                          title: "Approved",
-                        ),
-                        EasyStep(
-                          customStep: Text("3"),
-                          title: "Rejected",
-                        ),
-                        EasyStep(
-                          customStep: Text("4"),
-                          title: "Cancelled",
-                        ),
-                        EasyStep(
-                          customStep: Text("5"),
-                          title: "InProgress",
-                        ),
-                        EasyStep(
-                          customStep: Text("6"),
-                          title: "Completed",
-                        ),
-                      ],
-                      onStepReached: (index) {
-                         controller.selectedBtn.value = index;
-                         log('selected page indx $index');
-                         controller.pageController.jumpToPage(index);
-                      for (int i = 0;
-                      i < controller.selectedFilter.length;
-                      i++) {
-                        controller.selectedFilter[i] = i == index;
-                      }
-                      controller.update();
-                      controller.selectedBtn.value = index;
-                      },
-                      // activeStep.value = index,
+    return WillPopScope(
+      onWillPop: () async {
+        return false;
+      },
+      child: GetBuilder<MyOrderController>(
+        init: MyOrderController(),
+         autoRemove: false,
+          builder:(controller){
+          return Scaffold(
+            body: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(  horizontal: 16.0,),
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 18,
                     ),
-                  ),
-                ),
-                Expanded(
-                  child: PageView.builder(
-                    itemCount: 6,
-                    restorationId: "MyOrdersPage",
-                     controller: controller.pageController,
-                    onPageChanged: (v) async {
-                      log('page Number:: $v');
-                      controller.selectedBtn.value = v;
-                      controller.update();
-                     if(v == 0){
-                       controller.getMyOrders("Created");
-                     }else if(v == 1){
-                       controller.getMyOrders("Approved");
-                     }else if(v == 2){
-                       controller.getMyOrders("Rejected");
-                     }else if(v == 3){
-                       controller.getMyOrders("Cancelled");
-                     }else if(v == 4){
-                       controller.getMyOrders("InProgress");
-                     }else {
-                       controller.getMyOrders("Completed");
-                     }
-
-                    for (int i = 0;
-                    i < controller.selectedFilter.length;
-                    i++) {
-                      controller.selectedFilter[i] = i == v;
-                    }
-                    controller.update();
-                    },
-                    itemBuilder: (context, pageIndex) {
-                   if (controller.isLoading.value) {
-                        return Shimmer.fromColors(
-                          baseColor: Colors.grey[300]!,
-                          highlightColor: Colors.grey[100]!,
-                          child: SizedBox(
-                            height: 120,
-                            child: ListView.builder(
-                              clipBehavior: Clip.none,
-                              scrollDirection: Axis.vertical,
-                              itemCount: 6, // Use a placeholder count
-                              itemBuilder: (context, index) {
-                                return const Padding(
-                                  padding: EdgeInsets.all(0),
-                                  child: MyOrderShimmer(from: "myorder"),
-                                );
-                              },
+                    Row(
+                      children: [
+                        Text(
+                          'My Orders',
+                          style: Theme.of(context)
+                              .textTheme
+                              .displaySmall!
+                              .copyWith(
+                            fontWeight: FontWeight.w700,
+                            fontSize: getProportionateScreenWidth(
+                              20,
                             ),
                           ),
-                        );
-                      }else if (controller.hasError.value) {
-                     return Text('Error: ${controller.errorMsg.value}');
-                   }else {
+                        ),
+                        const Spacer(),
+                        // const Icon(
+                        //   Icons.search,
+                        //   color: kPrimaryBlue,
+                        // ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: getProportionateScreenHeight(16.0),
+                    ),
 
-                     if (controller.myOrderList.isEmpty) {
-                       return Column(
-                         children: [
-                           Lottie.asset('assets/lotties/no-data.json',
-                               repeat: false,
-                               height: getProportionateScreenHeight(250.0),
-                               width: getProportionateScreenWidth(250.0)),
-                           SizedBox(height: getProportionateScreenHeight(10.0)),
-                           const Text(
-                             'No orders found',
-                             style: TextStyle(
-                                 fontWeight: FontWeight.w600, color: kPrimaryBlue),
-                           ),
-                         ],
-                       );
-                     }else{
+                   Obx(
+                         () => FittedBox(
+                        child: EasyStepper(
+                          activeStep: controller.selectedBtn.value, // activeStep.value,
+                          /*   lineLength: 50,
+                        lineThickness: 1,
+                        lineSpace: 4,*/
+                          stepRadius: 15,
+                          unreachedStepIconColor: Colors.black87,
+                          unreachedStepBorderColor: Colors.black54,
+                          unreachedStepTextColor: Colors.grey,
+                          showTitle: true,
+                          // lineType: LineType.dotted,
+                          // unreachedLineColor: grey,
+                          finishedStepTextColor: Colors.grey,
+                          finishedStepBackgroundColor: Colors.grey,
+                          activeStepIconColor: kPrimaryBlue,
+                          activeStepBackgroundColor: kPrimaryBlue,
+                          activeStepTextColor: kPrimaryBlue,
+                          showLoadingAnimation: false,
+                          enableStepTapping: true,
+                          steps: const [
+                            EasyStep(
+                              customStep: Text("1"),
+                              title: "Created",
+                            ),
+                            EasyStep(
+                              customStep: Text("2"),
+                              title: "Approved",
+                            ),
+                            EasyStep(
+                              customStep: Text("3"),
+                              title: "Rejected",
+                            ),
+                            EasyStep(
+                              customStep: Text("4"),
+                              title: "Cancelled",
+                            ),
+                            EasyStep(
+                              customStep: Text("5"),
+                              title: "InProgress",
+                            ),
+                            EasyStep(
+                              customStep: Text("6"),
+                              title: "Completed",
+                            ),
+                          ],
+                          onStepReached: (index) {
+                             controller.selectedBtn.value = index;
+                             log('selected page indx $index');
+                             controller.pageController.jumpToPage(index);
+                          for (int i = 0;
+                          i < controller.selectedFilter.length;
+                          i++) {
+                            controller.selectedFilter[i] = i == index;
+                          }
+                          controller.update();
+                          controller.selectedBtn.value = index;
+                          },
+                          // activeStep.value = index,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: PageView.builder(
+                        itemCount: 6,
+                        restorationId: "MyOrdersPage",
+                         controller: controller.pageController,
+                        onPageChanged: (v) async {
+                          log('page Number:: $v');
+                          controller.selectedBtn.value = v;
+                          controller.update();
+                         if(v == 0){
+                           controller.getMyOrders("Created");
+                         }else if(v == 1){
+                           controller.getMyOrders("Approved");
+                         }else if(v == 2){
+                           controller.getMyOrders("Rejected");
+                         }else if(v == 3){
+                           controller.getMyOrders("Cancelled");
+                         }else if(v == 4){
+                           controller.getMyOrders("InProgress");
+                         }else {
+                           controller.getMyOrders("Completed");
+                         }
 
-                     return MyOrderCards(devicewidth: devicewidth,orderlist: orderslist,myOrderList:controller.myOrderList);}
-                   }
-                   },
-                  ),
+                        for (int i = 0;
+                        i < controller.selectedFilter.length;
+                        i++) {
+                          controller.selectedFilter[i] = i == v;
+                        }
+                        controller.update();
+                        },
+                        itemBuilder: (context, pageIndex) {
+                       if (controller.isLoading.value) {
+                            return Shimmer.fromColors(
+                              baseColor: Colors.grey[300]!,
+                              highlightColor: Colors.grey[100]!,
+                              child: SizedBox(
+                                height: 120,
+                                child: ListView.builder(
+                                  clipBehavior: Clip.none,
+                                  scrollDirection: Axis.vertical,
+                                  itemCount: 6, // Use a placeholder count
+                                  itemBuilder: (context, index) {
+                                    return const Padding(
+                                      padding: EdgeInsets.all(0),
+                                      child: MyOrderShimmer(from: "myorder"),
+                                    );
+                                  },
+                                ),
+                              ),
+                            );
+                          }else if (controller.hasError.value) {
+                         return Text('Error: ${controller.errorMsg.value}');
+                       }else {
+
+                         if (controller.myOrderList.isEmpty) {
+                           return Column(
+                             children: [
+                               Lottie.asset('assets/lotties/no-data.json',
+                                   repeat: false,
+                                   height: getProportionateScreenHeight(250.0),
+                                   width: getProportionateScreenWidth(250.0)),
+                               SizedBox(height: getProportionateScreenHeight(10.0)),
+                               const Text(
+                                 'No orders found',
+                                 style: TextStyle(
+                                     fontWeight: FontWeight.w600, color: kPrimaryBlue),
+                               ),
+                             ],
+                           );
+                         }else{
+
+                         return MyOrderCards(devicewidth: devicewidth,orderlist: orderslist,myOrderList:controller.myOrderList);}
+                       }
+                       },
+                      ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
-          ),
-        );
-        } ,
+          );
+          } ,
 
+      ),
     );
   }
 }
@@ -312,30 +351,38 @@ class MyOrderCards extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Row(
-                      children: [
-                        const SizedBox(width: 8,),
-                        const Icon(
-                          Icons.shopping_cart,
-                          color: kPrimaryBlue,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 5),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                    Container(
+                      color: Colors.grey.shade300,
+                      child: Column(
+                        children: [
+                          Row(
                             children: [
-                              orderIDDate(context, index,"Order No","id"),
-                              orderIDDate(context, index,"Date","order_date"),
+                              const SizedBox(width: 8,),
+                              const Icon(
+                                Icons.shopping_cart,
+                                color: kPrimaryBlue,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 5),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    orderIDDate(context, index,"Order No","id"),
+                                    orderIDDate(context, index,"Date","order_date"),
+                                  ],
+                                ),
+                              ),
                             ],
                           ),
-                        ),
-                      ],
+                          const Divider(
+                            color: Colors.blueGrey,
+                            thickness: 0.3,
+                            height: 1,
+                          ),
+                        ],
+                      ),
                     ),
-                    const Divider(
-                      color: Colors.blueGrey,
-                      thickness: 0.3,
-                      height: 1,
-                    ),
+
 
                     Container(
                       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -383,10 +430,10 @@ class MyOrderCards extends StatelessWidget {
                     Container(
                      // color: Colors.red,
                         decoration: BoxDecoration(
-                          // color: Colors.red.shade50,
+                         // color: Colors.red.shade50,
                           border: Border(
                             bottom: BorderSide(
-                                width: 1,
+                                width: 0.6,
                                 color: Colors.grey,
                                 style: BorderStyle.solid), //BorderSide
 
@@ -409,20 +456,20 @@ class MyOrderCards extends StatelessWidget {
                               child: Container(
                                 // height: 50,
                                 width: Get.width,
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                   // color: Colors.red.shade50,
                                     border: Border(
                                       top: BorderSide(
-                                          width: 1,
+                                          width: 0.6,
                                           color: Colors.grey,
                                           style: BorderStyle.solid), //BorderSide
                                        //BorderSide
                                       left: BorderSide(
-                                          width: 1,
+                                          width: 0.6,
                                           color: Colors.grey,
                                           style: BorderStyle.solid), //Borderside
                                       right: BorderSide(
-                                          width: 1,
+                                          width: 0.6,
                                           color: Colors.grey,
                                           style: BorderStyle.solid), //BorderSide
                                     ), //
@@ -475,20 +522,20 @@ class MyOrderCards extends StatelessWidget {
                                   child: Container(
                                    // height: 50,
                                     width: Get.width,
-                                    decoration: BoxDecoration(
+                                    decoration: const BoxDecoration(
                                        // color: Colors.red.shade50,
                                       border:Border(
                                         top: BorderSide(
-                                        width: 1,
+                                            width: 0.6,
                                         color: Colors.grey,
                                         style: BorderStyle.solid), //BorderSide
                                     //BorderSide
                                     left: BorderSide(
-                                        width: 1,
+                                        width: 0.6,
                                         color: Colors.grey,
                                         style: BorderStyle.solid), //Borderside
                                     right: BorderSide(
-                                        width: 1,
+                                        width: 0.6,
                                         color: Colors.grey,
                                         style: BorderStyle.solid), //BorderSide
                                   ),

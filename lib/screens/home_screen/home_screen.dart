@@ -410,7 +410,7 @@ class HomeAppBar extends StatelessWidget {
                                 'Loading...',
                                 maxLines: 2,
                             style: const TextStyle(
-                              color: kTextColorAccent,
+                              color: Colors.black,
                               fontSize: 14,
                               
                             ),

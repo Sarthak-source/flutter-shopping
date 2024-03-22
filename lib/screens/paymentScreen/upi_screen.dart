@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -34,14 +35,17 @@ class _FlutterPayUPIState extends State<FlutterPayUPI>
     super.initState();
     WidgetsBinding.instance.addObserver(this);
 
-    payeeVpa = "SDIPLDAIRY.756@SBI";
-    payeeName = "SHRI DUTT INDIA PVT LTD 6011";
-    transactionId = "gfdgfdgf78765";
-    payeeMerchantCode = "gfgfd7767";
+    payeeVpa = "sdipldairy.756@sbi";
+    payeeName = "shri dutt india pvt ltd 6011";
+    transactionId = getRandomString(10);
+    payeeMerchantCode =  getRandomString(8);
     description = "test";
     amount = widget.paymentAmount ?? "1";
 
+    print('transactionId::${transactionId} payeeMerchantCode::${payeeMerchantCode}');
   }
+  var _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+  Random _rnd = Random();
 
   @override
   Widget build(BuildContext context) {
@@ -259,4 +263,9 @@ class _FlutterPayUPIState extends State<FlutterPayUPI>
       }
     }
   }
+
+
+
+  String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
+      length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
 }

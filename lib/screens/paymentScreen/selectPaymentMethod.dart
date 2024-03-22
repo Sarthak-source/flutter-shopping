@@ -22,6 +22,17 @@ class SelectPaymentMethod extends StatefulWidget {
 class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
   final PaymentController controller = Get.put(PaymentController());
   final MyCartController createOrderCtlr = Get.put(MyCartController());
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      controller.upi.value = false;
+      controller.cod.value = false;
+    });
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Obx(() =>
