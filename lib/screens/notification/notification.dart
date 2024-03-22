@@ -7,6 +7,8 @@ import 'package:sutra_ecommerce/constants/colors.dart';
 import 'package:sutra_ecommerce/controllers/notification_controller.dart';
 import 'package:sutra_ecommerce/utils/screen_utils.dart';
 
+import '../../widgets/custom_app_bar.dart';
+
 class Notification extends StatefulWidget {
   static const routeName = '/notification';
 
@@ -23,7 +25,7 @@ class _NotificationState extends State<Notification> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(elevation: 0,backgroundColor: Colors.transparent,title: const Text('Notifications'),),
+     // appBar: AppBar(elevation: 0,backgroundColor: Colors.transparent,title: const Text('Notifications'),),
       // floatingActionButton: Padding(
       //   padding: const EdgeInsets.only(bottom: 80.0),
       //   child: FloatingActionButton.extended(
@@ -46,6 +48,14 @@ class _NotificationState extends State<Notification> {
       // ),
       body: Column(
         children: [
+          SizedBox(
+            height: 18,
+          ),
+          CustomAppBar(
+            marginBottom: 12,
+            actions: [],
+            title: 'Notifications',
+          ),
           Expanded(
             child: Obx(
               () {
@@ -93,7 +103,7 @@ class _NotificationState extends State<Notification> {
                                           Flexible(
                                             child: SizedBox(
                                               height: 30,
-                                              width: 180,
+                                             // width: 180,
                                               child: Row(
                                                 children: [
                                                   Expanded(
