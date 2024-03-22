@@ -50,5 +50,5 @@ class ApiAppConstants {
   static const String postaddress = 'inventory/address_post/';
   static const String getstates = 'inventory/state/';
   static const String addressListPost = 'addressListPost/';
-  static const String invoicePayments= 'invoice_payments';
+  static const String invoicePayments= 'invoice_payments/';
 }
