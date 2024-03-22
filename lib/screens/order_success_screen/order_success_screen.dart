@@ -53,19 +53,12 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
                 children: [
                   Column(
                     children: [
-                      ColorFiltered(
-  colorFilter: ColorFilter.mode(
-    kPrimaryBlue, // The color you want to blend with
-    BlendMode.srcIn, // The blend mode you want to apply
-  ),
-  child: Lottie.asset(
-    'assets/lotties/OrderSuccessAnimation.json',
-    repeat: false,
-    height: getProportionateScreenHeight(200.0),
-    width: getProportionateScreenWidth(200.0),
-  ),
-),
-
+                      Lottie.asset(
+                        'assets/lotties/OrderSuccessAnimation.json',
+                        repeat: false,
+                        height: getProportionateScreenHeight(200.0),
+                        width: getProportionateScreenWidth(200.0),
+                      ),
                       Text(
                         'Order successfully placed!',
                         style: Theme.of(context).textTheme.headline6!.copyWith(
@@ -80,33 +73,64 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
                         child: Text(
                           'Thank you for the order. Your order will be prepared and shipped by the given delivery date.',
                           textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                                color: kTextColorAccent,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.bodyText2!.copyWith(
+                                    color: kTextColorAccent,
+                                  ),
                         ),
                       ),
                       const SizedBox(height: 12),
                       SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-
+                        scrollDirection: Axis.horizontal,
                         child: DataTable(
                           columns: const [
-                            DataColumn(label: Text('Order Id',style: TextStyle(fontSize: 12),)),
-                            DataColumn(label: Text('Total Value',style: TextStyle(fontSize: 12),)),
-                            DataColumn(label: Text('GST',style: TextStyle(fontSize: 12),)),
-                            DataColumn(label: Text('Amount',style: TextStyle(fontSize: 12),)),
+                            DataColumn(
+                                label: Text(
+                              'Order Id',
+                              style: TextStyle(fontSize: 12),
+                            )),
+                            DataColumn(
+                                label: Text(
+                              'Total Value',
+                              style: TextStyle(fontSize: 12),
+                            )),
+                            DataColumn(
+                                label: Text(
+                              'GST',
+                              style: TextStyle(fontSize: 12),
+                            )),
+                            DataColumn(
+                                label: Text(
+                              'Amount',
+                              style: TextStyle(fontSize: 12),
+                            )),
                           ],
                           rows: createOrderCtlr.myOrderItems.map((item) {
                             return DataRow(
                               cells: [
                                 DataCell(
-                                  Text(item["id"]==null?"":item["id"].toString(),style: const TextStyle(fontSize: 12),),
+                                  Text(
+                                    item["id"] == null
+                                        ? ""
+                                        : item["id"].toString(),
+                                    style: const TextStyle(fontSize: 12),
+                                  ),
                                 ),
                                 DataCell(
-                                  Text(item["total_value"]==null?"":item["total_value"].toString(),style: const TextStyle(fontSize: 12),),
+                                  Text(
+                                    item["total_value"] == null
+                                        ? ""
+                                        : item["total_value"].toString(),
+                                    style: const TextStyle(fontSize: 12),
+                                  ),
                                 ),
                                 DataCell(
-                                  Text(item["total_gst"]==null?"":item["total_gst"].toString(),style: const TextStyle(fontSize: 12),),
+                                  Text(
+                                    item["total_gst"] == null
+                                        ? ""
+                                        : item["total_gst"].toString(),
+                                    style: const TextStyle(fontSize: 12),
+                                  ),
                                 ),
                                 DataCell(
                                   GestureDetector(
@@ -115,44 +139,52 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) => MyOrderDetail2(
-                                            OrderId: int.parse(item["id"].toString()),
+                                            OrderId: int.parse(
+                                                item["id"].toString()),
                                           ),
                                         ),
                                       );
                                       log('od id ${item["id"].toString()}');
                                     },
-                                    child:  SingleChildScrollView(
+                                    child: SingleChildScrollView(
                                       child: Column(
-                                          children: [
-                                            Text(item["total_amount"].toString(),style: const TextStyle(fontSize: 12),),
-                                            if (item["title"] != "title")
-                                              TextButton(
-                                                onPressed: () {
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (context) => MyOrderDetail2(
-                                                        OrderId: int.parse(item["id"].toString()),
-                                                      ),
+                                        children: [
+                                          Text(
+                                            item["total_amount"].toString(),
+                                            style:
+                                                const TextStyle(fontSize: 12),
+                                          ),
+                                          if (item["title"] != "title")
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        MyOrderDetail2(
+                                                      OrderId: int.parse(
+                                                          item["id"]
+                                                              .toString()),
                                                     ),
-                                                  );
-                                                },
-                                                child: const Text(
-                                                  "View Details",
-                                                  style: TextStyle(
-                                                    fontSize: 10,
-                                                    color: kPrimaryBlue,
-                                                    decoration: TextDecoration.underline,
-                                                    decorationColor: kPrimaryBlue,
                                                   ),
+                                                );
+                                              },
+                                              child: const Text(
+                                                "View Details",
+                                                style: TextStyle(
+                                                  fontSize: 10,
+                                                  color: kPrimaryBlue,
+                                                  decoration:
+                                                      TextDecoration.underline,
+                                                  decorationColor: kPrimaryBlue,
                                                 ),
                                               ),
-                                          ],
-                                        ),
-                                    ),
+                                            ),
+                                        ],
+                                      ),
                                     ),
                                   ),
-
+                                ),
                               ],
                             );
                           }).toList(),
@@ -173,7 +205,10 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
                               flex: 2,
                               child: Text(
                                 "Total",
-                                style: Theme.of(context).textTheme.headline6!.copyWith(
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline6!
+                                    .copyWith(
                                       fontWeight: FontWeight.bold,
                                     ),
                               ),
@@ -182,7 +217,10 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
                               flex: 2,
                               child: Text(
                                 "₹ ${twodecimalDigit(double.parse(setTotalValue(createOrderCtlr.myOrderItems).toString()))}",
-                                style: Theme.of(context).textTheme.headline6!.copyWith(
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline6!
+                                    .copyWith(
                                       fontWeight: FontWeight.bold,
                                     ),
                               ),
@@ -199,7 +237,8 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
                           ),
                           child: ElevatedButton(
                             onPressed: () {
-                              Navigator.of(context).pushReplacementNamed(TabScreen.routeName);
+                              Navigator.of(context)
+                                  .pushReplacementNamed(TabScreen.routeName);
                             },
                             child: const Text('Continue Shopping'),
                           ),
@@ -217,7 +256,8 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
   }
 
   String setTotalValue(RxList myOrderItems) {
-    var amounts = myOrderItems.map((item) => item["total_amount"]).cast<String>();
+    var amounts =
+        myOrderItems.map((item) => item["total_amount"]).cast<String>();
     double totalAmount = 0.0;
     for (String amount in amounts) {
       totalAmount += double.parse(amount);

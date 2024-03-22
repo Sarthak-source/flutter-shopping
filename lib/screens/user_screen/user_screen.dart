@@ -5,13 +5,13 @@ import 'package:get/get.dart';
 import 'package:sutra_ecommerce/config/common.dart';
 import 'package:sutra_ecommerce/controllers/user_controller.dart';
 import 'package:sutra_ecommerce/screens/login/login_screen.dart';
+import 'package:sutra_ecommerce/screens/notification/notification.dart' as notificationpage;
 
 import '../../constants/colors.dart';
 import '../../utils/screen_utils.dart';
 import '../../widgets/image_container.dart';
 import '../my_profile_screen.dart';
 import '../myorders_screen.dart';
-import '../paymentScreen/upi_screen.dart';
 
 class UserScreen extends StatelessWidget {
   final UserController? userController = Get.put(UserController());
@@ -100,6 +100,10 @@ class UserScreen extends StatelessWidget {
               image: 'assets/images/noti_user.png',
               color: kPrimaryBlue.withOpacity(0.2),
               title: 'Notification',
+              tapHandler: () {
+                // Navigator.of(context).pushNamed(MyOrders.routeName);
+                Get.toNamed(notificationpage.Notification.routeName);
+              },
             ),
             SizedBox(
               height: getProportionateScreenHeight(8.0),

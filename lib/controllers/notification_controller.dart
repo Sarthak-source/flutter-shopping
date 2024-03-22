@@ -1,5 +1,45 @@
-import 'package:get/get.dart';
+import 'dart:developer';
 
-class  NotificationController extends GetxController {
-  
+import 'package:get/get.dart';
+import 'package:sutra_ecommerce/config/common.dart';
+import 'package:sutra_ecommerce/utils/network_repository.dart';
+
+class NotificationController extends GetxController {
+  var notification = [].obs;
+
+  var isLoading = true.obs;
+  var hasError = false.obs;
+  var errorMsg = ''.obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    fetchInvoiceNotification();
+  }
+
+  @override
+  void onReady() {
+    // fetchPopularDeals();
+    super.onReady();
+  }
+
+  Future<dynamic> fetchInvoiceNotification() async {
+    try {
+      Map storedUserData = box!.get('userData');
+
+      isLoading.value = true;
+      var responseData = await NetworkRepository.getInvoiceNotification(
+          dispatchParty: storedUserData['party']['id'].toString());
+      List popularDealData = responseData['body']['results'];
+      log(popularDealData.toString());
+      notification.assignAll(popularDealData);
+      update();
+      log(notification.toString());
+    } catch (e) {
+      errorMsg.value = e.toString();
+      hasError.value = true;
+    } finally {
+      isLoading.value = false;
+    }
+  }
 }

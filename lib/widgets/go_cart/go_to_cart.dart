@@ -71,7 +71,7 @@ class _GoToCartState extends State<GoToCart> {
                                 fontWeight: FontWeight.w700,
                                 fontSize: fontSize),
                       ),
-                      Text(" | ${addToCartController.productCount.value} items",style: const TextStyle(fontSize: 15),)
+                      Text(" | ${addToCartController.productCount.value} items",style:  TextStyle(fontSize: fontSize),)
                     ],
                   ),
                 ],
