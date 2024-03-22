@@ -12,6 +12,7 @@ import '../../widgets/custom_nav_bar.dart';
 import '../cart/cart_screen.dart';
 import '../fav_screen/fav_screen.dart';
 import '../home_screen/home_screen.dart';
+import '../myorders_screen.dart';
 import '../paymentScreen/paymentScreen.dart';
 import '../user_screen/user_screen.dart';
 
@@ -60,7 +61,8 @@ class TabScreenState extends State<TabScreen> {
       const HomeScreen(),
       const FavScreen(),
       CartScreen(),
-      const PaymentScreen(),
+    //  const PaymentScreen(),
+       MyOrders(),
       UserScreen(),
     ];
 

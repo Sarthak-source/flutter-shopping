@@ -10,6 +10,7 @@ import '../utils/common_functions.dart';
 import '../utils/screen_utils.dart';
 import '../utils/shimmer_placeholders/myorder_shimmer.dart';
 import '../widgets/custom_app_bar.dart';
+import '../widgets/order_card.dart';
 
 class MyOrderDetail2 extends StatefulWidget {
   final int OrderId;
@@ -282,8 +283,12 @@ class _MyOrderDetail2State extends State<MyOrderDetail2> {
                               shrinkWrap: true,
                               itemCount: controller.myOrderDetailList.length,
                               itemBuilder: (context, index) {
-                                return OrderTile(context,
-                                    controller.myOrderDetailList[index]);
+                               // return OrderTile(context, controller.myOrderDetailList[index]);
+                             return Padding(
+                               padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                               child: orderDetailNewTile(myOrderDetailList: controller.myOrderDetailList[index]),
+                             );
+
                               },
                             ),
                 ),
@@ -466,6 +471,210 @@ class _MyOrderDetail2State extends State<MyOrderDetail2> {
                   12,
                 ),
               )),
+        ),
+      ],
+    );
+  }
+}
+
+class orderDetailNewTile extends StatelessWidget {
+  dynamic myOrderDetailList;
+   orderDetailNewTile( {
+    super.key,
+    this.myOrderDetailList
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border.all(
+            color: Colors.grey, // Border color
+            width: 1.0, // Border width
+          ),
+          borderRadius: BorderRadius.circular(getProportionateScreenWidth(8)),),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              SizedBox(
+                width: getProportionateScreenWidth(80),
+                child: Image.network(
+                  myOrderDetailList["product"]["product_img"] ?? "http://170.187.232.148/static/images/dilicia.png",
+                  fit: BoxFit.contain,
+                ),
+              ),
+              SizedBox(
+                width: getProportionateScreenWidth(8),
+              ),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            myOrderDetailList["product"]["name"] ?? "",
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineMedium
+                                ?.copyWith(
+                              fontWeight: FontWeight.w700,
+                              fontSize: getProportionateScreenWidth(14),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    rateCard(
+                      "Qty ",
+                      "${twodecimalDigit(double.parse( convertDoubleToString(myOrderDetailList["product"]["packing_qty"] ??"0.000") ))}",
+                    ),rateCard(
+                      "Price ",
+                      "${twodecimalDigit(double.parse(convertDoubleToString(myOrderDetailList["item_price"] ==null?"0.000":myOrderDetailList["item_price"].toString()) ))} / ${myOrderDetailList["product"]['order_uom'] ?? ""}",
+                    ),
+                    rateCard(
+                        "Gst ",
+                        twodecimalDigit(double.parse(convertDoubleToString(myOrderDetailList["total_gst"]==null?"0.000":myOrderDetailList["total_gst"].toString())))),
+                    rateCard(
+                        "Value ",
+                        twodecimalDigit(double.parse(convertDoubleToString(myOrderDetailList["total_value"]==null?"0.000":myOrderDetailList["total_value"].toString())))),
+
+                    /*    Text(
+                            widget.mycartItem["total_value"].toString(),
+                            style: TextStyle(
+                              color: kTextColorAccent,
+                              fontSize: getProportionateScreenWidth(
+                                12,
+                              ),
+                            ),
+                          ),
+                          Text(
+                            widget.mycartItem["total_gst"].toString(),
+                            style: TextStyle(
+                              color: kTextColorAccent,
+                              fontSize: getProportionateScreenWidth(
+                                12,
+                              ),
+                            ),
+                          ),*/
+
+                    Row(
+                      children: [
+                        Text(
+                          '₹ ${twodecimalDigit(double.parse( myOrderDetailList["total_amount"]==null?"0.000":myOrderDetailList["total_amount"].toString() ))}',
+                          style: TextStyle(
+                            fontSize: getProportionateScreenWidth(14),
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        const Spacer(),
+
+                        /* Card(
+                                elevation: 0,
+                                shape: RoundedRectangleBorder(
+     side: const BorderSide(
+       color: kPrimaryBlue, // Set your desired border color
+       width: 1.0, // Set the border width
+     ),
+     borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                child: SizedBox(
+     height: 35,
+     width:  quantity == 0 ? 75
+         : ( quantity.toString().length * 11) + 75,
+     child:  quantity == 0
+         ? OutlinedButton(
+             style: OutlinedButton.styleFrom(
+               side: const BorderSide(color: kPrimaryBlue),
+               shape: RoundedRectangleBorder(
+                 borderRadius: BorderRadius.circular(
+                     10.0), // Set your desired border radius
+               ),
+             ),
+             onPressed: () {
+               log('widget.mycartItem["product"]["name"] ${widget.mycartItem["product"]["name"].toString()}');
+                 setState(() {
+                 quantity++;
+                 log(quantity.toString());
+                 widget.onAddItem(quantity);
+               });
+             },
+             child: const Text(
+               'Add',
+               style: TextStyle(
+                   color: kPrimaryBlue, fontSize: 14),
+             ),
+           )
+         : PlusMinusUI(
+       onPlusPressed: (){
+             setState(() {
+               quantity++;
+               widget.onPlusinCard(quantity);
+             });
+             },
+           onMinusPressed: (){
+             if (quantity != 0) {
+               setState(() {
+                 quantity--;
+                 widget.onMinusinCard(quantity);
+               });
+
+             }
+           },
+           qty: quantity,
+     ),
+         // :
+
+
+                                ),
+                              ),*/
+
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Row rateCard(String key, String? values) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Expanded(
+          flex: 1,
+          child: Text(
+            key,
+            style: TextStyle(
+              color: kTextColorAccent,
+              fontSize: getProportionateScreenWidth(
+                12,
+              ),
+            ),
+          ),
+        ),
+        Expanded(
+          flex: 1,
+          child: Text(
+            ":  ₹ ${values ?? ""}",
+            //widget.mycartItem["product"]["price"].toString(),
+            style: TextStyle(
+              color: kTextColorAccent,
+              fontSize: getProportionateScreenWidth(
+                12,
+              ),
+            ),
+          ),
         ),
       ],
     );

@@ -103,7 +103,7 @@ class CustomNavBarState extends State<CustomNavBar> {
                 icon: widget.curTabIndex == 4
                     ? const Icon(Icons.payment)
                     : const Icon(Icons.payment_outlined),
-                label: 'Payment',
+                label: 'Orders',
               ),
               BottomNavigationBarItem(
                 icon: widget.curTabIndex == 3

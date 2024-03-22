@@ -34,8 +34,8 @@ class _FlutterPayUPIState extends State<FlutterPayUPI>
     super.initState();
     WidgetsBinding.instance.addObserver(this);
 
-    payeeVpa = "q42104021@ybl";
-    payeeName = "test";
+    payeeVpa = "SDIPLDAIRY.756@SBI";
+    payeeName = "SHRI DUTT INDIA PVT LTD 6011";
     transactionId = "gfdgfdgf78765";
     payeeMerchantCode = "gfgfd7767";
     description = "test";
