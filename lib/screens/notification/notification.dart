@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:sutra_ecommerce/constants/colors.dart';
 import 'package:sutra_ecommerce/controllers/notification_controller.dart';
 import 'package:sutra_ecommerce/utils/screen_utils.dart';
 
@@ -20,6 +23,7 @@ class _NotificationState extends State<Notification> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(elevation: 0,backgroundColor: Colors.transparent,title: const Text('Notifications'),),
       // floatingActionButton: Padding(
       //   padding: const EdgeInsets.only(bottom: 80.0),
       //   child: FloatingActionButton.extended(
@@ -42,64 +46,165 @@ class _NotificationState extends State<Notification> {
       // ),
       body: Column(
         children: [
-          Padding(
-            padding: EdgeInsets.all(
-              getProportionateScreenWidth(18),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const SizedBox(
-                  height: 80,
-                ),
-                Text(
-                  'Payment Details',
-                  style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                        fontWeight: FontWeight.w700,
-                        fontSize: getProportionateScreenWidth(20),
-                      ),
-                ),
-              ],
-            ),
-          ),
           Expanded(
             child: Obx(
               () {
                 List invoicePaymentList = notificationController.notification;
                 return invoicePaymentList.isEmpty
                     ? _buildShimmerLoading()
-                    : ListView.builder(
+                    : ListView.separated(
+                        separatorBuilder: (context, index) {
+                          return const Divider(
+                            thickness: 0.4,
+                          );
+                        },
                         itemCount: invoicePaymentList.length,
                         itemBuilder: (BuildContext context, int index) {
                           final payment = invoicePaymentList[index];
+                          log(payment.toString());
+
                           return Padding(
                             padding: const EdgeInsets.symmetric(
                                 vertical: 4, horizontal: 12),
-                            child: Container(
-                              height: 90,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                border: Border.all(
-                                  color: Colors.grey,
-                                  width: 1.0,
-                                ),
-                                borderRadius: BorderRadius.circular(
-                                  getProportionateScreenWidth(8),
-                                ),
-                              ),
+                            child: SizedBox(
+                              height: 65,
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Row(
-                                      children: [
-                                        Text(
-                                          'Invoice: $payment',
-                                          style: const TextStyle(
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        const Spacer(),
-                                      ],
+                                    const SizedBox(height: 8),
+                                    Expanded(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Flexible(
+                                            flex: 1,
+                                            child: Text(
+                                              'Paid Rs ${payment['amount_paid'].toString()} against invoice no ${payment['invoice']}',
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 2,
+                                            ),
+                                          ),
+
+                                          Flexible(
+                                            child: SizedBox(
+                                              height: 30,
+                                              width: 180,
+                                              child: Row(
+                                                children: [
+                                                  Expanded(
+                                                    flex: 1,
+                                                    child: OutlinedButton(
+                                                      style: OutlinedButton
+                                                          .styleFrom(
+                                                        
+                                                        side: const BorderSide(
+                                                            color:
+                                                                kPrimaryBlue),
+                                                        shape:
+                                                            RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(10),
+                                                        ),
+                                                      ),
+                                                      onPressed: () {
+                                                        // Add your action for the first button
+                                                      },
+                                                      child: const Text(
+                                                        'Confirm',
+                                                        style: TextStyle(
+                                                          fontSize: 13,
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  const SizedBox(width: 5),
+                                                  Expanded(
+                                                    flex: 1,
+                                                    child: OutlinedButton(
+                                                      style: OutlinedButton
+                                                          .styleFrom(
+                                                            
+                                                        
+                                                        side: const BorderSide(
+                                                            color: Colors.red),
+                                                        shape:
+                                                            RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(10),
+                                                        ),
+                                                      ),
+                                                      onPressed: () {
+                                                        // Add your action for the second button
+                                                      },
+                                                      child: const Text(
+                                                        'Decline',
+                                                        style: TextStyle(
+                                                          fontSize: 13,
+                                                          color: Colors.red,
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+
+                                          // Flexible(
+                                          //   child: Text(
+                                          //     '${payment['id'].toString()}',
+                                          //     overflow: TextOverflow.ellipsis,
+                                          //   ),
+                                          // ),
+                                          // Flexible(
+                                          //   child: Text(
+                                          //     '${payment['amount_paid']}',
+                                          //     overflow: TextOverflow.ellipsis,
+                                          //   ),
+                                          // ),
+                                          // Flexible(
+                                          //   child: Text(
+                                          //     '${payment['payment_mode']}',
+                                          //     overflow: TextOverflow.ellipsis,
+                                          //   ),
+                                          // ),
+                                          // Flexible(
+                                          //   child: Text(
+                                          //     '${payment['payment_date']}',
+                                          //     overflow: TextOverflow.ellipsis,
+                                          //   ),
+                                          // ),
+                                          // Flexible(
+                                          //   child: Text(
+                                          //     '${payment['confirmation_status']}',
+                                          //     overflow: TextOverflow.ellipsis,
+                                          //   ),
+                                          // ),
+                                          // Flexible(
+                                          //   child: Text(
+                                          //     '${payment['invoice']}',
+                                          //     overflow: TextOverflow.ellipsis,
+                                          //   ),
+                                          // ),
+                                          // Flexible(
+                                          //   child: Text(
+                                          //     '${payment['collected_by']}',
+                                          //     overflow: TextOverflow.ellipsis,
+                                          //   ),
+                                          // ),
+                                        ],
+                                      ),
                                     ),
                                   ],
                                 ),

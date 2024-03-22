@@ -194,6 +194,28 @@ class NetworkRepository {
     }
   }
 
+  //confirmation_status
+
+  Future confirmInovice({
+    required String status,
+    required String party,
+  }) async {
+    try {
+      final apiResponse = await NetworkDioHttp.putDioHttpMethod(
+        url:
+            "${ApiAppConstants.apiEndPoint}${ApiAppConstants.invoicePayments}$party/",
+        data: {"confirmation_status": status},
+        header: Options(headers: <String, String>{'authorization': auth}),
+      );
+      debugPrint('\x1b[97m Response : $apiResponse');
+      return await apiResponse['body'];
+    } catch (e) {
+      // CommonMethod().getXSnackBar("Error", e.toString(), Colors.red);
+      Fluttertoast.showToast(msg: "Wrong OTP", backgroundColor: Colors.red);
+      return e.toString();
+    }
+  }
+
   Future getStates() async {
     log("${ApiAppConstants.apiEndPoint}${ApiAppConstants.getstates}?page=1");
     try {
@@ -297,7 +319,6 @@ class NetworkRepository {
     }
   }
 
-
   static Future getInvoiceNotification({required String dispatchParty}) async {
     log("${ApiAppConstants.apiEndPoint}${ApiAppConstants.invoicePayments}?invoice_dispatchorder_party=$dispatchParty");
     try {
@@ -329,15 +350,15 @@ class NetworkRepository {
     }
   }
 
-  static Future addPayments(
-      {required String invoice,
-      required String amount,
-      required String paymentMode,
-      required String paymentDate,
-      required String status,
-      required String collectedBy,
-      required String transId,
-      }) async {
+  static Future addPayments({
+    required String invoice,
+    required String amount,
+    required String paymentMode,
+    required String paymentDate,
+    required String status,
+    required String collectedBy,
+    required String transId,
+  }) async {
     log({
       'invoice': invoice,
       'amount': amount,
@@ -740,11 +761,9 @@ class NetworkRepository {
     }
   }
 
-
   static Future ReOrderApi({
     required String orderId,
     required String partyid,
-
   }) async {
     try {
       var data = FormData.fromMap({
@@ -756,10 +775,9 @@ class NetworkRepository {
 
       log('${ApiAppConstants.apiEndPoint}${ApiAppConstants.reorderapi}');
       final apiResponse = await NetworkDioHttp.postDioHttpMethod(
-        url: "${ApiAppConstants.apiEndPoint}${ApiAppConstants.reorderapi}",
-        header: Options(headers: <String, String>{'authorization': auth}),
-        data:  data
-      );
+          url: "${ApiAppConstants.apiEndPoint}${ApiAppConstants.reorderapi}",
+          header: Options(headers: <String, String>{'authorization': auth}),
+          data: data);
       debugPrint('\x1b[97m  reorderapi  Response : $apiResponse');
 
 /*      final body = apiResponse['body'];
@@ -777,7 +795,6 @@ class NetworkRepository {
       rethrow;
     }
   }
-
 
   static Future UpdateCart({
     required String count,
