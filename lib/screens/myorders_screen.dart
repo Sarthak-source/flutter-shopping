@@ -29,9 +29,12 @@ class _MyOrdersState extends State<MyOrders> {
   @override
   void initState() {
         super.initState();
-        controller.selectedBtn.value = 1;
-        controller.update();
-        controller.getMyOrders("Approved");
+        WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+          controller.selectedBtn.value = 1;
+          controller.update();
+          controller.getMyOrders("Approved");
+        });
+
   }
 
   @override
