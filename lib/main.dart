@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:provider/provider.dart';
 import 'package:sutra_ecommerce/config/common.dart';
 import 'package:sutra_ecommerce/controllers/add_to_cart_controller.dart';
 import 'package:sutra_ecommerce/routes/route.dart';
@@ -14,7 +13,6 @@ import 'package:sutra_ecommerce/screens/tab_screen/TestScreen.dart';
 import 'package:sutra_ecommerce/utils/api_constants.dart';
 import 'package:sutra_ecommerce/utils/network_dio.dart';
 
-import './models/item.dart';
 import './screens/landing_screen.dart';
 import 'utils/custom_theme.dart';
 
@@ -45,12 +43,10 @@ class MyApp extends StatelessWidget {
       const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
         statusBarIconBrightness:
-        Brightness.dark, // Change status bar icons color (light or dark)
+            Brightness.dark, // Change status bar icons color (light or dark)
       ),
     );
-    return ChangeNotifierProvider(
-      create: (context) => Items(),
-      child: LayoutBuilder(
+    return  LayoutBuilder(
         builder: (context, constraints) {
           final customTheme = CustomTheme(constraints);
           return GetMaterialApp(
@@ -58,7 +54,7 @@ class MyApp extends StatelessWidget {
             title: 'Ecommerce',
             navigatorObservers: [ChuckerFlutter.navigatorObserver],
             theme: ThemeData(
-              //primarySwatch: Colors.green,
+                //primarySwatch: Colors.green,
                 primarySwatch: const MaterialColor(
                   0xFF71C4ED,
                   <int, Color>{
@@ -83,12 +79,12 @@ class MyApp extends StatelessWidget {
             getPages: pages,
             initialBinding: StoreBinding(),
             home:
-            isLoggedIn == true ? const TestScreen() : const LandingScreen(),
+                isLoggedIn == true ? const TestScreen() : const LandingScreen(),
             // home: TestScreen(),
             //  const LandingScreen(),
           );
         },
-      ),
-    );
+      );
+    
   }
 }

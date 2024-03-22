@@ -203,34 +203,34 @@ class CartScreen extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                               Transform.translate(
-                                offset: const Offset(0, 20),
-                                 child: Expanded(
-                                    flex: 2,
-                                    child: ElevatedButton(
-                                      style: ButtonStyle(
-                                        shape: MaterialStateProperty.all(
-                                          const StadiumBorder(),
-                                        ),
-                                        minimumSize: MaterialStateProperty.all(
-                                          Size(
-                                            getProportionateScreenWidth(1), // Width
-                                            44, // Height
-                                          ),
-                                        ),
+                              Expanded(
+                                flex: 2,
+                                child: Transform.translate(
+                                  offset: const Offset(0, 20),
+                                  child: ElevatedButton(
+                                    style: ButtonStyle(
+                                      shape: MaterialStateProperty.all(
+                                        const StadiumBorder(),
                                       ),
-                                      onPressed: () {
-                                        //Navigator.of(context).pushNamed(AddAddressScreen.routeName);
-                                        Get.toNamed(SelectTime.routeName);
-                                      },
-                                      child: const Text(
-                                        'Buy Now',
-                                        style: TextStyle(fontSize: 16),
+                                      minimumSize: MaterialStateProperty.all(
+                                        Size(
+                                          getProportionateScreenWidth(
+                                              1), // Width
+                                          44, // Height
+                                        ),
                                       ),
                                     ),
+                                    onPressed: () {
+                                      //Navigator.of(context).pushNamed(AddAddressScreen.routeName);
+                                      Get.toNamed(SelectTime.routeName);
+                                    },
+                                    child: const Text(
+                                      'Buy Now',
+                                      style: TextStyle(fontSize: 16),
+                                    ),
                                   ),
-                               ),
-                              
+                                ),
+                              ),
                             ],
                           ),
                     SizedBox(

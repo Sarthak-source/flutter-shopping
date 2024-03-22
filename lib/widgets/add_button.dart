@@ -80,6 +80,10 @@ class _AddButtonState extends State<AddButton> {
 
   @override
   Widget build(BuildContext context) {
+
+    log("{widget.minOrder.toString()} ${widget.minOrder.toString()}");
+
+
     quantity = widget.qty;
     widget.qtyController?.text = widget.qty.toString();
     focusNode = FocusNode();

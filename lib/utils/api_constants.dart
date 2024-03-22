@@ -39,8 +39,7 @@ class ApiAppConstants {
   static const String createorderapi = 'create_order/';
   static const String reorderapi = 'reorder/';
 
-  
-static const String invoices ='invoices/';
+  static const String invoices = 'invoices/';
   static const String payment = 'payment/payment/';
   static const String addPayment = 'payment/payment/';
 
@@ -51,4 +50,5 @@ static const String invoices ='invoices/';
   static const String postaddress = 'inventory/address_post/';
   static const String getstates = 'inventory/state/';
   static const String addressListPost = 'addressListPost/';
+  static const String invoicePayments= 'invoice_payments';
 }

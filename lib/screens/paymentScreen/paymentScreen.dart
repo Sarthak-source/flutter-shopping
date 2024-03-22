@@ -8,7 +8,7 @@ import 'package:sutra_ecommerce/screens/paymentScreen/addPayemntDetail.dart';
 import 'package:sutra_ecommerce/utils/screen_utils.dart';
 
 class PaymentScreen extends StatefulWidget {
-  const PaymentScreen({Key? key}) : super(key: key);
+  const PaymentScreen({super.key});
   static const routeName = '/PaymentScreen';
   @override
   State<PaymentScreen> createState() => _PaymentScreenState();

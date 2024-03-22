@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
-import 'package:provider/provider.dart';
 import 'package:sutra_ecommerce/controllers/common_controller.dart';
 
 import '../../constants/colors.dart';
-import '../../models/item.dart';
 import '../../utils/screen_utils.dart';
-import '../../widgets/list_card.dart';
 
 class FavScreen extends StatefulWidget {
   const FavScreen({super.key});
@@ -147,57 +144,15 @@ class _FavScreenState extends State<FavScreen> {
       //),
     ];
 
-    List<Widget> cartWidgets = List.generate(
-      Provider.of<Items>(context, listen: false).favoriteItems.length,
-      (index) => Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const ListCard(
-            isDiscount: true,
-            isSelected: false,
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: SizedBox(
-                  height: getProportionateScreenHeight(40.0),
-                  child: OutlinedButton(
-                    onPressed: () {},
-                    child: const Text('Remove'),
-                  ),
-                ),
-              ),
-              SizedBox(
-                width: getProportionateScreenWidth(16.0),
-              ),
-              Expanded(
-                child: SizedBox(
-                  height: getProportionateScreenHeight(40.0),
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    child: const Text('Add to Cart'),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: getProportionateScreenHeight(16.0),
-          ),
-        ],
-      ),
-    );
     return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: getProportionateScreenWidth(16.0),
-      ),
-      child: SingleChildScrollView(
-        child: Column(
+        padding: EdgeInsets.symmetric(
+          horizontal: getProportionateScreenWidth(16.0),
+        ),
+        child: SingleChildScrollView(
+          child: Column(
             //  children: [Container()],
-            children: Provider.of<Items>(context).favoriteItems.isEmpty
-                ? emptyCartWidgets
-                : cartWidgets),
-      ),
-    );
+            children: emptyCartWidgets,
+          ),
+        ));
   }
 }
