@@ -126,7 +126,7 @@ class _NotificationState extends State<Notification> {
                                                         // Add your action for the first button
                                                       },
                                                       child: const Text(
-                                                        'Confirm',
+                                                        'Yes',
                                                         style: TextStyle(
                                                           fontSize: 13,
                                                           fontWeight:
@@ -156,7 +156,7 @@ class _NotificationState extends State<Notification> {
                                                         // Add your action for the second button
                                                       },
                                                       child: const Text(
-                                                        'Decline',
+                                                        'No',
                                                         style: TextStyle(
                                                           fontSize: 13,
                                                           color: Colors.red,

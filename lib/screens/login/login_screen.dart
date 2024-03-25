@@ -5,7 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:sutra_ecommerce/assets/logo.dart';
 import 'package:sutra_ecommerce/controllers/login_controller.dart';
-import 'package:sutra_ecommerce/screens/signup_screen.dart';
+import 'package:sutra_ecommerce/screens/sign_up/signup_screen.dart';
 
 import '../../utils/screen_utils.dart';
 import '../../widgets/custom_text_field.dart';
@@ -70,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Row(
                     children: [
                       Text(
-                        'Log In Continue!',
+                        'Log In To Continue!',
                         style:
                             Theme.of(context).textTheme.displaySmall!.copyWith(
                                   fontWeight: FontWeight.bold,

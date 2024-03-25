@@ -5,10 +5,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:sutra_ecommerce/config/common.dart';
 import 'package:sutra_ecommerce/screens/login/verify_otp.dart';
+import 'package:sutra_ecommerce/screens/sign_up/sign_message_screen.dart';
 import 'package:sutra_ecommerce/utils/network_repository.dart';
 
 import '../models/stateResponseModel.dart';
-import '../screens/login/login_screen.dart';
 
 class LoginController extends GetxController {
   var isLoading = false.obs;
@@ -60,7 +60,8 @@ class LoginController extends GetxController {
 
       if (responseData.isNotEmpty) {
         Fluttertoast.showToast(msg: "Registered Successfully!", backgroundColor: Colors.green);
-        Get.offNamed(LoginScreen.routeName);
+
+        Get.offNamed(SignUpSuccess.routeName);
       }
     } catch (e) {
       errorMsg.value = e.toString();

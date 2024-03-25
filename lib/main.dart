@@ -46,45 +46,43 @@ class MyApp extends StatelessWidget {
             Brightness.dark, // Change status bar icons color (light or dark)
       ),
     );
-    return  LayoutBuilder(
-        builder: (context, constraints) {
-          final customTheme = CustomTheme(constraints);
-          return GetMaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: 'Ecommerce',
-            navigatorObservers: [ChuckerFlutter.navigatorObserver],
-            theme: ThemeData(
-                //primarySwatch: Colors.green,
-                primarySwatch: const MaterialColor(
-                  0xFF71C4ED,
-                  <int, Color>{
-                    50: Color(0xFFB3E0F8),
-                    100: Color(0xFF81CAEB),
-                    200: Color(0xFF4FB3DE),
-                    300: Color(0xFF1D9CCF),
-                    400: Color(0xFF007BBF),
-                    500: Color(0xFF0069A5),
-                    600: Color(0xFF00588A),
-                    700: Color(0xFF004770),
-                    800: Color(0xFF003655),
-                    900: Color(0xFF00253C),
-                  },
-                ),
-                textTheme: customTheme.nunito(),
-                elevatedButtonTheme: customTheme.elevatedButtonTheme(),
-                outlinedButtonTheme: customTheme.outlinedButtonTheme(),
-                textButtonTheme: customTheme.textButtonTheme(),
-                dividerTheme: customTheme.dividerTheme(),
-                bottomSheetTheme: customTheme.bottomSheetTheme()),
-            getPages: pages,
-            initialBinding: StoreBinding(),
-            home:
-                isLoggedIn == true ? const TestScreen() : const LandingScreen(),
-            // home: TestScreen(),
-            //  const LandingScreen(),
-          );
-        },
-      );
-    
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final customTheme = CustomTheme(constraints);
+        return GetMaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Ecommerce',
+          navigatorObservers: [ChuckerFlutter.navigatorObserver],
+          theme: ThemeData(
+              //primarySwatch: Colors.green,
+              primarySwatch: const MaterialColor(
+                0xFF71C4ED,
+                <int, Color>{
+                  50: Color(0xFFB3E0F8),
+                  100: Color(0xFF81CAEB),
+                  200: Color(0xFF4FB3DE),
+                  300: Color(0xFF1D9CCF),
+                  400: Color(0xFF007BBF),
+                  500: Color(0xFF0069A5),
+                  600: Color(0xFF00588A),
+                  700: Color(0xFF004770),
+                  800: Color(0xFF003655),
+                  900: Color(0xFF00253C),
+                },
+              ),
+              textTheme: customTheme.nunito(),
+              elevatedButtonTheme: customTheme.elevatedButtonTheme(),
+              outlinedButtonTheme: customTheme.outlinedButtonTheme(),
+              textButtonTheme: customTheme.textButtonTheme(),
+              dividerTheme: customTheme.dividerTheme(),
+              bottomSheetTheme: customTheme.bottomSheetTheme()),
+          getPages: pages,
+          initialBinding: StoreBinding(),
+          home: isLoggedIn == true ? const TestScreen() : const LandingScreen(),
+          // home: TestScreen(),
+          //  const LandingScreen(),
+        );
+      },
+    );
   }
 }
