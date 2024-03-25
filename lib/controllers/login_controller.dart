@@ -29,7 +29,7 @@ class LoginController extends GetxController {
           await networkRepository.checkUser(number: phoneNumberTyped);
       log(responseData.toString());
 
-      await box!.put('login', true);
+    
       await box!.put('userData', responseData['body']);
 
       Map s = box!.get('userData');

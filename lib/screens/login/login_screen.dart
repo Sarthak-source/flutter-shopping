@@ -44,94 +44,100 @@ class _LoginScreenState extends State<LoginScreen> {
     // }
 
     return Scaffold(
-      backgroundColor: Colors.white,
+        backgroundColor: Colors.white,
         body: SafeArea(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          //const BackButtonLS(),
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: getProportionateScreenWidth(16),
-              ),
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: getProportionateScreenHeight(30),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              //const BackButtonLS(),
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: getProportionateScreenWidth(16),
                   ),
-                  Transform.translate(
-                      offset: const Offset(-70, -50),
-                      child: Transform.scale(
-                          scale: 0.30, child: const BouncingLogo())),
-                  SizedBox(
-                    height: getProportionateScreenHeight(60),
-                  ),
-                  Row(
+                  child: Column(
                     children: [
-                      Text(
-                        'Log In To Continue!',
-                        style:
-                            Theme.of(context).textTheme.displaySmall!.copyWith(
+                      SizedBox(
+                        height: getProportionateScreenHeight(30),
+                      ),
+                      Transform.translate(
+                          offset: const Offset(-70, -50),
+                          child: Transform.scale(
+                              scale: 0.30, child: const BouncingLogo())),
+                      SizedBox(
+                        height: getProportionateScreenHeight(60),
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            'Log In To Continue!',
+                            style: Theme.of(context)
+                                .textTheme
+                                .displaySmall!
+                                .copyWith(
                                   fontWeight: FontWeight.bold,
                                 ),
+                          ),
+                        ],
                       ),
+                      const Spacer(),
+                      CustomTextField(
+                        hint: 'Phone number',
+                        controller: phoneNumberController,
+                        TextInputType: TextInputType.number,
+                        //onChanged: handlePhoneNumberChange,
+                      ),
+                      SizedBox(
+                        height: getProportionateScreenHeight(30),
+                      ),
+                      Obx(
+                        () => SizedBox(
+                          width: getProportionateScreenHeight(Get.width),
+                          child: loginController.isLoading.value
+                              ? Loader()
+                              : ElevatedButton(
+                                  onPressed: () {
+                                    String phoneNumber =
+                                        phoneNumberController.text;
+
+                                    //Get.toNamed(TabScreen.routeName);
+
+                                    if (phoneNumber.length < 10 ||
+                                        phoneNumber.length > 10) {
+                                      // Handle the case where the phone number is too shrort
+                                      Fluttertoast.showToast(
+                                        msg: 'Enter a proper number',
+                                        backgroundColor: Colors.red,
+                                      );
+                                    } else {
+                                      log(phoneNumber);
+                                      loginController.userExists(phoneNumber);
+                                      loginController.update();
+                                    }
+                                  },
+                                  child: const Text('Continue'),
+                                ),
+                        ),
+                      ),
+                      const Spacer(
+                        flex: 4,
+                      ),
+                      OptionButton(
+                        desc: 'Don\'t have an account? ',
+                        method: 'Sign Up',
+                        onPressHandler: () {
+                          loginController.getStates();
+                          Get.toNamed(SignupScreen.routeName);
+                        },
+                      ),
+                      const Spacer(),
                     ],
                   ),
-                  const Spacer(),
-                  CustomTextField(
-                    hint: 'Phone number',
-                    controller: phoneNumberController,
-                    TextInputType: TextInputType.number,
-                    //onChanged: handlePhoneNumberChange,
-                  ),
-                  SizedBox(
-                    height: getProportionateScreenHeight(30),
-                  ),
-                     Obx( ()=>
-                       SizedBox(
-                         width: getProportionateScreenHeight(Get.width),
-                         child: loginController.isLoading.value?Loader():ElevatedButton(
-                        onPressed: ()  {
-                          String phoneNumber = phoneNumberController.text;
-
-                          //Get.toNamed(TabScreen.routeName);
-
-                          if (phoneNumber.length < 10 || phoneNumber.length > 10) {
-                            // Handle the case where the phone number is too shrort
-                            Fluttertoast.showToast(
-                              msg: 'Enter a proper number',
-                              backgroundColor: Colors.red,
-                            );
-                          } else {
-                            log(phoneNumber);
-                            loginController.userExists(phoneNumber);
-                            loginController.update();
-                          }
-                        },
-                        child: const Text('Continue'),
-                                           ),
-                                         ),
-                     ),
-                  const Spacer(
-                    flex: 4,
-                  ),
-                  OptionButton(
-                    desc: 'Don\'t have an account? ',
-                    method: 'Sign Up',
-                    onPressHandler: () {
-                      loginController.getStates();
-                      Get.toNamed(SignupScreen.routeName);
-                    },
-                  ),
-                  const Spacer(),
-                ],
+                ),
               ),
-            ),
+            ],
           ),
-        ],
-      ),
-    ));
+        ));
   }
 }
 

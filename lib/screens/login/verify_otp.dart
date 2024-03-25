@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:sutra_ecommerce/config/common.dart';
 import 'package:sutra_ecommerce/constants/colors.dart';
 import 'package:sutra_ecommerce/screens/tab_screen/tab_screen.dart';
 import 'package:sutra_ecommerce/utils/network_repository.dart';
@@ -90,6 +91,7 @@ class _OtpScreenState extends State<OtpScreen> {
 
           //box!.put("login", true);
           if (!context.mounted) return;
+            await box!.put('login', true);
           Get.offNamed(TabScreen.routeName);
         }
       } catch (error) {
