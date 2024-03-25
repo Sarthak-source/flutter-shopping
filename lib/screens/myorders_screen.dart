@@ -208,6 +208,60 @@ class _MyOrdersState extends State<MyOrders> {
                         ),
                       ),
                     ),
+                    Container(
+                     // height: 60,
+                      width: Get.width,
+                     // color: Colors.red.shade50,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(width: 8,),
+                          const Icon(Icons.location_on_outlined,color: Colors.grey,),
+
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                   Row(
+                                    children: [
+
+                                      Expanded(
+                                        child: Text("${setAddress(controller.myOrderList.isEmpty?"":controller.myOrderList[0]["address"],"address_line1")} ${setAddress(controller.myOrderList.isEmpty?"":controller.myOrderList[0]["address"],"address_line2")}", style: TextStyle(
+                                            color: Colors.black,
+                                          fontSize: 12,
+                                            fontWeight: FontWeight.normal,),
+                                          maxLines: 1,
+                                        ),
+                                      ),
+
+                                     /* Expanded(
+                                        flex:1,
+                                        child: Text(setAddress(controller.myOrderList.isEmpty?"":controller.myOrderList[0]["address"],"address_line2"), style: TextStyle(
+                                          overflow: TextOverflow.ellipsis,
+                                            color: Colors.black,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.normal),
+                                          maxLines: 1,
+                                        ),
+                                      ),*/
+                                    ],
+                                  ),
+
+                                  Text(setAddress(controller.myOrderList.isEmpty?"":controller.myOrderList[0]["address"],"address_line3"), style: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.normal),
+                                    maxLines: 1,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                     Expanded(
                       child: PageView.builder(
                         itemCount: 6,
@@ -391,7 +445,7 @@ class MyOrderCards extends StatelessWidget {
                       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                       child: Row(
                         children: [
-                           Icon(Icons.location_on_outlined,color: Colors.grey,),
+                          /* Icon(Icons.location_on_outlined,color: Colors.grey,),
                           const SizedBox(width: 8,),
                           Expanded(
                             flex: 2,
@@ -416,14 +470,17 @@ class MyOrderCards extends StatelessWidget {
                                 ),
                               ],
                             ),
-                          ),
+                          ),*/
                       Expanded(
-                        flex:2,
+                       // flex:2,
                         child: Column(
                           children: [
-                            orderRateCard(context,"Total value",myOrderList[index]["total_value"].toString()),
-                            orderRateCard(context,"Total gst",myOrderList[index]["total_gst"].toString()),
-                            orderRateCard(context,"Total",myOrderList[index]["total_amount"].toString())
+
+                           orderRateCard(context,"Delivery required on",  setDelvReqDate(myOrderList[index]["delivery_required_on"].toString()),true),
+                            SizedBox(height: 8),
+                            orderRateCard(context,"Total value",myOrderList[index]["total_value"].toString(),false),
+                            orderRateCard(context,"Total gst",myOrderList[index]["total_gst"].toString(),false),
+                            orderRateCard(context,"Total",myOrderList[index]["total_amount"].toString(),false)
                                   ],
                                 ),
                       )
@@ -646,7 +703,7 @@ class MyOrderCards extends StatelessWidget {
     );
   }
 
-   orderRateCard(BuildContext context,String key,String value) {
+   orderRateCard(BuildContext context,String key,String value,bool isdate) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -663,7 +720,7 @@ class MyOrderCards extends StatelessWidget {
         Expanded(
           flex: 1,
           child: Text(
-            ": ₹ ${twodecimalDigit(double.parse(value==null?"0.000":value))}",
+     isdate?"$value": ": ₹ ${twodecimalDigit(double.parse(value==null?"0.000":value))}",
               style: TextStyle(
                 color: kTextColorAccent,
                 fontSize: getProportionateScreenWidth(
@@ -706,6 +763,15 @@ class MyOrderCards extends StatelessWidget {
     double d = double.parse(myOrderList);
     String s = d.toString();
     return s;
+  }
+
+  String setDelvReqDate(String delReqDate) {
+    if(delReqDate != null && delReqDate != ""){
+      return ":${convertTimestampToDateString(delReqDate)}";
+    }else{
+      return "";
+    }
+
   }
 
 

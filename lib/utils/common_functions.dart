@@ -15,7 +15,7 @@ String convertTimestampToDateString(String? timestampString) {
 
     // Format the DateTime object as dd/mm/yy
     String formattedDate = DateFormat('dd/MM/yy').format(dateTime);
-
+    print('valid date format: $timestampString');
     return formattedDate;
   } catch (e) {
     print('Invalid date format: $timestampString');
