@@ -48,10 +48,10 @@ class _NotificationState extends State<Notification> {
       // ),
       body: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 18,
           ),
-          CustomAppBar(
+          const CustomAppBar(
             marginBottom: 12,
             actions: [],
             title: 'Notifications',
@@ -92,7 +92,7 @@ class _NotificationState extends State<Notification> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Flexible(
-                                            flex: 1,
+                                            flex: 2,
                                             child: Text(
                                               'Paid Rs ${payment['amount_paid'].toString()} against invoice no ${payment['invoice']}',
                                               overflow: TextOverflow.ellipsis,
