@@ -31,6 +31,7 @@ class ApiAppConstants {
   static const String partyConfig = 'party_config/';
   static const String productCategories = 'product/product_categories/';
   static const String products = 'products/';
+  static const String exploreProducts = 'explore_products/';
   static const String addToCart = 'add_cart/';
   static const String mycart = 'cart';
   static const String myaddress = 'inventory/address_list/';

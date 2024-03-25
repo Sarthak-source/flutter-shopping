@@ -8,6 +8,7 @@ import 'package:sutra_ecommerce/controllers/add_to_cart_controller.dart';
 import 'package:sutra_ecommerce/controllers/get_deals_controller.dart';
 import 'package:sutra_ecommerce/controllers/user_controller.dart';
 import 'package:sutra_ecommerce/screens/home_screen/categories.dart';
+import 'package:sutra_ecommerce/screens/home_screen/explore_more_products.dart';
 import 'package:sutra_ecommerce/screens/home_screen/popular_deals.dart';
 import 'package:sutra_ecommerce/screens/product_grid_screen/produts_grid_screen.dart';
 
@@ -193,7 +194,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             const SliverToBoxAdapter(
-                child: PopularDealTab(
+                child: ExploreMoreProducts(
               categoryId: "",
             )),
 

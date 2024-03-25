@@ -3,12 +3,11 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:sutra_ecommerce/controllers/popular_controller.dart';
+import 'package:sutra_ecommerce/controllers/explore_more_poducts_controller.dart';
 import 'package:sutra_ecommerce/widgets/popular_card/popular_card.dart';
 
 import '../../constants/colors.dart';
 import '../../controllers/add_to_cart_controller.dart';
-import '../../widgets/tab_title.dart';
 import '../product_grid_screen/produts_grid_screen.dart';
 
 class ExploreMoreProducts extends StatefulWidget {
@@ -30,15 +29,17 @@ class _ExploreMoreProductsState extends State<ExploreMoreProducts> {
   @override
   Widget build(BuildContext context) {
     // Initialize the controller inside the build method
-    final PopularDealController controller =
-        Get.put(PopularDealController(categoryId: widget.categoryId));
+    final ExploreProductsController controller =
+        Get.put(ExploreProductsController(categoryId: widget.categoryId));
 
     log(widget.categoryId.toString());
 
     return Obx(() {
-      final popularDeals = controller.popularDeals;
+      final popularDeals = controller.exploreProducts;
 
-      if (controller.popularDeals.isEmpty) {
+      log(popularDeals.toString());
+
+      if (controller.exploreProducts.isEmpty) {
         // If the Future is still running, show a loading indicator
         return Padding(
             padding: const EdgeInsets.all(8.0),
@@ -66,16 +67,7 @@ class _ExploreMoreProductsState extends State<ExploreMoreProducts> {
       } else {
         return Column(
           children: [
-            Container(
-              // color: Colors.grey.shade300,
-              color: kPrimaryBlueTest,
-              child: TabTitle(
-                title: 'Explore More Products',
-                seeAll: () {
-                  Get.toNamed(PoductsListScreen.routeName);
-                },
-              ),
-            ),
+            
             Container(
              height:205,
               // color: controller.popularDeals.isEmpty?Colors.white:Colors.grey.shade300,

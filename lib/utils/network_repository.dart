@@ -600,6 +600,41 @@ class NetworkRepository {
     }
   }
 
+  static getExploreProducts(
+      {String? category,
+      String? status,
+      String? search,
+      String? partyId,
+      String? page}) async {
+    try {
+      final apiResponse = await NetworkDioHttp.getDioHttpMethod(
+        url:
+            "${ApiAppConstants.apiEndPoint}${ApiAppConstants.exploreProducts}?category=$category&status=$status&search=$search&party=$partyId&page=$page",
+        header: Options(headers: <String, String>{'authorization': auth}),
+      );
+
+      print('\x1b[97m products Response : $apiResponse');
+
+      final body = apiResponse['body'];
+
+      if (body != null &&
+          body['error'] != null &&
+          body['error'] == 'User not exist please sign up') {
+        Fluttertoast.showToast(msg: body['error'].toString());
+      }
+
+      return apiResponse;
+    } on AppException catch (appException) {
+      if (appException.statusCode == 500 ||
+          appException.statusCode == 400 ||
+          appException.statusCode == 404) {
+        Fluttertoast.showToast(msg: "Something went wrong in products!");
+      }
+
+      return appException.res?.statusCode.toString();
+    }
+  }
+
   static getExploreMore({
     String? level,
     String? party,
