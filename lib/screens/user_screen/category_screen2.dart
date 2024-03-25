@@ -17,7 +17,8 @@ class CategoryScreen2 extends StatefulWidget {
 
   final String? subCatId;
   final String? type;
-  const CategoryScreen2({super.key, this.subCatId, this.type});
+  final String? catName;
+  const CategoryScreen2({super.key, this.subCatId, this.type, this.catName,});
 
   @override
   State<CategoryScreen2> createState() => _CategoryScreen2State();
@@ -54,7 +55,7 @@ class _CategoryScreen2State extends State<CategoryScreen2> {
                     width: getProportionateScreenWidth(16),
                   ),
                 ],
-                title: 'All Categories',
+                title: widget.catName?? "",
               ),
               SizedBox(
                 height: getProportionateScreenHeight(30),

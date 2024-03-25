@@ -15,10 +15,12 @@ class CategoryScreen extends StatefulWidget {
   static const routeName = '/category_screen';
 
   final String? subCatId;
+  final String? catName;
 
   const CategoryScreen({
     super.key,
     this.subCatId,
+    this.catName,
   });
 
   @override
@@ -60,7 +62,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                           width: getProportionateScreenWidth(16),
                         ),
                       ],
-                      title: 'All Categories',
+                      title: widget.catName ?? "",
                     ),
                     SizedBox(
                       height: getProportionateScreenHeight(30),
@@ -105,8 +107,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                           MaterialPageRoute(
                                               builder: (context) =>
                                                   CategoryScreen2(
-                                                    subCatId: subCatData["id"]
-                                                        .toString(),
+                                                    catName: subCatData['name'],
+                                                    subCatId: subCatData["id"].toString(),
                                                     type: "2",
                                                   )));
                                     }

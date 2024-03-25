@@ -292,7 +292,7 @@ class _ProductCardState extends State<ProductCard> {
                     ),
                     Text(
                       // "${widget.product?['packing_type'] ?? ""}",
-                      "no",
+                      "Nos",
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium!

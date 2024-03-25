@@ -194,27 +194,9 @@ class NetworkRepository {
     }
   }
 
-  //confirmation_status
 
-  Future confirmInovice({
-    required String status,
-    required String party,
-  }) async {
-    try {
-      final apiResponse = await NetworkDioHttp.putDioHttpMethod(
-        url:
-            "${ApiAppConstants.apiEndPoint}${ApiAppConstants.invoicePayments}$party/",
-        data: {"confirmation_status": status},
-        header: Options(headers: <String, String>{'authorization': auth}),
-      );
-      debugPrint('\x1b[97m Response : $apiResponse');
-      return await apiResponse['body'];
-    } catch (e) {
-      // CommonMethod().getXSnackBar("Error", e.toString(), Colors.red);
-      Fluttertoast.showToast(msg: "Wrong OTP", backgroundColor: Colors.red);
-      return e.toString();
-    }
-  }
+
+
 
   Future getStates() async {
     log("${ApiAppConstants.apiEndPoint}${ApiAppConstants.getstates}?page=1");
@@ -349,6 +331,27 @@ class NetworkRepository {
       return appException.res?.statusCode.toString();
     }
   }
+
+  static Future confirmInovice({
+    required String status,
+    required String invoiceId,
+  }) async {
+    try {
+      final apiResponse = await NetworkDioHttp.putDioHttpMethod(
+        url:
+        "${ApiAppConstants.apiEndPoint}${ApiAppConstants.invoicePayments}$invoiceId/",
+        data: {"confirmation_status": status},
+        header: Options(headers: <String, String>{'authorization': auth}),
+      );
+      debugPrint('\x1b[97m confirm api : $apiResponse');
+      return await apiResponse['body'];
+    } catch (e) {
+      // CommonMethod().getXSnackBar("Error", e.toString(), Colors.red);
+      Fluttertoast.showToast(msg: "something went wrong", backgroundColor: Colors.red);
+      return e.toString();
+    }
+  }
+
 
   static Future addPayments({
     required String invoice,

@@ -19,8 +19,7 @@ class Notification extends StatefulWidget {
 }
 
 class _NotificationState extends State<Notification> {
-  final NotificationController notificationController =
-      Get.put(NotificationController());
+  final NotificationController notificationController = Get.put(NotificationController());
 
   @override
   Widget build(BuildContext context) {
@@ -60,9 +59,10 @@ class _NotificationState extends State<Notification> {
             child: Obx(
               () {
                 List invoicePaymentList = notificationController.notification;
-                return invoicePaymentList.isEmpty
+                return notificationController.isLoading.value
                     ? _buildShimmerLoading()
-                    : ListView.separated(
+                    : invoicePaymentList.isEmpty?Center(child: Text("No Notification Found")):
+                ListView.separated(
                         separatorBuilder: (context, index) {
                           return const Divider(
                             thickness: 0.4,
@@ -79,142 +79,146 @@ class _NotificationState extends State<Notification> {
                             child: SizedBox(
                               height: 65,
                               child: Padding(
-                                padding: const EdgeInsets.all(8.0),
+                                padding: const EdgeInsets.symmetric(horizontal: 5.0),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     const SizedBox(height: 8),
-                                    Expanded(
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Flexible(
-                                            flex: 2,
-                                            child: Text(
-                                              'Paid Rs ${payment['amount_paid'].toString()} against invoice no ${payment['invoice']}',
-                                              overflow: TextOverflow.ellipsis,
-                                              maxLines: 2,
-                                            ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Expanded(
+                                          flex: 3,
+                                          child: Text(
+                                            'Paid Rs ${payment['amount_paid']==null?"":payment['amount_paid'].toString()} against invoice no ${payment['invoice']??""}',
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 2,
                                           ),
+                                        ),
+                                        Expanded(
+                                          flex: 1,
+                                          child: Container(
+                                            height: 30,
+                                            child: OutlinedButton(
+                                              style: OutlinedButton
+                                                  .styleFrom(
 
-                                          Flexible(
-                                            child: SizedBox(
-                                              height: 30,
-                                             // width: 180,
-                                              child: Row(
-                                                children: [
-                                                  Expanded(
-                                                    flex: 1,
-                                                    child: OutlinedButton(
-                                                      style: OutlinedButton
-                                                          .styleFrom(
-                                                        
-                                                        side: const BorderSide(
-                                                            color:
-                                                                kPrimaryBlue),
-                                                        shape:
-                                                            RoundedRectangleBorder(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(10),
-                                                        ),
-                                                      ),
-                                                      onPressed: () {
-                                                        // Add your action for the first button
-                                                      },
-                                                      child: const Text(
-                                                        'Yes',
-                                                        style: TextStyle(
-                                                          fontSize: 13,
-                                                          fontWeight:
-                                                              FontWeight.w400,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  const SizedBox(width: 5),
-                                                  Expanded(
-                                                    flex: 1,
-                                                    child: OutlinedButton(
-                                                      style: OutlinedButton
-                                                          .styleFrom(
-                                                            
-                                                        
-                                                        side: const BorderSide(
-                                                            color: Colors.red),
-                                                        shape:
-                                                            RoundedRectangleBorder(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(10),
-                                                        ),
-                                                      ),
-                                                      onPressed: () {
-                                                        // Add your action for the second button
-                                                      },
-                                                      child: const Text(
-                                                        'No',
-                                                        style: TextStyle(
-                                                          fontSize: 13,
-                                                          color: Colors.red,
-                                                          fontWeight:
-                                                              FontWeight.w400,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
+                                                side: const BorderSide(
+                                                    color:
+                                                    kPrimaryBlue),
+                                                shape:
+                                                RoundedRectangleBorder(
+                                                  borderRadius:
+                                                  BorderRadius
+                                                      .circular(10),
+                                                ),
+                                              ),
+                                              onPressed: () {
+                                                //print('notify id: ${payment["id"]}');
+                                                 notificationController.setStatusNotification("Confirm",payment["id"].toString()?? "" );
+                                              },
+                                              child: const Text(
+                                                'Yes',
+                                                style: TextStyle(
+                                                  fontSize: 13,
+                                                  fontWeight:
+                                                  FontWeight.w400,
+                                                ),
                                               ),
                                             ),
                                           ),
+                                        ),
+                                         const SizedBox(width: 5),
+                                        Expanded(
+                                          flex: 1,
+                                          child: Container(
+                                            height: 30,
+                                            child: OutlinedButton(
+                                              style: OutlinedButton
+                                                  .styleFrom(
 
-                                          // Flexible(
-                                          //   child: Text(
-                                          //     '${payment['id'].toString()}',
-                                          //     overflow: TextOverflow.ellipsis,
-                                          //   ),
-                                          // ),
-                                          // Flexible(
-                                          //   child: Text(
-                                          //     '${payment['amount_paid']}',
-                                          //     overflow: TextOverflow.ellipsis,
-                                          //   ),
-                                          // ),
-                                          // Flexible(
-                                          //   child: Text(
-                                          //     '${payment['payment_mode']}',
-                                          //     overflow: TextOverflow.ellipsis,
-                                          //   ),
-                                          // ),
-                                          // Flexible(
-                                          //   child: Text(
-                                          //     '${payment['payment_date']}',
-                                          //     overflow: TextOverflow.ellipsis,
-                                          //   ),
-                                          // ),
-                                          // Flexible(
-                                          //   child: Text(
-                                          //     '${payment['confirmation_status']}',
-                                          //     overflow: TextOverflow.ellipsis,
-                                          //   ),
-                                          // ),
-                                          // Flexible(
-                                          //   child: Text(
-                                          //     '${payment['invoice']}',
-                                          //     overflow: TextOverflow.ellipsis,
-                                          //   ),
-                                          // ),
-                                          // Flexible(
-                                          //   child: Text(
-                                          //     '${payment['collected_by']}',
-                                          //     overflow: TextOverflow.ellipsis,
-                                          //   ),
-                                          // ),
-                                        ],
-                                      ),
+
+                                                side: const BorderSide(
+                                                    color: Colors.red),
+                                                shape:
+                                                RoundedRectangleBorder(
+                                                  borderRadius:
+                                                  BorderRadius
+                                                      .circular(10),
+                                                ),
+                                              ),
+                                              onPressed: () {
+                                                notificationController.setStatusNotification("Decline",payment["id"]?? "");
+                                              },
+                                              child: const Text(
+                                                'No',
+                                                style: TextStyle(
+                                                  fontSize: 13,
+                                                  color: Colors.red,
+                                                  fontWeight:
+                                                  FontWeight.w400,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                                                        /*      Flexible(
+
+                                          child: SizedBox(
+                                            height: 30,
+                                           // width: 180,
+                                            child: Row(
+                                              children: [
+
+                                              ],
+                                            ),
+                                          ),
+                                        ),*/
+
+                                        // Flexible(
+                                        //   child: Text(
+                                        //     '${payment['id'].toString()}',
+                                        //     overflow: TextOverflow.ellipsis,
+                                        //   ),
+                                        // ),
+                                        // Flexible(
+                                        //   child: Text(
+                                        //     '${payment['amount_paid']}',
+                                        //     overflow: TextOverflow.ellipsis,
+                                        //   ),
+                                        // ),
+                                        // Flexible(
+                                        //   child: Text(
+                                        //     '${payment['payment_mode']}',
+                                        //     overflow: TextOverflow.ellipsis,
+                                        //   ),
+                                        // ),
+                                        // Flexible(
+                                        //   child: Text(
+                                        //     '${payment['payment_date']}',
+                                        //     overflow: TextOverflow.ellipsis,
+                                        //   ),
+                                        // ),
+                                        // Flexible(
+                                        //   child: Text(
+                                        //     '${payment['confirmation_status']}',
+                                        //     overflow: TextOverflow.ellipsis,
+                                        //   ),
+                                        // ),
+                                        // Flexible(
+                                        //   child: Text(
+                                        //     '${payment['invoice']}',
+                                        //     overflow: TextOverflow.ellipsis,
+                                        //   ),
+                                        // ),
+                                        // Flexible(
+                                        //   child: Text(
+                                        //     '${payment['collected_by']}',
+                                        //     overflow: TextOverflow.ellipsis,
+                                        //   ),
+                                        // ),
+                                      ],
                                     ),
                                   ],
                                 ),

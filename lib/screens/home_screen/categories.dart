@@ -30,7 +30,7 @@ class CategoryTab extends StatelessWidget {
                 title: "",
                 seeAll: () {
                  // Get.toNamed(CategoryScreen.routeName);
-                 Navigator.push(context, MaterialPageRoute(builder: (context) =>const CategoryScreen(subCatId: null)));
+                 Navigator.push(context, MaterialPageRoute(builder: (context) =>const CategoryScreen(subCatId: null,catName: "All Categories",)));
                 }),
 
           /*  Row(
@@ -99,7 +99,7 @@ class CategoryTab extends StatelessWidget {
                             if(checkSubCat != null && checkSubCat == true){
                              // Get.toNamed(CategoryScreen.routeName);
                               if(catData[index]["id"] !=null) {
-                                Navigator.push(context, MaterialPageRoute(builder: (context) =>CategoryScreen(subCatId: catData[index]["id"].toString())));
+                                Navigator.push(context, MaterialPageRoute(builder: (context) =>CategoryScreen(subCatId: catData[index]["id"].toString(),catName: catData.isNotEmpty?catData[index]['name']:"",)));
                               }
                             }else{
                               Get.toNamed(

@@ -76,7 +76,7 @@ class ExploreNewCategory extends StatelessWidget {
               //color: Colors.grey.shade300,
               color: kPrimaryBlueTest,
               child: TabTitle(
-                title: 'Explore More Catrgories',
+                title: 'Explore New Catrgories',
                 seeAll: () {
                   Get.toNamed(CategoryScreen.routeName);
                 },
@@ -148,8 +148,8 @@ class ExploreNewCategory extends StatelessWidget {
               physics: const NeverScrollableScrollPhysics(),
               gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: Get.width>= 600? 6:3,
-                mainAxisSpacing: 8.0, // spacing between rows
-                crossAxisSpacing: 8.0, // spacing between columns
+                mainAxisSpacing: 2.0, // spacing between rows
+                crossAxisSpacing: 2.0, // spacing between columns
               ),
               padding: const EdgeInsets.symmetric(
                   horizontal: 4), // padding around the grid
@@ -180,9 +180,9 @@ class ExploreNewCategory extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => CategoryScreen(
-                                        subCatId: controller.exploreMores[index]
-                                                ["id"]
-                                            .toString())));
+                                        subCatId: controller.exploreMores[index]["id"].toString(),
+                                    catName: controller.exploreMores[index]['name'],
+                                    )));
                           }
                         } else {
                           Get.toNamed(

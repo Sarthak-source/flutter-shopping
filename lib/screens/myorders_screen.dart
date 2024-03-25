@@ -105,7 +105,7 @@ class _MyOrdersState extends State<MyOrders> {
 
     return WillPopScope(
       onWillPop: () async {
-        return false;
+        return true;
       },
       child: GetBuilder<MyOrderController>(
         init: MyOrderController(),
@@ -120,6 +120,7 @@ class _MyOrdersState extends State<MyOrders> {
                     const SizedBox(
                       height: 18,
                     ),
+
                     Row(
                       children: [
                         Text(

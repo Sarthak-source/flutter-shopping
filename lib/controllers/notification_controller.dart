@@ -1,5 +1,7 @@
 import 'dart:developer';
 
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:sutra_ecommerce/config/common.dart';
 import 'package:sutra_ecommerce/utils/network_repository.dart';
@@ -42,4 +44,25 @@ class NotificationController extends GetxController {
       isLoading.value = false;
     }
   }
+
+  Future<dynamic> setStatusNotification(  String status, String invoiceId,) async {
+    try {
+      Map storedUserData = box!.get('userData');
+
+      isLoading.value = true;
+      var responseData = await NetworkRepository.confirmInovice(status: status, invoiceId: invoiceId);
+
+      update();
+
+    } catch (e) {
+      errorMsg.value = e.toString();
+      hasError.value = true;
+    } finally {
+      isLoading.value = false;
+      Fluttertoast.showToast(msg: "", backgroundColor: Colors.green);
+      Get.back();
+
+    }
+  }
+
 }
