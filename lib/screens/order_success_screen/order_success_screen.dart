@@ -174,8 +174,10 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
                                                 },
                                                 child: const Text(
                                                   "View Details",
+                                                  maxLines: 1,
                                                   style: TextStyle(
                                                     fontSize: 10,
+                                                    
                                                     color: kPrimaryBlue,
                                                     decoration:
                                                         TextDecoration.underline,
