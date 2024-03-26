@@ -78,7 +78,9 @@ class ExploreNewCategory extends StatelessWidget {
               child: TabTitle(
                 title: 'Explore New Catrgories',
                 seeAll: () {
-                  Get.toNamed(CategoryScreen.routeName);
+                  //Get.toNamed(CategoryScreen.routeName);
+                  Navigator.push(context, MaterialPageRoute(builder: (context) =>const CategoryScreen(subCatId: null,catName: "All Categories",)));
+
                 },
               ),
             ),

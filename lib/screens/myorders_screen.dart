@@ -7,6 +7,7 @@ import 'package:lottie/lottie.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sutra_ecommerce/controllers/my_order_controller.dart';
 
+import '../config/common.dart';
 import '../constants/colors.dart';
 import '../utils/common_functions.dart';
 import '../utils/screen_utils.dart';
@@ -25,7 +26,9 @@ class MyOrders extends StatefulWidget {
 
 class _MyOrdersState extends State<MyOrders> {
   final MyOrderController controller = Get.put(MyOrderController());
-
+String? add1 = '';
+String? add2 = '';
+String? add3 = '';
   @override
   void initState() {
         super.initState();
@@ -33,6 +36,11 @@ class _MyOrdersState extends State<MyOrders> {
           controller.selectedBtn.value = 1;
           controller.update();
           controller.getMyOrders("Approved");
+          Map storedUserData=box!.get('userData');
+          print('userdata in myOrderScreen ${ storedUserData['party']['address']['address_line1'].toString()}');
+          add1 = storedUserData['party']['address']['address_line1'].toString();
+          add2 = storedUserData['party']['address']['address_line2'].toString();
+          add3 = storedUserData['party']['address']['address_line3'].toString();
         });
 
   }
@@ -111,6 +119,7 @@ class _MyOrdersState extends State<MyOrders> {
         init: MyOrderController(),
          autoRemove: false,
           builder:(controller){
+
           return Scaffold(
             body: SafeArea(
               child: Padding(
@@ -229,7 +238,7 @@ class _MyOrdersState extends State<MyOrders> {
                                     children: [
 
                                       Expanded(
-                                        child: Text("${setAddress(controller.myOrderList.isEmpty?"":controller.myOrderList[0]["address"],"address_line1")} ${setAddress(controller.myOrderList.isEmpty?"":controller.myOrderList[0]["address"],"address_line2")}", style: TextStyle(
+                                        child: Text("${add1 ?? ""} ${add2 ?? ""}", style: TextStyle(
                                             color: Colors.black,
                                           fontSize: 12,
                                             fontWeight: FontWeight.normal,),
@@ -250,7 +259,7 @@ class _MyOrdersState extends State<MyOrders> {
                                     ],
                                   ),
 
-                                  Text(setAddress(controller.myOrderList.isEmpty?"":controller.myOrderList[0]["address"],"address_line3"), style: const TextStyle(
+                                  Text(add3 ?? "", style: const TextStyle(
                                       color: Colors.black,
                                       fontSize: 12,
                                       fontWeight: FontWeight.normal),
