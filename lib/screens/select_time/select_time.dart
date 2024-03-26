@@ -44,7 +44,7 @@ class _SelectTimeState extends State<SelectTime> {
                 const SizedBox(width: 12),
                 Expanded(
                   child: Text(
-                    'Add your time of delivery',
+                    'Add Your Time Of Delivery',
                     style: TextStyle(
                       fontSize: getProportionateScreenWidth(17),
                       fontWeight: FontWeight.w600,
