@@ -102,6 +102,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                       checkSubCat == true) {
                                     if (subCatData["id"] != null) {
                                       log(subCatData[index].toString());
+
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
@@ -140,7 +141,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                   if(checkSubCat != null && checkSubCat == true){
                                     // Get.toNamed(CategoryScreen.routeName);
                                     if(controller.categories[index]["id"] !=null) {
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) =>CategoryScreen(subCatId: controller.categories[index]["id"].toString())));
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) =>CategoryScreen(subCatId: controller.categories[index]["id"].toString(),catName:controller.categories[index]["name"]??"" ,)));
                                     }
                                   }else{
                                     Get.toNamed(
