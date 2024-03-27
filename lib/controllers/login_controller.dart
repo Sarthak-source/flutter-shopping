@@ -14,8 +14,8 @@ class LoginController extends GetxController {
   var isLoading = false.obs;
   var hasError = false.obs;
   var errorMsg = ''.obs;
-  var  stateList = [].obs;
-    stateResponseModel? stateResponse;
+  var stateList = [].obs;
+  stateResponseModel? stateResponse;
   @override
   void onInit() {
     // Get called when controller is created
@@ -24,13 +24,14 @@ class LoginController extends GetxController {
 
   void userExists(String phoneNumberTyped) async {
     try {
-      isLoading.value =true;
+      isLoading.value = true;
       Map<String, dynamic> responseData =
           await networkRepository.checkUser(number: phoneNumberTyped);
       log(responseData.toString());
+      box!.delete('userData');
 
-    
       await box!.put('userData', responseData['body']);
+      update();
 
       Map s = box!.get('userData');
       print("stored ${s.toString()}");
@@ -40,7 +41,8 @@ class LoginController extends GetxController {
         log(data.toString());
 
         //Get.toNamed(OtpScreen.routeName,arguments: OtpScreenArguments(phoneNumber: phoneNumberTyped));
-        Get.offNamed(OtpScreen.routeName,arguments: OtpScreenArguments(phoneNumber: phoneNumberTyped));
+        Get.offNamed(OtpScreen.routeName,
+            arguments: OtpScreenArguments(phoneNumber: phoneNumberTyped));
       }
     } catch (e) {
       errorMsg.value = e.toString();
@@ -50,16 +52,16 @@ class LoginController extends GetxController {
     }
   }
 
-
-  void signUp(String name,String mobnum, String state) async {
+  void signUp(String name, String mobnum, String state) async {
     try {
-      isLoading.value =true;
-      Map<String, dynamic> responseData =
-      await networkRepository.userSignup( name: name, mobnum: mobnum,state: state);
+      isLoading.value = true;
+      Map<String, dynamic> responseData = await networkRepository.userSignup(
+          name: name, mobnum: mobnum, state: state);
       log(responseData.toString());
 
       if (responseData.isNotEmpty) {
-        Fluttertoast.showToast(msg: "Registered Successfully!", backgroundColor: Colors.green);
+        Fluttertoast.showToast(
+            msg: "Registered Successfully!", backgroundColor: Colors.green);
 
         Get.offNamed(SignUpSuccess.routeName);
       }
@@ -71,20 +73,19 @@ class LoginController extends GetxController {
     }
   }
 
-
   Future<stateResponseModel?> getStates() async {
     try {
-      isLoading.value =true;
-    var responseData = await networkRepository.getStates();
+      isLoading.value = true;
+      var responseData = await networkRepository.getStates();
       log(responseData.toString());
 
-      if (responseData !=null) {
-      //  stateResponse=responseData;
-         print('stateResponse::: ${responseData["body"]}');
-        stateList.value =responseData["body"] ?? [];
-         update();
-       //  for(Results item in stateResponse!.results ?? [])
-       //    stateList.add(item);
+      if (responseData != null) {
+        //  stateResponse=responseData;
+        print('stateResponse::: ${responseData["body"]}');
+        stateList.value = responseData["body"] ?? [];
+        update();
+        //  for(Results item in stateResponse!.results ?? [])
+        //    stateList.add(item);
 
         print('stateList::: ${stateList.length}');
       }
