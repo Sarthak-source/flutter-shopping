@@ -20,9 +20,11 @@ class UserScreen extends StatelessWidget {
 
   UserScreen({super.key});
 
+
   @override
   Widget build(BuildContext context) {
-    log(userController?.user.toString() ?? "sss");
+
+    print(userController?.user.toString() ?? "sss");
     return Center(
       child: Padding(
         padding: EdgeInsets.symmetric(
@@ -47,15 +49,15 @@ class UserScreen extends StatelessWidget {
             //     painter: EveningPainter(),
             //   ),
             Text(
-              userController?.user != null
-                  ? userController!.user['party']['party_name'].toString()
+              userController?.user != null &&  userController?.user.toString() != "{}"
+                  ? userController!.user['party']['party_name']!=null?userController!.user['party']['party_name'].toString():""
                   : "",
               style: Theme.of(context).textTheme.displaySmall!.copyWith(
                     fontWeight: FontWeight.w700,
                   ),
             ),
             Text(
-              userController?.user != null
+              userController?.user != null&&  userController?.user.toString() != "{}"
                   ? userController!.user['party']['email'].toString()
                   : "",
               style: Theme.of(context).textTheme.headlineMedium!.copyWith(
@@ -145,9 +147,32 @@ class UserScreen extends StatelessWidget {
                 color: kPrimaryBlue.withOpacity(0.2),
                 title: 'Log out',
                 tapHandler: () {
-                  box!.deleteAll(['userData', 'login', 'isTestEnvironment']);
 
-                  Get.toNamed(LoginScreen.routeName);
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text("Log out"),
+                        content: Text("Are you sure?"),
+                        actions: [
+                      TextButton(
+                      child: Text("Cancel"),
+                      onPressed:  () {
+                        Navigator.pop(context);
+                      },
+                      ),
+                      TextButton(
+                      child: Text("Ok"),
+                      onPressed:  () {
+                        box!.deleteAll(['userData', 'login', 'isTestEnvironment']);
+                        Get.toNamed(LoginScreen.routeName);
+                      },
+                      ),
+                        ],
+                      );
+                    },
+                  );
+
                 }),
             const Spacer(),
             Text(

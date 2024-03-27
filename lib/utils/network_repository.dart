@@ -764,6 +764,11 @@ class NetworkRepository {
     required String deliverydate,
     required String party,
     required String address,
+    required String amtPaid,
+    required String payMode,
+    required String upiId,
+    required String upiTransId,
+    required String upiTransSts,
   }) async {
     try {
       var data = {
@@ -771,6 +776,13 @@ class NetworkRepository {
         "shift": shift,
         "delivery_required_on": deliverydate,
         "address": address,
+        "amount_paid":amtPaid,
+        "payment_mode":payMode,
+        "UPI_id":upiId,
+        "UPI_transaction_id":upiTransId,
+        "UPI_transaction_status":upiTransSts
+
+
       };
       log("dataposted $data");
 

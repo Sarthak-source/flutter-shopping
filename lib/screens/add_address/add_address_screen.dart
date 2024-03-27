@@ -253,8 +253,7 @@ class AddAddressScreen extends StatelessWidget {
                                         String address =
                                             "${controller.myAddressItems[controller.slectedIndex.toInt()]["id"]}";
                                         log('selected address: $address');
-                                        createOrderCtlr.createOrderApi("1", "1",
-                                            "2015-01-28 03:00:00", address);
+                                     //   createOrderCtlr.createOrderApi("1", "1", "2015-01-28 03:00:00", address);
                                       },
                                       child: const Text('Next'),
                                     ),

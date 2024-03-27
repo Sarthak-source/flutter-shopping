@@ -18,18 +18,19 @@ class PaymentController extends GetxController {
   var errorMsg = ''.obs;
   var cod = false.obs;
   var upi = false.obs;
+  var showUpi = false.obs;
   @override
   void onInit() {
     super.onInit();
-    fetchPayments();
-    fetchInvoice();
+    //fetchPayments();
+    //fetchInvoice();
   }
 
   @override
   void onReady() {
     // fetchPopularDeals();
-    fetchPayments();
-    fetchInvoice();
+    //fetchPayments();
+    //fetchInvoice();
     super.onReady();
   }
 

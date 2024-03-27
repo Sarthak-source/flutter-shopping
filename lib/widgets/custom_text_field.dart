@@ -11,7 +11,8 @@ class CustomTextField extends StatelessWidget {
     this.onTap,
     this.onChanged,
     this.controller,
-    this.TextInputType
+    this.TextInputType,
+    this.FocusNode
   });
   final String? hint;
   final Widget? icon;
@@ -19,9 +20,12 @@ class CustomTextField extends StatelessWidget {
   final void Function()? onTap;
   final TextEditingController? controller;
   final  TextInputType;
+  final FocusNode ;
   @override
   Widget build(BuildContext context) {
     return TextField(
+      autofocus: true,
+      focusNode: FocusNode,
       controller: controller,
       onTap: onTap,
       onChanged: onChanged,

@@ -49,7 +49,7 @@ List<GetPage> pages = [
   GetPage(name: Notification.routeName, page: () => const Notification()),
   GetPage(
       name: PoductsListScreen.routeName, page: () => const PoductsListScreen()),
-  GetPage(name: SelectTime.routeName, page: () => const SelectTime()),
+  GetPage(name: SelectTime.routeName, page: () =>  SelectTime()),
   GetPage(
       name: SpecialDealScreen.routeName, page: () => const SpecialDealScreen()),
   GetPage(
@@ -72,7 +72,7 @@ List<GetPage> pages = [
   GetPage(name: MyOrders.routeName, page: () => const MyOrders()),
   GetPage(name: CartScreen.routeName, page: () => CartScreen()),
   GetPage(name: PaymentScreen.routeName, page: () => const PaymentScreen()),
-  GetPage(name: FlutterPayUPI.routeName, page: () => FlutterPayUPI()),
+  //GetPage(name: FlutterPayUPI.routeName, page: () => FlutterPayUPI()),
   GetPage(
       name: SelectPaymentMethod.routeName, page: () => SelectPaymentMethod()),
   GetPage(name: SignUpSuccess.routeName, page: () => const SignUpSuccess()),

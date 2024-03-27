@@ -15,8 +15,9 @@ import '../paymentScreen/selectPaymentMethod.dart';
 
 class SelectTime extends StatefulWidget {
   static const routeName = '/select_time_screen';
+  String? totalamount;
 
-  const SelectTime({Key? key}) : super(key: key);
+   SelectTime({Key? key,this.totalamount}) : super(key: key);
 
   @override
   State<SelectTime> createState() => _SelectTimeState();
@@ -164,6 +165,7 @@ class _SelectTimeState extends State<SelectTime> {
                     selectedIndex: (selectedIndex+2),
                     selectedDate: _selectedDate.toString(),
                     address: address,
+                    totalAmount: widget.totalamount,
                   )));
                 }
 

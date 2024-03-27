@@ -81,7 +81,12 @@ class MyCartController extends GetxController {
     }
   }
 
-  void createOrderApi(party, shift, deliverydate, address) async {
+  void createOrderApi(party, shift, deliverydate, address,
+      String amtPaid,
+       String payMode,
+       String upiId,
+       String upiTransId,
+       String upiTransSts,) async {
     try {
       isLoading.value = true;
       Map storedUserData = box!.get('userData');
@@ -90,7 +95,13 @@ class MyCartController extends GetxController {
           party: storedUserData['party']['id'].toString(),
           shift: "1",
           deliverydate: deliverydate,
-          address: address);
+          address: address,
+        amtPaid: amtPaid,
+        payMode: payMode,
+        upiId:upiId ,
+        upiTransId: upiTransId,
+        upiTransSts: upiTransSts
+      );
       log('CreateOrderApiresponseData $responseData');
 
       List addToCartData = responseData['body'];

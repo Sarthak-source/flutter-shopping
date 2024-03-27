@@ -3,13 +3,15 @@ import 'package:flutter/material.dart';
 class CircularCheckBoxWithText extends StatefulWidget {
   final String text;
   final bool initialValue;
+  String? codNotAllowed;
   final Function(bool)? onChanged;
 
-  const CircularCheckBoxWithText({
+   CircularCheckBoxWithText({
     Key? key,
     required this.text,
     this.initialValue = false,
     this.onChanged,
+    this.codNotAllowed
   }) : super(key: key);
 
   @override
@@ -39,12 +41,17 @@ class _CircularCheckBoxWithTextState extends State<CircularCheckBoxWithText> {
       children: [
         GestureDetector(
           onTap: () {
-            setState(() {
-              _isChecked = !_isChecked;
-            });
-            if (widget.onChanged != null) {
-              widget.onChanged!(_isChecked);
+            if(widget.codNotAllowed == "NO"){
+
+            }else{
+              setState(() {
+                _isChecked = !_isChecked;
+              });
+              if (widget.onChanged != null) {
+                widget.onChanged!(_isChecked);
+              }
             }
+
           },
           child: Container(
 

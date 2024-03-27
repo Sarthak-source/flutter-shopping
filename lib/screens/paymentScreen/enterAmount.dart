@@ -68,7 +68,7 @@ class _EnterAmountState extends State<EnterAmount> {
                   );
                 }else{
                   if(widget.paymentType == "upi"){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) =>FlutterPayUPI(paymentAmount: amountController.text,)));
+                   // Navigator.push(context, MaterialPageRoute(builder: (context) =>FlutterPayUPI(paymentAmount: amountController.text,)));
                   }else{
 
                   }

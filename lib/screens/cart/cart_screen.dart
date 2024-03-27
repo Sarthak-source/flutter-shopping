@@ -221,8 +221,11 @@ class CartScreen extends StatelessWidget {
                                       ),
                                     ),
                                     onPressed: () {
-                                      //Navigator.of(context).pushNamed(AddAddressScreen.routeName);
-                                      Get.toNamed(SelectTime.routeName);
+                                    //  Navigator.of(context).pushNamed(AddAddressScreen.routeName);
+                                     // Get.toNamed(SelectTime.routeName);
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => SelectTime(
+                                        totalamount: twodecimalDigit(double.parse(controller.mycartTotalAmount.value ?? "0.000")) ?? "",
+                                      )));
                                     },
                                     child: const Text(
                                       'Buy Now',
