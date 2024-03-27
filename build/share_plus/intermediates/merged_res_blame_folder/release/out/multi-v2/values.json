@@ -4,7 +4,7 @@
             "outputFile": "dev.fluttercommunity.plus.share.share_plus-merged_res-12:/values/values.xml",
             "map": [
                 {
-                    "source": "/Users/fao/.gradle/caches/transforms-3/57d13c65eae90a7945dea98c1aa2b720/transformed/core-1.7.0/res/values/values.xml",
+                    "source": "/Users/fao/.gradle/caches/transforms-3/fc08c9ab7d4bc58ce2de182ec0085cc7/transformed/core-1.7.0/res/values/values.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,89,90,94,95,96,97,104,114,162,194,231",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -23,7 +23,24 @@
                     }
                 },
                 {
-                    "source": "/Users/fao/.gradle/caches/transforms-3/25cee5f028ac2a6b79fd6278ff5b59e2/transformed/jetified-window-1.0.0-beta04/res/values/values.xml",
+                    "source": "/Users/fao/.gradle/caches/transforms-3/a75e5ae95479c1fb64b856ee63435149/transformed/lifecycle-runtime-2.3.1/res/values/values.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "42",
+                        "endOffsets": "93"
+                    },
+                    "to": {
+                        "startLines": "91",
+                        "startColumns": "4",
+                        "startOffsets": "5321",
+                        "endColumns": "42",
+                        "endOffsets": "5359"
+                    }
+                },
+                {
+                    "source": "/Users/fao/.gradle/caches/transforms-3/b7774c0cf23d7fae1082a7e4afb884ae/transformed/jetified-window-1.0.0-beta04/res/values/values.xml",
                     "from": {
                         "startLines": "2,7,8,9,10,11,19,23,34,51",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4",
@@ -39,23 +56,6 @@
                         "endLines": "7,8,9,10,72,112,116,233,245,253",
                         "endColumns": "11,59,51,44,59,24,24,24,24,24",
                         "endOffsets": "289,349,401,446,4387,6592,6723,10770,11210,11519"
-                    }
-                },
-                {
-                    "source": "/Users/fao/.gradle/caches/transforms-3/9a249567dcb8025899915ed9a2426636/transformed/lifecycle-runtime-2.3.1/res/values/values.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "42",
-                        "endOffsets": "93"
-                    },
-                    "to": {
-                        "startLines": "91",
-                        "startColumns": "4",
-                        "startOffsets": "5321",
-                        "endColumns": "42",
-                        "endOffsets": "5359"
                     }
                 }
             ]
@@ -64,7 +64,7 @@
             "outputFile": "dev.fluttercommunity.plus.share.share_plus-mergeReleaseResources-10:/values/values.xml",
             "map": [
                 {
-                    "source": "/Users/fao/.gradle/caches/transforms-3/57d13c65eae90a7945dea98c1aa2b720/transformed/core-1.7.0/res/values/values.xml",
+                    "source": "/Users/fao/.gradle/caches/transforms-3/fc08c9ab7d4bc58ce2de182ec0085cc7/transformed/core-1.7.0/res/values/values.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,89,90,94,95,96,97,104,114,162,194,231",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -83,7 +83,24 @@
                     }
                 },
                 {
-                    "source": "/Users/fao/.gradle/caches/transforms-3/25cee5f028ac2a6b79fd6278ff5b59e2/transformed/jetified-window-1.0.0-beta04/res/values/values.xml",
+                    "source": "/Users/fao/.gradle/caches/transforms-3/a75e5ae95479c1fb64b856ee63435149/transformed/lifecycle-runtime-2.3.1/res/values/values.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "42",
+                        "endOffsets": "93"
+                    },
+                    "to": {
+                        "startLines": "91",
+                        "startColumns": "4",
+                        "startOffsets": "5321",
+                        "endColumns": "42",
+                        "endOffsets": "5359"
+                    }
+                },
+                {
+                    "source": "/Users/fao/.gradle/caches/transforms-3/b7774c0cf23d7fae1082a7e4afb884ae/transformed/jetified-window-1.0.0-beta04/res/values/values.xml",
                     "from": {
                         "startLines": "2,7,8,9,10,11,19,23,34,51",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4",
@@ -99,23 +116,6 @@
                         "endLines": "7,8,9,10,72,112,116,233,245,253",
                         "endColumns": "11,59,51,44,59,24,24,24,24,24",
                         "endOffsets": "289,349,401,446,4387,6592,6723,10770,11210,11519"
-                    }
-                },
-                {
-                    "source": "/Users/fao/.gradle/caches/transforms-3/9a249567dcb8025899915ed9a2426636/transformed/lifecycle-runtime-2.3.1/res/values/values.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "42",
-                        "endOffsets": "93"
-                    },
-                    "to": {
-                        "startLines": "91",
-                        "startColumns": "4",
-                        "startOffsets": "5321",
-                        "endColumns": "42",
-                        "endOffsets": "5359"
                     }
                 }
             ]
