@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:sutra_ecommerce/assets/logo.dart';
+import 'package:sutra_ecommerce/config/common.dart';
 import 'package:sutra_ecommerce/controllers/login_controller.dart';
 import 'package:sutra_ecommerce/screens/sign_up/signup_screen.dart';
 
@@ -26,6 +27,15 @@ class _LoginScreenState extends State<LoginScreen> {
   //LoginController loginController = LoginController();
   final LoginController loginController = Get.put(LoginController());
   bool repeat = false;
+
+  @override
+  void initState() {
+    log(box!.get('userData').toString());
+    box!.delete('userData');
+    super.initState();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     ScreenUtils().init(context);

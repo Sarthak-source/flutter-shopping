@@ -5,7 +5,8 @@ import 'package:get/get.dart';
 import 'package:sutra_ecommerce/config/common.dart';
 import 'package:sutra_ecommerce/controllers/user_controller.dart';
 import 'package:sutra_ecommerce/screens/login/login_screen.dart';
-import 'package:sutra_ecommerce/screens/notification/notification.dart' as notificationpage;
+import 'package:sutra_ecommerce/screens/notification/notification.dart'
+    as notificationpage;
 
 import '../../constants/colors.dart';
 import '../../utils/screen_utils.dart';
@@ -18,10 +19,8 @@ class UserScreen extends StatelessWidget {
 
   UserScreen({super.key});
 
-
   @override
   Widget build(BuildContext context) {
-
     print(userController?.user.toString() ?? "sss");
     return Center(
       child: Padding(
@@ -47,15 +46,19 @@ class UserScreen extends StatelessWidget {
             //     painter: EveningPainter(),
             //   ),
             Text(
-              userController?.user != null &&  userController?.user.toString() != "{}"
-                  ? userController!.user['party']['party_name']!=null?userController!.user['party']['party_name'].toString():""
+              userController?.user != null &&
+                      userController?.user.toString() != "{}"
+                  ? userController!.user['party']['party_name'] != null
+                      ? userController!.user['party']['party_name'].toString()
+                      : ""
                   : "",
               style: Theme.of(context).textTheme.displaySmall!.copyWith(
                     fontWeight: FontWeight.w700,
                   ),
             ),
             Text(
-              userController?.user != null&&  userController?.user.toString() != "{}"
+              userController?.user != null &&
+                      userController?.user.toString() != "{}"
                   ? userController!.user['party']['email'].toString()
                   : "",
               style: Theme.of(context).textTheme.headlineMedium!.copyWith(
@@ -127,7 +130,7 @@ class UserScreen extends StatelessWidget {
                 Get.toNamed(MyOrders.routeName);
               },
             ),
-        /*    SizedBox(
+            /*    SizedBox(
               height: getProportionateScreenHeight(8.0),
             ),
             ProfileCard(
@@ -145,32 +148,35 @@ class UserScreen extends StatelessWidget {
                 color: kPrimaryBlue.withOpacity(0.2),
                 title: 'Log out',
                 tapHandler: () {
-
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
                       return AlertDialog(
-                        title: Text("Log out"),
-                        content: Text("Are you sure?"),
+                        title: const Text("Log out"),
+                        content: const Text("Are you sure?"),
                         actions: [
-                      TextButton(
-                      child: Text("Cancel"),
-                      onPressed:  () {
-                        Navigator.pop(context);
-                      },
-                      ),
-                      TextButton(
-                      child: Text("Ok"),
-                      onPressed:  () {
-                        box!.deleteAll(['userData', 'login', 'isTestEnvironment']);
-                        Get.toNamed(LoginScreen.routeName);
-                      },
-                      ),
+                          TextButton(
+                            child: const Text("Cancel"),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                          ),
+                          TextButton(
+                            child: const Text("Ok"),
+                            onPressed: () {
+                              log(box!.get('userData').toString());
+                              userController!.user.value={};
+                              log(box!.get('userData').toString());
+                              box!.deleteAll(
+                                  ['userData', 'login', 'isTestEnvironment']);
+                                  log(box!.get('userData').toString());
+                              Get.toNamed(LoginScreen.routeName);
+                            },
+                          ),
                         ],
                       );
                     },
                   );
-
                 }),
             const Spacer(),
             Text(

@@ -53,13 +53,14 @@ class NotificationController extends GetxController {
       var responseData = await NetworkRepository.confirmInovice(status: status, invoiceId: invoiceId);
 
       update();
+       Fluttertoast.showToast(msg: "updated", backgroundColor: Colors.green);
 
     } catch (e) {
       errorMsg.value = e.toString();
       hasError.value = true;
     } finally {
       isLoading.value = false;
-      Fluttertoast.showToast(msg: "", backgroundColor: Colors.green);
+     
       Get.back();
 
     }
