@@ -4,7 +4,7 @@
             "outputFile": "dev.fluttercommunity.plus.share.share_plus-mergeReleaseResources-10:/values-de/values-de.xml",
             "map": [
                 {
-                    "source": "/Users/fao/.gradle/caches/transforms-3/57d13c65eae90a7945dea98c1aa2b720/transformed/core-1.7.0/res/values-de/values-de.xml",
+                    "source": "/Users/fao/.gradle/caches/transforms-3/fc08c9ab7d4bc58ce2de182ec0085cc7/transformed/core-1.7.0/res/values-de/values-de.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -19,7 +19,7 @@
             "outputFile": "dev.fluttercommunity.plus.share.share_plus-merged_res-12:/values-de/values-de.xml",
             "map": [
                 {
-                    "source": "/Users/fao/.gradle/caches/transforms-3/57d13c65eae90a7945dea98c1aa2b720/transformed/core-1.7.0/res/values-de/values-de.xml",
+                    "source": "/Users/fao/.gradle/caches/transforms-3/fc08c9ab7d4bc58ce2de182ec0085cc7/transformed/core-1.7.0/res/values-de/values-de.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
