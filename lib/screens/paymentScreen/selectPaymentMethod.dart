@@ -307,7 +307,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
 
 
                                   },
-                                  child: const Text('Submit'),
+                                  child: const Text('Pay'),
                                 ),
                               ):SizedBox.shrink(),
                               const SizedBox(height: 50),
