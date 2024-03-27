@@ -42,17 +42,16 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
         isTextFieldFocused = focusNode.hasFocus;
       });
     });
+    Map storedUserData=box!.get('userData');
+    print('userdata in paymentselection ${ storedUserData['party']['COD_Allowed'].toString() }');
+    isCODallowed =storedUserData['party']['COD_Allowed'].toString();
+    print('userdata in isCODallowed ${ isCODallowed.toString() }');
+    clientupiId =storedUserData['party']['route_code']['plant']['UPI_id'].toString();
+    planId =storedUserData['party']['route_code']['plant']['id'].toString();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       controller.upi.value = false;
       controller.cod.value = false;
       controller.showUpi.value = false;
-      Map storedUserData=box!.get('userData');
-      print('userdata in paymentselection ${ storedUserData['party']['COD_Allowed'].toString()}');
-      isCODallowed =storedUserData['party']['COD_Allowed'].toString();
-      clientupiId =storedUserData['party']['route_code']['plant']['UPI_id'].toString();
-      planId =storedUserData['party']['route_code']['plant']['id'].toString();
-
-
     });
 
   }
@@ -100,15 +99,42 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       isCODallowed !=null && isCODallowed == "No"?
-                      CircularCheckBoxWithText(
-                        codNotAllowed: "NO",
-                    text: 'COD',
-                    initialValue: false,
-                    onChanged: (value) {
-                      // Do something with the value
-                      print('Checkbox COD: $value');
-                      },
-                  ) :
+
+                      Row(
+                        children: [
+                          Container(
+
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: Colors.grey,
+                                width: 1.0,
+                              ),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(4),
+                              child:  Icon(
+                                Icons.check,
+                                size: 15.0,
+                                color: Colors.grey,
+                              )
+
+                            ),
+                          ),
+                          SizedBox(width: 14),
+                          Text("COD",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,color: Colors.grey),),
+                        ],
+                      )
+                  //     CircularCheckBoxWithText(
+                  //       codNotAllowed: "NO",
+                  //   text: 'COD',
+                  //   initialValue: false,
+                  //   onChanged: (value) {
+                  //     // Do something with the value
+                  //     print('Checkbox COD: $value');
+                  //     },
+                  // )
+                          :
                       CircularCheckBoxWithText(
                         text: 'COD',
                         initialValue: controller.cod.value,
