@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:sutra_ecommerce/controllers/catagories_controller.dart';
 import 'package:sutra_ecommerce/screens/user_screen/category_screen2.dart';
 
-import '../constants/colors.dart';
 import '../utils/screen_utils.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/loading_widgets/loader.dart';
@@ -54,10 +53,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     CustomAppBar(
                       marginBottom: 12,
                       actions: [
-                        const Icon(
-                          Icons.search,
-                          color: kPrimaryBlue,
-                        ),
+                        // const Icon(
+                        //   Icons.search,
+                        //   color: kPrimaryBlue,
+                        // ),
                         SizedBox(
                           width: getProportionateScreenWidth(16),
                         ),

@@ -21,19 +21,19 @@ class ImageContainer extends StatelessWidget {
               color: kGreyShade5,
             ),
           ),
-          Align(
-            alignment: Alignment.bottomRight,
-            child: Container(
-              padding: EdgeInsets.all(
-                getProportionateScreenWidth(8),
-              ),
-              decoration: const ShapeDecoration(
-                shape: CircleBorder(),
-                color: kPrimaryBlue,
-              ),
-              child: Image.asset('assets/images/camera.png'),
-            ),
-          )
+          // Align(
+          //   alignment: Alignment.bottomRight,
+          //   child: Container(
+          //     padding: EdgeInsets.all(
+          //       getProportionateScreenWidth(8),
+          //     ),
+          //     decoration: const ShapeDecoration(
+          //       shape: CircleBorder(),
+          //       color: kPrimaryBlue,
+          //     ),
+          //     child: Image.asset('assets/images/camera.png'),
+          //   ),
+          // )
         ],
       ),
     );
