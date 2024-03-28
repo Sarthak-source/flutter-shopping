@@ -2,13 +2,9 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_pay_upi/flutter_pay_upi_manager.dart';
 import 'package:flutter_pay_upi/model/upi_response.dart';
 import 'package:flutter_pay_upi/utils/widget/upi_app_list.dart';
-
-import '../../utils/screen_utils.dart';
-import '../../widgets/back_button_ls.dart';
 
 class FlutterPayUPI extends StatefulWidget {
   final String? paymentAmount;
@@ -63,8 +59,8 @@ class _FlutterPayUPIState extends State<FlutterPayUPI>
   @override
   Widget build(BuildContext context) {
     return  Container(
-    //  height: MediaQuery.of(context).size.height,
-      padding: EdgeInsets.all(0),
+       height: MediaQuery.of(context).size.height,
+      padding: EdgeInsets.all(6.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -149,8 +145,8 @@ class _FlutterPayUPIState extends State<FlutterPayUPI>
       },
       decoration: InputDecoration(
         labelText: labelText,
-        border: OutlineInputBorder(),
-        contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 8),
+        border: const OutlineInputBorder(),
+        contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 8),
       ),
     );
   }
@@ -169,7 +165,7 @@ class _FlutterPayUPIState extends State<FlutterPayUPI>
           child: Text(currency),
         );
       }).toList(),
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
         labelText: 'Currency',
         border: OutlineInputBorder(),
       ),
@@ -187,7 +183,7 @@ class _FlutterPayUPIState extends State<FlutterPayUPI>
           elevation: 0.0,
           backgroundColor: Colors.transparent,
           child: Container(
-            padding: EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16.0),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(16.0),
@@ -195,21 +191,21 @@ class _FlutterPayUPIState extends State<FlutterPayUPI>
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
+                const Text(
                   'Error',
                   style: TextStyle(
                     fontSize: 18.0,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 16.0),
+                const SizedBox(height: 16.0),
                 Text('$message'),
-                SizedBox(height: 16.0),
+                const SizedBox(height: 16.0),
                 ElevatedButton(
                   onPressed: () {
                     Navigator.pop(context); // Close the dialog
                   },
-                  child: Text('Close'),
+                  child: const Text('Close'),
                 ),
               ],
             ),
@@ -227,7 +223,7 @@ class _FlutterPayUPIState extends State<FlutterPayUPI>
         return
 
           SimpleDialog(
-          title: Text('Transaction Details'),
+          title: const Text('Transaction Details'),
           children: [
             _buildDetailRow('Txn ID', upiRequestParams.transactionID ?? "N/A"),
             _buildDetailRow('Response Code', upiRequestParams.responseCode ?? "N/A"),
@@ -247,8 +243,8 @@ class _FlutterPayUPIState extends State<FlutterPayUPI>
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
       child: Row(
         children: [
-          Text('$key:', style: TextStyle(fontWeight: FontWeight.w800)),
-          SizedBox(width: 8.0),
+          Text('$key:', style: const TextStyle(fontWeight: FontWeight.w800)),
+          const SizedBox(width: 8.0),
           Flexible(
             child: Text(
               value,

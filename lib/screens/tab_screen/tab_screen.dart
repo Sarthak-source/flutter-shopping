@@ -13,7 +13,6 @@ import '../cart/cart_screen.dart';
 import '../fav_screen/fav_screen.dart';
 import '../home_screen/home_screen.dart';
 import '../myorders_screen.dart';
-import '../paymentScreen/paymentScreen.dart';
 import '../user_screen/user_screen.dart';
 
 class TabScreen extends StatefulWidget {
@@ -30,19 +29,21 @@ class TabScreenState extends State<TabScreen> {
   int curTab = 0;
   final dealsController = Get.put(DealsController(), permanent: true);
   final categoriesController = Get.put(CategoriesController(), permanent: true);
-  final popularController = Get.put(PopularDealController(categoryId: ""), permanent: true);
-  final prodDetailController = Get.put(ProductDetailController(), permanent: true);
+  final popularController =
+      Get.put(PopularDealController(categoryId: ""), permanent: true);
+  final prodDetailController =
+      Get.put(ProductDetailController(), permanent: true);
   final commonController = Get.put(CommonController(), permanent: true);
   //final userController = Get.put(UserController());
 
   @override
   void initState() {
     super.initState();
-   // curTab = widget.pageIndex ?? 0;
 
     print('tab screen:::');
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      commonController.commonCurTab.value = widget.pageIndex ?? 0;
+      //curTab = commonController.commonCurTab.value;
+      //= widget.pageIndex ?? 0;
       commonController.update();
       popularController.fetchPopularDeals();
       popularController.update();
@@ -61,8 +62,8 @@ class TabScreenState extends State<TabScreen> {
       const HomeScreen(),
       const FavScreen(),
       CartScreen(),
-    //  const PaymentScreen(),
-       MyOrders(),
+      //  const PaymentScreen(),
+      const MyOrders(),
       UserScreen(),
     ];
 
@@ -81,7 +82,8 @@ class TabScreenState extends State<TabScreen> {
       },
       child: Obx(() {
         return Scaffold(
-          bottomSheet: (addToCartController.productCount > 0 && commonController.commonCurTab.value != 2)
+          bottomSheet: (addToCartController.productCount > 0 &&
+                  commonController.commonCurTab.value != 2)
               ? const GoToCart(
                   usedIn: 'home',
                 )
@@ -90,13 +92,12 @@ class TabScreenState extends State<TabScreen> {
             child: pages[commonController.commonCurTab.value],
           ),
           bottomNavigationBar: CustomNavBar((index) {
-           // setState(() {
-              commonController.commonCurTab.value = index;
-              commonController.update();
+            // setState(() {
+            commonController.commonCurTab.value = index;
+            commonController.update();
 
-           // });
-          },
-              commonController.commonCurTab.value),
+            // });
+          }, commonController.commonCurTab.value),
         );
       }),
     );
