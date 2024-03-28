@@ -20,10 +20,10 @@ var local = '192.168.1.18:8000';
 //http://192.168.1.27:8000/api/check_party/?username=9844398489
 
 class ApiAppConstants {
-  // static String apiEndPoint = "http://139.162.12.150/api/"; // Prod
-  //static String apiEndPoint = "http://170.187.232.148/api/";
+  // static String apiEndPoint = "http://139.162.12.150/api/";
+  //static String apiEndPoint = "http://170.187.232.148/api/";// Prod
   static String apiEndPoint = "http://170.187.232.148/api/";
-  //static String apiEndPoint = "http://192.168.1.23:8000/api/";
+//  static String apiEndPoint = "http://192.168.1.23:8000/api/";
 
   static const String signup = 'new_party/';
   static const String otp = 'sendLoginOTP/';

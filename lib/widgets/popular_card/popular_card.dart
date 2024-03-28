@@ -319,35 +319,25 @@ class _PopularCardState extends State<PopularCard> {
                 const Spacer(),
 
                 AddButton(
-                  units:
-                      " ${widget.product?['order_uom'] == null ? "" : widget.product?['order_uom']}",
+                  units: " ${widget.product?['order_uom'] == null ? "" : widget.product?['order_uom']}",
                   width: 135,
-                  minOrder: int.parse(convertDoubleToString(
-                      widget.product['min_order_qty'] ?? "0.0")),
+                  minOrder: int.parse(convertDoubleToString(widget.product['min_order_qty'] ?? "0.0")),
                   textWidth: 120,
                   isLoading: widget.loader ?? false,
-                  qty: quantity.value <
-                          int.parse(convertDoubleToString(
-                              widget.product['min_order_qty'] ?? "0.0"))
+                  qty: quantity.value < int.parse(convertDoubleToString(widget.product['min_order_qty'] ?? "0.0"))
                       ? 0
                       : quantity.value,
                   onChangedPressed: (value) {
                     quantity.value = int.parse(value);
                     quantityCtrlr.text = quantity.value.toString();
                     controller.rxQty.value = quantity.value.toString();
-
-                    addToCartController.addToCart(quantity.value,
-                        widget.product?['id'], '1', widget.product);
+                    addToCartController.addToCart(quantity.value, widget.product?['id'], '1', widget.product);
                   },
                   onAddPressed: () {
                     //  quantity.value++;
-                    String minOrder = widget.product['min_order_qty'] == null
-                        ? "0.0"
-                        : widget.product['min_order_qty'].toString();
-                    quantity.value = quantity.value +
-                        int.parse(convertDoubleToString(minOrder));
-                    print(
-                        'onClick of Add ${int.parse(convertDoubleToString(minOrder))} :: ${quantity.value}');
+                    String minOrder =ordersMilk == "Crate" && widget.product['parent_code'].toString() == "1011"?"1": widget.product['min_order_qty'] == null ? "0.0" : widget.product['min_order_qty'].toString();
+                    quantity.value = quantity.value + int.parse(convertDoubleToString(minOrder));
+                    print('onClick of Add ${int.parse(convertDoubleToString(minOrder))} :: ${quantity.value}');
                     addToCartController.productCount++;
                     addToCartController.addToCart(quantity.value,
                         widget.product?['id'], '1', widget.product);
@@ -363,11 +353,8 @@ class _PopularCardState extends State<PopularCard> {
                     print(
                         'isloading in addtocart ${addToCartController.isLoading.value}');
                     controller.rxQty.value = quantity.value.toString();
-                    String minOrder =
-                        widget.product['increment_order_qty'].toString() ??
-                            "0.0";
-                    quantity.value = quantity.value +
-                        int.parse(convertDoubleToString(minOrder));
+                    String minOrder = ordersMilk == "Crate" && widget.product['parent_code'].toString() == "1011"?"1":widget.product['increment_order_qty'].toString() ?? "0.0";
+                    quantity.value = quantity.value + int.parse(convertDoubleToString(minOrder));
                     quantityCtrlr.text = quantity.value.toString();
                     addToCartController.addToCart(quantity.value,
                         widget.product?['id'], '1', widget.product);
@@ -380,9 +367,7 @@ class _PopularCardState extends State<PopularCard> {
                     //   if (quantity.value > 0) {
                     //quantity.value = widget.product['cart_count']??0;
 
-                    String minOrder =
-                        widget.product['increment_order_qty'].toString() ??
-                            "0.0";
+                    String minOrder = ordersMilk == "Crate" && widget.product['parent_code'].toString() == "1011"?"1":widget.product['increment_order_qty'].toString() ?? "0.0";
                     quantity.value = quantity.value -
                         int.parse(convertDoubleToString(minOrder));
                     //addToCartController.productCount--;
@@ -441,7 +426,7 @@ class _PopularCardState extends State<PopularCard> {
                     // const Spacer(),
                     const Spacer(),
                     Text(
-                      "${setPackingValue(quantity.value, widget.product['packing_qty'] ?? "0.0", widget.product?['multipack_uom'] ?? "", widget.product?['no_of_pieces'] ?? 0, widget.product?['order_uom'] ?? '', widget.product?['packing_uom'] ?? '',ordersMilk)} ",
+                      "${setPackingValue(quantity.value, widget.product['packing_qty'] ?? "0.0", widget.product?['multipack_uom'] ?? "", widget.product?['no_of_pieces'] ?? 0, widget.product?['order_uom'] ?? '', widget.product?['packing_uom'] ?? '',ordersMilk,widget.product?['parent_code'] ?? "")} ",
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium!
@@ -490,7 +475,7 @@ setCrateRate(int qty, String multiPackQty, String multiPackUom,String parentCode
 }
 
 setPackingValue(int qty, String noOfPieces, String multiPackUom, int pieces,
-    String orderUom, String packingUom, String ordersMilk) {
+    String orderUom, String packingUom, String ordersMilk,String parentCode) {
   log(orderUom.toString());
   print('ordersMilk:::: $ordersMilk');
   if (multiPackUom != null && multiPackUom == "CASE") {
@@ -508,7 +493,7 @@ setPackingValue(int qty, String noOfPieces, String multiPackUom, int pieces,
       late double multiplier;
       if (packingUom == 'LTR' || packingUom == 'KG') {
         multiplier = 1.0;
-      }else if(ordersMilk == "Crate"){
+      }else if(ordersMilk == "Crate" && parentCode == "1011"){
         multiplier =10.0*1000.0;
       }
       else {

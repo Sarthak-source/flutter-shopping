@@ -420,6 +420,7 @@ class _ProductBodyState extends State<ProductBody> {
                               }
                             },
                             qtyController: Txtctrlr,
+                      parentCode: widget.product?['parent_code'] ?? "",
                           ),
                   ],
                 ),
@@ -453,7 +454,7 @@ class _ProductBodyState extends State<ProductBody> {
                     // const Spacer(),
                     const SizedBox(width: 8),
                     Text(
-                      "${setPackingValue(quantity.value, widget.product['packing_qty'] ?? "0.0",widget.product?['multipack_uom']??"",widget.product?['no_of_pieces']??0,widget.product?['order_uom'] ??'',widget.product?['packing_uom'] ?? '',ordersMilk)} ",
+                      "${setPackingValue(quantity.value, widget.product['packing_qty'] ?? "0.0",widget.product?['multipack_uom']??"",widget.product?['no_of_pieces']??0,widget.product?['order_uom'] ??'',widget.product?['packing_uom'] ?? '',ordersMilk,widget.product?['parent_code'] ?? "")} ",
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium!

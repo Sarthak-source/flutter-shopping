@@ -253,6 +253,7 @@ class _ProductCardState extends State<ProductCard> {
                     addToCartController.update();
                   },
                   qtyController: quantityCtrlr,
+                  parentCode: widget.product?['parent_code'] ?? "",
                 ),
               ),
               const Spacer(),
@@ -288,7 +289,7 @@ class _ProductCardState extends State<ProductCard> {
                     // const Spacer(),
                     const Spacer(),
                     Text(
-                      "${setPackingValue(quantity.value, widget.product['packing_qty'] ?? "0.0", widget.product?['multipack_uom'] ?? "", widget.product?['no_of_pieces'] ?? 0,widget.product?['order_uom'] ??'',widget.product?['packing_uom'] ?? '',ordersMilk)} ",
+                      "${setPackingValue(quantity.value, widget.product['packing_qty'] ?? "0.0", widget.product?['multipack_uom'] ?? "", widget.product?['no_of_pieces'] ?? 0,widget.product?['order_uom'] ??'',widget.product?['packing_uom'] ?? '',ordersMilk,widget.product?['parent_code'] ?? "")} ",
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium!
