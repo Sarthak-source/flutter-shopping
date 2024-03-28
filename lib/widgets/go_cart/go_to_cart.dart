@@ -4,6 +4,7 @@ import 'package:sutra_ecommerce/constants/colors.dart';
 import 'package:sutra_ecommerce/controllers/add_to_cart_controller.dart';
 import 'package:sutra_ecommerce/controllers/common_controller.dart';
 import 'package:sutra_ecommerce/controllers/mycart_controller.dart';
+import 'package:sutra_ecommerce/screens/tab_screen/tab_screen.dart';
 import 'package:sutra_ecommerce/utils/screen_utils.dart';
 
 import '../../utils/common_functions.dart';
@@ -21,12 +22,15 @@ class _GoToCartState extends State<GoToCart> {
   Widget build(BuildContext context) {
     final MyCartController controller = Get.put(MyCartController());
     final CommonController cmncontroller = Get.put(CommonController());
-    final AddToCartController addToCartController = Get.put(AddToCartController());
+    final AddToCartController addToCartController =
+        Get.put(AddToCartController());
 
     return Obx(() {
-      final double totalAmount = double.parse(controller.mycartTotalAmount.value??"0.000");
+      final double totalAmount =
+          double.parse(controller.mycartTotalAmount.value ?? "0.000");
       final int valueLength = totalAmount.toInt().toString().length;
-      final double fontSize = 20 - (valueLength - 1) * 2; // Adjust the scaling factor as needed
+      final double fontSize =
+          20 - (valueLength - 1) * 2; // Adjust the scaling factor as needed
 
       return Padding(
         padding: EdgeInsets.symmetric(
@@ -42,7 +46,7 @@ class _GoToCartState extends State<GoToCart> {
               child: const SizedBox(
                 width: 40, // Adjust width and height as needed
                 height: 40,
-                
+
                 child: Icon(
                   Icons.shopping_cart_outlined,
                   size: 30,
@@ -59,7 +63,10 @@ class _GoToCartState extends State<GoToCart> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('cart total:',style: TextStyle(fontSize: 15),),
+                  const Text(
+                    'cart total:',
+                    style: TextStyle(fontSize: 15),
+                  ),
                   Row(
                     children: [
                       Text(
@@ -71,7 +78,10 @@ class _GoToCartState extends State<GoToCart> {
                                 fontWeight: FontWeight.w700,
                                 fontSize: fontSize),
                       ),
-                      Text(" | ${addToCartController.productCount.value} items",style:  TextStyle(fontSize: fontSize),)
+                      Text(
+                        " | ${addToCartController.productCount.value} items",
+                        style: TextStyle(fontSize: fontSize),
+                      )
                     ],
                   ),
                 ],
@@ -94,16 +104,22 @@ class _GoToCartState extends State<GoToCart> {
                 ),
               ),
               onPressed: () {
-              //  Navigator.of(context).pushNamed(CartScreen.routeName);
-                if(widget.usedIn =="PoductsListScreen"){
-                  Navigator.pop(context);
-                  cmncontroller.commonCurTab.value=2;
+                //  Navigator.of(context).pushNamed(CartScreen.routeName);
+                if (widget.usedIn == "PoductsListScreen") {
+                  //Navigator.popUntil(context, ModalRoute.withName(TabScreen.routeName));
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute<void>(
+                      builder: (BuildContext context) => const TabScreen(),
+                    ),
+                  );
+
+                  cmncontroller.commonCurTab.value = 2;
                   cmncontroller.update();
-                }else{
-                  cmncontroller.commonCurTab.value=2;
+                } else {
+                  cmncontroller.commonCurTab.value = 2;
                   cmncontroller.update();
                 }
-
               },
               child: const Text(
                 'View Cart',
@@ -118,5 +134,3 @@ class _GoToCartState extends State<GoToCart> {
     });
   }
 }
-
-
