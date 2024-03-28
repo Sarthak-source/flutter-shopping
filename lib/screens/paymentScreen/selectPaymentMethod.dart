@@ -131,8 +131,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                         onChanged: (value) {
                           // Do something with the value
                           print('Checkbox COD: $value');
-          
-                          showDialog(
+                          /* showDialog(
                             context: context,
                             builder: (BuildContext context) {
                               return Dialog(
@@ -180,6 +179,43 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                     ],
                                   ),
                                 ),
+                              );
+                            },
+                          );*/
+
+
+
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: const Text(""),
+                                content: const Text("Are you sure? would you like to place the order."),
+                                actions: [
+                                  TextButton(
+                                    child: const Text("Cancel"),
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                  ),
+                                  TextButton(
+                                    child: const Text("Ok"),
+                                    onPressed: () {
+                                      Navigator.pop(context); // Close the dialog
+                                      createOrderCtlr.createOrderApi(
+                                          "1",
+                                          (widget.selectedIndex!+2).toString(),
+                                          widget.selectedDate.toString(),
+                                          widget.address,
+                                          widget.totalAmount.toString(),
+                                          "COD",// "Online",
+                                          "",// "1234567",
+                                          "",//  "ggghhhh4444",
+                                          ""// "Success"
+                                      );
+                                    },
+                                  ),
+                                ],
                               );
                             },
                           );
