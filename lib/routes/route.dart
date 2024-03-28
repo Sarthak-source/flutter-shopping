@@ -4,14 +4,13 @@ import 'package:sutra_ecommerce/screens/add_address/post_address.dart';
 import 'package:sutra_ecommerce/screens/login/verify_otp.dart';
 import 'package:sutra_ecommerce/screens/notification/notification.dart';
 import 'package:sutra_ecommerce/screens/paymentScreen/paymentScreen.dart';
-import 'package:sutra_ecommerce/screens/paymentScreen/upi_screen.dart';
 import 'package:sutra_ecommerce/screens/product_detail.dart/product_detail.dart';
 import 'package:sutra_ecommerce/screens/select_time/select_time.dart';
 import 'package:sutra_ecommerce/screens/sign_up/sign_message_screen.dart';
 
 import '../screens/add_address/add_address_screen.dart';
 import '../screens/cart/cart_screen.dart';
-import '../screens/category_screen.dart';
+import '../screens/category_screen/category_screen.dart';
 import '../screens/checkout_screen.dart';
 import '../screens/fruit_screen.dart';
 import '../screens/intro_screen/intro_screen.dart';

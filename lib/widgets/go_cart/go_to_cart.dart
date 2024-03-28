@@ -106,7 +106,7 @@ class _GoToCartState extends State<GoToCart> {
 
               },
               child: const Text(
-                'View cart',
+                'View Cart',
                 maxLines: 1,
                 style: TextStyle(fontSize: 16),
                 overflow: TextOverflow.ellipsis,
@@ -118,3 +118,5 @@ class _GoToCartState extends State<GoToCart> {
     });
   }
 }
+
+

@@ -42,6 +42,7 @@ class UserController extends GetxController {
 
       log('responseData message  ${responseData.toString()}');
       Map userData = responseData['body'];
+      await box!.delete('userData');
       await box!.put('userData', userData);
       user.value = userData;
 

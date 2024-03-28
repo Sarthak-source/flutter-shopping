@@ -8,26 +8,30 @@ class CustomAppBar extends StatelessWidget {
   final Function()? navBack;
   final List<Widget> actions;
   final double? marginBottom;
+  final double? fontSize;
   const CustomAppBar(
       {required this.title,
       required this.actions,
-       this.navBack,
+      this.navBack,
+      this.fontSize = 17,
       this.marginBottom = 30.0,
       super.key});
   @override
   Widget build(BuildContext context) {
-    
     return Padding(
       padding: EdgeInsets.only(
           right: 12.0, left: 12.0, bottom: marginBottom!, top: 16),
       child: Row(
         children: [
-           Expanded(child: BackButtonText(navBack: navBack,)),
+          Expanded(
+              child: BackButtonText(
+            navBack: navBack,
+          )),
           Text(
-          title,
-          //titleCase(title),
+            title,
+            //titleCase(title),
             style: TextStyle(
-              fontSize: getProportionateScreenWidth(14),
+              fontSize: getProportionateScreenWidth(fontSize!),
               fontWeight: FontWeight.w600,
             ),
           ),

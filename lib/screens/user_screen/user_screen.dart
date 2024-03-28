@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sutra_ecommerce/config/common.dart';
 import 'package:sutra_ecommerce/controllers/user_controller.dart';
-import 'package:sutra_ecommerce/screens/login/login_screen.dart';
+import 'package:sutra_ecommerce/screens/intro_screen/intro_screen.dart';
 import 'package:sutra_ecommerce/screens/notification/notification.dart'
     as notificationpage;
 
@@ -170,7 +170,7 @@ class UserScreen extends StatelessWidget {
                               box!.deleteAll(
                                   ['userData', 'login', 'isTestEnvironment']);
                                   log(box!.get('userData').toString());
-                              Get.toNamed(LoginScreen.routeName);
+                              Get.toNamed(IntroScreen.routeName);
                             },
                           ),
                         ],
