@@ -141,7 +141,7 @@ class _NotificationState extends State<Notification> {
                                                 ),
                                               ),
                                             ),
-                                          SizedBox(width: 10,),
+                                          SizedBox(width: 5,),
                                             Expanded(
                                               flex: 1,
                                               child: Container(
