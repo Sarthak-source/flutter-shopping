@@ -321,7 +321,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                             (widget.selectedIndex!+2).toString(),
                                             widget.selectedDate.toString(),
                                             widget.address,
-                                            widget.totalAmount.toString(),
+                                            amnt.toString(),
                                              "Online",
                                             clientupiId ??"",
                                             transID ?? "",

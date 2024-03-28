@@ -464,9 +464,10 @@ class _PopularCardState extends State<PopularCard> {
   }
 }
 
-setCrateRate(int qty, String multiPackQty, String multiPackUom,String partyCode) {
+setCrateRate(int qty, String multiPackQty, String multiPackUom,String parentCode) {
   double crateValue = 0.0;
   String newCrateValue = "";
+  print('parentCode:::: $parentCode');
   if (multiPackUom != null && multiPackUom == "CASE" ) { //|| partyCode == "1011"
     return qty.toString();
   } else {
