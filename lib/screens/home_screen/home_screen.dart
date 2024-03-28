@@ -71,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
             SliverToBoxAdapter(
               child: Container(
                 color: kPrimaryBlueTest2,
-                height: 65,
+                height: 60,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -82,12 +82,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Hero(
                         tag: 'search',
                         child: Container(
-                          height: 50,
+                          height: 45,
                           decoration: BoxDecoration(
-                            color: Colors.grey.shade200,
+                            color: Colors.grey.shade200.withOpacity(0.6),
                             border: Border.all(
                               color: Colors.grey, // Border color
-                              width: 1.0, // Border width
+                              width: 0.8, // Border width
                             ),
                             borderRadius:
                                 BorderRadius.circular(12), // Border radius
@@ -109,7 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   return Colors.white; // Elevation when pressed
                                 }
                                 return Colors
-                                    .grey.shade200; // Default elevation
+                                    .grey.shade200.withOpacity(0.6); // Default elevation
                               },
                             ),
                             hintText: 'Search...',
@@ -124,14 +124,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                     fontStyle: FontStyle
                                         .italic, // Change the font style when pressed
                                     fontSize:
-                                        16, // Change the font size when pressed
+                                        13, // Change the font size when pressed
+                                        fontWeight: FontWeight.w400
                                   );
                                 }
                                 return const TextStyle(
                                   color: Colors.grey, // Default text color
-                                  fontStyle:
-                                      FontStyle.normal, // Default font style
-                                  fontSize: 16, // Default font size
+                                  fontSize:
+                                        13, // Change the font size when pressed
+                                        fontWeight: FontWeight.w400// Default font size
                                 );
                               },
                             ),

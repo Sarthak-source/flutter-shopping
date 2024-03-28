@@ -48,7 +48,7 @@ class _NotificationState extends State<Notification> {
       body: Column(
         children: [
           const SizedBox(
-            height: 18,
+            height: 50,
           ),
           const CustomAppBar(
             marginBottom: 12,
@@ -141,7 +141,7 @@ class _NotificationState extends State<Notification> {
                                                 ),
                                               ),
                                             ),
-                                            const SizedBox(width: 10),
+                                          SizedBox(width: 5,),
                                             Expanded(
                                               flex: 1,
                                               child: Container(
@@ -165,8 +165,8 @@ class _NotificationState extends State<Notification> {
                                                   onPressed: () {
                                                     notificationController
                                                         .setStatusNotification(
-                                                            "Decline",
-                                                            payment["id"] ??
+                                                            "Declined",
+                                                            payment["id"].toString() ??
                                                                 "");
                                                   },
                                                   child: const Text(

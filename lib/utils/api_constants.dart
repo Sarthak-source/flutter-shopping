@@ -15,7 +15,7 @@ var ip = box!.containsKey("isTestEnvironment")
         : '192.168.1.27:8000'
     : '192.168.1.27:8000';
 
-var local = '192.168.1.18:8000';
+var local = '192.168.1.23:8000';
 
 //http://192.168.1.27:8000/api/check_party/?username=9844398489
 

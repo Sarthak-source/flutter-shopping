@@ -45,25 +45,25 @@ class NotificationController extends GetxController {
     }
   }
 
-  Future<dynamic> setStatusNotification(  String status, String invoiceId,) async {
+  Future<dynamic> setStatusNotification(
+    String status,
+    String invoiceId,
+  ) async {
     try {
       Map storedUserData = box!.get('userData');
 
       isLoading.value = true;
-      var responseData = await NetworkRepository.confirmInovice(status: status, invoiceId: invoiceId);
+      var responseData = await NetworkRepository.confirmInovice(
+          status: status, invoiceId: invoiceId);
+      fetchInvoiceNotification();
 
       update();
-       Fluttertoast.showToast(msg: "updated", backgroundColor: Colors.green);
-
+      Fluttertoast.showToast(msg: "updated", backgroundColor: Colors.green);
     } catch (e) {
       errorMsg.value = e.toString();
       hasError.value = true;
     } finally {
       isLoading.value = false;
-     
-      Get.back();
-
     }
   }
-
 }
