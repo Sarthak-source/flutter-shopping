@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sutra_ecommerce/controllers/explore_more_controller.dart';
+import 'package:sutra_ecommerce/screens/category_screen/explore_category_screen.dart';
 
 import '../../constants/colors.dart';
 import '../../widgets/tab_title.dart';
-import '../category_screen.dart';
+import '../category_screen/category_screen.dart';
 import '../product_grid_screen/produts_grid_screen.dart';
 
 class ExploreNewCategory extends StatelessWidget {
@@ -79,7 +80,7 @@ class ExploreNewCategory extends StatelessWidget {
                 title: 'Explore New Catrgories',
                 seeAll: () {
                   //Get.toNamed(CategoryScreen.routeName);
-                  Navigator.push(context, MaterialPageRoute(builder: (context) =>const CategoryScreen(subCatId: null,catName: "All Categories",)));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) =>const ExploreCategoryScreen(subCatId: null,catName: "Explore Categories",)));
 
                 },
               ),

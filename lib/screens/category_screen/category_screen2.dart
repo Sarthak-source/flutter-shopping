@@ -10,7 +10,7 @@ import 'package:sutra_ecommerce/widgets/category_card/category_card.dart';
 import '../../constants/colors.dart';
 import '../../utils/screen_utils.dart';
 import '../../widgets/custom_app_bar.dart';
-import '../category_screen.dart';
+import 'category_screen.dart';
 
 class CategoryScreen2 extends StatefulWidget {
   static const routeName = '/category_screen';

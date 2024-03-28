@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sutra_ecommerce/controllers/catagories_controller.dart';
 import 'package:sutra_ecommerce/models/category.dart';
-import 'package:sutra_ecommerce/screens/category_screen.dart';
+import 'package:sutra_ecommerce/screens/category_screen/category_screen.dart';
 import 'package:sutra_ecommerce/screens/product_grid_screen/produts_grid_screen.dart';
 import 'package:sutra_ecommerce/utils/screen_utils.dart';
 import 'package:sutra_ecommerce/widgets/category_card/category_card.dart';

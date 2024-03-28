@@ -2,38 +2,38 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sutra_ecommerce/controllers/catagories_controller.dart';
-import 'package:sutra_ecommerce/screens/user_screen/category_screen2.dart';
+import 'package:sutra_ecommerce/controllers/explore_more_controller.dart';
+import 'package:sutra_ecommerce/screens/category_screen/category_screen2.dart';
 
-import '../utils/screen_utils.dart';
-import '../widgets/custom_app_bar.dart';
-import '../widgets/loading_widgets/loader.dart';
-import 'product_grid_screen/produts_grid_screen.dart';
+import '../../utils/screen_utils.dart';
+import '../../widgets/custom_app_bar.dart';
+import '../../widgets/loading_widgets/loader.dart';
+import '../product_grid_screen/produts_grid_screen.dart';
 
-class CategoryScreen extends StatefulWidget {
-  static const routeName = '/category_screen';
+class ExploreCategoryScreen extends StatefulWidget {
+  static const routeName = '/explore_category_screen';
 
   final String? subCatId;
   final String? catName;
 
-  const CategoryScreen({
+  const ExploreCategoryScreen({
     super.key,
     this.subCatId,
     this.catName,
   });
 
   @override
-  State<CategoryScreen> createState() => _CategoryScreenState();
+  State<ExploreCategoryScreen> createState() => _ExploreCategoryScreenState();
 }
 
-class _CategoryScreenState extends State<CategoryScreen> {
-  final CategoriesController catcontroller = Get.put(CategoriesController());
+class _ExploreCategoryScreenState extends State<ExploreCategoryScreen> {
+  final ExploreMoreController catcontroller = Get.put(ExploreMoreController());
   @override
   void initState() {
     super.initState();
     if (widget.subCatId != null) {
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        catcontroller.getSubCategories(widget.subCatId ?? "", "1");
+        catcontroller.fetchExploreMores();
       });
     }
   }
@@ -41,7 +41,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
   @override
   Widget build(BuildContext context) {
     ScreenUtils().init(context);
-    return GetBuilder<CategoriesController>(builder: (controller) {
+    return GetBuilder<ExploreMoreController>(builder: (controller) {
       return Scaffold(
         backgroundColor: Colors.grey.shade300,
         //  backgroundColor: kPrimaryBlueTest,
@@ -74,11 +74,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
                         crossAxisCount: 3,
                       ),
                       itemCount: widget.subCatId != null
-                          ? controller.Subcategories.length
-                          : controller.categories.length,
+                          ? controller.exploreMores.length
+                          : controller.exploreMores.length,
                       itemBuilder: (BuildContext context, int index) {
                         var subCatData = widget.subCatId != null
-                            ? controller.Subcategories[index]
+                            ? controller.exploreMores[index]
                             : null;
                         return Container(
                           margin: const EdgeInsets.all(4.0),
@@ -95,8 +95,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
                               onTap: () {
                                 if (widget.subCatId != null) {
                                   var checkSubCat =
-                                      subCatData['has_sub_category'];
-                                  print('has_sub_category:: ${checkSubCat}');
+                                      subCatData['has_sub_ExploreCategory'];
+                                  print(
+                                      'has_sub_ExploreCategory:: ${checkSubCat}');
                                   if (checkSubCat != null &&
                                       checkSubCat == true) {
                                     if (subCatData["id"] != null) {
@@ -108,7 +109,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                               builder: (context) =>
                                                   CategoryScreen2(
                                                     catName: subCatData['name'],
-                                                    subCatId: subCatData["id"].toString(),
+                                                    subCatId: subCatData["id"]
+                                                        .toString(),
                                                     type: "2",
                                                   )));
                                     }
@@ -123,38 +125,49 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                     );
                                   }
                                 } else {
-                            /*      log(controller.categories[index]['id'].toString());
+                                  /*      log(controller.categories[index]['id'].toString());
                                   Get.toNamed(
                                     PoductsListScreen.routeName,
                                     arguments: PoductsListArguments(
                                       title: controller.categories[index]
                                           ['name'],
-                                      categoryId: controller.categories[index]
+                                      ExploreCategoryId: controller.categories[index]
                                               ['id']
                                           .toString(),
                                     ),
                                   );*/
 
-
-                                  var checkSubCat = controller.categories[index]["has_sub_category"];
-                                  if(checkSubCat != null && checkSubCat == true){
-                                    // Get.toNamed(CategoryScreen.routeName);
-                                    if(controller.categories[index]["id"] !=null) {
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) =>CategoryScreen(subCatId: controller.categories[index]["id"].toString(),catName:controller.categories[index]["name"]??"" ,)));
+                                  var checkSubCat = controller.exploreMores[index]
+                                      ["has_sub_ExploreCategory"];
+                                  if (checkSubCat != null &&
+                                      checkSubCat == true) {
+                                    // Get.toNamed(ExploreCategoryScreen.routeName);
+                                    if (controller.exploreMores[index]["id"] !=
+                                        null) {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ExploreCategoryScreen(
+                                                    subCatId: controller
+                                                        .exploreMores[index]["id"]
+                                                        .toString(),
+                                                    catName: controller
+                                                                .exploreMores[
+                                                            index]["name"] ??
+                                                        "",
+                                                  )));
                                     }
-                                  }else{
-                                    Get.toNamed(
-                                        PoductsListScreen.routeName,
+                                  } else {
+                                    Get.toNamed(PoductsListScreen.routeName,
                                         arguments: PoductsListArguments(
-                                        title: controller.categories[index]
-                                        ['name'],
-                                        categoryId: controller.categories[index]
-                                        ['id']
-                                        .toString(),
-                                ));
+                                          title: controller.exploreMores[index]
+                                              ['name'],
+                                          categoryId: controller
+                                              .exploreMores[index]['id']
+                                              .toString(),
+                                        ));
                                   }
-
-
                                 }
                                 // Get.toNamed(
                                 //   PoductsListScreen.routeName,
@@ -162,7 +175,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                 //     title: controller.categories.isNotEmpty
                                 //         ? controller.categories[index]['name']
                                 //         : "",
-                                //     categoryId: controller.categories[index]
+                                //     ExploreCategoryId: controller.categories[index]
                                 //             ['id']
                                 //         .toString(),
                                 //   ),
@@ -174,17 +187,17 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                   Expanded(
                                       child: Image.network(
                                           widget.subCatId != null
-                                              ? controller.Subcategories[index]
+                                              ? controller.exploreMores[index]
                                                   ['categories_img']
-                                              : controller.categories[index]
+                                              : controller.exploreMores[index]
                                                   ['categories_img']
                                           //: 'http://170.187.232.148/static/images/dilicia.png'
                                           )),
                                   Text(
                                     widget.subCatId != null
-                                        ? controller.Subcategories[index]
+                                        ? controller.exploreMores[index]
                                             ['name']
-                                        : controller.categories[index]['name'],
+                                        : controller.exploreMores[index]['name'],
                                     // titleCase(catList.isNotEmpty ? catList[index]['name'].toLowerCase() : "",),
                                     style: Theme.of(context)
                                         .textTheme
