@@ -121,8 +121,7 @@ class CustomStaggerGrid extends StatefulWidget {
   final double? childAspectRatio;
 
   const CustomStaggerGrid(
-      {this.addCallback, this.categoryId, Key? key, this.childAspectRatio})
-      : super(key: key);
+      {this.addCallback, this.categoryId, super.key, this.childAspectRatio});
 
   @override
   State<CustomStaggerGrid> createState() => _CustomStaggerGridState();

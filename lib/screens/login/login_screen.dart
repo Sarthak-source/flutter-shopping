@@ -26,11 +26,15 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController phoneNumberController = TextEditingController(text: '');
   //LoginController loginController = LoginController();
   final LoginController loginController = Get.put(LoginController());
+  //final UserController userController = Get.put(UserController());
   bool repeat = false;
 
   @override
   void initState() {
     log(box!.get('userData').toString());
+    // userController.user.value={};
+    // log(userController.user.value.toString());
+    
     box!.delete('userData');
     super.initState();
   }

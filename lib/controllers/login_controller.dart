@@ -30,11 +30,9 @@ class LoginController extends GetxController {
       log(responseData.toString());
       box!.delete('userData');
 
+      //userController.user.value = responseData['body'];
       await box!.put('userData', responseData['body']);
       update();
-
-      Map s = box!.get('userData');
-      print("stored ${s.toString()}");
 
       if (responseData.isNotEmpty) {
         var data = await networkRepository.userLogin(number: phoneNumberTyped);

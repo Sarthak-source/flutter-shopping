@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sutra_ecommerce/config/common.dart';
 import 'package:sutra_ecommerce/controllers/user_controller.dart';
-import 'package:sutra_ecommerce/screens/intro_screen/intro_screen.dart';
+import 'package:sutra_ecommerce/screens/landing_screen.dart';
 import 'package:sutra_ecommerce/screens/notification/notification.dart'
     as notificationpage;
 
@@ -165,12 +165,19 @@ class UserScreen extends StatelessWidget {
                             child: const Text("Ok"),
                             onPressed: () {
                               log(box!.get('userData').toString());
-                              userController!.user.value={};
+                              userController!.update();
                               log(box!.get('userData').toString());
                               box!.deleteAll(
                                   ['userData', 'login', 'isTestEnvironment']);
                                   log(box!.get('userData').toString());
-                              Get.toNamed(IntroScreen.routeName);
+                                  
+                                 
+                                  Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const LandingScreen()));
+                              //Get.toNamed(IntroScreen.routeName);
                             },
                           ),
                         ],

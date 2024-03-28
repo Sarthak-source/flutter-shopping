@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sutra_ecommerce/controllers/add_to_cart_controller.dart';
 import 'package:sutra_ecommerce/controllers/common_controller.dart';
+import 'package:sutra_ecommerce/controllers/user_controller.dart';
 import 'package:sutra_ecommerce/widgets/go_cart/go_to_cart.dart';
 
 import '../../controllers/catagories_controller.dart';
@@ -36,14 +37,19 @@ class TabScreenState extends State<TabScreen> {
   final commonController = Get.put(CommonController(), permanent: true);
   //final userController = Get.put(UserController());
 
+  final userController =Get.put(UserController(),permanent: true);
+
   @override
   void initState() {
     super.initState();
 
     print('tab screen:::');
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+
+
       //curTab = commonController.commonCurTab.value;
       //= widget.pageIndex ?? 0;
+      userController.getUserData();
       commonController.update();
       popularController.fetchPopularDeals();
       popularController.update();
