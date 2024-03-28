@@ -9,6 +9,7 @@ import 'package:sutra_ecommerce/utils/common_functions.dart';
 import 'package:sutra_ecommerce/utils/screen_utils.dart';
 import 'package:sutra_ecommerce/widgets/add_button.dart';
 
+import '../../config/common.dart';
 import '../../controllers/product_detail_controller.dart';
 
 class PopularCard extends StatefulWidget {
@@ -31,11 +32,15 @@ class PopularCard extends StatefulWidget {
 
 class _PopularCardState extends State<PopularCard> {
   RxInt quantity = 0.obs;
+  String ordersMilk = "";
 
   @override
   void initState() {
     super.initState();
 
+    Map storedUserData=box!.get('userData');
+    print('userdata in popularcard ${ storedUserData['party']['orders_milk'].toString() }');
+    ordersMilk = storedUserData['party']['orders_milk']!=null?storedUserData['party']['orders_milk'].toString():"";
     if (widget.product != null && widget.product!["cart_count"] != null) {
       final cartCount = widget.product!["cart_count"];
       if (cartCount != null) {
@@ -51,19 +56,26 @@ class _PopularCardState extends State<PopularCard> {
   }
   @override
   void didUpdateWidget(covariant PopularCard oldWidget) {
-        super.didUpdateWidget(oldWidget);
-        if (widget.product != null && widget.product!["cart_count"] != null) {
-          final cartCount = widget.product!["cart_count"];
-          if (cartCount != null) {
-            log("count in popularcard2 ${cartCount.toString()}");
-            final double? parsedCount = double.tryParse(cartCount.toString());
-            if (parsedCount != null) {
-              log('double count $parsedCount');
-              log('int count ${parsedCount.toInt()}');
-              quantity.value = parsedCount.toInt();
-            }
+    super.didUpdateWidget(oldWidget);
+    if (widget.product != null && widget.product!["cart_count"] != null) {
+      final cartCount = widget.product!["cart_count"];
+      if (cartCount != null) {
+        log("count in popularcard2 ${cartCount.toString()}");
+        final double? parsedCount = double.tryParse(cartCount.toString());
+        if (parsedCount != null) {
+          log('double count $parsedCount');
+          log('int count ${parsedCount.toInt()}');
+
+          if (quantity.value <
+              int.parse(convertDoubleToString(
+                  widget.product['min_order_qty'] ?? "0.0"))) {
+            quantity.value = 0;
+          } else {
+            quantity.value = parsedCount.toInt();
           }
         }
+      }
+    }
   }
 
   final TextEditingController quantityCtrlr = TextEditingController();
@@ -408,8 +420,8 @@ class _PopularCardState extends State<PopularCard> {
                             setCrateRate(
                                     quantity.value,
                                     widget.product?['multipack_qty'] ?? "0.0",
-                                    widget.product?['multipack_uom'] ?? "")
-                                .toString(),
+                                    widget.product?['multipack_uom'] ?? "",
+                              widget.product?['parent_code'] ?? "",).toString(),
                             //  setCrateRate(quantity.value, widget.product?['multipack_qty'] ?? 0).toString(),
                             style: Theme.of(context)
                                 .textTheme
@@ -452,12 +464,13 @@ class _PopularCardState extends State<PopularCard> {
   }
 }
 
-setCrateRate(int qty, String multiPackQty, String multiPackUom) {
+setCrateRate(int qty, String multiPackQty, String multiPackUom,String partyCode) {
   double crateValue = 0.0;
   String newCrateValue = "";
-  if (multiPackUom != null && multiPackUom == "CASE") {
+  if (multiPackUom != null && multiPackUom == "CASE" ) { //|| partyCode == "1011"
     return qty.toString();
   } else {
+
     if (qty != null && multiPackQty != null) {
       crateValue = qty / int.parse(convertDoubleToString(multiPackQty));
       // crateValue = 3.0;

@@ -63,8 +63,8 @@ class _FlutterPayUPIState extends State<FlutterPayUPI>
   @override
   Widget build(BuildContext context) {
     return  Container(
-      height: MediaQuery.of(context).size.height,
-      padding: EdgeInsets.all(6.0),
+    //  height: MediaQuery.of(context).size.height,
+      padding: EdgeInsets.all(0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [

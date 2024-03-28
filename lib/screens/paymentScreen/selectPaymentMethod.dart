@@ -44,10 +44,10 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
     });
     Map storedUserData=box!.get('userData');
     print('userdata in paymentselection ${ storedUserData['party']['COD_Allowed'].toString() }');
-    isCODallowed =storedUserData['party']['COD_Allowed'].toString();
+    isCODallowed =storedUserData['party']['COD_Allowed']!=null?storedUserData['party']['COD_Allowed'].toString():"";
     print('userdata in isCODallowed ${ isCODallowed.toString() }');
-    clientupiId =storedUserData['party']['route_code']['plant']['UPI_id'].toString();
-    planId =storedUserData['party']['route_code']['plant']['id'].toString();
+    clientupiId =storedUserData['party']['route_code']['plant']['UPI_id']!=null?storedUserData['party']['route_code']['plant']['UPI_id'].toString():"";
+    planId =storedUserData['party']['route_code']['plant']['id']!=null?storedUserData['party']['route_code']['plant']['id'].toString():"";
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       controller.upi.value = false;
       controller.cod.value = false;
@@ -124,17 +124,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                           SizedBox(width: 14),
                           Text("COD",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,color: Colors.grey),),
                         ],
-                      )
-                  //     CircularCheckBoxWithText(
-                  //       codNotAllowed: "NO",
-                  //   text: 'COD',
-                  //   initialValue: false,
-                  //   onChanged: (value) {
-                  //     // Do something with the value
-                  //     print('Checkbox COD: $value');
-                  //     },
-                  // )
-                          :
+                      ) :
                       CircularCheckBoxWithText(
                         text: 'COD',
                         initialValue: controller.cod.value,
@@ -313,11 +303,11 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                               const SizedBox(height: 50),
                               controller.showUpi.value?
                               Container(
-                                  height: 300,
+                                  height: 200,
                                 //  width: Get.width,
                                 //  color: Colors.red.shade50,
                                   child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
+                                    padding: const EdgeInsets.all(0),
                                     child: FlutterPayUPI(paymentAmount: amountController.text,
 
                                         Successcallback: (upiRequestParams,amnt,transID,merchId){
