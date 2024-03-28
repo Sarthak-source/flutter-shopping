@@ -83,6 +83,7 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
                        SizedBox(
                           width: Get.width,
                           child: DataTable(
+                             columnSpacing: 40,
                             columns: const [
                               DataColumn(
                                   label: Text(
