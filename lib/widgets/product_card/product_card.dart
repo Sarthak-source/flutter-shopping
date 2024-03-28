@@ -7,6 +7,7 @@ import 'package:sutra_ecommerce/utils/common_functions.dart';
 import 'package:sutra_ecommerce/widgets/add_button.dart';
 import 'package:sutra_ecommerce/widgets/popular_card/popular_card.dart';
 
+import '../../config/common.dart';
 import '../../constants/colors.dart';
 import '../../utils/screen_utils.dart';
 
@@ -39,11 +40,13 @@ class _ProductCardState extends State<ProductCard> {
 
   RxInt quantity =
       0.obs; // Initialize quantity as observable RxInt with value 0
-
+  String ordersMilk = "";
   @override
   void initState() {
     super.initState();
-
+    Map storedUserData=box!.get('userData');
+    print('userdata in popularcard ${ storedUserData['party']['orders_milk'].toString() }');
+    ordersMilk = storedUserData['party']['orders_milk']!=null?storedUserData['party']['orders_milk'].toString():"";
     if (widget.product != null && widget.product!["cart_count"] != null) {
       final cartCount = widget.product["cart_count"] ?? "null";
       if (cartCount != null) {
@@ -285,7 +288,7 @@ class _ProductCardState extends State<ProductCard> {
                     // const Spacer(),
                     const Spacer(),
                     Text(
-                      "${setPackingValue(quantity.value, widget.product['packing_qty'] ?? "0.0", widget.product?['multipack_uom'] ?? "", widget.product?['no_of_pieces'] ?? 0,widget.product?['order_uom'] ??'',widget.product?['packing_uom'] ?? '')} ",
+                      "${setPackingValue(quantity.value, widget.product['packing_qty'] ?? "0.0", widget.product?['multipack_uom'] ?? "", widget.product?['no_of_pieces'] ?? 0,widget.product?['order_uom'] ??'',widget.product?['packing_uom'] ?? '',ordersMilk)} ",
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium!

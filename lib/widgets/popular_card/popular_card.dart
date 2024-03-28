@@ -408,6 +408,8 @@ class _PopularCardState extends State<PopularCard> {
                     addToCartController.update();*/
                   },
                   qtyController: quantityCtrlr,
+
+                  parentCode: widget.product?['parent_code'] ?? "",
                 ),
                 const Spacer(),
 
@@ -439,7 +441,7 @@ class _PopularCardState extends State<PopularCard> {
                     // const Spacer(),
                     const Spacer(),
                     Text(
-                      "${setPackingValue(quantity.value, widget.product['packing_qty'] ?? "0.0", widget.product?['multipack_uom'] ?? "", widget.product?['no_of_pieces'] ?? 0, widget.product?['order_uom'] ?? '', widget.product?['packing_uom'] ?? '')} ",
+                      "${setPackingValue(quantity.value, widget.product['packing_qty'] ?? "0.0", widget.product?['multipack_uom'] ?? "", widget.product?['no_of_pieces'] ?? 0, widget.product?['order_uom'] ?? '', widget.product?['packing_uom'] ?? '',ordersMilk)} ",
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium!
@@ -468,7 +470,7 @@ setCrateRate(int qty, String multiPackQty, String multiPackUom,String parentCode
   double crateValue = 0.0;
   String newCrateValue = "";
   print('parentCode:::: $parentCode');
-  if (multiPackUom != null && multiPackUom == "CASE" ) { //|| partyCode == "1011"
+  if (multiPackUom != null && multiPackUom == "CASE" || parentCode == "1011") { //|| parentCode == "1011"
     return qty.toString();
   } else {
 
@@ -488,8 +490,9 @@ setCrateRate(int qty, String multiPackQty, String multiPackUom,String parentCode
 }
 
 setPackingValue(int qty, String noOfPieces, String multiPackUom, int pieces,
-    String orderUom, String packingUom) {
+    String orderUom, String packingUom, String ordersMilk) {
   log(orderUom.toString());
+  print('ordersMilk:::: $ordersMilk');
   if (multiPackUom != null && multiPackUom == "CASE") {
     if (qty != null && pieces != null) {
       int noOfPI = qty * int.parse(pieces.toString());
@@ -505,14 +508,16 @@ setPackingValue(int qty, String noOfPieces, String multiPackUom, int pieces,
       late double multiplier;
       if (packingUom == 'LTR' || packingUom == 'KG') {
         multiplier = 1.0;
-      } else {
+      }else if(ordersMilk == "Crate"){
+        multiplier =10.0*1000.0;
+      }
+      else {
         multiplier = 1000.0;
       }
       // double multiplier =
       //     (orderUom == 'LTR' || orderUom == 'KG') ? 1.0 : 1000.0;
       //     log(multiplier.toString());
-      double noOfPi =
-          qty * multiplier / int.parse(convertDoubleToString(noOfPieces));
+      double noOfPi = qty * multiplier / int.parse(convertDoubleToString(noOfPieces));
 
       log('multiplier.toString() ${multiplier.toString()} $noOfPi');
       // Check if noOfPi is finite and not NaN

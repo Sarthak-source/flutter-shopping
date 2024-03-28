@@ -46,7 +46,7 @@ class MyProfileScreen extends StatelessWidget {
                   ),
                   InputFormCard(
                     title: 'Phone number',
-                    value: userController.user['party']['phone'].toString(),
+                    value: userController.user['party']['mobile_NO'].toString(),
                   ),
                 ],
               ),

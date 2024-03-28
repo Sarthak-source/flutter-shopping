@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:sutra_ecommerce/controllers/common_controller.dart';
 
+import '../config/common.dart';
 import 'loading_widgets/loader.dart';
 
 class AddButton extends StatefulWidget {
@@ -21,6 +22,7 @@ class AddButton extends StatefulWidget {
   final int minOrder;
   final String units;
   final bool constWidth;
+  final String? parentCode;
 
   const AddButton({
     super.key,
@@ -36,6 +38,7 @@ class AddButton extends StatefulWidget {
     this.textWidth = 60,
     this.units = 'items',
     this.constWidth = false,
+    this.parentCode
   });
 
   @override
@@ -53,10 +56,14 @@ class _AddButtonState extends State<AddButton> {
   final ItemPositionsListener itemPositionsListener =
       ItemPositionsListener.create();
   int listLength = 300;
-
+  String ordersMilk = "";
   @override
   void initState() {
     super.initState();
+    Map storedUserData=box!.get('userData');
+    print('userdata in popularcard ${ storedUserData['party']['orders_milk'].toString() }');
+    ordersMilk = storedUserData['party']['orders_milk']!=null?storedUserData['party']['orders_milk'].toString():"";
+
   }
 
   @override
@@ -75,8 +82,18 @@ class _AddButtonState extends State<AddButton> {
   }
 
   List<int> generateList(int minOrder, int length) {
-    return List.generate(length, (index) => (index + 1) * minOrder);
+    print('widget.parentCode in add btn ${widget.parentCode} ordersmilk:: $ordersMilk');
+    if(widget.parentCode == "1011" && ordersMilk == "Crate"){
+
+        return List.generate(length, (index) => (index + 1));
+
+    }else{
+      return List.generate(length, (index) => (index + 1) * minOrder);
+    }
+
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -89,8 +106,7 @@ class _AddButtonState extends State<AddButton> {
     focusNode = FocusNode();
     itemScrollController = ItemScrollController();
 
-    int indexOfQuantity =
-        generateList(widget.minOrder, listLength).indexOf(widget.qty);
+    int indexOfQuantity = generateList(widget.minOrder, listLength).indexOf(widget.qty);
 
     log(indexOfQuantity.toString());
 

@@ -10,6 +10,7 @@ import 'package:sutra_ecommerce/widgets/go_cart/go_to_cart.dart';
 import 'package:sutra_ecommerce/widgets/loading_widgets/loader.dart';
 import 'package:sutra_ecommerce/widgets/tab_title.dart';
 
+import '../../config/common.dart';
 import '../../constants/colors.dart';
 import '../../controllers/add_to_cart_controller.dart';
 import '../../controllers/product_detail_controller.dart';
@@ -39,6 +40,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   final ProductDetailController prodDetailController =
       Get.put(ProductDetailController());
 
+@override
+  void initState() {
+  super.initState();
+ }
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -127,13 +132,17 @@ class ProductBody extends StatefulWidget {
 
 class _ProductBodyState extends State<ProductBody> {
   bool isExpanded = false;
-
+  String ordersMilk = "";
   RxInt quantity = 0.obs;
   TextEditingController Txtctrlr = TextEditingController();
   @override
   void initState() {
     super.initState();
     // Initialize quantity based on the arguments passed via ModalRoute
+    Map storedUserData=box!.get('userData');
+    print('userdata in popularcard ${ storedUserData['party']['orders_milk'].toString() }');
+    ordersMilk = storedUserData['party']['orders_milk']!=null?storedUserData['party']['orders_milk'].toString():"";
+
     if (widget.product["cart_count"] != null) {
       final double? parsedCount =
           double.tryParse(widget.product["cart_count"].toString());
@@ -444,7 +453,7 @@ class _ProductBodyState extends State<ProductBody> {
                     // const Spacer(),
                     const SizedBox(width: 8),
                     Text(
-                      "${setPackingValue(quantity.value, widget.product['packing_qty'] ?? "0.0",widget.product?['multipack_uom']??"",widget.product?['no_of_pieces']??0,widget.product?['order_uom'] ??'',widget.product?['packing_uom'] ?? '')} ",
+                      "${setPackingValue(quantity.value, widget.product['packing_qty'] ?? "0.0",widget.product?['multipack_uom']??"",widget.product?['no_of_pieces']??0,widget.product?['order_uom'] ??'',widget.product?['packing_uom'] ?? '',ordersMilk)} ",
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium!
