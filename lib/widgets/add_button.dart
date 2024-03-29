@@ -290,7 +290,7 @@ class _AddButtonState extends State<AddButton> {
                                                 ),
                                                 const Spacer(),
                                                 Text(
-                                                  widget.units,
+                                                    ordersMilk?? "",// widget.units,
                                                   style: TextStyle(
                                                       fontSize: 13,
                                                       color:

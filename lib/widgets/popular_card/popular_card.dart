@@ -408,7 +408,7 @@ class _PopularCardState extends State<PopularCard> {
                                     quantity.value,
                                     widget.product?['multipack_qty'] ?? "0.0",
                                     widget.product?['multipack_uom'] ?? "",
-                              widget.product?['parent_code'] ?? "",).toString(),
+                              widget.product?['parent_code'] ?? "",ordersMilk).toString(),
                             //  setCrateRate(quantity.value, widget.product?['multipack_qty'] ?? 0).toString(),
                             style: Theme.of(context)
                                 .textTheme
@@ -451,23 +451,30 @@ class _PopularCardState extends State<PopularCard> {
   }
 }
 
-setCrateRate(int qty, String multiPackQty, String multiPackUom,String parentCode) {
+setCrateRate(int qty, String multiPackQty, String multiPackUom,String parentCode,String ordersMilk) {
   double crateValue = 0.0;
   String newCrateValue = "";
   print('parentCode:::: $parentCode');
-  if (multiPackUom != null && multiPackUom == "CASE" || parentCode == "1011") { //|| parentCode == "1011"
+  if (multiPackUom != null && multiPackUom == "CASE") {
     return qty.toString();
   } else {
 
     if (qty != null && multiPackQty != null) {
-      crateValue = qty / int.parse(convertDoubleToString(multiPackQty));
-      // crateValue = 3.0;
-      if (crateValue.isFinite && !crateValue.isNaN) {
-        print("Crate:: qty===${qty} multiPackQty== ${multiPackQty} crateValue=== $crateValue");
-        print(crateValue.ceil());
-        newCrateValue = crateValue.ceil().toString();
-        return newCrateValue;
-      }
+
+     if(ordersMilk == "Crate" && parentCode == "1011"){
+       newCrateValue =qty.toString();
+      return newCrateValue;
+    }else{
+       crateValue = qty / int.parse(convertDoubleToString(multiPackQty));
+       // crateValue = 3.0;
+       if (crateValue.isFinite && !crateValue.isNaN) {
+         print("Crate:: qty===${qty} multiPackQty== ${multiPackQty} crateValue=== $crateValue");
+         print(crateValue.ceil());
+         newCrateValue = crateValue.ceil().toString();
+         return newCrateValue;
+       }
+     }
+
 
     }
     return newCrateValue;

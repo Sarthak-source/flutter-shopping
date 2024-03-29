@@ -7,6 +7,7 @@ import 'package:sutra_ecommerce/controllers/add_to_cart_controller.dart';
 import 'package:sutra_ecommerce/controllers/mycart_controller.dart';
 
 import '../../constants/colors.dart';
+import '../../controllers/common_controller.dart';
 import '../../utils/common_functions.dart';
 import '../../utils/screen_utils.dart';
 import '../myorder_detail2.dart';
@@ -24,7 +25,7 @@ class OrderSuccessScreen extends StatefulWidget {
 class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
   final MyCartController controller = Get.put(MyCartController());
   final AddToCartController AtCcontroller = Get.put(AddToCartController());
-
+  final CommonController cmncontroller = Get.put(CommonController());
   double totalamt = 0.0;
 
   @override
@@ -244,6 +245,8 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
                           ),
                           child: ElevatedButton(
                             onPressed: () {
+                              cmncontroller.commonCurTab.value = 0;
+                              cmncontroller.update();
                               Navigator.of(context)
                                   .pushReplacementNamed(TabScreen.routeName);
                             },

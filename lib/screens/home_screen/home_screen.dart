@@ -189,7 +189,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: TabTitle(
                   title: 'Explore More Products',
                   seeAll: () {
-                    Get.toNamed(PoductsListScreen.routeName);
+                    Get.toNamed(PoductsListScreen.routeName,
+                        arguments: PoductsListArguments(
+                          title: "Explore Products",
+                          categoryId: "",
+                        ));
                   },
                 ),
               ),

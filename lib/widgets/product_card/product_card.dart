@@ -270,6 +270,7 @@ class _ProductCardState extends State<ProductCard> {
                                     widget.product?['multipack_qty'] ?? "0.0",
                                     widget.product?['multipack_uom'] ?? "",
                                      widget.product?['parent_code'] ?? "",
+                              ordersMilk
                                     )
                                 .toString(),
                             //  setCrateRate(quantity.value, widget.product?['multipack_qty'] ?? 0).toString(),
