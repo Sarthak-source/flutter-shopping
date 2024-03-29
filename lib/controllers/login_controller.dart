@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:sutra_ecommerce/config/common.dart';
+import 'package:sutra_ecommerce/controllers/user_controller.dart';
 import 'package:sutra_ecommerce/screens/login/verify_otp.dart';
 import 'package:sutra_ecommerce/screens/sign_up/sign_message_screen.dart';
 import 'package:sutra_ecommerce/utils/network_repository.dart';
@@ -11,6 +12,8 @@ import 'package:sutra_ecommerce/utils/network_repository.dart';
 import '../models/stateResponseModel.dart';
 
 class LoginController extends GetxController {
+    final UserController userController = Get.put(UserController());
+
   var isLoading = false.obs;
   var hasError = false.obs;
   var errorMsg = ''.obs;
@@ -30,7 +33,7 @@ class LoginController extends GetxController {
       log(responseData.toString());
       box!.delete('userData');
 
-      //userController.user.value = responseData['body'];
+      userController.user.value = responseData['body'];
       await box!.put('userData', responseData['body']);
       update();
 

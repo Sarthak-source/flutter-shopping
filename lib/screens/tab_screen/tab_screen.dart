@@ -28,6 +28,8 @@ class TabScreen extends StatefulWidget {
 
 class TabScreenState extends State<TabScreen> {
   int curTab = 0;
+    final userController = Get.put(UserController(), permanent: true);  
+
   final dealsController = Get.put(DealsController(), permanent: true);
   final categoriesController = Get.put(CategoriesController(), permanent: true);
   final popularController =
@@ -35,9 +37,10 @@ class TabScreenState extends State<TabScreen> {
   final prodDetailController =
       Get.put(ProductDetailController(), permanent: true);
   final commonController = Get.put(CommonController(), permanent: true);
-  //final userController = Get.put(UserController());
+  
+  
 
-  final userController =Get.put(UserController(),permanent: true);
+  //final addToCartController = Get.put(AddToCartController(), permanent: true);
 
   @override
   void initState() {
@@ -45,8 +48,6 @@ class TabScreenState extends State<TabScreen> {
 
     print('tab screen:::');
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-
-
       //curTab = commonController.commonCurTab.value;
       //= widget.pageIndex ?? 0;
       userController.getUserData();

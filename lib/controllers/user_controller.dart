@@ -6,7 +6,7 @@ import 'package:sutra_ecommerce/controllers/add_to_cart_controller.dart';
 import 'package:sutra_ecommerce/utils/network_repository.dart';
 
 class UserController extends GetxController {
-  final AddToCartController addToCardController = Get.find();
+  final AddToCartController addToCardController = Get.put(AddToCartController());
 
   var isLoading = true.obs;
   var hasError = false.obs;
@@ -45,6 +45,7 @@ class UserController extends GetxController {
       await box!.delete('userData');
       await box!.put('userData', userData);
       user.value = userData;
+      update();
 
       print(
           "productCount in user ctlr ${responseData['body']['party']['party_cart_count'].toString()}");

@@ -29,6 +29,9 @@ void main() async {
   }
   WidgetsFlutterBinding.ensureInitialized();
   await init();
+  // Get.put(AddToCartController());
+  // Get.put(MyCartController());
+ 
   runApp(const MyApp());
 }
 

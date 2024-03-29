@@ -13,9 +13,9 @@ import 'catagories_controller.dart';
 
 class AddToCartController extends GetxController {
   //final UserController userController = Get.put(UserController());
-  final MyCartController cartController = Get.find();
-  final PopularDealController popController = Get.find();
-  final ProductDetailController prodDetailController = Get.find();
+  final MyCartController cartController = Get.put(MyCartController());
+  final PopularDealController popController = Get.put(PopularDealController(categoryId: ''));
+  final ProductDetailController prodDetailController = Get.put(ProductDetailController());
 
   RxInt productCount = 0.obs;
   @override
@@ -130,21 +130,22 @@ class StoreBinding implements Bindings {
   StoreBinding();
   @override
   void dependencies() {
-    //  Get.lazyPut(() => ProfileController(), tag: tag);
-    Get.put(() => AddToCartController());
-    Get.put(() => MyCartController());
     Get.put(() => UserController());
+    //  Get.lazyPut(() => ProfileController(), tag: tag);
+    Get.put(() => MyCartController());
+    Get.put(() => AddToCartController());
     Get.put(() => PopularDealController(categoryId: ''));
     Get.put(() => DealsController());
     Get.put(() => CategoriesController());
     Get.put(() => ProductDetailController());
+    
   }
 }
 
 Future<void> init() async {
-  Get.put(() => AddToCartController());
-  Get.put(() => MyCartController());
   Get.put(() => UserController());
+  Get.put(() => MyCartController());
+  Get.put(() => AddToCartController());
   Get.put(() => PopularDealController(categoryId: ''));
   Get.put(() => DealsController());
   Get.put(() => CategoriesController());

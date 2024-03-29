@@ -22,194 +22,195 @@ class UserScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print(userController?.user.toString() ?? "sss");
-    return Center(
-      child: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: getProportionateScreenWidth(16.0),
-        ),
-        child: Column(
-          children: [
-            SizedBox(
-              height: getProportionateScreenHeight(8.0),
-            ),
-            const ImageContainer(),
-            SizedBox(
-              height: getProportionateScreenHeight(8.0),
-            ),
-            // const AddButton(),
-            // ...
+    return Obx(() {
+      return Center(
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: getProportionateScreenWidth(16.0),
+          ),
+          child: Column(
+            children: [
+              SizedBox(
+                height: getProportionateScreenHeight(8.0),
+              ),
+              const ImageContainer(),
+              SizedBox(
+                height: getProportionateScreenHeight(8.0),
+              ),
+              // const AddButton(),
+              // ...
 
 // ...
 
-            //  CustomPaint(
-            //     size: const Size(100, 100),
-            //     painter: EveningPainter(),
-            //   ),
-            Text(
-              userController?.user != null &&
-                      userController?.user.toString() != "{}"
-                  ? userController!.user['party']['party_name'] != null
-                      ? userController!.user['party']['party_name'].toString()
-                      : ""
-                  : "",
-              style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                    fontWeight: FontWeight.w700,
-                  ),
-            ),
-            Text(
-              userController?.user != null &&
-                      userController?.user.toString() != "{}"
-                  ? userController!.user['party']['email'].toString()
-                  : "",
-              style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                    color: kTextColorAccent,
-                  ),
-            ),
-            SizedBox(
-              height: getProportionateScreenHeight(40.0),
-            ),
-            ProfileCard(
-              image: 'assets/images/profile_user.png',
-              color: kPrimaryBlue.withOpacity(0.2),
-              title: 'My profile',
-              tapHandler: () {
-                Get.toNamed(MyProfileScreen.routeName);
-              },
-            ),
-            SizedBox(
-              height: getProportionateScreenHeight(8.0),
-            ),
-            // ProfileCard(
-            //   image: 'assets/images/profile_user.png',
-            //   color: kAccentGreen,
-            //   title: 'Select time',
-            //   tapHandler: () {
-            //     Get.toNamed(SelectTime.routeName);
-            //   },
-            // ),
-            // SizedBox(
-            //   height: getProportionateScreenHeight(8.0),
-            // ),
-            // ProfileCard(
-            //   image: 'assets/images/map_user.png',
-            //   color: kAccentTosca,
-            //   title: 'My Address',
-            //   tapHandler: () {
-            //     Get.toNamed(AddAddressScreen.routeName);
-            //   },
-            // ),
-            SizedBox(
-              height: getProportionateScreenHeight(8.0),
-            ),
-            ProfileCard(
-              image: 'assets/images/noti_user.png',
-              color: kPrimaryBlue.withOpacity(0.2),
-              title: 'Notification',
-              tapHandler: () {
-                // Navigator.of(context).pushNamed(MyOrders.routeName);
-                Get.toNamed(notificationpage.Notification.routeName);
-              },
-            ),
-            SizedBox(
-              height: getProportionateScreenHeight(8.0),
-            ),
-            // ProfileCard(
-            //   image: 'assets/images/check_user.png',
-            //   color: kPrimaryBlue.withOpacity(0.2),
-            //   title: 'Help Center',
-            // ),
-            SizedBox(
-              height: getProportionateScreenHeight(8.0),
-            ),
-            ProfileCard(
-              image: 'assets/images/arrow_user.png',
-              color: kPrimaryBlue.withOpacity(0.2),
-              title: 'My Orders',
-              tapHandler: () {
-                // Navigator.of(context).pushNamed(MyOrders.routeName);
-                Get.toNamed(MyOrders.routeName);
-              },
-            ),
-            /*    SizedBox(
-              height: getProportionateScreenHeight(8.0),
-            ),
-            ProfileCard(
+              //  CustomPaint(
+              //     size: const Size(100, 100),
+              //     painter: EveningPainter(),
+              //   ),
+              Text(
+                userController?.user != null &&
+                        userController?.user.toString() != "{}"
+                    ? userController!.user['party']['party_name'] != null
+                        ? userController!.user['party']['party_name'].toString()
+                        : ""
+                    : "",
+                style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                      fontWeight: FontWeight.w700,
+                    ),
+              ),
+              Text(
+                userController?.user != null &&
+                        userController?.user.toString() != "{}"
+                    ? userController!.user['party']['email'].toString()
+                    : "",
+                style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                      color: kTextColorAccent,
+                    ),
+              ),
+              SizedBox(
+                height: getProportionateScreenHeight(40.0),
+              ),
+              ProfileCard(
+                image: 'assets/images/profile_user.png',
+                color: kPrimaryBlue.withOpacity(0.2),
+                title: 'My profile',
+                tapHandler: () {
+                  Get.toNamed(MyProfileScreen.routeName);
+                },
+              ),
+              SizedBox(
+                height: getProportionateScreenHeight(8.0),
+              ),
+              // ProfileCard(
+              //   image: 'assets/images/profile_user.png',
+              //   color: kAccentGreen,
+              //   title: 'Select time',
+              //   tapHandler: () {
+              //     Get.toNamed(SelectTime.routeName);
+              //   },
+              // ),
+              // SizedBox(
+              //   height: getProportionateScreenHeight(8.0),
+              // ),
+              // ProfileCard(
+              //   image: 'assets/images/map_user.png',
+              //   color: kAccentTosca,
+              //   title: 'My Address',
+              //   tapHandler: () {
+              //     Get.toNamed(AddAddressScreen.routeName);
+              //   },
+              // ),
+              SizedBox(
+                height: getProportionateScreenHeight(8.0),
+              ),
+              ProfileCard(
+                image: 'assets/images/noti_user.png',
+                color: kPrimaryBlue.withOpacity(0.2),
+                title: 'Notification',
+                tapHandler: () {
+                  // Navigator.of(context).pushNamed(MyOrders.routeName);
+                  Get.toNamed(notificationpage.Notification.routeName);
+                },
+              ),
+              SizedBox(
+                height: getProportionateScreenHeight(8.0),
+              ),
+              // ProfileCard(
+              //   image: 'assets/images/check_user.png',
+              //   color: kPrimaryBlue.withOpacity(0.2),
+              //   title: 'Help Center',
+              // ),
+              SizedBox(
+                height: getProportionateScreenHeight(8.0),
+              ),
+              ProfileCard(
                 image: 'assets/images/arrow_user.png',
                 color: kPrimaryBlue.withOpacity(0.2),
-                title: 'Payment',
+                title: 'My Orders',
                 tapHandler: () {
-                  Get.toNamed(PaymentScreen.routeName);
-                }),*/
-            SizedBox(
-              height: getProportionateScreenHeight(8.0),
-            ),
-            ProfileCard(
-                image: 'assets/images/arrow_user.png',
-                color: kPrimaryBlue.withOpacity(0.2),
-                title: 'Log out',
-                tapHandler: () {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: const Text("Log out"),
-                        content: const Text("Are you sure?"),
-                        actions: [
-                          TextButton(
-                            child: const Text("Cancel"),
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                          ),
-                          TextButton(
-                            child: const Text("Ok"),
-                            onPressed: () {
-                              log(box!.get('userData').toString());
-                              userController!.update();
-                              log(box!.get('userData').toString());
-                              box!.deleteAll(
-                                  ['userData', 'login', 'isTestEnvironment']);
-                                  log(box!.get('userData').toString());
-                                  
-                                 
-                                  Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const LandingScreen()));
-                              //Get.toNamed(IntroScreen.routeName);
-                            },
-                          ),
-                        ],
-                      );
-                    },
-                  );
-                }),
-            const Spacer(),
-            Text(
-              'ver 1.01',
-              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                    color: kTextColorAccent,
-                  ),
-            ),
-            SizedBox(
-              height: getProportionateScreenHeight(8.0),
-            )
-          ],
+                  // Navigator.of(context).pushNamed(MyOrders.routeName);
+                  Get.toNamed(MyOrders.routeName);
+                },
+              ),
+              /*    SizedBox(
+                  height: getProportionateScreenHeight(8.0),
+                ),
+                ProfileCard(
+                    image: 'assets/images/arrow_user.png',
+                    color: kPrimaryBlue.withOpacity(0.2),
+                    title: 'Payment',
+                    tapHandler: () {
+                      Get.toNamed(PaymentScreen.routeName);
+                    }),*/
+              SizedBox(
+                height: getProportionateScreenHeight(8.0),
+              ),
+              ProfileCard(
+                  image: 'assets/images/arrow_user.png',
+                  color: kPrimaryBlue.withOpacity(0.2),
+                  title: 'Log out',
+                  tapHandler: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text("Log out"),
+                          content: const Text("Are you sure?"),
+                          actions: [
+                            TextButton(
+                              child: const Text("Cancel"),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                            ),
+                            TextButton(
+                              child: const Text("Ok"),
+                              onPressed: () {
+                                log(box!.get('userData').toString());
+                                userController!.update();
+                                log(box!.get('userData').toString());
+                                box!.deleteAll(
+                                    ['userData', 'login', 'isTestEnvironment']);
+                                log(box!.get('userData').toString());
+
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const LandingScreen()));
+                                //Get.toNamed(IntroScreen.routeName);
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  }),
+              const Spacer(),
+              Text(
+                'ver 1.01',
+                style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                      color: kTextColorAccent,
+                    ),
+              ),
+              SizedBox(
+                height: getProportionateScreenHeight(8.0),
+              )
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 }
 
 class ProfileCard extends StatelessWidget {
   const ProfileCard({
-    Key? key,
+    super.key,
     required this.image,
     required this.title,
     this.tapHandler,
     required this.color,
-  }) : super(key: key);
+  });
 
   final String image;
   final String title;

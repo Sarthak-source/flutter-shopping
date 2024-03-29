@@ -2,8 +2,10 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:sutra_ecommerce/assets/logo.dart';
 import 'package:sutra_ecommerce/controllers/add_to_cart_controller.dart';
 import 'package:sutra_ecommerce/controllers/get_deals_controller.dart';
 import 'package:sutra_ecommerce/controllers/user_controller.dart';
@@ -63,6 +65,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return WillPopScope(
       onWillPop: () async {
+        SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+
         return false;
       },
       child: Obx(
@@ -93,6 +97,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                 BorderRadius.circular(12), // Border radius
                           ),
                           child: SearchBar(
+                            leading: Transform.translate(
+                  offset: const Offset(-12, -13),
+                  child: Transform.scale(
+                    scale: 0.04,
+                    child: CustomPaint(
+                      size: const Size(25, 25),
+                      painter: Logo(),
+                    ),
+                  ),
+                ),
                             elevation:
                                 MaterialStateProperty.resolveWith<double?>(
                               (Set<MaterialState> states) {

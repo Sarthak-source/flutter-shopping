@@ -9,7 +9,7 @@ import '../screens/order_success_screen/order_success_screen.dart';
 
 class MyCartController extends GetxController {
   // AddToCartController addToCardController =Get.find();
-  final PopularDealController popController = Get.find();
+  final PopularDealController popController = Get.put(PopularDealController(categoryId: ''));
   var isLoading = true.obs;
   var hasError = false.obs;
   var errorMsg = ''.obs;

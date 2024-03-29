@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sutra_ecommerce/controllers/add_to_cart_controller.dart';
@@ -43,6 +44,8 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
     return GetBuilder<MyCartController>(builder: (createOrderCtlr) {
       return WillPopScope(
         onWillPop: () async {
+          SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+
           return false;
         },
         child: Scaffold(
@@ -81,123 +84,126 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
                         ),
                       ),
                       const SizedBox(height: 12),
-                       SizedBox(
-                          width: Get.width,
-                          child: DataTable(
-                             columnSpacing: 40,
-                            columns: const [
-                              DataColumn(
-                                  label: Text(
-                                'Order\nId',
-                               maxLines: 2,
-                                style: TextStyle(fontSize: 12),
-                              )),
-                              DataColumn(
-                                  label: Text(
-                                'Total \nValue',
-                                maxLines: 2,
-                                style: TextStyle(fontSize: 12),
-                              )),
-                              DataColumn(
-                                  label: Text(
-                                'GST',
-                                style: TextStyle(fontSize: 12),
-                              )),
-                              DataColumn(
-                                  label: Text(
-                                'Amount',
-                                style: TextStyle(fontSize: 12),
-                              )),
-                            ],
-                            rows: createOrderCtlr.myOrderItems.map((item) {
-                              return DataRow(
-                                cells: [
-                                  DataCell(
-                                    Text(
-                                      item["id"] == null
-                                          ? ""
-                                          : item["id"].toString(),
-                                      style: const TextStyle(fontSize: 12),
-                                    ),
+                      SizedBox(
+                        width: Get.width,
+                        child: DataTable(
+                          columnSpacing: 40,
+                          columns: const [
+                            DataColumn(
+                                label: Text(
+                              'Order\nId',
+                              maxLines: 2,
+                              style: TextStyle(fontSize: 12),
+                            )),
+                            DataColumn(
+                                label: Text(
+                              'Total \nValue',
+                              maxLines: 2,
+                              style: TextStyle(fontSize: 12),
+                            )),
+                            DataColumn(
+                                label: Text(
+                              'GST',
+                              style: TextStyle(fontSize: 12),
+                            )),
+                            DataColumn(
+                                label: Text(
+                              'Amount',
+                              style: TextStyle(fontSize: 12),
+                            )),
+                          ],
+                          rows: createOrderCtlr.myOrderItems.map((item) {
+                            return DataRow(
+                              cells: [
+                                DataCell(
+                                  Text(
+                                    item["id"] == null
+                                        ? ""
+                                        : item["id"].toString(),
+                                    style: const TextStyle(fontSize: 12),
                                   ),
-                                  DataCell(
-                                    Text(
-                                      item["total_value"] == null
-                                          ? ""
-                                          :twodecimalDigit(double.parse(item["total_value"].toString())),
-                                      style: const TextStyle(fontSize: 12),
-                                    ),
+                                ),
+                                DataCell(
+                                  Text(
+                                    item["total_value"] == null
+                                        ? ""
+                                        : twodecimalDigit(double.parse(
+                                            item["total_value"].toString())),
+                                    style: const TextStyle(fontSize: 12),
                                   ),
-                                  DataCell(
-                                    Text(
-                                      item["total_gst"] == null
-                                          ? ""
-                                          : twodecimalDigit(double.parse(item["total_gst"].toString())),
-                                      style: const TextStyle(fontSize: 12),
-                                    ),
+                                ),
+                                DataCell(
+                                  Text(
+                                    item["total_gst"] == null
+                                        ? ""
+                                        : twodecimalDigit(double.parse(
+                                            item["total_gst"].toString())),
+                                    style: const TextStyle(fontSize: 12),
                                   ),
-                                  DataCell(
-                                    
-                                    GestureDetector(
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => MyOrderDetail2(
-                                              OrderId: int.parse(
-                                                  item["id"].toString()),
-                                            ),
+                                ),
+                                DataCell(
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => MyOrderDetail2(
+                                            OrderId: int.parse(
+                                                item["id"].toString()),
                                           ),
-                                        );
-                                        log('od id ${item["id"].toString()}');
-                                      },
-                                      child: SingleChildScrollView(
-                                        child: Column(
-                                          children: [
-                                            Text(
-                                              item["total_amount"]==null?"":twodecimalDigit(double.parse(item["total_amount"].toString())),
-                                              style:
-                                                  const TextStyle(fontSize: 12),
-                                            ),
-                                            if (item["title"] != "title")
-                                              TextButton(
-                                                onPressed: () {
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          MyOrderDetail2(
-                                                        OrderId: int.parse(
-                                                            item["id"]
-                                                                .toString()),
-                                                      ),
+                                        ),
+                                      );
+                                      log('od id ${item["id"].toString()}');
+                                    },
+                                    child: SingleChildScrollView(
+                                      child: Column(
+                                        children: [
+                                          Text(
+                                            item["total_amount"] == null
+                                                ? ""
+                                                : twodecimalDigit(double.parse(
+                                                    item["total_amount"]
+                                                        .toString())),
+                                            style:
+                                                const TextStyle(fontSize: 12),
+                                          ),
+                                          if (item["title"] != "title")
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        MyOrderDetail2(
+                                                      OrderId: int.parse(
+                                                          item["id"]
+                                                              .toString()),
                                                     ),
-                                                  );
-                                                },
-                                                child: const Text(
-                                                  "View Details",
-                                                  maxLines: 1,
-                                                  style: TextStyle(
-                                                    fontSize: 10,
-                                                    
-                                                    color: kPrimaryBlue,
-                                                    decoration:
-                                                        TextDecoration.underline,
-                                                    decorationColor: kPrimaryBlue,
                                                   ),
+                                                );
+                                              },
+                                              child: const Text(
+                                                "View Details",
+                                                maxLines: 1,
+                                                style: TextStyle(
+                                                  fontSize: 10,
+                                                  color: kPrimaryBlue,
+                                                  decoration:
+                                                      TextDecoration.underline,
+                                                  decorationColor: kPrimaryBlue,
                                                 ),
                                               ),
-                                          ],
-                                        ),
+                                            ),
+                                        ],
                                       ),
                                     ),
                                   ),
-                                ],
-                              );
-                            }).toList(),
-                          ),
+                                ),
+                              ],
+                            );
+                          }).toList(),
                         ),
-                      
+                      ),
                     ],
                   ),
                   Column(

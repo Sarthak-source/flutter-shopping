@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:sutra_ecommerce/assets/logo.dart';
 import 'package:sutra_ecommerce/config/common.dart';
+import 'package:sutra_ecommerce/controllers/common_controller.dart';
 import 'package:sutra_ecommerce/controllers/login_controller.dart';
 import 'package:sutra_ecommerce/screens/sign_up/signup_screen.dart';
 
@@ -26,6 +27,8 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController phoneNumberController = TextEditingController(text: '');
   //LoginController loginController = LoginController();
   final LoginController loginController = Get.put(LoginController());
+    final commonController = Get.put(CommonController());
+
   //final UserController userController = Get.put(UserController());
   bool repeat = false;
 
@@ -108,7 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         () => SizedBox(
                           width: getProportionateScreenHeight(Get.width),
                           child: loginController.isLoading.value
-                              ? Loader()
+                              ? const Loader()
                               : ElevatedButton(
                                   onPressed: () {
                                     String phoneNumber =
@@ -125,6 +128,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       );
                                     } else {
                                       log(phoneNumber);
+                                      commonController.commonCurTab.value=0;
                                       loginController.userExists(phoneNumber);
                                       loginController.update();
                                     }
