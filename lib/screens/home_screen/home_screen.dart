@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:sutra_ecommerce/assets/logo.dart';
 import 'package:sutra_ecommerce/controllers/add_to_cart_controller.dart';
 import 'package:sutra_ecommerce/controllers/get_deals_controller.dart';
 import 'package:sutra_ecommerce/controllers/user_controller.dart';
@@ -88,25 +87,26 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Container(
                           height: 45,
                           decoration: BoxDecoration(
-                            color: Colors.grey.shade200.withOpacity(0.6),
+                            color: Colors.grey.shade200.withOpacity(0.4),
                             border: Border.all(
-                              color: Colors.grey, // Border color
-                              width: 0.8, // Border width
+                              color: Colors.black, // Border color
+                              width: 0.4, // Border width
                             ),
                             borderRadius:
                                 BorderRadius.circular(12), // Border radius
                           ),
                           child: SearchBar(
-                            leading: Transform.translate(
-                  offset: const Offset(-12, -13),
-                  child: Transform.scale(
-                    scale: 0.04,
-                    child: CustomPaint(
-                      size: const Size(25, 25),
-                      painter: Logo(),
-                    ),
-                  ),
-                ),
+                            trailing: const [Icon(Icons.search,color: Colors.grey,)],
+                            // leading: Transform.translate(
+                            //   offset: const Offset(-12, -13),
+                            //   child: Transform.scale(
+                            //     scale: 0.04,
+                            //     child: CustomPaint(
+                            //       size: const Size(25, 25),
+                            //       painter: Logo(),
+                            //     ),
+                            //   ),
+                            // ),
                             elevation:
                                 MaterialStateProperty.resolveWith<double?>(
                               (Set<MaterialState> states) {
@@ -122,8 +122,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 if (states.contains(MaterialState.pressed)) {
                                   return Colors.white; // Elevation when pressed
                                 }
-                                return Colors
-                                    .grey.shade200.withOpacity(0.6); // Default elevation
+                                return Colors.grey.shade200
+                                    .withOpacity(0.4); // Default elevation
                               },
                             ),
                             hintText: 'Search...',
@@ -133,21 +133,21 @@ class _HomeScreenState extends State<HomeScreen> {
                                 // Define the TextStyle based on different states
                                 if (states.contains(MaterialState.pressed)) {
                                   return const TextStyle(
-                                    color:
-                                        kPrimaryBlueTest2, // Change the text color when pressed
-                                    fontStyle: FontStyle
-                                        .italic, // Change the font style when pressed
-                                    fontSize:
-                                        13, // Change the font size when pressed
-                                        fontWeight: FontWeight.w400
-                                  );
+                                      color:
+                                          kPrimaryBlueTest2, // Change the text color when pressed
+                                      fontStyle: FontStyle
+                                          .italic, // Change the font style when pressed
+                                      fontSize:
+                                          13, // Change the font size when pressed
+                                      fontWeight: FontWeight.w400);
                                 }
                                 return const TextStyle(
-                                  color: Colors.grey, // Default text color
-                                  fontSize:
+                                    color: Colors.grey, // Default text color
+                                    fontSize:
                                         13, // Change the font size when pressed
-                                        fontWeight: FontWeight.w400// Default font size
-                                );
+                                    fontWeight:
+                                        FontWeight.w400 // Default font size
+                                    );
                               },
                             ),
                             onTap: () {
@@ -229,7 +229,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: kPrimaryBlueTest,
               ),
             ),
-            
             (addToCardController.productCount.value > 0)
                 ? const SliverToBoxAdapter(
                     child: SizedBox(
@@ -428,15 +427,13 @@ class HomeAppBar extends StatelessWidget {
                             userController.user['party']?['address']
                                     ?['address_line1'] ??
                                 'Loading...',
-                                maxLines: 2,
+                            maxLines: 2,
                             style: const TextStyle(
                               color: Colors.black,
                               fontSize: 14,
-                              
                             ),
                           ),
                           const SizedBox(width: 10),
-                         
                         ],
                       ),
                     ),
