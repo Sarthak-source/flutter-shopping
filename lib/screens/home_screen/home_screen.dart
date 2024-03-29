@@ -87,10 +87,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Container(
                           height: 45,
                           decoration: BoxDecoration(
-                            color: Colors.grey.shade200.withOpacity(0.0),
+                            color: Colors.grey.shade200.withOpacity(0.4),
                             border: Border.all(
                               color: Colors.black, // Border color
-                              width: 0.5, // Border width
+                              width: 0.4, // Border width
                             ),
                             borderRadius:
                                 BorderRadius.circular(12), // Border radius
@@ -123,7 +123,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   return Colors.white; // Elevation when pressed
                                 }
                                 return Colors.grey.shade200
-                                    .withOpacity(0.0); // Default elevation
+                                    .withOpacity(0.4); // Default elevation
                               },
                             ),
                             hintText: 'Search...',
