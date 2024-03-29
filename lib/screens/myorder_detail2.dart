@@ -533,7 +533,7 @@ class orderDetailNewTile extends StatelessWidget {
                     ),
                     rateCard(
                       "Qty ",
-                      "${twodecimalDigit(double.parse( convertDoubleToString(myOrderDetailList["product"]["packing_qty"] ??"0.000") ))}",
+                      "${twodecimalDigit(double.parse( convertDoubleToString(myOrderDetailList["count"] ??"0.000") ))}",
                     ),rateCard(
                       "Price ",
                       "${twodecimalDigit(double.parse(convertDoubleToString(myOrderDetailList["item_price"] ==null?"0.000":myOrderDetailList["item_price"].toString()) ))} / ${myOrderDetailList["product"]['order_uom'] ?? ""}",
@@ -647,14 +647,14 @@ class orderDetailNewTile extends StatelessWidget {
     );
   }
 
-  Row rateCard(String key, String? values) {
+  Row rateCard(String keyy, String? values) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Expanded(
           flex: 1,
           child: Text(
-            key,
+            keyy,
             style: TextStyle(
               color: kTextColorAccent,
               fontSize: getProportionateScreenWidth(
@@ -666,7 +666,8 @@ class orderDetailNewTile extends StatelessWidget {
         Expanded(
           flex: 1,
           child: Text(
-            ":  ₹ ${values ?? ""}",
+            setQty(keyy,values),
+           // keyy == "Qty" ? ":   ${convertDoubleToString(values ?? "")}" :  ":  ₹ ${values ?? ""}",
             //widget.mycartItem["product"]["price"].toString(),
             style: TextStyle(
               color: kTextColorAccent,
@@ -678,6 +679,14 @@ class orderDetailNewTile extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  String setQty(String keyy, String? values) {
+    if(keyy == "Qty " ){
+      return ":   ${convertDoubleToString(values ?? "")}";
+    }else{
+      return  ":  ₹ ${values ?? ""}";
+    }
   }
 }
 
