@@ -1,7 +1,7 @@
-io.flutter.plugins.pathprovider.path_provider_android-jetified-window-java-1.0.0-beta04-0 /Users/fao/.gradle/caches/transforms-3/4a0135d61b50d6b9a325d40c360d384f/transformed/jetified-window-java-1.0.0-beta04/res
-io.flutter.plugins.pathprovider.path_provider_android-jetified-annotation-experimental-1.1.0-1 /Users/fao/.gradle/caches/transforms-3/568092cd69e447d06a3d4f20e1319b3b/transformed/jetified-annotation-experimental-1.1.0/res
-io.flutter.plugins.pathprovider.path_provider_android-core-1.6.0-2 /Users/fao/.gradle/caches/transforms-3/5e597819f3559a04fcd35a858c5a5ea9/transformed/core-1.6.0/res
-io.flutter.plugins.pathprovider.path_provider_android-jetified-window-1.0.0-beta04-3 /Users/fao/.gradle/caches/transforms-3/b7774c0cf23d7fae1082a7e4afb884ae/transformed/jetified-window-1.0.0-beta04/res
+io.flutter.plugins.pathprovider.path_provider_android-jetified-window-1.0.0-beta04-0 /Users/fao/.gradle/caches/transforms-3/0aeaf1dc73b809d7280a57141597f86c/transformed/jetified-window-1.0.0-beta04/res
+io.flutter.plugins.pathprovider.path_provider_android-jetified-window-java-1.0.0-beta04-1 /Users/fao/.gradle/caches/transforms-3/4a4284af243d540fc60b93ff9f59034f/transformed/jetified-window-java-1.0.0-beta04/res
+io.flutter.plugins.pathprovider.path_provider_android-jetified-annotation-experimental-1.1.0-2 /Users/fao/.gradle/caches/transforms-3/eb2ca37810cdffefc6be33b9fe8a2e7c/transformed/jetified-annotation-experimental-1.1.0/res
+io.flutter.plugins.pathprovider.path_provider_android-core-1.6.0-3 /Users/fao/.gradle/caches/transforms-3/ec4d20470aaebdab55db79957d0d352b/transformed/core-1.6.0/res
 io.flutter.plugins.pathprovider.path_provider_android-main-4 /Users/fao/.pub-cache/hosted/pub.dev/path_provider_android-2.2.2/android/src/main/res
 io.flutter.plugins.pathprovider.path_provider_android-release-5 /Users/fao/.pub-cache/hosted/pub.dev/path_provider_android-2.2.2/android/src/release/res
 io.flutter.plugins.pathprovider.path_provider_android-pngs-6 /Users/fao/Documents/dilicia-flutter/build/path_provider_android/generated/res/pngs/release
