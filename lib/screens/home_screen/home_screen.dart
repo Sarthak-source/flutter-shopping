@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,6 +13,7 @@ import 'package:sutra_ecommerce/screens/home_screen/categories.dart';
 import 'package:sutra_ecommerce/screens/home_screen/explore_more_products.dart';
 import 'package:sutra_ecommerce/screens/home_screen/popular_deals.dart';
 import 'package:sutra_ecommerce/screens/product_grid_screen/produts_grid_screen.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../constants/colors.dart';
 import '../../controllers/catagories_controller.dart';
@@ -44,6 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final categoriesController = Get.put(CategoriesController());
   final popularController = Get.put(PopularDealController(categoryId: ""));
   final controller = Get.put(DealsController());
+  final usercontroller = Get.put(UserController());
   @override
   void initState() {
     super.initState();
@@ -69,7 +72,33 @@ class _HomeScreenState extends State<HomeScreen> {
         return false;
       },
       child: Obx(
-        () => CustomScrollView(
+        () =>  usercontroller.isUpdate.value &&  Platform.isAndroid?  AlertDialog(
+          title: Text('New Version Available'),
+          content: Text(
+              'A new version of the app is available. Please update to continue using the app. localVersion : ${usercontroller.localVersion.value.toString()} and App buildNumber : ${usercontroller.buildversion.value.toString()}'),
+          actions: <Widget>[
+            // TextButton(
+            //   child: const Text('Ignore'),
+            //   onPressed: () async{
+            // Get.back();
+            //   },
+            // ),
+            TextButton(
+              child: Text('Update'),
+              onPressed: () async {
+                var url =
+                    "https://play.google.com/store/apps/details?id=com.dilicia.sutra_ecommerce";
+                if (await canLaunchUrl(Uri.parse(url))) {
+                  await launchUrl(
+                    Uri.parse(url),
+                    mode: LaunchMode.externalApplication,
+                  );
+                  exit(0);
+                } else {}
+              },
+            ),
+          ],
+        ) : CustomScrollView(
           slivers: [
             SliverToBoxAdapter(
               child: Container(

@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:get/get.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:sutra_ecommerce/config/common.dart';
 import 'package:sutra_ecommerce/controllers/add_to_cart_controller.dart';
 import 'package:sutra_ecommerce/utils/network_repository.dart';
@@ -17,7 +18,14 @@ class UserController extends GetxController {
 
   // Define user as an observable variable
   var user = {}.obs;
+  var version =''.obs;
+  var localVersion =0.obs;
+  var isUpdate = false.obs;
+  num buildNumber = 0;
+  num localBuildNumber = 0;
+  var buildversion = 0.obs;
 
+  PackageInfo? packageInfo;
   @override
   void onInit() async {
     // Call super onInit method
@@ -75,10 +83,32 @@ class UserController extends GetxController {
       var responseData = await networkRepository.partyConfig(
         storedUserData['party']['id'].toString(),
       );
-
+      packageInfo = await PackageInfo.fromPlatform();
       log("storedUserData['party']['id'] ${storedUserData['party']['id'].toString()}");
 
+
       partyConfig.value= responseData['body'];
+
+         await box!.delete('partyConfigData');
+       await box!.put('partyConfigData',  partyConfig);
+      Map getPartyConfig = box!.get('partyConfigData');
+      //print("app version in user user ctrlr ${getPartyConfig['update']['app_version'].toString()}");
+
+      if(getPartyConfig['update'] != null && getPartyConfig['update']['app_version'] != null){
+        version.value = getPartyConfig['update']['app_version'].toString();
+        String buildNumberString = version.value!.split('+')[1];
+        buildNumber = num.tryParse(buildNumberString) ?? 0;
+        print('App buildNumber : ${buildNumber.toString()}');
+        buildversion.value = buildNumber.toInt();
+        localBuildNumber =num.parse(packageInfo?.buildNumber.toString() ?? "");
+        localVersion.value = localBuildNumber.toInt();
+        print('localVersion : ${localVersion.value.toString()}');
+        if(localVersion.value < buildversion.value){
+          isUpdate.value = true;
+          update();
+        }
+      }
+
     } catch (e) {
       errorMsg.value = e.toString();
       log(e.toString());

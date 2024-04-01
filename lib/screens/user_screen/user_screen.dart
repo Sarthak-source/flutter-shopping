@@ -147,6 +147,51 @@ class UserScreen extends StatelessWidget {
               ProfileCard(
                   image: 'assets/images/arrow_user.png',
                   color: kPrimaryBlue.withOpacity(0.2),
+                  title: 'Delete Account',
+                  tapHandler: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text("Delete Account"),
+                          content: const Text("Are you sure?"),
+                          actions: [
+                            TextButton(
+                              child: const Text("Cancel"),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                            ),
+                            TextButton(
+                              child: const Text("Ok"),
+                              onPressed: () {
+                                log(box!.get('userData').toString());
+                                userController!.update();
+                                log(box!.get('userData').toString());
+                                box!.deleteAll(
+                                    ['userData', 'login', 'isTestEnvironment']);
+                                log(box!.get('userData').toString());
+
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                        const LandingScreen()));
+                                //Get.toNamed(IntroScreen.routeName);
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  }),
+
+              SizedBox(
+                height: getProportionateScreenHeight(8.0),
+              ),
+              ProfileCard(
+                  image: 'assets/images/arrow_user.png',
+                  color: kPrimaryBlue.withOpacity(0.2),
                   title: 'Log out',
                   tapHandler: () {
                     showDialog(
