@@ -24,7 +24,7 @@ class SelectTime extends StatefulWidget {
 }
 
 class _SelectTimeState extends State<SelectTime> {
-  DateTime _selectedDate = DateTime.now(); // Step 1
+  DateTime _selectedDate = DateTime.now().add(Duration(days: 1)); // Step 1
   int selectedIndex = 0;
   final UserController userCtlr = Get.put(UserController());
   final MyCartController createOrderCtlr = Get.put(MyCartController());
@@ -59,8 +59,8 @@ class _SelectTimeState extends State<SelectTime> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: DatePicker(
-              DateTime.now(),
-              initialSelectedDate: DateTime.now(),
+              DateTime.now().add(Duration(days: 1)),
+              initialSelectedDate: DateTime.now().add(Duration(days: 1)),
               selectionColor: kPrimaryBlue,
               selectedTextColor: Colors.white,
               onDateChange: (date) {
