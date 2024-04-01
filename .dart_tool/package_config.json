@@ -584,6 +584,18 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "package_info_plus",
+      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/package_info_plus-4.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
+      "name": "package_info_plus_platform_interface",
+      "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/package_info_plus_platform_interface-2.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "path",
       "rootUri": "file:///Users/fao/.pub-cache/hosted/pub.dev/path-1.8.3",
       "packageUri": "lib/",
@@ -1028,7 +1040,7 @@
       "languageVersion": "3.1"
     }
   ],
-  "generated": "2024-03-29T12:13:50.913488Z",
+  "generated": "2024-04-01T09:58:13.083137Z",
   "generator": "pub",
   "generatorVersion": "3.1.5"
 }
