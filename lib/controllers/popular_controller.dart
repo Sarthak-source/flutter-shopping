@@ -42,8 +42,11 @@ class PopularDealController extends GetxController {
       );
       List popularDealData = responseData['body']['results'];
       log(popularDealData.toString());
-      popularDeals.assignAll(popularDealData);
-      update();
+      if(popularDealData != null){
+        popularDeals.assignAll(popularDealData);
+        update();
+      }
+
       log(popularDeals.toString());
     } catch (e) {
       errorMsg.value = e.toString();
