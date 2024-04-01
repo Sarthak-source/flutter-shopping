@@ -1,10 +1,10 @@
-com.baseflow.geolocator.geolocator_android-core-1.9.0-0 /Users/fao/.gradle/caches/transforms-3/3abde5f72bbaf9f1da767e9b1fa62437/transformed/core-1.9.0/res
-com.baseflow.geolocator.geolocator_android-jetified-window-java-1.0.0-beta04-1 /Users/fao/.gradle/caches/transforms-3/4a0135d61b50d6b9a325d40c360d384f/transformed/jetified-window-java-1.0.0-beta04/res
-com.baseflow.geolocator.geolocator_android-jetified-annotation-experimental-1.3.0-2 /Users/fao/.gradle/caches/transforms-3/5164765f97baa8bda239f55876091e78/transformed/jetified-annotation-experimental-1.3.0/res
-com.baseflow.geolocator.geolocator_android-lifecycle-runtime-2.3.1-3 /Users/fao/.gradle/caches/transforms-3/a75e5ae95479c1fb64b856ee63435149/transformed/lifecycle-runtime-2.3.1/res
-com.baseflow.geolocator.geolocator_android-jetified-window-1.0.0-beta04-4 /Users/fao/.gradle/caches/transforms-3/b7774c0cf23d7fae1082a7e4afb884ae/transformed/jetified-window-1.0.0-beta04/res
-com.baseflow.geolocator.geolocator_android-jetified-play-services-base-18.1.0-5 /Users/fao/.gradle/caches/transforms-3/c021f10d5cb8f429de135a50aa34fbc0/transformed/jetified-play-services-base-18.1.0/res
-com.baseflow.geolocator.geolocator_android-jetified-play-services-basement-18.1.0-6 /Users/fao/.gradle/caches/transforms-3/e27088a534801301a5703bf9b401f66c/transformed/jetified-play-services-basement-18.1.0/res
+com.baseflow.geolocator.geolocator_android-jetified-window-1.0.0-beta04-0 /Users/fao/.gradle/caches/transforms-3/0aeaf1dc73b809d7280a57141597f86c/transformed/jetified-window-1.0.0-beta04/res
+com.baseflow.geolocator.geolocator_android-core-1.9.0-1 /Users/fao/.gradle/caches/transforms-3/0f7792e3c5dfebedb4f30b1cc1075a0a/transformed/core-1.9.0/res
+com.baseflow.geolocator.geolocator_android-jetified-window-java-1.0.0-beta04-2 /Users/fao/.gradle/caches/transforms-3/4a4284af243d540fc60b93ff9f59034f/transformed/jetified-window-java-1.0.0-beta04/res
+com.baseflow.geolocator.geolocator_android-jetified-annotation-experimental-1.3.0-3 /Users/fao/.gradle/caches/transforms-3/7588d2b273401e7ad795c9b254f7a8f7/transformed/jetified-annotation-experimental-1.3.0/res
+com.baseflow.geolocator.geolocator_android-jetified-play-services-basement-18.1.0-4 /Users/fao/.gradle/caches/transforms-3/b026b835a640c6f65e8cc647a487a03f/transformed/jetified-play-services-basement-18.1.0/res
+com.baseflow.geolocator.geolocator_android-jetified-play-services-base-18.1.0-5 /Users/fao/.gradle/caches/transforms-3/ed9810ec886d4037ba625d4f6df69c9f/transformed/jetified-play-services-base-18.1.0/res
+com.baseflow.geolocator.geolocator_android-lifecycle-runtime-2.3.1-6 /Users/fao/.gradle/caches/transforms-3/ee994b0519c580a6517fec0e81604ffc/transformed/lifecycle-runtime-2.3.1/res
 com.baseflow.geolocator.geolocator_android-main-7 /Users/fao/.pub-cache/hosted/pub.dev/geolocator_android-4.4.1/android/src/main/res
 com.baseflow.geolocator.geolocator_android-release-8 /Users/fao/.pub-cache/hosted/pub.dev/geolocator_android-4.4.1/android/src/release/res
 com.baseflow.geolocator.geolocator_android-pngs-9 /Users/fao/Documents/dilicia-flutter/build/geolocator_android/generated/res/pngs/release

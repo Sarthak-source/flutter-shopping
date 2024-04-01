@@ -4,24 +4,7 @@
             "outputFile": "com.baseflow.geolocator.geolocator_android-mergeReleaseResources-11:/values-nl/values-nl.xml",
             "map": [
                 {
-                    "source": "/Users/fao/.gradle/caches/transforms-3/e27088a534801301a5703bf9b401f66c/transformed/jetified-play-services-basement-18.1.0/res/values-nl/values.xml",
-                    "from": {
-                        "startLines": "4",
-                        "startColumns": "0",
-                        "startOffsets": "195",
-                        "endColumns": "138",
-                        "endOffsets": "333"
-                    },
-                    "to": {
-                        "startLines": "10",
-                        "startColumns": "4",
-                        "startOffsets": "1076",
-                        "endColumns": "142",
-                        "endOffsets": "1214"
-                    }
-                },
-                {
-                    "source": "/Users/fao/.gradle/caches/transforms-3/c021f10d5cb8f429de135a50aa34fbc0/transformed/jetified-play-services-base-18.1.0/res/values-nl/values.xml",
+                    "source": "/Users/fao/.gradle/caches/transforms-3/ed9810ec886d4037ba625d4f6df69c9f/transformed/jetified-play-services-base-18.1.0/res/values-nl/values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
                         "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
@@ -38,7 +21,24 @@
                     }
                 },
                 {
-                    "source": "/Users/fao/.gradle/caches/transforms-3/3abde5f72bbaf9f1da767e9b1fa62437/transformed/core-1.9.0/res/values-nl/values-nl.xml",
+                    "source": "/Users/fao/.gradle/caches/transforms-3/b026b835a640c6f65e8cc647a487a03f/transformed/jetified-play-services-basement-18.1.0/res/values-nl/values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "195",
+                        "endColumns": "138",
+                        "endOffsets": "333"
+                    },
+                    "to": {
+                        "startLines": "10",
+                        "startColumns": "4",
+                        "startOffsets": "1076",
+                        "endColumns": "142",
+                        "endOffsets": "1214"
+                    }
+                },
+                {
+                    "source": "/Users/fao/.gradle/caches/transforms-3/0f7792e3c5dfebedb4f30b1cc1075a0a/transformed/core-1.9.0/res/values-nl/values-nl.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -60,24 +60,7 @@
             "outputFile": "com.baseflow.geolocator.geolocator_android-merged_res-13:/values-nl/values-nl.xml",
             "map": [
                 {
-                    "source": "/Users/fao/.gradle/caches/transforms-3/e27088a534801301a5703bf9b401f66c/transformed/jetified-play-services-basement-18.1.0/res/values-nl/values.xml",
-                    "from": {
-                        "startLines": "4",
-                        "startColumns": "0",
-                        "startOffsets": "195",
-                        "endColumns": "138",
-                        "endOffsets": "333"
-                    },
-                    "to": {
-                        "startLines": "10",
-                        "startColumns": "4",
-                        "startOffsets": "1076",
-                        "endColumns": "142",
-                        "endOffsets": "1214"
-                    }
-                },
-                {
-                    "source": "/Users/fao/.gradle/caches/transforms-3/c021f10d5cb8f429de135a50aa34fbc0/transformed/jetified-play-services-base-18.1.0/res/values-nl/values.xml",
+                    "source": "/Users/fao/.gradle/caches/transforms-3/ed9810ec886d4037ba625d4f6df69c9f/transformed/jetified-play-services-base-18.1.0/res/values-nl/values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
                         "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
@@ -94,7 +77,24 @@
                     }
                 },
                 {
-                    "source": "/Users/fao/.gradle/caches/transforms-3/3abde5f72bbaf9f1da767e9b1fa62437/transformed/core-1.9.0/res/values-nl/values-nl.xml",
+                    "source": "/Users/fao/.gradle/caches/transforms-3/b026b835a640c6f65e8cc647a487a03f/transformed/jetified-play-services-basement-18.1.0/res/values-nl/values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "195",
+                        "endColumns": "138",
+                        "endOffsets": "333"
+                    },
+                    "to": {
+                        "startLines": "10",
+                        "startColumns": "4",
+                        "startOffsets": "1076",
+                        "endColumns": "142",
+                        "endOffsets": "1214"
+                    }
+                },
+                {
+                    "source": "/Users/fao/.gradle/caches/transforms-3/0f7792e3c5dfebedb4f30b1cc1075a0a/transformed/core-1.9.0/res/values-nl/values-nl.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
