@@ -9,7 +9,7 @@ class SearchBar extends StatelessWidget {
   final String? hint;
   final TextEditingController? controller;
 
-  const SearchBar({this.hint, this.controller, Key? key}) : super(key: key);
+  const SearchBar({this.hint, this.controller, super.key});
 
   @override
   Widget build(BuildContext context) {

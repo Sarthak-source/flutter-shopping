@@ -144,9 +144,12 @@ class _OrderCardState extends State<OrderCard> {
                               widget.onDeleteItem(quantity);
                             });
                           },
-                          child: const Icon(
-                            Icons.delete_outline_outlined,
-                            color: Colors.grey,
+                          child: const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Icon(
+                              Icons.delete_outline_outlined,
+                              color: Colors.grey,
+                            ),
                           ),
                         )
                       ],

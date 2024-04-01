@@ -14,8 +14,7 @@ class PopularDealTab extends StatefulWidget {
   final String categoryId;
   final String? isfrom;
 
-  const PopularDealTab({Key? key, required this.categoryId, this.isfrom})
-      : super(key: key);
+  const PopularDealTab({super.key, required this.categoryId, this.isfrom});
 
   @override
   State<PopularDealTab> createState() => _PopularDealTabState();

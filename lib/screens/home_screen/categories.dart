@@ -21,115 +21,112 @@ class CategoryTab extends StatelessWidget {
       padding: EdgeInsets.symmetric(
         horizontal: getProportionateScreenWidth(0),
       ),
-      child: Container(
-      //  color: Colors.red,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            TabTitle(
-                title: "",
-                seeAll: () {
-                 // Get.toNamed(CategoryScreen.routeName);
-                 Navigator.push(context, MaterialPageRoute(builder: (context) =>const CategoryScreen(subCatId: null,catName: "All Categories",)));
-                }),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          TabTitle(
+              title: "",
+              seeAll: () {
+               // Get.toNamed(CategoryScreen.routeName);
+               Navigator.push(context, MaterialPageRoute(builder: (context) =>const CategoryScreen(subCatId: null,catName: "All Categories",)));
+              }),
 
-          /*  Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: Text(
-                    '',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headlineSmall!
-                        .copyWith(fontSize: 16),
-                  ),
+        /*  Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Text(
+                  '',
+                  style: Theme.of(context)
+                      .textTheme
+                      .headlineSmall!
+                      .copyWith(fontSize: 16),
                 ),
-                GestureDetector(
-                  onTap: (){
-                    Get.toNamed(CategoryScreen.routeName);
-                  },
-                  child: Text(
-                      'See All',
-                    style: const TextStyle(fontSize: 12,color: kPrimaryBlue),
-                  ),
+              ),
+              GestureDetector(
+                onTap: (){
+                  Get.toNamed(CategoryScreen.routeName);
+                },
+                child: Text(
+                    'See All',
+                  style: const TextStyle(fontSize: 12,color: kPrimaryBlue),
                 ),
-        SizedBox(width: 16,)
-              ],
-            ),*/
-            GetBuilder<CategoriesController>(
-              builder: (controller) {
-                var catData=  controller.categories;
-               // if (controller.isLoading.value) {
-                if (catData.isEmpty) {
-                  return Shimmer.fromColors(
-                    baseColor: Colors.grey[300]!,
-                    highlightColor: Colors.grey[100]!,
-                    child: SizedBox(
-                      height:   Get.width>= 600? 120:88,
-                      child: ListView.builder(
-                        clipBehavior: Clip.none,
-                        scrollDirection: Axis.horizontal,
-                        itemCount: 5, // Use a placeholder count
-                        itemBuilder: (context, index) {
-                          return const Padding(
-                            padding: EdgeInsets.only(right: 12.0),
-                            child: CategoryCardPlaceholder(),
-                          );
-                        },
-                      ),
-                    ),
-                  );
-                }
-                else if (controller.hasError.value) {
-                  return Text('Error: ${controller.errorMsg.value}');
-                } else {
-                  return Container(
-                    height: Get.width>= 600? 115:88,
-                   // color: Colors.red,
+              ),
+      SizedBox(width: 16,)
+            ],
+          ),*/
+          GetBuilder<CategoriesController>(
+            builder: (controller) {
+              var catData=  controller.categories;
+             // if (controller.isLoading.value) {
+              if (catData.isEmpty) {
+                return Shimmer.fromColors(
+                  baseColor: Colors.grey[300]!,
+                  highlightColor: Colors.grey[100]!,
+                  child: SizedBox(
+                    height:   Get.width>= 600? 120:88,
                     child: ListView.builder(
                       clipBehavior: Clip.none,
                       scrollDirection: Axis.horizontal,
-                      itemCount: catData.length ?? 0,
+                      itemCount: 5, // Use a placeholder count
                       itemBuilder: (context, index) {
-                        return InkWell(
-                          onTap: () {
-                          //  print('has_sub_category:: ${catData[index]["has_sub_category"]}');
-                      var checkSubCat = catData[index]["has_sub_category"];
-                            if(checkSubCat != null && checkSubCat == true){
-                             // Get.toNamed(CategoryScreen.routeName);
-                              if(catData[index]["id"] !=null) {
-                                Navigator.push(context, MaterialPageRoute(builder: (context) =>CategoryScreen(subCatId: catData[index]["id"].toString(),catName: catData.isNotEmpty?catData[index]['name']:"",)));
-                              }
-                            }else{
-                              Get.toNamed(
-                                PoductsListScreen.routeName,
-                                arguments: PoductsListArguments(
-                                  title: catData.isNotEmpty?catData[index]['name']:"",
-                                  categoryId: controller.categories[index]['id'].toString(),
-                                ),
-                              );
-                            }
-
-                          },
-                          child: CategoryCard(
-                            from: "homecategory",
-                            category: Category(
-                              catData.isNotEmpty? catData[index]['name']:"",
-                              catData.isNotEmpty?catData[index]['categories_img']:"",
-                              Colors.amber,
-                            ),
-                          ),
+                        return const Padding(
+                          padding: EdgeInsets.only(right: 12.0),
+                          child: CategoryCardPlaceholder(),
                         );
                       },
                     ),
-                  );
-                }
-              },
-            ),
+                  ),
+                );
+              }
+              else if (controller.hasError.value) {
+                return Text('Error: ${controller.errorMsg.value}');
+              } else {
+                return SizedBox(
+                  height: Get.width>= 600? 115:88,
+                 // color: Colors.red,
+                  child: ListView.builder(
+                    clipBehavior: Clip.none,
+                    scrollDirection: Axis.horizontal,
+                    itemCount: catData.length ?? 0,
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        onTap: () {
+                        //  print('has_sub_category:: ${catData[index]["has_sub_category"]}');
+                    var checkSubCat = catData[index]["has_sub_category"];
+                          if(checkSubCat != null && checkSubCat == true){
+                           // Get.toNamed(CategoryScreen.routeName);
+                            if(catData[index]["id"] !=null) {
+                              Navigator.push(context, MaterialPageRoute(builder: (context) =>CategoryScreen(subCatId: catData[index]["id"].toString(),catName: catData.isNotEmpty?catData[index]['name']:"",)));
+                            }
+                          }else{
+                            Get.toNamed(
+                              PoductsListScreen.routeName,
+                              arguments: PoductsListArguments(
+                                title: catData.isNotEmpty?catData[index]['name']:"",
+                                categoryId: controller.categories[index]['id'].toString(),
+                              ),
+                            );
+                          }
 
-          ],
-        ),
+                        },
+                        child: CategoryCard(
+                          from: "homecategory",
+                          category: Category(
+                            catData.isNotEmpty? catData[index]['name']:"",
+                            catData.isNotEmpty?catData[index]['categories_img']:"",
+                            Colors.amber,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                );
+              }
+            },
+          ),
+
+        ],
       ),
     );
   }

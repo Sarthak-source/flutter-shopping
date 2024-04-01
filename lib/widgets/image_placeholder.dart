@@ -5,8 +5,8 @@ import '../utils/screen_utils.dart';
 
 class ImagePlaceholder extends StatelessWidget {
   const ImagePlaceholder({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

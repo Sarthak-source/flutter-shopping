@@ -36,21 +36,18 @@ class TabTitle extends StatelessWidget {
               )
             ),
           ),
-          Container(
-          //  color: Colors.green,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                GestureDetector(
-                  onTap: seeAll,
-                  child: Text(
-                    actionText,
-                    style: const TextStyle(fontSize: 10,color: Colors.black,fontWeight: FontWeight.bold),
-                  ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              GestureDetector(
+                onTap: seeAll,
+                child: Text(
+                  actionText,
+                  style: const TextStyle(fontSize: 10,color: Colors.black,fontWeight: FontWeight.bold),
                 ),
+              ),
 
-              ],
-            ),
+            ],
           ),
         ],
       ),

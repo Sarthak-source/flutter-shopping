@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:sutra_ecommerce/constants/colors.dart';
 
 class Loader extends StatelessWidget {
-  const Loader({Key? key}) : super(key: key);
+  const Loader({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return  Center(
-      child: Container(
+    return  const Center(
+      child: SizedBox(
         height: 15,
         width: 15,
         child: CircularProgressIndicator(
