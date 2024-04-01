@@ -17,7 +17,7 @@ import '../tab_screen/tab_screen.dart';
 class OrderSuccessScreen extends StatefulWidget {
   static const routeName = '/orderSuccess';
 
-  const OrderSuccessScreen({Key? key}) : super(key: key);
+  const OrderSuccessScreen({super.key});
 
   @override
   State<OrderSuccessScreen> createState() => _OrderSuccessScreenState();
@@ -25,7 +25,7 @@ class OrderSuccessScreen extends StatefulWidget {
 
 class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
   final MyCartController controller = Get.put(MyCartController());
-  final AddToCartController AtCcontroller = Get.put(AddToCartController());
+  final AddToCartController atCcontroller = Get.put(AddToCartController());
   final CommonController cmncontroller = Get.put(CommonController());
   double totalamt = 0.0;
 
@@ -33,9 +33,9 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
-      AtCcontroller.productCount.value = 0;
-      AtCcontroller.update();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      atCcontroller.productCount.value = 0;
+      atCcontroller.update();
     });
   }
 

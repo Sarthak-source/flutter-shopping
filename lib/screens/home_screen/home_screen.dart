@@ -125,7 +125,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                 BorderRadius.circular(12), // Border radius
                           ),
                           child: SearchBar(
-                            trailing: const [Icon(Icons.search,color: Colors.grey,)],
+                            trailing: const [
+                              Icon(
+                                Icons.search,
+                                color: Colors.grey,
+                              )
+                            ],
                             // leading: Transform.translate(
                             //   offset: const Offset(-12, -13),
                             //   child: Transform.scale(
@@ -439,35 +444,79 @@ class HomeAppBar extends StatelessWidget {
                 onTap: () {
                   // Get.toNamed(MapScreen.routeName);
                 },
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          //Text(userController.user.toString()),
-                          IconButton(
-                              onPressed: () {},
-                              icon: const Icon(
-                                Icons.location_on_outlined,
-                                color: Colors.grey,
-                              )),
-                          Text(
-                            userController.user['party']?['address']
-                                    ?['address_line1'] ??
-                                'Loading...',
-                            maxLines: 2,
-                            style: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 14,
+                child: userController.user.isNotEmpty? Padding(
+                  padding: const EdgeInsets.only(top:6,bottom:6),
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        // height: 60,
+                        width: Get.width,
+                        // color: Colors.red.shade50,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(
+                              width: 8,
                             ),
-                          ),
-                          const SizedBox(width: 10),
-                        ],
+                            const Icon(
+                              Icons.location_on_outlined,
+                              color: Colors.grey,
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 18.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: Text(
+                                            "${titleCase(userController.user['party']['address']['address_line1'].toString() ?? "")}, ${titleCase(userController.user['party']['address']['address_line2'].toString() ?? "")}",
+                                            style: const TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.normal,
+                                            ),
+                                            maxLines: 1,
+                                          ),
+                                        ),
+                
+                                        /* Expanded(
+                                          flex:1,
+                                          child: Text(setAddress(controller.myOrderList.isEmpty?"":controller.myOrderList[0]["address"],"address_line2"), style: TextStyle(
+                                            overflow: TextOverflow.ellipsis,
+                                              color: Colors.black,
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.normal),
+                                            maxLines: 1,
+                                          ),
+                                        ),*/
+                                      ],
+                                    ),
+                                    Text(
+                                      "${titleCase(userController.user['party']['address']
+                                                  ['address_line3']
+                                              .toString())},  ${userController.user['party']['address']
+                                                  ['pin_code']['pin_code'].toString()}" ??
+                                          "",
+                                      style: const TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.normal),
+                                      maxLines: 1,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
-                ),
+                    ],
+                  ),
+                ):const Text('loading'),
               ),
             ),
           ],

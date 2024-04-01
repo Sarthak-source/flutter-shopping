@@ -23,7 +23,6 @@ String convertTimestampToDateString(String? timestampString) {
   }
 }
 
-
 String convertDoubleToString(String? value) {
   if (value == null || value == "null") {
     // Handle null or "null" input values
@@ -39,16 +38,19 @@ String convertDoubleToString(String? value) {
   }
 }
 
-
-String titleCase(String text) {
-  if (text.length <= 1) return text.toUpperCase();
-  var words = text.split(' ');
-  var capitalized = words.map((word) {
-    var first = word.substring(0, 1).toUpperCase();
-    var rest = word.substring(1);
-    return '$first$rest';
-  });
-  return capitalized.join(' ');
+String titleCase(String? text) {
+  if (text != null && text != 'null') {
+    if (text.length <= 1) return text.toUpperCase();
+    var words = text.split(' ');
+    var capitalized = words.map((word) {
+      var first = word.substring(0, 1).toUpperCase();
+      var rest = word.substring(1);
+      return '$first$rest';
+    });
+    return capitalized.join(' ');
+  } else {
+    return '';
+  }
 }
 
 String errorHandler(AppException appException) {
@@ -68,9 +70,10 @@ String errorHandler(AppException appException) {
   return errorMsg;
 }
 
-twodecimalDigit(double? v ){
+twodecimalDigit(double? v) {
   double? value = v ?? 0.000;
-  String formattedValue = value.toStringAsFixed(2); // This will format the value to two decimal places
+  String formattedValue = value
+      .toStringAsFixed(2); // This will format the value to two decimal places
   print("Decimal :: ${formattedValue}"); // Output will be "123.46"
   return formattedValue;
 }
