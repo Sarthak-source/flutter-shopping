@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1004078834120",
+    "project_id": "dilicia-suvidha",
+    "storage_bucket": "dilicia-suvidha.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1004078834120:android:1bd0afaf14633927a160fd",
+        "android_client_info": {
+          "package_name": "com.dilicia.sutra_ecommerce"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8j0T2KAJ9lIiOMY1hi_L5vrIPsix7Lr0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
