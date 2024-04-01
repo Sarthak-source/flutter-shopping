@@ -15,8 +15,7 @@ class ExploreMoreProducts extends StatefulWidget {
   final String? isfrom;
 
   // Constructor
-  const ExploreMoreProducts({Key? key, required this.categoryId, this.isfrom})
-      : super(key: key);
+  const ExploreMoreProducts({super.key, required this.categoryId, this.isfrom});
 
   @override
   State<ExploreMoreProducts> createState() => _ExploreMoreProductsState();
@@ -69,7 +68,7 @@ class _ExploreMoreProductsState extends State<ExploreMoreProducts> {
           children: [
             
             Container(
-             height:205,
+            height: Get.width>= 600? 265:205,
               // color: controller.popularDeals.isEmpty?Colors.white:Colors.grey.shade300,
               color: kPrimaryBlueTest,
 

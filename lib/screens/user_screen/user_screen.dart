@@ -29,7 +29,9 @@ class UserScreen extends StatelessWidget {
             horizontal: getProportionateScreenWidth(16.0),
           ),
           child: Column(
+
             children: [
+              
               SizedBox(
                 height: getProportionateScreenHeight(8.0),
               ),

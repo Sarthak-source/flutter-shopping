@@ -7,8 +7,7 @@ import '../../utils/screen_utils.dart';
 
 class OrderCard extends StatefulWidget {
   const OrderCard(
-      {Key? key, this.isSelected = false, this.onTapHandler, this.mycartItem})
-      : super(key: key);
+      {super.key, this.isSelected = false, this.onTapHandler, this.mycartItem});
 
   final bool isSelected;
   final Function()? onTapHandler;

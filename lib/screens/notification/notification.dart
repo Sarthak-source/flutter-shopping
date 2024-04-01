@@ -103,7 +103,7 @@ class _NotificationState extends State<Notification> {
                                             ),
                                             Expanded(
                                               flex: 1,
-                                              child: Container(
+                                              child: SizedBox(
                                                 height: 30,
                                                 child: OutlinedButton(
                                                   style:
@@ -141,10 +141,10 @@ class _NotificationState extends State<Notification> {
                                                 ),
                                               ),
                                             ),
-                                          SizedBox(width: 5,),
+                                          const SizedBox(width: 5,),
                                             Expanded(
                                               flex: 1,
-                                              child: Container(
+                                              child: SizedBox(
                                                 height: 30,
                                                 child: OutlinedButton(
                                                   style:
