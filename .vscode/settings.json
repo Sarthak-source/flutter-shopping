@@ -1,3 +1,4 @@
 {
-    "cmake.sourceDirectory": "/Users/fao/Documents/dilicia-flutter/linux"
+    "cmake.sourceDirectory": "/Users/fao/Documents/dilicia-flutter/linux",
+    "java.compile.nullAnalysis.mode": "automatic"
 }
