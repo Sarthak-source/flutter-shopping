@@ -22,7 +22,7 @@ class SearchScreen extends StatelessWidget {
         Get.put(AddToCartController());
     return Scaffold(
       bottomSheet: (addToCartController.productCount > 0 )
-            ? const GoToCart()
+            ? const GoToCart(usedIn: "PoductsListScreen",)
             : const SizedBox.shrink(),
       body: SafeArea(
         child: Stack(

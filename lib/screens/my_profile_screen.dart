@@ -35,18 +35,23 @@ class MyProfileScreen extends StatelessWidget {
                   SizedBox(height: getProportionateScreenHeight(60.0),),
                   InputFormCard(
                     title: 'Full name',
-                    value:
-                        userController.user['party']['party_name'].toString(),
+                    value: userController.user['party']['party_name'].toString(),
                   ),
-
-
                   InputFormCard(
                     title: 'Email',
                     value: userController.user['party']['email'].toString(),
                   ),
                   InputFormCard(
-                    title: 'Phone number',
+                    title: 'Mobile',
                     value: userController.user['party']['mobile_NO'].toString(),
+                  ),
+                  InputFormCard(
+                    title: 'GST',
+                    value: userController.user['party']['address']['gstin'] != null ?userController.user['party']['address']['gstin']['gstin'].toString():"",
+                  ),
+                  InputFormCard(
+                    title: 'Order Milk',
+                    value: userController.user['party']['orders_milk'] != null ?userController.user['party']['orders_milk'].toString():"",
                   ),
                 ],
               ),
@@ -73,22 +78,28 @@ class InputFormCard extends StatelessWidget {
     return Row(
       children: [
         Expanded(
+          flex: 1,
           child: Text(
             title,
             style: TextStyle(
               color: kTextColorAccent,
-              fontSize: getProportionateScreenWidth(17),
+              fontSize: getProportionateScreenWidth(14),
             ),
           ),
         ),
-        Flexible(
+        SizedBox(
+          width: 18,
+        ),
+        Expanded(
+          flex: 3,
           child: TextFormField(
             initialValue: value,
-            textAlign: TextAlign.right,
+            textAlign: TextAlign.left,
             style: TextStyle(
               fontWeight: FontWeight.w500,
-              fontSize: getProportionateScreenWidth(17),
+              fontSize: getProportionateScreenWidth(14),
             ),
+            maxLines: 1,
             decoration: const InputDecoration(
               border: InputBorder.none,
             ),

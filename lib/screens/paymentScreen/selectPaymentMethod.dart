@@ -116,7 +116,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                               child:  Icon(
                                 Icons.check,
                                 size: 15.0,
-                                color: Colors.grey,
+                                color: Colors.white,
                               )
 
                             ),
@@ -348,23 +348,43 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
 
                                         Successcallback: (upiRequestParams,amnt,transID,merchId){
                                      // if(upiRequestParams.status ?? "N/A" ==  ""){}
-                                      print('upiRequestParams:::${upiRequestParams?.status}');
-                                      var upiCallBackStatus =upiRequestParams?.status;
-                                      if(upiCallBackStatus != null && upiCallBackStatus == "success"){
 
-                                        createOrderCtlr.createOrderApi(
-                                            "1",
-                                            (widget.selectedIndex!+2).toString(),
-                                            widget.selectedDate.toString(),
-                                            widget.address,
-                                            amnt.toString(),
-                                             "Online",
-                                            clientupiId ??"",
-                                            transID ?? "",
-                                            upiCallBackStatus?? ""  // "Success"
-                                        );
-                                      }
-                                                  }),
+                                          if(amnt != "IOS"){
+                                            print('upiRequestParams:::${upiRequestParams?.status}');
+                                            var upiCallBackStatus =upiRequestParams?.status;
+                                            if(upiCallBackStatus != null && upiCallBackStatus == "success"){
+
+                                              createOrderCtlr.createOrderApi(
+                                                  "1",
+                                                  (widget.selectedIndex!+2).toString(),
+                                                  widget.selectedDate.toString(),
+                                                  widget.address,
+                                                  amnt.toString(),
+                                                  "Online",
+                                                  clientupiId ??"",
+                                                  transID ?? "",
+                                                  upiCallBackStatus?? ""  // "Success"
+                                              );
+                                            }
+
+                                          }else{
+                                            createOrderCtlr.createOrderApi(
+                                                "1",
+                                                (widget.selectedIndex!+2).toString(),
+                                                widget.selectedDate.toString(),
+                                                widget.address,
+                                                widget.totalAmount.toString(),
+                                                "Online",
+                                                clientupiId ??"",
+                                                transID ?? "",
+                                                "success"  // "Success"
+                                            );
+                                          }
+
+
+                                                  }
+
+                                                  ),
                                   )): SizedBox.shrink()
                             ],
                           ),
