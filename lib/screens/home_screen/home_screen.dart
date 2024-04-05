@@ -73,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
       },
       child: Obx(
         () =>  usercontroller.isUpdate.value &&  Platform.isAndroid?  AlertDialog(
-          title: Text('New Version Available'),
+          title: const Text('New Version Available'),
           content: Text(
               'A new version of the app is available. Please update to continue using the app. localVersion : ${usercontroller.localVersion.value.toString()} and App buildNumber : ${usercontroller.buildversion.value.toString()}'),
           actions: <Widget>[
@@ -84,7 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
             //   },
             // ),
             TextButton(
-              child: Text('Update'),
+              child: const Text('Update'),
               onPressed: () async {
                 var url =
                     "https://play.google.com/store/apps/details?id=com.dilicia.sutra_ecommerce";
