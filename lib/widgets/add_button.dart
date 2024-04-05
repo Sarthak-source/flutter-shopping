@@ -219,6 +219,7 @@ class _AddButtonState extends State<AddButton> {
                             context: context,
                             builder: (_) {
                               return AlertDialog(
+
                                 insetPadding: const EdgeInsets.symmetric(
                                   horizontal: 100,
                                   vertical: 30,

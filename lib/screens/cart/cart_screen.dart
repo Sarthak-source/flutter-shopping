@@ -247,15 +247,17 @@ class _CartScreenState extends State<CartScreen> {
                                     //  Navigator.of(context).pushNamed(AddAddressScreen.routeName);
                                      // Get.toNamed(SelectTime.routeName);
 
-                                     if(isOrderLock=="Yes"){
+                                 /*    if(isOrderLock=="Yes"){
                                        payCtrlr.fetchPendingPayment();
                                        Navigator.push(context, MaterialPageRoute(builder: (context) => PendingPayment()));
                                      }else{
                                        Navigator.push(context, MaterialPageRoute(builder: (context) => SelectTime(
                                          totalamount: twodecimalDigit(double.parse(controller.mycartTotalAmount.value ?? "0.000")) ?? "",
                                        )));
-                                     }
-
+                                     }*/
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => SelectTime(
+                                        totalamount: twodecimalDigit(double.parse(controller.mycartTotalAmount.value ?? "0.000")) ?? "",
+                                      )));
 
                                     },
                                     child: const Text(
