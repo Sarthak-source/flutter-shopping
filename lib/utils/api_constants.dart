@@ -44,6 +44,7 @@ class ApiAppConstants {
 
   static const String invoices = 'invoices/';
   static const String payment = 'payment/payment/';
+  static const String pendingpayment = 'party_pending_amount/';
   static const String addPayment = 'payment/payment/';
 
   static const String exploreCategories = 'explore_categories/';

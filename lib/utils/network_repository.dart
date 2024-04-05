@@ -301,6 +301,37 @@ class NetworkRepository {
     }
   }
 
+  static Future getPendingPayment({required String dispatchParty}) async {
+    log("${ApiAppConstants.apiEndPoint}${ApiAppConstants.pendingpayment}?party=$dispatchParty");
+    try {
+      final apiResponse = await NetworkDioHttp.getDioHttpMethod(
+        url:
+        "${ApiAppConstants.apiEndPoint}${ApiAppConstants.pendingpayment}?party=$dispatchParty",
+        header: Options(headers: <String, String>{'authorization': auth}),
+      );
+
+      debugPrint('\x1b[97m pendingpayment Response : $apiResponse');
+
+      final body = apiResponse['body'];
+
+      if (body != null &&
+          body['error'] != null &&
+          body['error'] == 'User not exist please sign up') {
+        Fluttertoast.showToast(msg: body['error'].toString());
+      }
+
+      return apiResponse;
+    } on AppException catch (appException) {
+      if (appException.statusCode == 500 ||
+          appException.statusCode == 400 ||
+          appException.statusCode == 404) {
+        Fluttertoast.showToast(msg: "Something went wrong in getCategories!");
+      }
+
+      return appException.res?.statusCode.toString();
+    }
+  }
+
   static Future getInvoiceNotification({required String dispatchParty}) async {
     log("${ApiAppConstants.apiEndPoint}${ApiAppConstants.invoicePayments}?invoice_dispatchorder_party=$dispatchParty");
     try {

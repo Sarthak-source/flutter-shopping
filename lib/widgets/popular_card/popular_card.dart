@@ -39,20 +39,25 @@ class _PopularCardState extends State<PopularCard> {
     super.initState();
 
     Map storedUserData=box!.get('userData');
-    print('userdata in popularcard ${ storedUserData['party']['orders_milk'].toString() }');
-    ordersMilk = storedUserData['party']['orders_milk']!=null?storedUserData['party']['orders_milk'].toString():"";
-    if (widget.product != null && widget.product!["cart_count"] != null) {
-      final cartCount = widget.product!["cart_count"];
-      if (cartCount != null) {
-        log("count in popularcard::: ${cartCount.toString()}");
-        final double? parsedCount = double.tryParse(cartCount.toString());
-        if (parsedCount != null) {
-          log('double count $parsedCount');
-          log('int count ${parsedCount.toInt()}');
-          quantity.value = parsedCount.toInt();
+    if(storedUserData != null){
+
+      print('userdata in popularcard ${ storedUserData['party']['orders_milk'].toString() }');
+      ordersMilk = storedUserData['party']['orders_milk']!=null?storedUserData['party']['orders_milk'].toString():"";
+      if (widget.product != null && widget.product!["cart_count"] != null) {
+        final cartCount = widget.product!["cart_count"];
+        if (cartCount != null) {
+          log("count in popularcard::: ${cartCount.toString()}");
+          final double? parsedCount = double.tryParse(cartCount.toString());
+          if (parsedCount != null) {
+            log('double count $parsedCount');
+            log('int count ${parsedCount.toInt()}');
+            quantity.value = parsedCount.toInt();
+          }
         }
       }
     }
+
+
   }
   @override
   void didUpdateWidget(covariant PopularCard oldWidget) {

@@ -282,8 +282,8 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                               controller.upi.value?
                               Row(
                                 children: [
-                                  Text("Ordered Amount ",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,color: Colors.grey),),
-                                  Expanded(child: Text(": ${widget.totalAmount}",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,color: Colors.black))),
+                                  Text("Order Amount ",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold,color: Colors.grey),),
+                                  Expanded(child: Text(": ₹ ${widget.totalAmount}",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,color: Colors.black))),
                                 ],
                               ):SizedBox.shrink(),
                               const SizedBox(height: 20),

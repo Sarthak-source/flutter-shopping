@@ -7,6 +7,7 @@ import 'package:sutra_ecommerce/controllers/user_controller.dart';
 import 'package:sutra_ecommerce/screens/landing_screen.dart';
 import 'package:sutra_ecommerce/screens/notification/notification.dart'
     as notificationpage;
+import 'package:sutra_ecommerce/screens/paymentScreen/pendingPayment.dart';
 
 import '../../constants/colors.dart';
 import '../../utils/screen_utils.dart';
@@ -186,7 +187,10 @@ class UserScreen extends StatelessWidget {
                         );
                       },
                     );
-                  }),
+                   // Navigator.push(context, MaterialPageRoute(builder: (context) => const PendingPayment()));
+
+                  }
+                  ),
 
               SizedBox(
                 height: getProportionateScreenHeight(8.0),

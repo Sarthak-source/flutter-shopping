@@ -19,6 +19,7 @@ class PaymentController extends GetxController {
   var cod = false.obs;
   var upi = false.obs;
   var showUpi = false.obs;
+  var pendingPayment = "0.00".obs;
   @override
   void onInit() {
     super.onInit();
@@ -49,6 +50,29 @@ class PaymentController extends GetxController {
       log(paymentData.toString());
       payment.value = paymentData;
       log(payment.toString());
+    } catch (e) {
+      errorMsg.value = e.toString();
+      log("paymentDataError ${e.toString()}");
+      hasError.value = true;
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  Future<dynamic> fetchPendingPayment() async {
+    try {
+      Map storedUserData = box!.get('userData');
+
+      //log(categoryId.toString());
+
+      isLoading.value = true;
+      var responseData = await NetworkRepository.getPendingPayment(
+          dispatchParty: storedUserData['party']['id'].toString());
+      print("paymentData ${responseData.toString()}");
+      double pendingAmt =responseData['body']['pending_amount'];
+       pendingPayment.value = pendingAmt.toString();
+      print("chkkk:::${pendingPayment.value.toString()}");
+
     } catch (e) {
       errorMsg.value = e.toString();
       log("paymentDataError ${e.toString()}");

@@ -4,21 +4,44 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sutra_ecommerce/controllers/mycart_controller.dart';
+import 'package:sutra_ecommerce/screens/paymentScreen/pendingPayment.dart';
 import 'package:sutra_ecommerce/screens/select_time/select_time.dart';
 
+import '../../config/common.dart';
 import '../../controllers/add_to_cart_controller.dart';
+import '../../controllers/payment_controller.dart';
 import '../../utils/common_functions.dart';
 import '../../utils/screen_utils.dart';
 import '../../widgets/order_card.dart';
 
-class CartScreen extends StatelessWidget {
+class CartScreen extends StatefulWidget {
   static const routeName = '/cartscreen';
   CartScreen({super.key});
+
+  @override
+  State<CartScreen> createState() => _CartScreenState();
+}
+
+class _CartScreenState extends State<CartScreen> {
   final TextEditingController quantityCtrlr = TextEditingController();
+
   final MyCartController controller = Get.put(MyCartController());
+  final PaymentController payCtrlr = Get.put(PaymentController());
   final AddToCartController addToCartController =
       Get.put(AddToCartController());
+
+  String? isOrderLock = "";
+
   //AddToCartController addToCartController = AddToCartController();
+  @override
+  void initState() {
+    super.initState();
+    Map storedUserData=box!.get('userData');
+    print('userdata in pending payment ${ storedUserData['party']['order_lock'].toString() }');
+    isOrderLock =storedUserData['party']['order_lock']!=null?storedUserData['party']['order_lock'].toString():"";
+    print('userdata in order_lock ${ isOrderLock.toString() }');
+
+  }
   @override
   Widget build(BuildContext context) {
     /*   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -223,9 +246,17 @@ class CartScreen extends StatelessWidget {
                                     onPressed: () {
                                     //  Navigator.of(context).pushNamed(AddAddressScreen.routeName);
                                      // Get.toNamed(SelectTime.routeName);
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => SelectTime(
-                                        totalamount: twodecimalDigit(double.parse(controller.mycartTotalAmount.value ?? "0.000")) ?? "",
-                                      )));
+
+                                     if(isOrderLock=="Yes"){
+                                       payCtrlr.fetchPendingPayment();
+                                       Navigator.push(context, MaterialPageRoute(builder: (context) => PendingPayment()));
+                                     }else{
+                                       Navigator.push(context, MaterialPageRoute(builder: (context) => SelectTime(
+                                         totalamount: twodecimalDigit(double.parse(controller.mycartTotalAmount.value ?? "0.000")) ?? "",
+                                       )));
+                                     }
+
+
                                     },
                                     child: const Text(
                                       'Buy Now',
