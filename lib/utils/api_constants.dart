@@ -15,7 +15,7 @@ var ip = box!.containsKey("isTestEnvironment")
         : '192.168.1.27:8000'
     : '192.168.1.27:8000';
 
-var local = '192.168.1.23:8000';
+var local = '192.168.213.132:8000';
 
 //http://192.168.1.27:8000/api/check_party/?username=9844398489
 
@@ -54,5 +54,5 @@ class ApiAppConstants {
   static const String postaddress = 'inventory/address_post/';
   static const String getstates = 'inventory/state/';
   static const String addressListPost = 'addressListPost/';
-  static const String invoicePayments= 'invoice_payments/';
+  static const String invoicePayments = 'invoice_payments/';
 }

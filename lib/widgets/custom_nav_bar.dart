@@ -9,8 +9,7 @@ class CustomNavBar extends StatefulWidget {
   final int curTabIndex;
   final Function(int) onTap;
 
-  const CustomNavBar(this.onTap, this.curTabIndex, {Key? key})
-      : super(key: key);
+  const CustomNavBar(this.onTap, this.curTabIndex, {super.key});
 
   @override
   CustomNavBarState createState() => CustomNavBarState();
@@ -65,8 +64,8 @@ class CustomNavBarState extends State<CustomNavBar> {
                         ? const Icon(Icons.shopping_cart)
                         : const Icon(Icons.shopping_cart_outlined),
                     if (addToCartController.productCount > 0)
-                      Positioned(
-                        right: 0,
+                      Transform.translate(
+                        offset: const Offset(10, -4),
                         child: Stack(
                           children: [
                             Shimmer.fromColors(
@@ -85,9 +84,17 @@ class CustomNavBarState extends State<CustomNavBar> {
                               backgroundColor: Colors.transparent,
                               radius: 8,
                               child: Text(
-                                addToCartController.productCount.toString(),
-                                style: const TextStyle(
-                                  fontSize: 10,
+                                 addToCartController.productCount
+                                        .toString()
+                                    ,
+                                    maxLines: 1,
+                                style:  TextStyle(
+                                  
+                                  fontSize:addToCartController.productCount
+                                            .toString().length>1?  addToCartController.productCount
+                                            .toString().length>2
+                                    ? 6:8:10,
+                                    fontWeight: FontWeight.bold,
                                   color: Colors.white,
                                 ),
                               ),
