@@ -48,13 +48,21 @@ class NotificationController extends GetxController {
   Future<dynamic> setStatusNotification(
     String status,
     String invoiceId,
+    String order,
+    String amountpaid,
+    String id,
   ) async {
     try {
       Map storedUserData = box!.get('userData');
 
       isLoading.value = true;
       var responseData = await NetworkRepository.confirmInovice(
-          status: status, invoiceId: invoiceId);
+          status: status,
+          invoiceId: invoiceId,
+          partyId:  storedUserData['party']['id'].toString(),
+          order:order,
+           id: id,
+      amountPaid: amountpaid);
       fetchInvoiceNotification();
 
       update();

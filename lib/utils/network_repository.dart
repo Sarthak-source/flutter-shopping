@@ -333,15 +333,15 @@ class NetworkRepository {
   }
 
   static Future getInvoiceNotification({required String dispatchParty}) async {
-    log("${ApiAppConstants.apiEndPoint}${ApiAppConstants.invoicePayments}?invoice_dispatchorder_party=$dispatchParty");
+    log("${ApiAppConstants.apiEndPoint}${ApiAppConstants.invoicePayments}?invoice__dispatch__order__party=$dispatchParty");
     try {
       final apiResponse = await NetworkDioHttp.getDioHttpMethod(
         url:
-            "${ApiAppConstants.apiEndPoint}${ApiAppConstants.invoicePayments}?invoice_dispatchorder_party=$dispatchParty",
+            "${ApiAppConstants.apiEndPoint}${ApiAppConstants.invoicePayments}?invoice__dispatch__order__party=$dispatchParty",
         header: Options(headers: <String, String>{'authorization': auth}),
       );
 
-      debugPrint('\x1b[97m checkSeller Response : $apiResponse');
+      debugPrint('\x1b[97m notification Response : $apiResponse');
 
       final body = apiResponse['body'];
 
@@ -366,14 +366,27 @@ class NetworkRepository {
   static Future confirmInovice({
     required String status,
     required String invoiceId,
+    required String partyId,
+    required String order,
+    required String amountPaid,
+    required String id,
   }) async {
     try {
-      final apiResponse = await NetworkDioHttp.putDioHttpMethod(
+      final apiResponse = await NetworkDioHttp.postDioHttpMethod(
         url:
-        "${ApiAppConstants.apiEndPoint}${ApiAppConstants.invoicePayments}$invoiceId/",
-        data: {"confirmation_status": status},
+        "${ApiAppConstants.apiEndPoint}${ApiAppConstants.updateInvoicePayments}",
+        data: {
+          "confirmation_status": status,
+          "invoice": invoiceId,
+          "id": id,
+          "party":partyId,
+          "order":order,
+          "amount_paid":amountPaid
+        },
+
         header: Options(headers: <String, String>{'authorization': auth}),
       );
+      debugPrint('\x1b[97m confirm api param : $amountPaid');
       debugPrint('\x1b[97m confirm api : $apiResponse');
       return await apiResponse['body'];
     } catch (e) {

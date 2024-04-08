@@ -96,7 +96,7 @@ class _NotificationState extends State<Notification> {
                                             Expanded(
                                               flex: 4,
                                               child: Text(
-                                                'Paid Rs ${payment['amount_paid'] == null ? "" : payment['amount_paid'].toString()} against invoice no ${payment['invoice'] ?? ""}',
+                                                'Paid Rs ${payment['amount_paid'] == null ? "" : payment['amount_paid'].toString()} against invoice no ${payment['invoice_num'] == null ? "" :payment['invoice_num'].toString() ?? ""}',
                                                 overflow: TextOverflow.ellipsis,
                                                 maxLines: 2,
                                               ),
@@ -126,9 +126,11 @@ class _NotificationState extends State<Notification> {
                                                     notificationController
                                                         .setStatusNotification(
                                                             "Confirm",
-                                                            payment["id"]
-                                                                    .toString() ??
-                                                                "");
+                                                            payment["invoice"].toString() ?? "",
+                                                      payment["order"].toString() ?? "",
+                                                        payment["amount_paid"].toString() ?? "",
+                                                        payment["id"].toString() ?? "",
+                                                    );
                                                   },
                                                   child: const Text(
                                                     'Yes',
@@ -166,8 +168,11 @@ class _NotificationState extends State<Notification> {
                                                     notificationController
                                                         .setStatusNotification(
                                                             "Declined",
-                                                            payment["id"].toString() ??
-                                                                "");
+                                                            payment["invoice"].toString() ??
+                                                                "",
+                                                      payment["order"].toString() ?? "",
+                                                      payment["amount_paid"].toString() ?? "",
+                                                      payment["id"].toString() ?? "",);
                                                   },
                                                   child: const Text(
                                                     'No',

@@ -437,7 +437,7 @@ class MyOrderCards extends StatelessWidget {
                                           CrossAxisAlignment.start,
                                       children: [
                                         orderIDDate(
-                                            context, index, "Order No", "id"),
+                                            context, index, "Order No", "order_num"),
                                         orderIDDate(context, index, "Date",
                                             "order_date"),
                                       ],
