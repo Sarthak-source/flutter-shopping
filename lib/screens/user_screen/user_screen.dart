@@ -222,12 +222,19 @@ class UserScreen extends StatelessWidget {
                                 box!.deleteAll(
                                     ['userData', 'login', 'isTestEnvironment']);
                                 log(box!.get('userData').toString());
+                                Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(builder: (BuildContext context) => LandingScreen()),
+                                    ModalRoute.withName('/')
+                                );
 
-                                Navigator.push(
+                             /*   Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            const LandingScreen()));
+                                            const LandingScreen()));*/
+
+
                                 //Get.toNamed(IntroScreen.routeName);
                               },
                             ),

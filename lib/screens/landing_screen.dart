@@ -7,7 +7,7 @@ import 'intro_screen/intro_screen.dart';
 
 class LandingScreen extends StatefulWidget {
   const LandingScreen({Key? key}) : super(key: key);
-
+  static const routeName = '/landing_screen';
   @override
   _LandingScreenState createState() => _LandingScreenState();
 }

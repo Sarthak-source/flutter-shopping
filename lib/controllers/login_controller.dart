@@ -34,7 +34,7 @@ class LoginController extends GetxController {
       box!.delete('userData');
 
       userController.user.value = responseData['body'];
-      await box!.put('userData', responseData['body']);
+      await box!.put('userData',  userController.user);
       update();
 
       if (responseData.isNotEmpty) {

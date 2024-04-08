@@ -14,6 +14,7 @@ import '../screens/category_screen/category_screen.dart';
 import '../screens/checkout_screen.dart';
 import '../screens/fruit_screen.dart';
 import '../screens/intro_screen/intro_screen.dart';
+import '../screens/landing_screen.dart';
 import '../screens/login/login_screen.dart';
 import '../screens/map_screen.dart';
 import '../screens/my_profile_screen.dart';
@@ -32,6 +33,7 @@ import '../screens/vegetable_screen.dart';
 
 List<GetPage> pages = [
   GetPage(name: IntroScreen.routeName, page: () => const IntroScreen()),
+  GetPage(name: LandingScreen.routeName, page: () => const LandingScreen()),
   GetPage(name: LoginScreen.routeName, page: () => const LoginScreen()),
   GetPage(name: SignupScreen.routeName, page: () => const SignupScreen()),
   GetPage(name: AddAddressScreen.routeName, page: () => AddAddressScreen()),
