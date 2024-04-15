@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -294,7 +296,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                       const SizedBox(height: 8),
                       isCODallowed !=null && isCODallowed == "No"?Text("COD Not Allowed",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 11,color: Colors.red),):SizedBox.shrink(),
                       const SizedBox(height: 50),
-                      CircularCheckBoxWithText(
+                      Platform.isIOS?SizedBox.shrink(): CircularCheckBoxWithText(
                         text: 'UPI',
                         initialValue: controller.upi.value,
                         onChanged: (value) {
