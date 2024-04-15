@@ -473,7 +473,7 @@ class HomeAppBar extends StatelessWidget {
                                       children: [
                                         Expanded(
                                           child: Text(
-                                            "${titleCase(userController.user['party']['address']['address_line1'].toString() ?? "")}, ${titleCase(userController.user['party']['address']['address_line2'].toString() ?? "")}",
+                                            "${titleCase(userController.user['party']['address']== null?"":userController.user['party']['address']['address_line1'].toString() ?? "")}, ${titleCase(userController.user['party']['address']==null?"":userController.user['party']['address']['address_line2'].toString() ?? "")}",
                                             style: const TextStyle(
                                               color: Colors.black,
                                               fontSize: 12,
@@ -496,9 +496,8 @@ class HomeAppBar extends StatelessWidget {
                                       ],
                                     ),
                                     Text(
-                                      "${titleCase(userController.user['party']['address']
-                                                  ['address_line3']
-                                              .toString())},  ${userController.user['party']['address']
+                                      "${titleCase(userController.user['party']['address']==null?"":userController.user['party']['address']['address_line3'].toString())},  "
+                                          "${userController.user['party']['address']==null?"":userController.user['party']['address']
                                                   ['pin_code']['pin_code'].toString()}" ??
                                           "",
                                       style: const TextStyle(

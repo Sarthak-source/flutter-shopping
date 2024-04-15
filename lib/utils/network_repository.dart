@@ -507,7 +507,7 @@ class NetworkRepository {
       if (appException.statusCode == 500 ||
           appException.statusCode == 400 ||
           appException.statusCode == 404) {
-        Fluttertoast.showToast(msg: "Something went wrong in mycart!");
+        Fluttertoast.showToast(msg: "Something went wrong in mycart! ${appException.statusCode.toString()}");
       }
 
       return appException.res?.statusCode.toString();
@@ -520,11 +520,12 @@ class NetworkRepository {
     required String order_status,
     required String order_date,
     required String delivery_required_on,
+    required String pageNo,
   }) async {
     try {
       final apiResponse = await NetworkDioHttp.getDioHttpMethod(
         url:
-            "${ApiAppConstants.apiEndPoint}${ApiAppConstants.myOrders}?party=$party&order_prifix=&order_status=$order_status&order_date=&delivery_required_on=",
+            "${ApiAppConstants.apiEndPoint}${ApiAppConstants.myOrders}?party=$party&order_prifix=&order_status=$order_status&order_date=&delivery_required_on=&page=$pageNo",
         header: Options(headers: <String, String>{'authorization': auth}),
       );
       log('myOrders in repo++++$apiResponse');

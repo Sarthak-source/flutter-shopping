@@ -14,6 +14,7 @@ Color green = Colors.green;
 Color orange = Colors.orange;
 
 Box? box;
+Box? localBox;
 height(double height) => SizedBox(height: height);
 width(double width) => SizedBox(width: width);
 

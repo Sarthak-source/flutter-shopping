@@ -59,7 +59,7 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
                     children: [
                       Lottie.asset(
                         'assets/lotties/OrderSuccessAnimation.json',
-                        repeat: true,
+                        repeat: false,
                         height: getProportionateScreenHeight(200.0),
                         width: getProportionateScreenWidth(200.0),
                       ),

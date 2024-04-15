@@ -57,13 +57,18 @@ class _AddButtonState extends State<AddButton> {
       ItemPositionsListener.create();
   int listLength = 300;
   String ordersMilk = "";
+  Map? storedUserData;
   @override
   void initState() {
     super.initState();
-    Map storedUserData=box!.get('userData');
-    print('userdata in popularcard ${ storedUserData['party']['orders_milk'].toString() }');
-    ordersMilk = storedUserData['party']['orders_milk']!=null?storedUserData['party']['orders_milk'].toString():"";
-
+     storedUserData=box?.get('userData');
+    if(storedUserData != null && storedUserData?['party'] !=null) {
+      print('userdata in popularcard ${ storedUserData?['party']['orders_milk']
+          .toString() }');
+      ordersMilk = storedUserData?['party']['orders_milk'] != null
+          ? storedUserData!['party']['orders_milk'].toString()
+          : "";
+    }
   }
 
   @override

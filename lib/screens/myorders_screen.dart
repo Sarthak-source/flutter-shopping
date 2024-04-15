@@ -23,23 +23,31 @@ class MyOrders extends StatefulWidget {
 }
 
 class _MyOrdersState extends State<MyOrders> {
-  final MyOrderController controller = Get.put(MyOrderController());
+
   String? add1 = '';
   String? add2 = '';
   String? add3 = '';
+  late PageController pageController;
   @override
   void initState() {
     super.initState();
+    final MyOrderController controller = Get.put(MyOrderController());
+     pageController = PageController();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       controller.selectedBtn.value = 1;
+      //if (controller.pageController != null) {
+     // controller.pageController = PageController();
+      pageController.jumpToPage(1);
+     // }
+      controller.myOrderList.clear();
       controller.update();
-      controller.getMyOrders("Approved");
+    //  controller.getMyOrders("Approved","1");
       Map storedUserData = box!.get('userData');
       print(
           'userdata in myOrderScreen ${storedUserData['party']['address']['address_line1'].toString()}');
-      add1 = storedUserData['party']['address']['address_line1'].toString();
-      add2 = storedUserData['party']['address']['address_line2'].toString();
-      add3 = storedUserData['party']['address']['address_line3'].toString();
+      add1 = storedUserData['party']['address']['address_line1'].toString() ?? "";
+      add2 = storedUserData['party']['address']['address_line2'].toString() ?? "";
+      add3 = storedUserData['party']['address']['address_line3'].toString() ?? "";
     });
   }
 
@@ -55,7 +63,7 @@ class _MyOrdersState extends State<MyOrders> {
       child: GetBuilder<MyOrderController>(
         init: MyOrderController(),
         autoRemove: false,
-        builder: (controller) {
+        builder: (controllerrr) {
           return Scaffold(
             body: SafeArea(
               child: Padding(
@@ -94,8 +102,9 @@ class _MyOrdersState extends State<MyOrders> {
                     Obx(
                       () => FittedBox(
                         child: EasyStepper(
+
                           activeStep:
-                              controller.selectedBtn.value, // activeStep.value,
+                          controllerrr.selectedBtn.value, // activeStep.value,
                           /*   lineLength: 50,
                         lineThickness: 1,
                         lineSpace: 4,*/
@@ -187,10 +196,14 @@ class _MyOrdersState extends State<MyOrders> {
                               ),
                             ),
                           ],
-                          onStepReached: (index) {
+                          onStepReached: (index) => _onStepReached(index,controllerrr)
+
+
+                          /*    (index) {
                             controller.selectedBtn.value = index;
-                            log('selected page indx $index');
+                            print('selected page indx $index');
                             controller.pageController.jumpToPage(index);
+                            controller.update();
                             for (int i = 0;
                                 i < controller.selectedFilter.length;
                                 i++) {
@@ -198,7 +211,7 @@ class _MyOrdersState extends State<MyOrders> {
                             }
                             controller.update();
                             controller.selectedBtn.value = index;
-                          },
+                          },*/
                           // activeStep.value = index,
                         ),
                       ),
@@ -269,34 +282,33 @@ class _MyOrdersState extends State<MyOrders> {
                       child: PageView.builder(
                         itemCount: 6,
                         restorationId: "MyOrdersPage",
-                        controller: controller.pageController,
+                        controller: pageController,
                         onPageChanged: (v) async {
                           log('page Number:: $v');
-                          controller.selectedBtn.value = v;
-                          controller.update();
+                          controllerrr.selectedBtn.value = v;
+                          controllerrr.myOrderList.clear();
+                          controllerrr.update();
                           if (v == 0) {
-                            controller.getMyOrders("Created");
+                            controllerrr.getMyOrders("Created","1");
                           } else if (v == 1) {
-                            controller.getMyOrders("Approved");
+                            controllerrr.getMyOrders("Approved","1");
                           } else if (v == 2) {
-                            controller.getMyOrders("Rejected");
+                            controllerrr.getMyOrders("Rejected","1");
                           } else if (v == 3) {
-                            controller.getMyOrders("Cancelled");
+                            controllerrr.getMyOrders("Cancelled","1");
                           } else if (v == 4) {
-                            controller.getMyOrders("InProgress");
+                            controllerrr.getMyOrders("InProgress","1");
                           } else {
-                            controller.getMyOrders("Completed");
+                            controllerrr.getMyOrders("Completed","1");
                           }
 
-                          for (int i = 0;
-                              i < controller.selectedFilter.length;
-                              i++) {
-                            controller.selectedFilter[i] = i == v;
+                          for (int i = 0; i < controllerrr.selectedFilter.length; i++) {
+                            controllerrr.selectedFilter[i] = i == v;
                           }
-                          controller.update();
+                          controllerrr.update();
                         },
                         itemBuilder: (context, pageIndex) {
-                          if (controller.isLoading.value) {
+                          if (controllerrr.isLoading.value) {
                             return Shimmer.fromColors(
                               baseColor: Colors.grey[300]!,
                               highlightColor: Colors.grey[100]!,
@@ -315,10 +327,10 @@ class _MyOrdersState extends State<MyOrders> {
                                 ),
                               ),
                             );
-                          } else if (controller.hasError.value) {
-                            return Text('Error: ${controller.errorMsg.value}');
+                          } else if (controllerrr.hasError.value) {
+                            return Text('Error: ${controllerrr.errorMsg.value}');
                           } else {
-                            if (controller.myOrderList.isEmpty) {
+                            if (controllerrr.myOrderList.isEmpty) {
                               return Column(
                                 children: [
                                   Lottie.asset('assets/lotties/no-data.json',
@@ -341,7 +353,7 @@ class _MyOrdersState extends State<MyOrders> {
                             } else {
                               return MyOrderCards(
                                   devicewidth: devicewidth,
-                                  myOrderList: controller.myOrderList);
+                                  myOrderList: controllerrr.myOrderList);
                             }
                           }
                         },
@@ -355,6 +367,22 @@ class _MyOrdersState extends State<MyOrders> {
         },
       ),
     );
+  }
+
+  _onStepReached(int index, MyOrderController controller) {
+    controller.selectedBtn.value = index;
+    print('selected page indx $index');
+    pageController.jumpToPage(index);
+    controller.update();
+    for (int i = 0;
+    i < controller.selectedFilter.length;
+    i++) {
+      controller.selectedFilter[i] = i == index;
+    }
+    controller.update();
+    controller.selectedBtn.value = index;
+
+// activeStep.value = index,
   }
 }
 
@@ -370,18 +398,60 @@ class OrdersList {
       required this.amount});
 }
 
-class MyOrderCards extends StatelessWidget {
+class MyOrderCards extends StatefulWidget {
   const MyOrderCards(
       {super.key, required this.devicewidth, required this.myOrderList});
 
   final double devicewidth;
 
   final RxList myOrderList;
+
+  @override
+  State<MyOrderCards> createState() => _MyOrderCardsState();
+}
+
+class _MyOrderCardsState extends State<MyOrderCards> {
+  ScrollController? _scrollController;
+  double? _scrollPosition = 0.0;
+  int pageNum = 1;
+  final MyOrderController controller = Get.put(MyOrderController());
+  _scrollListener() {
+    setState(() {
+      _scrollPosition = _scrollController?.position.pixels;
+      if (_scrollPosition == 0) {
+        print('At top');
+        //  print('_scrollPosition... ${_scrollPosition}');
+      } else {
+
+        //  _scrollController.position.pixels == _scrollController.position.maxScrollExtent
+        //  print('_scrollPosition... ${_scrollPosition} and max scroll ${_scrollController?.position.maxScrollExtent}');
+        if (_scrollPosition == _scrollController?.position.maxScrollExtent) {
+          print('At bottom');
+          print('selected tab:: ${controller.selectedBtn.value}');
+          if(controller.selectedBtn.value ==1){
+            if(controller.nxt.value != null && controller.nxt.value != ""){
+              pageNum++;
+              controller.getMyOrders("Approved",pageNum.toString());
+            }
+
+          }
+        }
+      }
+    });
+  }
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController();
+    _scrollController?.addListener(_scrollListener);
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
         // itemCount: orderlist.length,
-        itemCount: myOrderList.length,
+        controller: _scrollController,
+        itemCount: widget.myOrderList.length,
         itemBuilder: (context, index) {
           return RefreshIndicator(
               onRefresh: () async {
@@ -395,10 +465,10 @@ class MyOrderCards extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) => MyOrderDetail2(
-                              OrderId: myOrderList[index]["id"])));
+                              OrderId: widget.myOrderList[index]["id"])));
                 },
                 child: Container(
-                    width: devicewidth,
+                    width: widget.devicewidth,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(8),
@@ -491,7 +561,7 @@ class MyOrderCards extends StatelessWidget {
                                     orderRateCard(
                                         context,
                                         "Delivery required on",
-                                        setDelvReqDate(myOrderList[index]
+                                        setDelvReqDate(widget.myOrderList[index]
                                                 ["delivery_required_on"]
                                             .toString()),
                                         true),
@@ -499,19 +569,19 @@ class MyOrderCards extends StatelessWidget {
                                     orderRateCard(
                                         context,
                                         "Total value",
-                                        myOrderList[index]["total_value"]
+                                        widget.myOrderList[index]["total_value"]
                                             .toString(),
                                         false),
                                     orderRateCard(
                                         context,
                                         "Total gst",
-                                        myOrderList[index]["total_gst"]
+                                        widget.myOrderList[index]["total_gst"]
                                             .toString(),
                                         false),
                                     orderRateCard(
                                         context,
                                         "Total",
-                                        myOrderList[index]["total_amount"]
+                                        widget.myOrderList[index]["total_amount"]
                                             .toString(),
                                         false)
                                   ],
@@ -642,7 +712,7 @@ class MyOrderCards extends StatelessWidget {
                                       shrinkWrap: true,
                                       physics:
                                           const NeverScrollableScrollPhysics(),
-                                      itemCount: myOrderList[index]
+                                      itemCount: widget.myOrderList[index]
                                               ["order_items"]
                                           .length,
                                       itemBuilder: (context, newindex) {
@@ -682,7 +752,7 @@ class MyOrderCards extends StatelessWidget {
                                                 Expanded(
                                                   flex: 4,
                                                   child: Text(
-                                                    myOrderList[index]
+                                                    widget.myOrderList[index]
                                                                 ["order_items"]
                                                             [newindex]
                                                         ["product"]["name"],
@@ -698,7 +768,7 @@ class MyOrderCards extends StatelessWidget {
                                                   flex: 1,
                                                   child: Text(
                                                     convertDoubleToString(
-                                                        myOrderList[index]
+                                                        widget.myOrderList[index]
                                                                 ["order_items"][
                                                             newindex]["count"]),
                                                     style: TextStyle(
@@ -712,7 +782,7 @@ class MyOrderCards extends StatelessWidget {
                                                 Expanded(
                                                   flex: 1,
                                                   child: Text(
-                                                    myOrderList[index]
+                                                    widget.myOrderList[index]
                                                                 ["order_items"][
                                                             newindex]["product"]
                                                         ["order_uom"],
@@ -837,9 +907,9 @@ class MyOrderCards extends StatelessWidget {
           padding: const EdgeInsets.only(left: 8.0),
           child: Text(
               title == "Order No"
-                  ? myOrderList[index][value].toString()
+                  ? widget.myOrderList[index][value].toString()
                   : convertTimestampToDateString(
-                      myOrderList[index][value].toString()),
+                      widget.myOrderList[index][value].toString()),
               style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                     fontSize: 10,
                     color:

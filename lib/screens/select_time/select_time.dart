@@ -28,7 +28,7 @@ class _SelectTimeState extends State<SelectTime> {
   int selectedIndex = 0;
   final UserController userCtlr = Get.put(UserController());
   final MyCartController createOrderCtlr = Get.put(MyCartController());
-
+  Map? storedUserData;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -146,9 +146,9 @@ class _SelectTimeState extends State<SelectTime> {
             child: ElevatedButton(
               onPressed: () {
                 //Get.toNamed(AddAddressScreen.routeName);
-                Map storedUserData = box!.get('userData');
+                 storedUserData = box?.get('userData');
                // print('userdata in select time ${storedUserData['party']['address']['id'].toString()}');
-                String address = "${storedUserData['party']['address'] != null?storedUserData['party']['address']['id'].toString():""}";
+                String address = "${storedUserData?['party']['address'] != null?storedUserData!['party']['address']['id'].toString():""}";
                 log('selected address: ${userCtlr.user}');
                 log('selected address: $address');
                 log('selectedIndex ${(selectedIndex+1).toString()}');

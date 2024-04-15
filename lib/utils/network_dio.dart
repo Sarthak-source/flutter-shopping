@@ -140,16 +140,10 @@ class NetworkDioHttp {
         }
       } on DioError catch (e) {
         print('DioError::: $e');
-     /*   Map<String, dynamic> responseData = {
-          'body': "Please try again",
-          'headers': null,
-          'error_description': e.response?.data,
-          //  await _handleError(e, context,
-          //     message: e.response?.data['message']),
-        };*/
+
         if (e.response != null) {
-          print(e.response?.statusCode);
-          print(e.response?.statusMessage);
+          print("status code in get api ${e.response?.statusCode}");
+          print("message in get api ${e.response?.statusMessage}");
           print(e.response?.requestOptions);
           throw AppException(
             error: e,
@@ -157,10 +151,11 @@ class NetworkDioHttp {
             statusCode: e.response?.statusCode,
              res:  e.response
           );
-        } else {
+        }
+        else {
           // Something happened in setting up or sending the request that triggered an Error
           print(e.requestOptions);
-          print(e.message);
+          print("aswswdasd${e.message}");
         }
 
         return Future.error(e.response?.data);

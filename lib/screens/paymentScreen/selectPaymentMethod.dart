@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
 import 'package:sutra_ecommerce/constants/colors.dart';
+import 'package:sutra_ecommerce/hive_models/Orders/create_order.dart';
 import 'package:sutra_ecommerce/screens/paymentScreen/enterAmount.dart';
 import 'package:sutra_ecommerce/screens/paymentScreen/upi_screen.dart';
 
 import '../../config/common.dart';
 import '../../controllers/mycart_controller.dart';
 import '../../controllers/payment_controller.dart';
+import '../../hive_models/cart/cart_model.dart';
 import '../../utils/circularCheckbox_text.dart';
 import '../../utils/screen_utils.dart';
 import '../../widgets/back_button_ls.dart';
@@ -33,6 +36,8 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
   String? isCODallowed = "";
   String? clientupiId = "";
   String? planId = "";
+  Box<CreateOrderModel>? createOrderBox;
+  List<CreateOrderModel>? catModelList = [];
   @override
   void initState() {
     super.initState();
@@ -200,9 +205,9 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                   ),
                                   TextButton(
                                     child: const Text("Ok"),
-                                    onPressed: () {
+                                    onPressed: () async{
                                       Navigator.pop(context); // Close the dialog
-                                      createOrderCtlr.createOrderApi(
+                               /*       createOrderCtlr.createOrderApi(   //COD FLOW
                                           "1",
                                           (widget.selectedIndex!+2).toString(),
                                           widget.selectedDate.toString(),
@@ -212,7 +217,56 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                           "",// "1234567",
                                           "",//  "ggghhhh4444",
                                           ""// "Success"
+                                      );*/
+                                      await Hive.deleteBoxFromDisk('createorder');
+                                      localBox = await Hive.openBox<CreateOrderModel>('createorder');
+                                      createOrderBox?.delete(["amtPaid","payMode","upiId","upiTransId","upiTransSts"]);
+                                      createOrderBox = Hive.box<CreateOrderModel>('createorder');
+                                      catModelList?.clear();
+                                      catModelList = createOrderBox?.values.toList();
+                                      print('All data from hive before adding:: ${catModelList?.length}');
+                                      var catModel = CreateOrderModel(widget.totalAmount.toString(), "COD" ,"","","",widget.selectedIndex == null? "":(widget.selectedIndex!+2).toString(),widget.selectedDate==null?"":widget.selectedDate.toString(),widget.address ?? "" ); //creating object
+                                      createOrderBox?.deleteAll(["amtPaid","payMode","upiId","upiTransId","upiTransSts"]);
+
+                                      await createOrderBox?.put(catModel.amtPaid, catModel); //putting object into hive box
+                                      catModelList = createOrderBox?.values.toList(); //get all items in list
+                                     if(catModelList != null && catModelList!.isNotEmpty){
+                                       String amt ="";
+                                       String payMode ="";
+                                       String shift ="";
+                                       String date ="";
+                                       String address ="";
+                                       for(var i=0 ; i<catModelList!.length; i++){
+                                         print('All data from hive:: ${catModelList?[i].amtPaid},${catModelList?[i].payMode}');
+                                         amt = catModelList?[i].amtPaid ?? "";
+                                         payMode = catModelList?[i].payMode ?? "";
+                                         shift = catModelList?[i].shift ?? "";
+                                         date = catModelList?[i].date ?? "";
+                                         address = catModelList?[i].address ?? "";
+                                       }
+                                       print('All data from hive2::amnt: $amt,paymode: $payMode address: $address shift: $shift date: $date' );
+                                           createOrderCtlr.createOrderApi(   //COD FLOW
+                                               shift,
+                                               date,
+                                               address,
+                                               amt.toString(),
+                                               payMode,// "Online",
+                                               "",// "1234567",
+                                               "",//  "ggghhhh4444",
+                                               "",// "Success"
+                                            (v) async {
+                                            if(v == true){
+                                              await  localBox?.delete(catModel.amtPaid);
+                                              catModelList = createOrderBox?.values.toList() ?? [];
+                                                print('after success:: ${catModelList?.length}');
+                                            }
+                                           }
                                       );
+
+                                     }
+
+
+
                                     },
                                   ),
                                 ],
@@ -226,8 +280,6 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                               controller.cod.value = value;
                               controller.upi.value = false;
                               controller.update();
-                           //   Navigator.push(context, MaterialPageRoute(builder: (context) =>EnterAmount(paymentType: "cod",)));
-                             // createOrderCtlr.createOrderApi("1", (widget.selectedIndex!+2).toString(), widget.selectedDate.toString(), widget.address);
                             }else{
                               controller.cod.value = value;
                               controller.upi.value = true;
@@ -346,7 +398,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                     padding: const EdgeInsets.all(0),
                                     child: FlutterPayUPI(paymentAmount: amountController.text,
 
-                                        Successcallback: (upiRequestParams,amnt,transID,merchId){
+                                        Successcallback: (upiRequestParams,amnt,transID,merchId) async {
                                      // if(upiRequestParams.status ?? "N/A" ==  ""){}
 
                                           if(amnt != "IOS"){
@@ -354,22 +406,72 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                             var upiCallBackStatus =upiRequestParams?.status;
                                             if(upiCallBackStatus != null && upiCallBackStatus == "success"){
 
-                                              createOrderCtlr.createOrderApi(
-                                                  "1",
-                                                  (widget.selectedIndex!+2).toString(),
-                                                  widget.selectedDate.toString(),
-                                                  widget.address,
-                                                  amnt.toString(),
-                                                  "Online",
-                                                  clientupiId ??"",
-                                                  transID ?? "",
-                                                  upiCallBackStatus?? ""  // "Success"
-                                              );
+
+                                              await Hive.deleteBoxFromDisk('createorder');
+                                              localBox = await Hive.openBox<CreateOrderModel>('createorder');
+                                              createOrderBox?.delete(["amtPaid","payMode","upiId","upiTransId","upiTransSts"]);
+                                              createOrderBox = Hive.box<CreateOrderModel>('createorder');
+                                              catModelList?.clear();
+                                              catModelList = createOrderBox?.values.toList();
+                                              print('All data from hive before adding:: ${catModelList?.length}');
+                                              var catModel = CreateOrderModel(widget.totalAmount.toString(), "COD" ,clientupiId ??"",transID?? "",upiCallBackStatus,widget.selectedIndex == null? "":(widget.selectedIndex!+2).toString(),widget.selectedDate==null?"":widget.selectedDate.toString(),widget.address ?? "" ); //creating object
+                                              createOrderBox?.deleteAll(["amtPaid","payMode","upiId","upiTransId","upiTransSts"]);
+
+                                              await createOrderBox?.put(catModel.amtPaid, catModel); //putting object into hive box
+                                          catModelList = createOrderBox?.values.toList(); //get all items in list
+                                          if(catModelList != null && catModelList!.isNotEmpty){
+                                          String amt ="";
+                                          String payMode ="";
+                                          String shift ="";
+                                          String date ="";
+                                          String address ="";
+                                          String databasetransID ="";
+                                          String clientupi ="";
+                                          String transts ="";
+                                          for(var i=0 ; i<catModelList!.length; i++){
+                                          print('All data from hive:: ${catModelList?[i].amtPaid},${catModelList?[i].payMode}');
+                                          amt = catModelList?[i].amtPaid ?? "";
+                                          payMode = catModelList?[i].payMode ?? "";
+                                          shift = catModelList?[i].shift ?? "";
+                                          date = catModelList?[i].date ?? "";
+                                          address = catModelList?[i].address ?? "";
+                                          databasetransID = catModelList?[i].upiTransId ?? "";
+                                          clientupi = catModelList?[i].upiId ?? "";
+                                          transts = catModelList?[i].upiTransSts ?? "";
+                                          }
+                                          print('All data from hive2::amnt: $amt,paymode: $payMode address: $address shift: $shift date: $date databasetransID: $databasetransID clientupi: $clientupi transts: $transts' );
+
+                                         /* Fluttertoast.showToast(
+                                            msg: 'All data from hive2::amnt: $amt,paymode: $payMode address: $address shift: $shift date: $date databasetransID: $databasetransID clientupi: $clientupi transts: $transts' ,
+                                            backgroundColor: Colors.red,
+                                          );*/
+                                          createOrderCtlr.createOrderApi(
+
+                                              shift,
+                                              date,
+                                              address,
+                                              amnt.toString(),
+                                              payMode,
+                                              clientupi,
+                                              databasetransID,
+                                              transts,  // "Success"
+                                          (v) async {
+                                            if(v == true){
+                                              await  localBox?.delete(catModel.amtPaid);
+                                            catModelList = createOrderBox?.values.toList() ?? [];
+                                            print('after success:: ${catModelList?.length}');
+                                          }
+                                          }
+
+                                          );
+
+                                          }
+
                                             }
 
                                           }else{
                                             createOrderCtlr.createOrderApi(
-                                                "1",
+
                                                 (widget.selectedIndex!+2).toString(),
                                                 widget.selectedDate.toString(),
                                                 widget.address,
@@ -377,7 +479,8 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                                 "Online",
                                                 clientupiId ??"",
                                                 transID ?? "",
-                                                "success"  // "Success"
+                                                "success" , // "Success"
+                                                (v){}
                                             );
                                           }
 

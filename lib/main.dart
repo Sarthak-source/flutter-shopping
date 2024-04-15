@@ -18,6 +18,8 @@ import 'package:sutra_ecommerce/utils/api_constants.dart';
 import 'package:sutra_ecommerce/utils/network_dio.dart';
 
 import './screens/landing_screen.dart';
+import 'hive_models/Orders/create_order.dart';
+import 'hive_models/cart/cart_model.dart';
 import 'utils/custom_theme.dart';
 
 FirebaseAnalytics analytics = FirebaseAnalytics.instance;
@@ -28,7 +30,13 @@ void main() async {
         options: DefaultFirebaseOptions.currentPlatform,
     );
   await Hive.initFlutter();
+  //Hive.registerAdapter(CatModelAdapter());
+  Hive.registerAdapter(CreateOrderModelAdapter());
   box = await Hive.openBox('Box');
+
+
+
+
 
   if (!kIsWeb) {
     if (kDebugMode) {

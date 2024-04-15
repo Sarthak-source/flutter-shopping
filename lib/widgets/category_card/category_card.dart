@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sutra_ecommerce/utils/screen_utils.dart';
 
 import '../../models/category.dart';
+import '../../utils/api_constants.dart';
 
 class CategoryCard extends StatelessWidget {
   final Category category;
@@ -15,8 +16,8 @@ class CategoryCard extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Image.network(
-          category.catIcon?? 
-          'http://170.187.232.148/static/images/dilicia.png',
+          category.catIcon== null || ApiAppConstants.apiEndPoint=="http://192.168.1.23:8000/api/" ?
+          'http://170.187.232.148/static/images/dilicia.png':category.catIcon??"",
           fit: BoxFit.fill,
           height: from == "allcategories"?getProportionateScreenHeight(80):getProportionateScreenHeight(45),
         ),

@@ -50,7 +50,7 @@ class TabScreenState extends State<TabScreen> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       //curTab = commonController.commonCurTab.value;
       //= widget.pageIndex ?? 0;
-      userController.dispose();
+      //userController.dispose();
       userController.getUserData();
       commonController.update();
       popularController.fetchPopularDeals();

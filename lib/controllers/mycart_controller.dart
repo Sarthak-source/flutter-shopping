@@ -1,16 +1,19 @@
 import 'dart:developer';
 
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
 import 'package:sutra_ecommerce/controllers/popular_controller.dart';
 import 'package:sutra_ecommerce/utils/network_repository.dart';
 
 import '../config/common.dart';
+import '../hive_models/Orders/create_order.dart';
 import '../screens/order_success_screen/order_success_screen.dart';
 
 class MyCartController extends GetxController {
   // AddToCartController addToCardController =Get.find();
   final PopularDealController popController = Get.put(PopularDealController(categoryId: ''));
   var isLoading = true.obs;
+  var isOrderCreated = false.obs;
   var hasError = false.obs;
   var errorMsg = ''.obs;
   var mycartItems = [].obs;
@@ -18,7 +21,8 @@ class MyCartController extends GetxController {
   var mycartTotalValue = "".obs;
   var mycartTotalGst = "".obs;
   var mycartTotalAmount = "0".obs;
-
+  Box<CreateOrderModel>? createOrderBoxCLR;
+  List<CreateOrderModel>? catModelListCLR = [];
   @override
   void onInit() {
     super.onInit();
@@ -81,15 +85,17 @@ class MyCartController extends GetxController {
     }
   }
 
-  void createOrderApi(party, shift, deliverydate, address,
+  void createOrderApi( shift, deliverydate, address,
       String amtPaid,
        String payMode,
        String upiId,
        String upiTransId,
-       String upiTransSts,) async {
+       String upiTransSts,
+       Function(bool) onSuccessRes,) async {
     try {
       isLoading.value = true;
       Map storedUserData = box!.get('userData');
+      print('storedUserData in create order ${storedUserData['party']['id'].toString()}');
 
       var responseData = await NetworkRepository.CreateOrderApi(
           party: storedUserData['party']['id'].toString(),
@@ -108,8 +114,15 @@ class MyCartController extends GetxController {
       myOrderItems.assignAll(addToCartData);
       update();
       if (myOrderItems.isNotEmpty) {
+        isOrderCreated.value = true;
+        update();
         getMyCart();
         popController.fetchPopularDeals();
+        onSuccessRes(true);
+        // createOrderBoxCLR?.delete("createorder");
+        // catModelListCLR = createOrderBoxCLR?.values.toList();
+        // print('after success:: ${catModelListCLR?.length}');
+
         Get.toNamed(OrderSuccessScreen.routeName);
       }
 

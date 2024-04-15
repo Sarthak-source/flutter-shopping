@@ -13,36 +13,52 @@ import 'mycart_controller.dart';
 
 class MyOrderController extends GetxController{
 
-  PageController pageController = PageController();
-  RxInt selectedBtn = 0.obs;
-  final RxList<bool> selectedFilter = <bool>[true, false, false, false].obs;
-  final PagingController<int, dynamic> pagingController =
-  PagingController(firstPageKey: 1);
+  // PageController pageController = PageController();
+  RxInt selectedBtn = 1.obs;
+  final RxList<bool> selectedFilter = <bool>[false, true, false, false, false, false].obs;
+  //final PagingController<int, dynamic> pagingController = PagingController(firstPageKey: 1);
   var isLoading = true.obs;
   var hasError = false.obs;
   var errorMsg = ''.obs;
+  var nxt = ''.obs;
+  var currentStatus = ''.obs;
   var myOrderList = [].obs;
+  var myApprovedOrderList = [].obs;
   var myOrderDetailList = [].obs;
   RxMap orderdetailDatas = {}.obs;
   final MyCartController controller = Get.put(MyCartController());
   @override
   void onInit() {
     super.onInit();
-    getMyOrders("Created");
+    //getMyOrders("Created","1");
 
     print('selectedBtn in myorder controller ${selectedBtn.value}');
   }
-  void getMyOrders(String status) async {
+  void getMyOrders(String status,String pageNo) async {
     try {
       // Assuming NetworkRepository.getCategories returns a Future<dynamic>
       Map storedUserData=box!.get('userData');
 
-
-      var responseData = await NetworkRepository.getMyOrders(party: storedUserData['party']['id'].toString(),
-      order_status: status,order_date: "",delivery_required_on: "",order_prifix: "");
-      List myorders = responseData['body']['results'];
-      myOrderList.assignAll(myorders);
+      currentStatus.value=status;
+      print('currentStatus.value ${currentStatus.value} and status:: $status');
       update();
+      var responseData = await NetworkRepository.getMyOrders(party: storedUserData['party']['id'].toString(),
+      order_status: status,order_date: "",delivery_required_on: "",order_prifix: "",pageNo: pageNo);
+      List myorders = responseData['body']['results'];
+      nxt.value=responseData['body']['next'] ?? "";
+      if(currentStatus.value == status){
+        //myOrderList.assignAll(myorders);
+        for (dynamic orderLists in myorders ?? []) {
+          myOrderList.add(orderLists);
+          update();
+        }
+
+      }else{
+        myOrderList.clear();
+        myOrderList.addAll(myorders);
+        update();
+      }
+
       log('myOrderList++++ ${myOrderList.length}');
     } catch (e) {
       errorMsg.value = e.toString();

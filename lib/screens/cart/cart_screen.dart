@@ -31,14 +31,14 @@ class _CartScreenState extends State<CartScreen> {
       Get.put(AddToCartController());
 
   String? isOrderLock = "";
-
+  Map? storedUserData;
   //AddToCartController addToCartController = AddToCartController();
   @override
   void initState() {
     super.initState();
-    Map storedUserData=box!.get('userData');
-    print('userdata in pending payment ${ storedUserData['party']['order_lock'].toString() }');
-    isOrderLock =storedUserData['party']['order_lock']!=null?storedUserData['party']['order_lock'].toString():"";
+     storedUserData=box?.get('userData');
+    print('userdata in pending payment ${ storedUserData?['party']['order_lock'].toString() }');
+    isOrderLock =storedUserData?['party']['order_lock']!=null?storedUserData!['party']['order_lock'].toString():"";
     print('userdata in order_lock ${ isOrderLock.toString() }');
 
   }
@@ -247,17 +247,17 @@ class _CartScreenState extends State<CartScreen> {
                                     //  Navigator.of(context).pushNamed(AddAddressScreen.routeName);
                                      // Get.toNamed(SelectTime.routeName);
 
-                                     if(isOrderLock=="Yes"){
+                                  /*   if(isOrderLock=="Yes"){
                                        payCtrlr.fetchPendingPayment();
                                        Navigator.push(context, MaterialPageRoute(builder: (context) => PendingPayment()));
                                      }else{
                                        Navigator.push(context, MaterialPageRoute(builder: (context) => SelectTime(
                                          totalamount: twodecimalDigit(double.parse(controller.mycartTotalAmount.value ?? "0.000")) ?? "",
                                        )));
-                                     }
-                                      // Navigator.push(context, MaterialPageRoute(builder: (context) => SelectTime(
-                                      //   totalamount: twodecimalDigit(double.parse(controller.mycartTotalAmount.value ?? "0.000")) ?? "",
-                                      // )));
+                                     }*/
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => SelectTime(
+                                        totalamount: twodecimalDigit(double.parse(controller.mycartTotalAmount.value ?? "0.000")) ?? "",
+                                      )));
 
                                     },
                                     child: const Text(
