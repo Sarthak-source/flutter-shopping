@@ -49,6 +49,7 @@ final CommonController controller = Get.put(CommonController());
 
 class _AddButtonState extends State<AddButton> {
   int quantity = 0;
+  bool isloading = false;
   late FocusNode focusNode;
   ItemScrollController itemScrollController = ItemScrollController();
   final ScrollOffsetController scrollOffsetController =
@@ -69,14 +70,23 @@ class _AddButtonState extends State<AddButton> {
           ? storedUserData!['party']['orders_milk'].toString()
           : "";
     }
+    quantity = widget.qty;
+    isloading = widget.isLoading;
+    widget.qtyController?.text = quantity.toString();
+    print('quantity in init $quantity');
   }
 
   @override
   void didUpdateWidget(covariant AddButton oldWidget) {
     super.didUpdateWidget(oldWidget);
-    widget.qtyController?.text = widget.qty.toString();
+    quantity = widget.qty;
+    isloading = widget.isLoading;
+    widget.qtyController?.text = quantity.toString();
+
     //itemScrollController=ItemScrollController();
     focusNode = FocusNode();
+    print('quantity in didUpdateWidget $quantity');
+
   }
 
   @override
@@ -106,8 +116,8 @@ class _AddButtonState extends State<AddButton> {
     log("{widget.minOrder.toString()} ${widget.minOrder.toString()}");
 
 
-    quantity = widget.qty;
-    widget.qtyController?.text = widget.qty.toString();
+
+
     focusNode = FocusNode();
     itemScrollController = ItemScrollController();
 
@@ -134,7 +144,7 @@ class _AddButtonState extends State<AddButton> {
       log("test ${generateList(widget.minOrder, listLength).indexOf(quantity).toString()}");
     }
 
-    return widget.qty == 0
+    return    quantity  == 0
         ? SizedBox(
             width: widget.width,
             height: 32,
@@ -156,7 +166,7 @@ class _AddButtonState extends State<AddButton> {
               ),
             ),
           )
-        : widget.isLoading
+        : isloading
             ? const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Loader(),

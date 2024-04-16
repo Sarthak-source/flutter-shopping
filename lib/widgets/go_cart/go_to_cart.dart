@@ -64,7 +64,7 @@ class _GoToCartState extends State<GoToCart> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    'cart total:',
+                    'Cart Total:',
                     style: TextStyle(fontSize: 15),
                   ),
                   Row(
@@ -79,7 +79,7 @@ class _GoToCartState extends State<GoToCart> {
                                 fontSize: fontSize),
                       ),
                       Text(
-                        " | ${addToCartController.productCount.value} items",
+                        " | ${addToCartController.productCount.value} Items",
                         style: TextStyle(fontSize: fontSize),
                       )
                     ],

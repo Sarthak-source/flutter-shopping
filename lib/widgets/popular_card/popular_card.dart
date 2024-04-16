@@ -10,6 +10,7 @@ import 'package:sutra_ecommerce/utils/screen_utils.dart';
 import 'package:sutra_ecommerce/widgets/add_button.dart';
 
 import '../../config/common.dart';
+import '../../controllers/popular_controller.dart';
 import '../../controllers/product_detail_controller.dart';
 
 class PopularCard extends StatefulWidget {
@@ -31,13 +32,16 @@ class PopularCard extends StatefulWidget {
 }
 
 class _PopularCardState extends State<PopularCard> {
-  RxInt quantity = 0.obs;
+   RxInt quantity = 0.obs;
   String ordersMilk = "";
+  String minOrderCount = "0.0";
   Map? storedUserData;
+  final PopularDealController popController = Get.put(PopularDealController(categoryId: ''));
+
   @override
   void initState() {
     super.initState();
-
+    print('initState::: in popular card ${widget.product!["cart_count"]}');
      storedUserData=box?.get('userData');
     if(storedUserData != null && storedUserData?['party'] !=null){
 
@@ -52,6 +56,7 @@ class _PopularCardState extends State<PopularCard> {
             log('double count $parsedCount');
             log('int count ${parsedCount.toInt()}');
             quantity.value = parsedCount.toInt();
+
           }
         }
       }
@@ -62,8 +67,10 @@ class _PopularCardState extends State<PopularCard> {
   @override
   void didUpdateWidget(covariant PopularCard oldWidget) {
     super.didUpdateWidget(oldWidget);
+    print('didUpdateWidget::: in popular card ${widget.product!["cart_count"]}');
     if (widget.product != null && widget.product!["cart_count"] != null) {
       final cartCount = widget.product!["cart_count"];
+      minOrderCount=widget.product['min_order_qty'] ?? "0.0";
       if (cartCount != null) {
         log("count in popularcard2 ${cartCount.toString()}");
         final double? parsedCount = double.tryParse(cartCount.toString());
@@ -326,7 +333,7 @@ class _PopularCardState extends State<PopularCard> {
                 AddButton(
                   units: " ${widget.product?['order_uom'] == null ? "" : widget.product?['order_uom']}",
                   width: 135,
-                  minOrder: int.parse(convertDoubleToString(widget.product['min_order_qty'] ?? "0.0")),
+                  minOrder: int.parse(convertDoubleToString(minOrderCount)),
                   textWidth: 120,
                   isLoading: widget.loader ?? false,
                   qty: quantity.value < int.parse(convertDoubleToString(widget.product['min_order_qty'] ?? "0.0"))

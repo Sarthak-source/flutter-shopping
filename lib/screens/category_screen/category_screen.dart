@@ -202,7 +202,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                           ),
                         );
                       },
-                    ))
+                    )
+                    )
                   ],
                 ),
         ),

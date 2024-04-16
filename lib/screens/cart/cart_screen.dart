@@ -202,7 +202,7 @@ class _CartScreenState extends State<CartScreen> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    RateCardinBuyNow(context, "Total value",
+                                    RateCardinBuyNow(context, "Total Basic Amt",
                                         controller.mycartTotalValue.value),
                                     RateCardinBuyNow(context, "Total Gst",
                                         controller.mycartTotalGst.value),
@@ -299,7 +299,7 @@ class _CartScreenState extends State<CartScreen> {
         Expanded(
           flex: 1,
           child: Text(
-            ": ₹ ${twodecimalDigit(double.parse(value == null ? "0.000" : value.toString()))}",
+            " : ₹ ${twodecimalDigit(double.parse(value == null ? "0.000" : value.toString()))}",
             style: Theme.of(context)
                 .textTheme
                 .headlineSmall!

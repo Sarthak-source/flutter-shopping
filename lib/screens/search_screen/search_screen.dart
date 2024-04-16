@@ -20,39 +20,41 @@ class SearchScreen extends StatelessWidget {
 
       final AddToCartController addToCartController =
         Get.put(AddToCartController());
-    return Scaffold(
-      bottomSheet: (addToCartController.productCount > 0 )
-            ? const GoToCart(usedIn: "PoductsListScreen",)
-            : const SizedBox.shrink(),
-      body: SafeArea(
-        child: Stack(
-          children: [
-            Hero(
-              tag: 'search',
-              child: Material(
-                child: SearchTab(
-                  key: const Key('value'),
-                  textEditingController: searchController,
+    return Obx( ()=>
+      Scaffold(
+        bottomSheet: (addToCartController.productCount > 0 )
+              ? const GoToCart(usedIn: "PoductsListScreen",)
+              : const SizedBox.shrink(),
+        body: SafeArea(
+          child: Stack(
+            children: [
+              Hero(
+                tag: 'search',
+                child: Material(
+                  child: SearchTab(
+                    key: const Key('value'),
+                    textEditingController: searchController,
+                  ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: getProportionateScreenHeight(32),
-            ),
-            Transform.translate(
-              offset: const Offset(0, 75),
-              child: SizedBox(
-                height: Get.height,
-                child: CustomStaggerGrid(
-                  addCallback: () {},
+              SizedBox(
+                height: getProportionateScreenHeight(32),
+              ),
+              Transform.translate(
+                offset: const Offset(0, 75),
+                child: SizedBox(
+                  height: Get.height,
+                  child: CustomStaggerGrid(
+                    addCallback: () {},
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
 
-      //bottomNavigationBar: CustomNavBar((_) {}, 0),
+        //bottomNavigationBar: CustomNavBar((_) {}, 0),
+      ),
     );
   }
 }

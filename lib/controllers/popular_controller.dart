@@ -10,7 +10,7 @@ class PopularDealController extends GetxController {
   PopularDealController({required this.categoryId,});
 
   var popularDeals = [].obs;
-
+  RxInt quantity = 0.obs;
   var isLoading = true.obs;
   var hasError = false.obs;
   var errorMsg = ''.obs;

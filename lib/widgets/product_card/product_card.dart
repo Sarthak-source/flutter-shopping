@@ -202,16 +202,16 @@ class _ProductCardState extends State<ProductCard> {
                     String minOrder = widget.product['min_order_qty'] == null
                         ? "0.0"
                         : widget.product['min_order_qty'].toString();
-                    quantity.value = quantity.value +
-                        int.parse(convertDoubleToString(minOrder));
+                    quantity.value = quantity.value + int.parse(convertDoubleToString(minOrder));
                     print(
                         'onClick of Add ${int.parse(convertDoubleToString(minOrder))} :: ${quantity.value}');
                     addToCartController.productCount++;
                     addToCartController.addToCart(quantity.value,
                         widget.product?['id'], '1', widget.product);
-                    addToCartController.update();
+
                     quantityCtrlr.text = quantity.value.toString();
                     controller.rxQty.value = quantity.value.toString();
+                    addToCartController.update();
                   },
                   onPlusPressed: () {
                     widget.onCardAddClicked();

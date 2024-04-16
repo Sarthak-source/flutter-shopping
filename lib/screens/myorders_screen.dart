@@ -560,7 +560,7 @@ class _MyOrderCardsState extends State<MyOrderCards> {
                                   children: [
                                     orderRateCard(
                                         context,
-                                        "Delivery required on",
+                                        "Delivery Required On",
                                         setDelvReqDate(widget.myOrderList[index]
                                                 ["delivery_required_on"]
                                             .toString()),
@@ -568,13 +568,13 @@ class _MyOrderCardsState extends State<MyOrderCards> {
                                     const SizedBox(height: 8),
                                     orderRateCard(
                                         context,
-                                        "Total value",
+                                        "Total Basic Amt",
                                         widget.myOrderList[index]["total_value"]
                                             .toString(),
                                         false),
                                     orderRateCard(
                                         context,
-                                        "Total gst",
+                                        "Total GST",
                                         widget.myOrderList[index]["total_gst"]
                                             .toString(),
                                         false),

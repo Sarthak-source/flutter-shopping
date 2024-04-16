@@ -59,79 +59,92 @@ class _SelectTimeState extends State<SelectTime> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: DatePicker(
+
               DateTime.now().add(Duration(days: 1)),
               initialSelectedDate: DateTime.now().add(Duration(days: 1)),
               selectionColor: kPrimaryBlue,
               selectedTextColor: Colors.white,
+
               onDateChange: (date) {
-                // New date selected
-                setState(() {
-                  _selectedDate = date;
-                });
+                final tomorrow = DateTime.now().add(Duration(days: 1)); // Calculate tomorrow's date
+
+                if (date.isAfter(tomorrow)) { // Check if date is after tomorrow
+                  setState(() {
+                    _selectedDate = date;
+                  });
+                } else {
+                  // Show an error message or prevent selection (optional)
+                  print('Date selection disabled for dates before tomorrow.');
+                }
               },
+              inactiveDates: setDeActivateDates(DateTime.now()),
+             deactivatedColor: kTextColorThird,
               height: 100,
             ),
           ),
           const SizedBox(height: 30),
-          Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: SizedBox(
-                height: 100,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: iconList.length,
-                  itemBuilder: (BuildContext context, int position) {
-                    return InkWell(
-                      onTap: () {
-                        setState(() {
-                          selectedIndex = position;
-                        });
-                      },
-                      child: SizedBox(
-                        width: 150,
-                        height: 50,
-                        child: Card(
-                          shape: (selectedIndex == position)
-                              ? RoundedRectangleBorder(
-                                  side: const BorderSide(color: kPrimaryBlue),
-                                  borderRadius: BorderRadius.circular(
-                                      10), // Adjust border radius as needed
-                                )
-                              : RoundedRectangleBorder(
-                                  side: const BorderSide(color: Colors.grey),
-                                  borderRadius: BorderRadius.circular(
-                                      10), // Adjust border radius as needed
-                                ),
-                          elevation: 0,
-                          color: (selectedIndex == position)
-                              ? kPrimaryBlue
-                              : null, // Set background color
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: <Widget>[
-                              Icon(
-                                iconList[position].iconName,
-                                color: (selectedIndex == position)
-                                    ? Colors.white
-                                    : null, // Set icon color
-                              ),
-                              Text(
-                                iconList[position].titleIcon,
-                                style: TextStyle(
-                                  fontSize: 16,
+          Visibility(
+            visible: false,
+            child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: SizedBox(
+                  height: 100,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: iconList.length,
+                    itemBuilder: (BuildContext context, int position) {
+                      return InkWell(
+                        onTap: () {
+                          setState(() {
+                            selectedIndex = position;
+                          });
+                        },
+                        child: SizedBox(
+                          width: 150,
+                          height: 50,
+                          child: Card(
+                            shape: (selectedIndex == position)
+                                ? RoundedRectangleBorder(
+                                    side: const BorderSide(color: kPrimaryBlue),
+                                    borderRadius: BorderRadius.circular(
+                                        10), // Adjust border radius as needed
+                                  )
+                                : RoundedRectangleBorder(
+                                    side: const BorderSide(color: Colors.grey),
+                                    borderRadius: BorderRadius.circular(
+                                        10), // Adjust border radius as needed
+                                  ),
+                            elevation: 0,
+                            color: (selectedIndex == position)
+                                ? kPrimaryBlue
+                                : null, // Set background color
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: <Widget>[
+                                Icon(
+                                  iconList[position].iconName,
                                   color: (selectedIndex == position)
                                       ? Colors.white
-                                      : null, // Set text color
+                                      : null, // Set icon color
                                 ),
-                              )
-                            ],
+                                Text(
+                                  iconList[position].titleIcon,
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: (selectedIndex == position)
+                                        ? Colors.white
+                                        : null, // Set text color
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    );
-                  },
-                ),
-              )),
+                      );
+                    },
+                  ),
+                )),
+          ),
           const Spacer(flex: 10,),
           Text(
                     selectedIndex == 1
@@ -188,6 +201,19 @@ class _SelectTimeState extends State<SelectTime> {
         ],
       ),
     );
+  }
+
+  setDeActivateDates(DateTime dateTime) {
+    List<DateTime>? DeActiveDates=[];
+    DeActiveDates.clear();
+    for(var i=0; i<31 ; i++){
+     if(i != 0 ){
+       DeActiveDates.add(DateTime.now().add(Duration(days: i+1)));
+       print('DeActiveDates:: $i');
+     }
+    }
+    print('DeActiveDates:: ${DeActiveDates.length}');
+    return DeActiveDates;
   }
 }
 

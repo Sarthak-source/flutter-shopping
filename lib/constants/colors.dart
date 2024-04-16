@@ -35,6 +35,7 @@ const kPrimaryBlueTest3 = Color.fromRGBO(126, 223, 255, 1);
 
 const kPrimaryBlueBG = Color.fromRGBO(21, 76, 121 ,1);
 const kPrimaryRed = Color(0xFFFE6E4C);
+const kPrimaryBoxBG = Color(0xFFe8f2f2);
 const kPrimaryYellow = Color(0xFFFEBF43);
 const kPrimaryPurple = Color(0xFF9B81E5);
 const kPrimaryTosca = Color(0xFF03B0A9);

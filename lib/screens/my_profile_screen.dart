@@ -34,7 +34,7 @@ class MyProfileScreen extends StatelessWidget {
                 children: [
                   SizedBox(height: getProportionateScreenHeight(60.0),),
                   InputFormCard(
-                    title: 'Full name',
+                    title: 'Full Name',
                     value: userController.user['party']['party_name'].toString(),
                   ),
                   InputFormCard(

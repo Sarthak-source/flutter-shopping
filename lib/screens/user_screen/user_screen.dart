@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
 import 'package:sutra_ecommerce/config/common.dart';
 import 'package:sutra_ecommerce/controllers/user_controller.dart';
 import 'package:sutra_ecommerce/screens/landing_screen.dart';
@@ -75,7 +76,7 @@ class UserScreen extends StatelessWidget {
               ProfileCard(
                 image: 'assets/images/profile_user.png',
                 color: kPrimaryBlue.withOpacity(0.2),
-                title: 'My profile',
+                title: 'My Profile',
                 tapHandler: () {
                   Get.toNamed(MyProfileScreen.routeName);
                 },
@@ -198,7 +199,7 @@ class UserScreen extends StatelessWidget {
               ProfileCard(
                   image: 'assets/images/arrow_user.png',
                   color: kPrimaryBlue.withOpacity(0.2),
-                  title: 'Log out',
+                  title: 'Log Out',
                   tapHandler: () {
                     showDialog(
                       context: context,
@@ -215,12 +216,12 @@ class UserScreen extends StatelessWidget {
                             ),
                             TextButton(
                               child: const Text("Ok"),
-                              onPressed: () {
+                              onPressed: () async {
                                 log(box!.get('userData').toString());
                                 userController!.update();
                                 log(box!.get('userData').toString());
-                                box!.deleteAll(
-                                    ['userData', 'login', 'isTestEnvironment']);
+                                await Hive.deleteBoxFromDisk('userData');
+                                box!.deleteAll(['userData', 'login', 'isTestEnvironment']);
                                 log(box!.get('userData').toString());
                                 Navigator.pushAndRemoveUntil(
                                     context,

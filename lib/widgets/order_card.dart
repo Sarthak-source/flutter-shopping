@@ -159,18 +159,19 @@ class _OrderCardState extends State<OrderCard> {
                       "${twodecimalDigit(double.parse(widget.mycartItem["product"]["price"] == null ? "0.000" : widget.mycartItem["product"]["price"].toString()))} / ${widget.mycartItem?["product"]['order_uom'] == null ? "" : widget.mycartItem?["product"]['order_uom']}",
                     ),
                     rateCard(
-                        "Gst ",
-                        twodecimalDigit(double.parse(
-                            widget.mycartItem["total_gst"] == null
-                                ? "0.000"
-                                : widget.mycartItem["total_gst"].toString()))),
-                    rateCard(
-                        "Value ",
+                        "Basic Amount ",
                         twodecimalDigit(double.parse(
                             widget.mycartItem["total_value"] == null
                                 ? "0.000"
                                 : widget.mycartItem["total_value"]
-                                    .toString()))),
+                                .toString()))),
+                    rateCard(
+                        "GST ",
+                        twodecimalDigit(double.parse(
+                            widget.mycartItem["total_gst"] == null
+                                ? "0.000"
+                                : widget.mycartItem["total_gst"].toString()))),
+
 
                     /*    Text(
                         widget.mycartItem["total_value"].toString(),

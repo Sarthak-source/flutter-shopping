@@ -49,6 +49,13 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
         isTextFieldFocused = focusNode.hasFocus;
       });
     });
+
+  /*  createOrderBox = Hive.box<CreateOrderModel>('createorder');
+    //catModelList?.clear();
+    catModelList = createOrderBox?.values.toList();
+    print('All data from hive in initstate:: ${catModelList?.length}');*/
+
+
     Map storedUserData=box!.get('userData');
     print('userdata in paymentselection ${ storedUserData['party']['COD_Allowed'].toString() }');
     isCODallowed =storedUserData['party']['COD_Allowed']!=null?storedUserData['party']['COD_Allowed'].toString():"";
