@@ -25,10 +25,14 @@ class _FavScreenState extends State<FavScreen> {
 @override
   void initState() {
     super.initState();
-    myOrderController.selectedBtn.value = 1;
-    myOrderController.myOrderList.clear();
-    myOrderController.getMyOrders("Approved","1");
-    myOrderController.update();
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      myOrderController.selectedBtn.value = 1;
+      myOrderController.myOrderList.clear();
+      myOrderController.getMyOrders("Approved","1");
+      myOrderController.update();
+    });
+
 }
   @override
   Widget build(BuildContext context) {
@@ -91,11 +95,11 @@ class _FavScreenState extends State<FavScreen> {
                                           const SliverGridDelegateWithFixedCrossAxisCount(
                                           crossAxisCount: 2,
                                           ),
-                                          itemCount: 4,
-                                          itemBuilder: (BuildContext context, int index) {
+                                          itemCount: myOrderController.myOrderList[index]["order_items"].length,
+                                          itemBuilder: (BuildContext context, int indexx) {
 
                           return
-                            index == 3? Container(
+                            indexx == 3? Container(
                                 margin: const EdgeInsets.all(4.0),
                                 decoration: BoxDecoration(
                                     color: Colors.white,
@@ -108,7 +112,8 @@ class _FavScreenState extends State<FavScreen> {
                                     child: Container(
                                       color: Colors.white,
                                     child: Center(
-                                      child: Text("+7",style: TextStyle(fontSize: 20,color: Colors.grey,fontWeight: FontWeight.bold),),
+                                       // myOrderController.myOrderList[index]["order_items"].length
+                                      child: Text(setOrdersNum(myOrderController.myOrderList[index]["order_items"].length,index),style: TextStyle(fontSize: 20,color: Colors.grey,fontWeight: FontWeight.bold),),
                                     ),
                                     ),
                                   ),
@@ -167,8 +172,9 @@ class _FavScreenState extends State<FavScreen> {
                                       ),
                                     ),
                                     onPressed: () {
-
-                                    },
+                                      print('orderId:: ${myOrderController.myOrderList[index]["id"]}');
+                                      myOrderController.reOrderApi(myOrderController.myOrderList[index]["id"].toString());
+                                            },
                                     child: const Text(
                                       'Reorder',
                                       style: TextStyle(fontSize: 14),
@@ -249,5 +255,16 @@ class _FavScreenState extends State<FavScreen> {
             ),
           )),
     );
+  }
+
+   setOrdersNum(length, int index) {
+     print('length of order items $length');
+    if(length > 3){
+      int l = length- 3;
+      return "+${l.toString()}";
+    }else{
+      print('length of order index $index');
+      return "";
+    }
   }
 }
