@@ -72,208 +72,215 @@ class _HomeScreenState extends State<HomeScreen> {
         return false;
       },
       child: Obx(
-        () =>  usercontroller.isUpdate.value &&  Platform.isAndroid?  AlertDialog(
-          title: const Text('New Version Available'),
-          content: Text(
-              'A new version of the app is available. Please update to continue using the app. localVersion : ${usercontroller.localVersion.value.toString()} and App buildNumber : ${usercontroller.buildversion.value.toString()}'),
-          actions: <Widget>[
-            // TextButton(
-            //   child: const Text('Ignore'),
-            //   onPressed: () async{
-            // Get.back();
-            //   },
-            // ),
-            TextButton(
-              child: const Text('Update'),
-              onPressed: () async {
-                var url =
-                    "https://play.google.com/store/apps/details?id=com.dilicia.sutra_ecommerce";
-                if (await canLaunchUrl(Uri.parse(url))) {
-                  await launchUrl(
-                    Uri.parse(url),
-                    mode: LaunchMode.externalApplication,
-                  );
-                  exit(0);
-                } else {}
-              },
-            ),
-          ],
-        ) : CustomScrollView(
-          slivers: [
-            SliverToBoxAdapter(
-              child: Container(
-                color: kPrimaryBlueTest2,
-                height: 60,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: getProportionateScreenWidth(14),
-                          vertical: 0),
-                      child: Hero(
-                        tag: 'search',
-                        child: Container(
-                          height: 45,
-                          decoration: BoxDecoration(
-                            color: Colors.grey.shade200.withOpacity(0.4),
-                            border: Border.all(
-                              color: Colors.black, // Border color
-                              width: 0.4, // Border width
+        () => usercontroller.isUpdate.value && Platform.isAndroid
+            ? AlertDialog(
+                title: const Text('New Version Available'),
+                content: Text(
+                    'A new version of the app is available. Please update to continue using the app. localVersion : ${usercontroller.localVersion.value.toString()} and App buildNumber : ${usercontroller.buildversion.value.toString()}'),
+                actions: <Widget>[
+                  // TextButton(
+                  //   child: const Text('Ignore'),
+                  //   onPressed: () async{
+                  // Get.back();
+                  //   },
+                  // ),
+                  TextButton(
+                    child: const Text('Update'),
+                    onPressed: () async {
+                      var url =
+                          "https://play.google.com/store/apps/details?id=com.sanvi.goflamingo";
+                      if (await canLaunchUrl(Uri.parse(url))) {
+                        await launchUrl(
+                          Uri.parse(url),
+                          mode: LaunchMode.externalApplication,
+                        );
+                        exit(0);
+                      } else {}
+                    },
+                  ),
+                ],
+              )
+            : CustomScrollView(
+                slivers: [
+                  SliverToBoxAdapter(
+                    child: Container(
+                      color: kPrimaryBlueTest2,
+                      height: 60,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: getProportionateScreenWidth(14),
+                                vertical: 0),
+                            child: Hero(
+                              tag: 'search',
+                              child: Container(
+                                height: 45,
+                                decoration: BoxDecoration(
+                                  color: Colors.grey.shade200.withOpacity(0.4),
+                                  border: Border.all(
+                                    color: Colors.black, // Border color
+                                    width: 0.4, // Border width
+                                  ),
+                                  borderRadius: BorderRadius.circular(
+                                      12), // Border radius
+                                ),
+                                child: SearchBar(
+                                  trailing: const [
+                                    Icon(
+                                      Icons.search,
+                                      color: Colors.grey,
+                                    )
+                                  ],
+                                  // leading: Transform.translate(
+                                  //   offset: const Offset(-12, -13),
+                                  //   child: Transform.scale(
+                                  //     scale: 0.04,
+                                  //     child: CustomPaint(
+                                  //       size: const Size(25, 25),
+                                  //       painter: Logo(),
+                                  //     ),
+                                  //   ),
+                                  // ),
+                                  elevation: MaterialStateProperty.resolveWith<
+                                      double?>(
+                                    (Set<MaterialState> states) {
+                                      if (states
+                                          .contains(MaterialState.pressed)) {
+                                        return 0.0; // Elevation when pressed
+                                      }
+                                      return 0.0; // Default elevation
+                                    },
+                                  ),
+                                  backgroundColor:
+                                      MaterialStateProperty.resolveWith<Color?>(
+                                    (Set<MaterialState> states) {
+                                      if (states
+                                          .contains(MaterialState.pressed)) {
+                                        return Colors
+                                            .white; // Elevation when pressed
+                                      }
+                                      return Colors.grey.shade200.withOpacity(
+                                          0.4); // Default elevation
+                                    },
+                                  ),
+                                  hintText: 'Search...',
+                                  hintStyle: MaterialStateProperty.resolveWith<
+                                      TextStyle?>(
+                                    (Set<MaterialState> states) {
+                                      // Define the TextStyle based on different states
+                                      if (states
+                                          .contains(MaterialState.pressed)) {
+                                        return const TextStyle(
+                                            color:
+                                                kPrimaryBlueTest2, // Change the text color when pressed
+                                            fontStyle: FontStyle
+                                                .italic, // Change the font style when pressed
+                                            fontSize:
+                                                13, // Change the font size when pressed
+                                            fontWeight: FontWeight.w400);
+                                      }
+                                      return const TextStyle(
+                                          color:
+                                              Colors.grey, // Default text color
+                                          fontSize:
+                                              13, // Change the font size when pressed
+                                          fontWeight: FontWeight
+                                              .w400 // Default font size
+                                          );
+                                    },
+                                  ),
+                                  onTap: () {
+                                    Get.toNamed(SearchScreen.routeName);
+                                  },
+                                ),
+                              ),
                             ),
-                            borderRadius:
-                                BorderRadius.circular(12), // Border radius
                           ),
-                          child: SearchBar(
-                            trailing: const [
-                              Icon(
-                                Icons.search,
-                                color: Colors.grey,
-                              )
-                            ],
-                            // leading: Transform.translate(
-                            //   offset: const Offset(-12, -13),
-                            //   child: Transform.scale(
-                            //     scale: 0.04,
-                            //     child: CustomPaint(
-                            //       size: const Size(25, 25),
-                            //       painter: Logo(),
-                            //     ),
-                            //   ),
-                            // ),
-                            elevation:
-                                MaterialStateProperty.resolveWith<double?>(
-                              (Set<MaterialState> states) {
-                                if (states.contains(MaterialState.pressed)) {
-                                  return 0.0; // Elevation when pressed
-                                }
-                                return 0.0; // Default elevation
-                              },
-                            ),
-                            backgroundColor:
-                                MaterialStateProperty.resolveWith<Color?>(
-                              (Set<MaterialState> states) {
-                                if (states.contains(MaterialState.pressed)) {
-                                  return Colors.white; // Elevation when pressed
-                                }
-                                return Colors.grey.shade200
-                                    .withOpacity(0.4); // Default elevation
-                              },
-                            ),
-                            hintText: 'Search...',
-                            hintStyle:
-                                MaterialStateProperty.resolveWith<TextStyle?>(
-                              (Set<MaterialState> states) {
-                                // Define the TextStyle based on different states
-                                if (states.contains(MaterialState.pressed)) {
-                                  return const TextStyle(
-                                      color:
-                                          kPrimaryBlueTest2, // Change the text color when pressed
-                                      fontStyle: FontStyle
-                                          .italic, // Change the font style when pressed
-                                      fontSize:
-                                          13, // Change the font size when pressed
-                                      fontWeight: FontWeight.w400);
-                                }
-                                return const TextStyle(
-                                    color: Colors.grey, // Default text color
-                                    fontSize:
-                                        13, // Change the font size when pressed
-                                    fontWeight:
-                                        FontWeight.w400 // Default font size
-                                    );
-                              },
-                            ),
-                            onTap: () {
-                              Get.toNamed(SearchScreen.routeName);
-                            },
-                          ),
-                        ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
-              ),
-            ),
-            SliverToBoxAdapter(
-              child: HomeAppBar(),
-            ),
-            SliverToBoxAdapter(child: CategoryTab()),
-            /*   SliverToBoxAdapter(
+                  ),
+                  SliverToBoxAdapter(
+                    child: HomeAppBar(),
+                  ),
+                  SliverToBoxAdapter(child: CategoryTab()),
+                  /*   SliverToBoxAdapter(
               child:     const Divider(),
             ),*/
-            const SliverToBoxAdapter(
-              child: DealsTab(),
-            ),
-            SliverToBoxAdapter(
-              child: Container(
-                // color: Colors.grey.shade300,
-                color: kPrimaryBlueTest,
-                child: TabTitle(
-                  title: 'Popular Products',
-                  seeAll: () {
-                    Get.toNamed(PoductsListScreen.routeName);
-                  },
-                ),
-              ),
-            ),
-            const SliverToBoxAdapter(
-                child: PopularDealTab(
-              categoryId: "",
-            )),
-            SliverToBoxAdapter(
-              child: Container(
-                //height: 200,
-                width: Get.width,
-                //  color: Colors.grey.shade300,
-                color: kPrimaryBlueTest,
-                child: ExploreNewCategory(),
-              ),
-            ),
-            SliverToBoxAdapter(
-              child: Container(
-                // color: Colors.grey.shade300,
-                color: kPrimaryBlueTest,
-                child: TabTitle(
-                  title: 'Explore More Products',
-                  seeAll: () {
-                    Get.toNamed(PoductsListScreen.routeName,
-                        arguments: PoductsListArguments(
-                          title: "Explore Products",
-                          categoryId: "",
-                        ));
-                  },
-                ),
-              ),
-            ),
-            const SliverToBoxAdapter(
-                child: ExploreMoreProducts(
-              categoryId: "",
-            )),
+                  const SliverToBoxAdapter(
+                    child: DealsTab(),
+                  ),
+                  SliverToBoxAdapter(
+                    child: Container(
+                      // color: Colors.grey.shade300,
+                      color: kPrimaryBlueTest,
+                      child: TabTitle(
+                        title: 'Popular Products',
+                        seeAll: () {
+                          Get.toNamed(PoductsListScreen.routeName);
+                        },
+                      ),
+                    ),
+                  ),
+                  const SliverToBoxAdapter(
+                      child: PopularDealTab(
+                    categoryId: "",
+                  )),
+                  SliverToBoxAdapter(
+                    child: Container(
+                      //height: 200,
+                      width: Get.width,
+                      //  color: Colors.grey.shade300,
+                      color: kPrimaryBlueTest,
+                      child: ExploreNewCategory(),
+                    ),
+                  ),
+                  SliverToBoxAdapter(
+                    child: Container(
+                      // color: Colors.grey.shade300,
+                      color: kPrimaryBlueTest,
+                      child: TabTitle(
+                        title: 'Explore More Products',
+                        seeAll: () {
+                          Get.toNamed(PoductsListScreen.routeName,
+                              arguments: PoductsListArguments(
+                                title: "Explore Products",
+                                categoryId: "",
+                              ));
+                        },
+                      ),
+                    ),
+                  ),
+                  const SliverToBoxAdapter(
+                      child: ExploreMoreProducts(
+                    categoryId: "",
+                  )),
 
-            /*        const SliverToBoxAdapter(
+                  /*        const SliverToBoxAdapter(
                 child: ExploreMoreProducts(
               categoryId: "",
             )),*/
-            SliverToBoxAdapter(
-              child: Container(
-                height: 20,
-                width: Get.width,
-                // color: Colors.grey.shade300,
-                color: kPrimaryBlueTest,
+                  SliverToBoxAdapter(
+                    child: Container(
+                      height: 20,
+                      width: Get.width,
+                      // color: Colors.grey.shade300,
+                      color: kPrimaryBlueTest,
+                    ),
+                  ),
+                  (addToCardController.productCount.value > 0)
+                      ? const SliverToBoxAdapter(
+                          child: SizedBox(
+                          height: 70,
+                        ))
+                      : const SliverToBoxAdapter(
+                          child: SizedBox(
+                          height: 0,
+                        ))
+                ],
               ),
-            ),
-            (addToCardController.productCount.value > 0)
-                ? const SliverToBoxAdapter(
-                    child: SizedBox(
-                    height: 70,
-                  ))
-                : const SliverToBoxAdapter(
-                    child: SizedBox(
-                    height: 0,
-                  ))
-          ],
-        ),
       ),
     );
   }
@@ -444,46 +451,49 @@ class HomeAppBar extends StatelessWidget {
                 onTap: () {
                   // Get.toNamed(MapScreen.routeName);
                 },
-                child: userController.user.isNotEmpty? Padding(
-                  padding: const EdgeInsets.only(top:6,bottom:6),
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        // height: 60,
-                        width: Get.width,
-                        // color: Colors.red.shade50,
+                child: userController.user.isNotEmpty
+                    ? Padding(
+                        padding: const EdgeInsets.only(top: 6, bottom: 6),
                         child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const SizedBox(
-                              width: 8,
-                            ),
-                            const Icon(
-                              Icons.location_on_outlined,
-                              color: Colors.grey,
-                            ),
-                            Expanded(
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 18.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Expanded(
-                                          child: Text(
-                                            "${titleCase(userController.user['party']['address']== null?"":userController.user['party']['address']['address_line1'].toString() ?? "")}, ${titleCase(userController.user['party']['address']==null?"":userController.user['party']['address']['address_line2'].toString() ?? "")}",
-                                            style: const TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.normal,
-                                            ),
-                                            maxLines: 1,
-                                          ),
-                                        ),
-                
-                                        /* Expanded(
+                            SizedBox(
+                              // height: 60,
+                              width: Get.width,
+                              // color: Colors.red.shade50,
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const SizedBox(
+                                    width: 8,
+                                  ),
+                                  const Icon(
+                                    Icons.location_on_outlined,
+                                    color: Colors.grey,
+                                  ),
+                                  Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 18.0),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Expanded(
+                                                child: Text(
+                                                  "${titleCase(userController.user['party']['address']['address_line1'].toString() ?? "")}, ${titleCase(userController.user['party']['address']['address_line2'].toString() ?? "")}",
+                                                  style: const TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 12,
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                  ),
+                                                  maxLines: 1,
+                                                ),
+                                              ),
+
+                                              /* Expanded(
                                           flex:1,
                                           child: Text(setAddress(controller.myOrderList.isEmpty?"":controller.myOrderList[0]["address"],"address_line2"), style: TextStyle(
                                             overflow: TextOverflow.ellipsis,
@@ -493,29 +503,28 @@ class HomeAppBar extends StatelessWidget {
                                             maxLines: 1,
                                           ),
                                         ),*/
-                                      ],
+                                            ],
+                                          ),
+                                          Text(
+                                            "${titleCase(userController.user['party']['address']['address_line3'].toString())},  ${userController.user['party']['address']['pin_code']['pin_code'].toString()}" ??
+                                                "",
+                                            style: const TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.normal),
+                                            maxLines: 1,
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                    Text(
-                                      "${titleCase(userController.user['party']['address']==null?"":userController.user['party']['address']['address_line3'].toString())},  "
-                                          "${userController.user['party']['address']==null?"":userController.user['party']['address']
-                                                  ['pin_code']['pin_code'].toString()}" ??
-                                          "",
-                                      style: const TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.normal),
-                                      maxLines: 1,
-                                    ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
                           ],
                         ),
-                      ),
-                    ],
-                  ),
-                ):const Text('loading'),
+                      )
+                    : const Text('loading'),
               ),
             ),
           ],

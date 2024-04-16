@@ -6,7 +6,7 @@ import '../constants/colors.dart';
 import 'intro_screen/intro_screen.dart';
 
 class LandingScreen extends StatefulWidget {
-  const LandingScreen({Key? key}) : super(key: key);
+  const LandingScreen({super.key});
   static const routeName = '/landing_screen';
   @override
   _LandingScreenState createState() => _LandingScreenState();
@@ -129,7 +129,7 @@ class IntroWidget extends StatelessWidget {
               'Purely rich taste.',
               style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                    // color: kTextColorAccent,
-                    color: Color.fromARGB(255, 118, 118, 118),
+                    color: const Color.fromARGB(255, 118, 118, 118),
                   ),
             ),
             const Spacer(),
