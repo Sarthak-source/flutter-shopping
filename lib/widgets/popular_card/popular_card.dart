@@ -10,7 +10,6 @@ import 'package:sutra_ecommerce/utils/screen_utils.dart';
 import 'package:sutra_ecommerce/widgets/add_button.dart';
 
 import '../../config/common.dart';
-import '../../controllers/popular_controller.dart';
 import '../../controllers/product_detail_controller.dart';
 
 class PopularCard extends StatefulWidget {
@@ -21,56 +20,45 @@ class PopularCard extends StatefulWidget {
   final Function() onCardMinusClicked;
   const PopularCard(
       {super.key,
-      this.product,
-      this.isFrom,
-      this.loader,
-      required this.onCardAddClicked,
-      required this.onCardMinusClicked});
+        this.product,
+        this.isFrom,
+        this.loader,
+        required this.onCardAddClicked,
+        required this.onCardMinusClicked});
 
   @override
   State<PopularCard> createState() => _PopularCardState();
 }
 
 class _PopularCardState extends State<PopularCard> {
-   RxInt quantity = 0.obs;
+  RxInt quantity = 0.obs;
   String ordersMilk = "";
-  String minOrderCount = "0.0";
-  Map? storedUserData;
-  final PopularDealController popController = Get.put(PopularDealController(categoryId: ''));
 
   @override
   void initState() {
     super.initState();
-    print('initState::: in popular card ${widget.product!["cart_count"]}');
-     storedUserData=box?.get('userData');
-    if(storedUserData != null && storedUserData?['party'] !=null){
 
-      print('userdata in popularcard ${ storedUserData?['party']['orders_milk'].toString() }');
-      ordersMilk = storedUserData?['party']['orders_milk']!=null? storedUserData!['party']['orders_milk'].toString():"";
-      if (widget.product != null && widget.product!["cart_count"] != null) {
-        final cartCount = widget.product!["cart_count"];
-        if (cartCount != null) {
-          log("count in popularcard::: ${cartCount.toString()}");
-          final double? parsedCount = double.tryParse(cartCount.toString());
-          if (parsedCount != null) {
-            log('double count $parsedCount');
-            log('int count ${parsedCount.toInt()}');
-            quantity.value = parsedCount.toInt();
-
-          }
+    Map storedUserData=box!.get('userData');
+    print('userdata in popularcard ${ storedUserData['party']['orders_milk'].toString() }');
+    ordersMilk = storedUserData['party']['orders_milk']!=null?storedUserData['party']['orders_milk'].toString():"";
+    if (widget.product != null && widget.product!["cart_count"] != null) {
+      final cartCount = widget.product!["cart_count"];
+      if (cartCount != null) {
+        log("count in popularcard::: ${cartCount.toString()}");
+        final double? parsedCount = double.tryParse(cartCount.toString());
+        if (parsedCount != null) {
+          log('double count $parsedCount');
+          log('int count ${parsedCount.toInt()}');
+          quantity.value = parsedCount.toInt();
         }
       }
     }
-
-
   }
   @override
   void didUpdateWidget(covariant PopularCard oldWidget) {
     super.didUpdateWidget(oldWidget);
-    print('didUpdateWidget::: in popular card ${widget.product!["cart_count"]}');
     if (widget.product != null && widget.product!["cart_count"] != null) {
       final cartCount = widget.product!["cart_count"];
-      minOrderCount=widget.product['min_order_qty'] ?? "0.0";
       if (cartCount != null) {
         log("count in popularcard2 ${cartCount.toString()}");
         final double? parsedCount = double.tryParse(cartCount.toString());
@@ -92,10 +80,10 @@ class _PopularCardState extends State<PopularCard> {
 
   final TextEditingController quantityCtrlr = TextEditingController();
   final AddToCartController addToCartController =
-      Get.put(AddToCartController());
+  Get.put(AddToCartController());
   final MyCartController myCartController = Get.put(MyCartController());
   final ProductDetailController prodDetailController =
-      Get.put(ProductDetailController());
+  Get.put(ProductDetailController());
 
   @override
   Widget build(BuildContext context) {
@@ -116,7 +104,7 @@ class _PopularCardState extends State<PopularCard> {
       }
     }*/
     return Obx(
-      () => Padding(
+          () => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: Container(
           width: 160,
@@ -196,9 +184,9 @@ class _PopularCardState extends State<PopularCard> {
                     Text(
                       "₹ ${convertDoubleToString(widget.product?['price'].toString() ?? '0.0 ')}",
                       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 13,
-                          ),
+                        fontWeight: FontWeight.w600,
+                        fontSize: 13,
+                      ),
                     ),
                     Text(
                       " / ${widget.product?['order_uom'] == null ? "" : widget.product?['order_uom']}",
@@ -333,7 +321,7 @@ class _PopularCardState extends State<PopularCard> {
                 AddButton(
                   units: " ${widget.product?['order_uom'] == null ? "" : widget.product?['order_uom']}",
                   width: 135,
-                  minOrder: int.parse(convertDoubleToString(minOrderCount)),
+                  minOrder: int.parse(convertDoubleToString(widget.product['min_order_qty'] ?? "0.0")),
                   textWidth: 120,
                   isLoading: widget.loader ?? false,
                   qty: quantity.value < int.parse(convertDoubleToString(widget.product['min_order_qty'] ?? "0.0"))
@@ -415,19 +403,19 @@ class _PopularCardState extends State<PopularCard> {
                     quantity.value == 0
                         ? const Text("")
                         : Text(
-                            //newCrateValue,
-                            setCrateRate(
-                                    quantity.value,
-                                    widget.product?['multipack_qty'] ?? "0.0",
-                                    widget.product?['multipack_uom'] ?? "",
-                              widget.product?['parent_code'] ?? "",ordersMilk).toString(),
-                            //  setCrateRate(quantity.value, widget.product?['multipack_qty'] ?? 0).toString(),
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium!
-                                .copyWith(
-                                    fontSize: 12, color: kTextColorAccent),
-                          ),
+                      //newCrateValue,
+                      setCrateRate(
+                          quantity.value,
+                          widget.product?['multipack_qty'] ?? "0.0",
+                          widget.product?['multipack_uom'] ?? "",
+                          widget.product?['parent_code'] ?? "",ordersMilk).toString(),
+                      //  setCrateRate(quantity.value, widget.product?['multipack_qty'] ?? 0).toString(),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium!
+                          .copyWith(
+                          fontSize: 12, color: kTextColorAccent),
+                    ),
                     Text(
                       " ${widget.product?['multipack_uom'] == null ? "" : widget.product?['multipack_uom']}",
                       style: Theme.of(context)
@@ -473,19 +461,19 @@ setCrateRate(int qty, String multiPackQty, String multiPackUom,String parentCode
 
     if (qty != null && multiPackQty != null) {
 
-     if(ordersMilk == "Crate" && parentCode == "1011"){
-       newCrateValue =qty.toString();
-      return newCrateValue;
-    }else{
-       crateValue = qty / int.parse(convertDoubleToString(multiPackQty));
-       // crateValue = 3.0;
-       if (crateValue.isFinite && !crateValue.isNaN) {
-         print("Crate:: qty===${qty} multiPackQty== ${multiPackQty} crateValue=== $crateValue");
-         print(crateValue.ceil());
-         newCrateValue = crateValue.ceil().toString();
-         return newCrateValue;
-       }
-     }
+      if(ordersMilk == "Crate" && parentCode == "1011"){
+        newCrateValue =qty.toString();
+        return newCrateValue;
+      }else{
+        crateValue = qty / int.parse(convertDoubleToString(multiPackQty));
+        // crateValue = 3.0;
+        if (crateValue.isFinite && !crateValue.isNaN) {
+          print("Crate:: qty===${qty} multiPackQty== ${multiPackQty} crateValue=== $crateValue");
+          print(crateValue.ceil());
+          newCrateValue = crateValue.ceil().toString();
+          return newCrateValue;
+        }
+      }
 
 
     }
