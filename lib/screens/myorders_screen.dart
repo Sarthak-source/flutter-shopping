@@ -109,90 +109,101 @@ class _MyOrdersState extends State<MyOrders> {
                         lineThickness: 1,
                         lineSpace: 4,*/
                           stepRadius: 15,
-                          unreachedStepIconColor: Colors.black87,
-                          unreachedStepBorderColor: Colors.black54,
+                          unreachedStepIconColor: Colors.black,
+                          unreachedStepBorderColor: Colors.black,
                           unreachedStepTextColor: Colors.grey,
+                            unreachedStepBackgroundColor: Colors.grey,
                           showTitle: true,
                           // lineType: LineType.dotted,
                           // unreachedLineColor: grey,
-                          finishedStepTextColor: Colors.grey,
+                          finishedStepTextColor: Colors.black,
                           finishedStepBackgroundColor: Colors.grey,
+                          finishedStepBorderColor: Colors.black,
                           activeStepIconColor: kPrimaryBlue,
                           activeStepBackgroundColor: kPrimaryBlue,
                           activeStepTextColor: kPrimaryBlue,
+
                           showLoadingAnimation: false,
                           enableStepTapping: true,
+
                           steps: [
                             EasyStep(
                               customStep: Text(
-                                "1",
+                                "1",//"${controllerrr.selectedBtn.value.toString()}",
                                 style: TextStyle(
+                                  color:  controllerrr.selectedBtn.value == 0?Colors.white:Colors.black,
                                     fontSize: Get.width >= 600 ? 13 : 10),
                               ),
                               customTitle: Text(
                                 "Created",
+                                textAlign: TextAlign.center,
                                 style: TextStyle(
-                                    fontSize: Get.width >= 600 ? 13 : 8),
+                                    fontSize: Get.width >= 600 ? 13 : 11),
                               ),
                             ),
                             EasyStep(
                               customStep: Text(
                                 "2",
                                 style: TextStyle(
+                                    color:  controllerrr.selectedBtn.value == 1?Colors.white:Colors.black,
                                     fontSize: Get.width >= 600 ? 13 : 10),
                               ),
                               customTitle: Text(
                                 "Approved",
                                 style: TextStyle(
-                                    fontSize: Get.width >= 600 ? 13 : 8),
+                                    fontSize: Get.width >= 600 ? 13 : 11),
                               ),
                             ),
                             EasyStep(
                               customStep: Text(
                                 "3",
                                 style: TextStyle(
+                                    color:  controllerrr.selectedBtn.value == 2?Colors.white:Colors.black,
                                     fontSize: Get.width >= 600 ? 13 : 10),
                               ),
                               customTitle: Text(
                                 "Rejected",
                                 style: TextStyle(
-                                    fontSize: Get.width >= 600 ? 13 : 8),
+                                    fontSize: Get.width >= 600 ? 13 : 11),
                               ),
                             ),
                             EasyStep(
                               customStep: Text(
                                 "4",
                                 style: TextStyle(
+                                    color:  controllerrr.selectedBtn.value == 3?Colors.white:Colors.black,
                                     fontSize: Get.width >= 600 ? 13 : 10),
                               ),
                               customTitle: Text(
                                 "Cancelled",
                                 style: TextStyle(
-                                    fontSize: Get.width >= 600 ? 13 : 8),
+                                    fontSize: Get.width >= 600 ? 13 : 11),
                               ),
                             ),
                             EasyStep(
                               customStep: Text(
                                 "5",
                                 style: TextStyle(
+                                    color:  controllerrr.selectedBtn.value == 4?Colors.white:Colors.black,
                                     fontSize: Get.width >= 600 ? 13 : 10),
                               ),
                               customTitle: Text(
                                 "In Progress",
                                 style: TextStyle(
-                                    fontSize: Get.width >= 600 ? 13 : 8),
+                                    fontSize: Get.width >= 600 ? 13 : 11),
                               ),
                             ),
                             EasyStep(
                               customStep: Text(
                                 "6",
                                 style: TextStyle(
+                                    color:  controllerrr.selectedBtn.value == 5?Colors.white:Colors.black,
                                     fontSize: Get.width >= 600 ? 13 : 10),
                               ),
                               customTitle: Text(
                                 "Completed",
                                 style: TextStyle(
-                                    fontSize: Get.width >= 600 ? 13 : 10),
+                                    fontSize: Get.width >= 600 ? 13 : 11),
                               ),
                             ),
                           ],

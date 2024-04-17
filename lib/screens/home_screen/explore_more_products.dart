@@ -89,6 +89,11 @@ class _ExploreMoreProductsState extends State<ExploreMoreProducts> {
                         _selectedIndex = index;
                       });
                     },
+                    onAddClicked: () {
+                      setState(() {
+                        _selectedIndex = index;
+                      });
+                    },
                     isFrom: widget.isfrom,
                     loader: index == _selectedIndex
                         ? addToCartController.isLoading.value

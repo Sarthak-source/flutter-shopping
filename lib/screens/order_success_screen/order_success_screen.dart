@@ -64,7 +64,7 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
                         width: getProportionateScreenWidth(200.0),
                       ),
                       Text(
-                        'Order successfully placed!',
+                        'Order Successfully Placed!',
                         style: Theme.of(context).textTheme.headline6!.copyWith(
                               fontWeight: FontWeight.bold,
                             ),
@@ -218,7 +218,7 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
                             Expanded(
                               flex: 2,
                               child: Text(
-                                "Total",
+                                "Total :",
                                 style: Theme.of(context)
                                     .textTheme
                                     .headline6!

@@ -18,13 +18,16 @@ class PopularCard extends StatefulWidget {
   final bool? loader;
   final Function() onCardAddClicked;
   final Function() onCardMinusClicked;
+  final Function() onAddClicked;
   const PopularCard(
       {super.key,
         this.product,
         this.isFrom,
         this.loader,
         required this.onCardAddClicked,
-        required this.onCardMinusClicked});
+        required this.onCardMinusClicked,
+        required this.onAddClicked,
+      });
 
   @override
   State<PopularCard> createState() => _PopularCardState();
@@ -335,6 +338,7 @@ class _PopularCardState extends State<PopularCard> {
                   },
                   onAddPressed: () {
                     //  quantity.value++;
+                    widget.onAddClicked();
                     String minOrder =ordersMilk == "Crate" && widget.product['parent_code'].toString() == "1011"?"1": widget.product['min_order_qty'] == null ? "0.0" : widget.product['min_order_qty'].toString();
                     quantity.value = quantity.value + int.parse(convertDoubleToString(minOrder));
                     print('onClick of Add ${int.parse(convertDoubleToString(minOrder))} :: ${quantity.value}');

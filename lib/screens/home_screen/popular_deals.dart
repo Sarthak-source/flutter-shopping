@@ -85,6 +85,11 @@ class _PopularDealTabState extends State<PopularDealTab> {
                         _selectedIndex = index;
                       });
                     },
+                    onAddClicked: () {
+                      setState(() {
+                        _selectedIndex = index;
+                      });
+                    },
                     product: popularDeals[index],
                     isFrom: widget.isfrom,
                     loader: index == _selectedIndex
