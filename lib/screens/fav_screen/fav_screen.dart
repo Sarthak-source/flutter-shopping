@@ -246,7 +246,7 @@ class _FavScreenState extends State<FavScreen> {
             ),
                         ),
                         SizedBox(
-            height: getProportionateScreenHeight(16.0),
+            height: getProportionateScreenHeight(200),
                         ),
 
                         ]),

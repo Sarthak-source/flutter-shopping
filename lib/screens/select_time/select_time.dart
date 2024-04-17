@@ -187,7 +187,7 @@ class _SelectTimeState extends State<SelectTime> {
               child: Column(
                 children: [
                   const Text(
-                    'Create order',
+                    'Place Order',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
 

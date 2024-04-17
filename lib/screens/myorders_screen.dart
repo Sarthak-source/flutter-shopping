@@ -448,275 +448,186 @@ class _MyOrderCardsState extends State<MyOrderCards> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        // itemCount: orderlist.length,
-        controller: _scrollController,
-        itemCount: widget.myOrderList.length,
-        itemBuilder: (context, index) {
-          return RefreshIndicator(
-              onRefresh: () async {
-                /* Future.sync(
-                    () => controller.pagingController.refresh());*/
-              },
-              child: GestureDetector(
-                onTap: () {
-                  //  Navigator.push(context, MaterialPageRoute(builder: (context) => MyOrderDetail(orderdetail: orderlist[index])));
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => MyOrderDetail2(
-                              OrderId: widget.myOrderList[index]["id"])));
-                },
-                child: Container(
-                    width: widget.devicewidth,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(8),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.2),
-                          offset: const Offset(0, 2),
-                          blurRadius: 4,
-                        ),
-                      ],
-                    ),
-                    margin: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Container(
-                          color: Colors.grey.shade300,
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [
-                                  const SizedBox(
-                                    width: 8,
-                                  ),
-                                  const Icon(
-                                    Icons.shopping_cart,
-                                    color: kPrimaryBlue,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 4, vertical: 5),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        orderIDDate(
-                                            context, index, "Order No", "order_num"),
-                                        orderIDDate(context, index, "Date",
-                                            "order_date"),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const Divider(
-                                color: Colors.blueGrey,
-                                thickness: 0.3,
-                                height: 1,
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          ListView.builder(
+              // itemCount: orderlist.length,
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              controller: _scrollController,
+              itemCount: widget.myOrderList.length,
+              itemBuilder: (context, index) {
+                return RefreshIndicator(
+                    onRefresh: () async {
+                      /* Future.sync(
+                          () => controller.pagingController.refresh());*/
+                    },
+                    child: GestureDetector(
+                      onTap: () {
+                        //  Navigator.push(context, MaterialPageRoute(builder: (context) => MyOrderDetail(orderdetail: orderlist[index])));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MyOrderDetail2(
+                                    OrderId: widget.myOrderList[index]["id"])));
+                      },
+                      child: Container(
+                          width: widget.devicewidth,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.2),
+                                offset: const Offset(0, 2),
+                                blurRadius: 4,
                               ),
                             ],
                           ),
-                        ),
-                        Container(
                           margin: const EdgeInsets.symmetric(
                               horizontal: 10, vertical: 10),
-                          child: Row(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            mainAxisSize: MainAxisSize.min,
                             children: [
-                              /* Icon(Icons.location_on_outlined,color: Colors.grey,),
-                          const SizedBox(width: 8,),
-                          Expanded(
-                            flex: 2,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-
-                                Text(setAddress(myOrderList[index]["address"],"address_line1"), style: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 12,
-                                fontWeight: FontWeight.normal),
-                                ),
-                                Text(setAddress(myOrderList[index]["address"],"address_line2"), style: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 12,
-                                fontWeight: FontWeight.normal),
-                                ),
-                                Text(setAddress(myOrderList[index]["address"],"address_line3"), style: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 12,
-                                fontWeight: FontWeight.normal),
-                                ),
-                              ],
-                            ),
-                          ),*/
-                              Expanded(
-                                // flex:2,
+                              Container(
+                                color: Colors.grey.shade300,
                                 child: Column(
                                   children: [
-                                    orderRateCard(
-                                        context,
-                                        "Delivery Required On",
-                                        setDelvReqDate(widget.myOrderList[index]
-                                                ["delivery_required_on"]
-                                            .toString()),
-                                        true),
-                                    const SizedBox(height: 8),
-                                    orderRateCard(
-                                        context,
-                                        "Total Basic Amt",
-                                        widget.myOrderList[index]["total_value"]
-                                            .toString(),
-                                        false),
-                                    orderRateCard(
-                                        context,
-                                        "Total GST",
-                                        widget.myOrderList[index]["total_gst"]
-                                            .toString(),
-                                        false),
-                                    orderRateCard(
-                                        context,
-                                        "Total",
-                                        widget.myOrderList[index]["total_amount"]
-                                            .toString(),
-                                        false)
+                                    Row(
+                                      children: [
+                                        const SizedBox(
+                                          width: 8,
+                                        ),
+                                        const Icon(
+                                          Icons.shopping_cart,
+                                          color: kPrimaryBlue,
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 4, vertical: 5),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              orderIDDate(
+                                                  context, index, "Order No", "order_num"),
+                                              orderIDDate(context, index, "Date",
+                                                  "order_date"),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    const Divider(
+                                      color: Colors.blueGrey,
+                                      thickness: 0.3,
+                                      height: 1,
+                                    ),
                                   ],
                                 ),
-                              )
-                            ],
-                          ),
-                        ),
-                        Container(
-                            // color: Colors.red,
-                            decoration: const BoxDecoration(
-                              // color: Colors.red.shade50,
-                              border: Border(
-                                bottom: BorderSide(
-                                    width: 0.6,
-                                    color: Colors.grey,
-                                    style: BorderStyle.solid), //BorderSide
-                              ), //
-                            ),
-                            width: Get.width,
-                            margin: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 10),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 0, vertical: 0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Order Summary",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headlineMedium
-                                        ?.copyWith(
-                                          fontWeight: FontWeight.w700,
-                                          color: kTextColorAccent,
-                                          fontSize:
-                                              getProportionateScreenWidth(14),
-                                        ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(0),
-                                    child: Container(
-                                      // height: 50,
-                                      width: Get.width,
-                                      decoration: const BoxDecoration(
-                                        // color: Colors.red.shade50,
-                                        border: Border(
-                                          top: BorderSide(
-                                              width: 0.6,
-                                              color: Colors.grey,
-                                              style: BorderStyle
-                                                  .solid), //BorderSide
-                                          //BorderSide
-                                          left: BorderSide(
-                                              width: 0.6,
-                                              color: Colors.grey,
-                                              style: BorderStyle
-                                                  .solid), //Borderside
-                                          right: BorderSide(
-                                              width: 0.6,
-                                              color: Colors.grey,
-                                              style: BorderStyle
-                                                  .solid), //BorderSide
-                                        ), //
+                              ),
+                              Container(
+                                margin: const EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 10),
+                                child: Row(
+                                  children: [
+                                    /* Icon(Icons.location_on_outlined,color: Colors.grey,),
+                                const SizedBox(width: 8,),
+                                Expanded(
+                                  flex: 2,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+
+                                      Text(setAddress(myOrderList[index]["address"],"address_line1"), style: const TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 12,
+                                      fontWeight: FontWeight.normal),
                                       ),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
+                                      Text(setAddress(myOrderList[index]["address"],"address_line2"), style: const TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 12,
+                                      fontWeight: FontWeight.normal),
+                                      ),
+                                      Text(setAddress(myOrderList[index]["address"],"address_line3"), style: const TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 12,
+                                      fontWeight: FontWeight.normal),
+                                      ),
+                                    ],
+                                  ),
+                                ),*/
+                                    Expanded(
+                                      // flex:2,
+                                      child: Column(
                                         children: [
-                                          // Text(setCount(MyOrderList[index]["order_items"][index]["count"]),
-                                          const SizedBox(
-                                            width: 8,
-                                          ),
-                                          Expanded(
-                                            flex: 3,
-                                            child: Text(
-                                              "Product Name",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .headlineMedium
-                                                  ?.copyWith(
-                                                    fontWeight: FontWeight.w700,
-                                                    color: kTextColorAccent,
-                                                    fontSize:
-                                                        getProportionateScreenWidth(
-                                                            12),
-                                                  ),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            flex: 1,
-                                            child: Text(
-                                              "Quantity",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .headlineMedium
-                                                  ?.copyWith(
-                                                    fontWeight: FontWeight.w700,
-                                                    color: kTextColorAccent,
-                                                    fontSize:
-                                                        getProportionateScreenWidth(
-                                                            12),
-                                                  ),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            flex: 1,
-                                            child: Text(
-                                              "UOM",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .headlineMedium
-                                                  ?.copyWith(
-                                                    fontWeight: FontWeight.w700,
-                                                    color: kTextColorAccent,
-                                                    fontSize:
-                                                        getProportionateScreenWidth(
-                                                            12),
-                                                  ),
-                                            ),
-                                          )
+                                          orderRateCard(
+                                              context,
+                                              "Delivery Required On",
+                                              setDelvReqDate(widget.myOrderList[index]
+                                                      ["delivery_required_on"]
+                                                  .toString()),
+                                              true),
+                                          const SizedBox(height: 8),
+                                          orderRateCard(
+                                              context,
+                                              "Total Basic Amount",
+                                              widget.myOrderList[index]["total_value"]
+                                                  .toString(),
+                                              false),
+                                          orderRateCard(
+                                              context,
+                                              "Total GST",
+                                              widget.myOrderList[index]["total_gst"]
+                                                  .toString(),
+                                              false),
+                                          orderRateCard(
+                                              context,
+                                              "Total",
+                                              widget.myOrderList[index]["total_amount"]
+                                                  .toString(),
+                                              false)
                                         ],
                                       ),
-                                    ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                  // color: Colors.red,
+                                  decoration: const BoxDecoration(
+                                    // color: Colors.red.shade50,
+                                    border: Border(
+                                      bottom: BorderSide(
+                                          width: 0.6,
+                                          color: Colors.grey,
+                                          style: BorderStyle.solid), //BorderSide
+                                    ), //
                                   ),
-                                  ListView.builder(
-                                      shrinkWrap: true,
-                                      physics:
-                                          const NeverScrollableScrollPhysics(),
-                                      itemCount: widget.myOrderList[index]
-                                              ["order_items"]
-                                          .length,
-                                      itemBuilder: (context, newindex) {
-                                        return Padding(
+                                  width: Get.width,
+                                  margin: const EdgeInsets.symmetric(
+                                      horizontal: 10, vertical: 10),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 0, vertical: 0),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "Order Summary",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headlineMedium
+                                              ?.copyWith(
+                                                fontWeight: FontWeight.w700,
+                                                color: kTextColorAccent,
+                                                fontSize:
+                                                    getProportionateScreenWidth(14),
+                                              ),
+                                        ),
+                                        Padding(
                                           padding: const EdgeInsets.all(0),
                                           child: Container(
                                             // height: 50,
@@ -740,126 +651,227 @@ class _MyOrderCardsState extends State<MyOrderCards> {
                                                     color: Colors.grey,
                                                     style: BorderStyle
                                                         .solid), //BorderSide
-                                              ),
+                                              ), //
                                             ),
                                             child: Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.spaceEvenly,
                                               children: [
+                                                // Text(setCount(MyOrderList[index]["order_items"][index]["count"]),
                                                 const SizedBox(
                                                   width: 8,
                                                 ),
                                                 Expanded(
-                                                  flex: 4,
+                                                  flex: 3,
                                                   child: Text(
-                                                    widget.myOrderList[index]
-                                                                ["order_items"]
-                                                            [newindex]
-                                                        ["product"]["name"],
-                                                    style: TextStyle(
-                                                      color: Colors.grey,
-                                                      fontSize: Get.width >= 600
-                                                          ? 22
-                                                          : 12,
-                                                    ),
+                                                    "Product Name",
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .headlineMedium
+                                                        ?.copyWith(
+                                                          fontWeight: FontWeight.w700,
+                                                          color: kTextColorAccent,
+                                                          fontSize:
+                                                              getProportionateScreenWidth(
+                                                                  12),
+                                                        ),
                                                   ),
                                                 ),
                                                 Expanded(
                                                   flex: 1,
                                                   child: Text(
-                                                    convertDoubleToString(
-                                                        widget.myOrderList[index]
-                                                                ["order_items"][
-                                                            newindex]["count"]),
-                                                    style: TextStyle(
-                                                      color: Colors.grey,
-                                                      fontSize: Get.width >= 600
-                                                          ? 22
-                                                          : 12,
-                                                    ),
+                                                    "Quantity",
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .headlineMedium
+                                                        ?.copyWith(
+                                                          fontWeight: FontWeight.w700,
+                                                          color: kTextColorAccent,
+                                                          fontSize:
+                                                              getProportionateScreenWidth(
+                                                                  12),
+                                                        ),
                                                   ),
                                                 ),
                                                 Expanded(
                                                   flex: 1,
                                                   child: Text(
-                                                    widget.myOrderList[index]
-                                                                ["order_items"][
-                                                            newindex]["product"]
-                                                        ["order_uom"],
-                                                    style: TextStyle(
-                                                      color: Colors.grey,
-                                                      fontSize: Get.width >= 600
-                                                          ? 22
-                                                          : 12,
-                                                    ),
+                                                    "UOM",
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .headlineMedium
+                                                        ?.copyWith(
+                                                          fontWeight: FontWeight.w700,
+                                                          color: kTextColorAccent,
+                                                          fontSize:
+                                                              getProportionateScreenWidth(
+                                                                  12),
+                                                        ),
                                                   ),
                                                 )
                                               ],
                                             ),
                                           ),
-                                        );
-                                      })
-                                ],
-                              ),
-                            )),
-                      ],
-                    )),
-              )
+                                        ),
+                                        ListView.builder(
+                                            shrinkWrap: true,
+                                            physics:
+                                                const NeverScrollableScrollPhysics(),
+                                            itemCount: widget.myOrderList[index]
+                                                    ["order_items"]
+                                                .length,
+                                            itemBuilder: (context, newindex) {
+                                              return Padding(
+                                                padding: const EdgeInsets.all(0),
+                                                child: Container(
+                                                  // height: 50,
+                                                  width: Get.width,
+                                                  decoration: const BoxDecoration(
+                                                    // color: Colors.red.shade50,
+                                                    border: Border(
+                                                      top: BorderSide(
+                                                          width: 0.6,
+                                                          color: Colors.grey,
+                                                          style: BorderStyle
+                                                              .solid), //BorderSide
+                                                      //BorderSide
+                                                      left: BorderSide(
+                                                          width: 0.6,
+                                                          color: Colors.grey,
+                                                          style: BorderStyle
+                                                              .solid), //Borderside
+                                                      right: BorderSide(
+                                                          width: 0.6,
+                                                          color: Colors.grey,
+                                                          style: BorderStyle
+                                                              .solid), //BorderSide
+                                                    ),
+                                                  ),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.spaceEvenly,
+                                                    children: [
+                                                      const SizedBox(
+                                                        width: 8,
+                                                      ),
+                                                      Expanded(
+                                                        flex: 4,
+                                                        child: Text(
+                                                          widget.myOrderList[index]
+                                                                      ["order_items"]
+                                                                  [newindex]
+                                                              ["product"]["name"],
+                                                          style: TextStyle(
+                                                            color: Colors.grey,
+                                                            fontSize: Get.width >= 600
+                                                                ? 22
+                                                                : 12,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Expanded(
+                                                        flex: 1,
+                                                        child: Text(
+                                                          convertDoubleToString(
+                                                              widget.myOrderList[index]
+                                                                      ["order_items"][
+                                                                  newindex]["count"]),
+                                                          style: TextStyle(
+                                                            color: Colors.grey,
+                                                            fontSize: Get.width >= 600
+                                                                ? 22
+                                                                : 12,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Expanded(
+                                                        flex: 1,
+                                                        child: Text(
+                                                          widget.myOrderList[index]
+                                                                      ["order_items"][
+                                                                  newindex]["product"]
+                                                              ["order_uom"],
+                                                          style: TextStyle(
+                                                            color: Colors.grey,
+                                                            fontSize: Get.width >= 600
+                                                                ? 22
+                                                                : 12,
+                                                          ),
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                              );
+                                            })
+                                      ],
+                                    ),
+                                  )),
+                            ],
+                          )),
+                    )
 
-              /*PagedListView<int, dynamic>(
-        pagingController: controller.pagingController,
-        builderDelegate: PagedChildBuilderDelegate<dynamic>(
-            firstPageProgressIndicatorBuilder: (context) {
-              return const SizedBox();
-            },
-            newPageErrorIndicatorBuilder: (context) {
-              return SizedBox(
-                height: Get.height * .7,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text("No Orders available"),
-                    ElevatedButton(
-                      onPressed: () {},
-                      child: const Text("Add Order"),
-                    ),
-                  ],
-                ),
-              );
-            },
-            noItemsFoundIndicatorBuilder:(context) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 30),
-                child: Column(
-                  children: [
-                    const Text("No Orders Available In \nThis Status.",style: TextStyle(
-                      fontSize: 20,
-                    ),textAlign: TextAlign.center,),
-                    height(15),
-                    const Text("Check Other Status."),
-                  ],
-                ),
-              );
-            },
+                    /*PagedListView<int, dynamic>(
+              pagingController: controller.pagingController,
+              builderDelegate: PagedChildBuilderDelegate<dynamic>(
+                  firstPageProgressIndicatorBuilder: (context) {
+                    return const SizedBox();
+                  },
+                  newPageErrorIndicatorBuilder: (context) {
+                    return SizedBox(
+                      height: Get.height * .7,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text("No Orders available"),
+                          ElevatedButton(
+                            onPressed: () {},
+                            child: const Text("Add Order"),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                  noItemsFoundIndicatorBuilder:(context) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 30),
+                      child: Column(
+                        children: [
+                          const Text("No Orders Available In \nThis Status.",style: TextStyle(
+                            fontSize: 20,
+                          ),textAlign: TextAlign.center,),
+                          height(15),
+                          const Text("Check Other Status."),
+                        ],
+                      ),
+                    );
+                  },
 
-            firstPageErrorIndicatorBuilder: (context) {
-              return const Column(
-                children: [Text("No Data")],
-              );
-            },
+                  firstPageErrorIndicatorBuilder: (context) {
+                    return const Column(
+                      children: [Text("No Data")],
+                    );
+                  },
 
-          itemBuilder: (context, item, index){
-            return Container(
-                height: 200,
-                width: 200,
-                color: Colors.red.shade50,
-                child: Text(pageIndex.toString()));
-          }
-        ),
+                itemBuilder: (context, item, index){
+                  return Container(
+                      height: 200,
+                      width: 200,
+                      color: Colors.red.shade50,
+                      child: Text(pageIndex.toString()));
+                }
+              ),
 
-      ),*/
-              );
-        });
+            ),*/
+                    );
+              }),
+          Container(
+            height: 200,
+            width: Get.width,
+          )
+        ],
+      ),
+    );
   }
 
   orderRateCard(BuildContext context, String key, String value, bool isdate) {

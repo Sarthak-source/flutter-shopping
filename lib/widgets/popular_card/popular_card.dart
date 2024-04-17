@@ -33,14 +33,14 @@ class PopularCard extends StatefulWidget {
 class _PopularCardState extends State<PopularCard> {
   RxInt quantity = 0.obs;
   String ordersMilk = "";
-
+  Map? storedUserData;
   @override
   void initState() {
     super.initState();
 
-    Map storedUserData=box!.get('userData');
-    print('userdata in popularcard ${ storedUserData['party']['orders_milk'].toString() }');
-    ordersMilk = storedUserData['party']['orders_milk']!=null?storedUserData['party']['orders_milk'].toString():"";
+    storedUserData=box?.get('userData');
+    print('userdata in popularcard ${ storedUserData?['party']['orders_milk'].toString() }');
+    ordersMilk = storedUserData?['party']['orders_milk']!=null?storedUserData!['party']['orders_milk'].toString():"";
     if (widget.product != null && widget.product!["cart_count"] != null) {
       final cartCount = widget.product!["cart_count"];
       if (cartCount != null) {

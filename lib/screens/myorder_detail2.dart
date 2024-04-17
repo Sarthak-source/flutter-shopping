@@ -177,17 +177,17 @@ class _MyOrderDetail2State extends State<MyOrderDetail2> {
                                         ),
                                       ),
                                       Expanded(
-                                        flex: 2,
+                                        flex: 3,
                                         child: Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
                                             orderRateCard(
                                                 context,
-                                                "Total value", twodecimalDigit(double.parse(controller.orderdetailDatas["total_value"]==null?"0.000":controller.orderdetailDatas["total_value"].toString()))),
+                                                "Total Basic Amt", twodecimalDigit(double.parse(controller.orderdetailDatas["total_value"]==null?"0.000":controller.orderdetailDatas["total_value"].toString()))),
                                             orderRateCard(
                                                 context,
-                                                "Total gst", twodecimalDigit(double.parse(controller.orderdetailDatas["total_gst"]==null?"0.000":controller.orderdetailDatas["total_gst"].toString()))),
+                                                "Total GST", twodecimalDigit(double.parse(controller.orderdetailDatas["total_gst"]==null?"0.000":controller.orderdetailDatas["total_gst"].toString()))),
                                             Row(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.center,
@@ -539,11 +539,12 @@ class orderDetailNewTile extends StatelessWidget {
                       "${twodecimalDigit(double.parse(convertDoubleToString(myOrderDetailList["item_price"] ==null?"0.000":myOrderDetailList["item_price"].toString()) ))} / ${myOrderDetailList["product"]['order_uom'] ?? ""}",
                     ),
                     rateCard(
-                        "Gst ",
-                        twodecimalDigit(double.parse(convertDoubleToString(myOrderDetailList["total_gst"]==null?"0.000":myOrderDetailList["total_gst"].toString())))),
-                    rateCard(
-                        "Value ",
+                        "Basic Amount ",
                         twodecimalDigit(double.parse(convertDoubleToString(myOrderDetailList["total_value"]==null?"0.000":myOrderDetailList["total_value"].toString())))),
+                    rateCard(
+                        "GST ",
+                        twodecimalDigit(double.parse(convertDoubleToString(myOrderDetailList["total_gst"]==null?"0.000":myOrderDetailList["total_gst"].toString())))),
+
 
                     /*    Text(
                             widget.mycartItem["total_value"].toString(),
