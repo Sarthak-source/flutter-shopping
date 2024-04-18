@@ -215,7 +215,8 @@ class _CustomStaggerGridState extends State<CustomStaggerGrid> {
                     },
                     
                   );
-                } else if (index == 0) {
+                }
+                else if (index == 0) {
                   return ProductCard(
                     isLeft: true,
                     addHandler: widget.addCallback,

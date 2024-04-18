@@ -38,7 +38,7 @@ class MyOrderController extends GetxController{
     try {
       // Assuming NetworkRepository.getCategories returns a Future<dynamic>
       Map storedUserData=box!.get('userData');
-
+      isLoading.value = true;
       currentStatus.value=status;
       print('currentStatus.value ${currentStatus.value} and status:: $status');
       update();

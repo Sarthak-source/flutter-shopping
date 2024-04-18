@@ -17,6 +17,7 @@ import '../../utils/circularCheckbox_text.dart';
 import '../../utils/screen_utils.dart';
 import '../../widgets/back_button_ls.dart';
 import '../../widgets/custom_text_field.dart';
+import '../../widgets/loading_widgets/loader.dart';
 
 class SelectPaymentMethod extends StatefulWidget {
   String? shift;
@@ -104,7 +105,9 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                 ),
               ),
                const SizedBox(height: 50),
-              Container(
+
+
+              createOrderCtlr.isLoading.value == true? Center(child: Loader()):  Container(
               //  color: Colors.red,
                 width:Get.width,
                 child: Padding(
@@ -200,16 +203,21 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
 
 
                           showDialog(
+                            barrierDismissible: false,
                             context: context,
                             builder: (BuildContext context) {
                               return AlertDialog(
                                 title: const Text(""),
                                 content: const Text("Are you sure? would you like to place the order."),
+
                                 actions: [
                                   TextButton(
                                     child: const Text("Cancel"),
                                     onPressed: () {
+                                      controller.upi.value = false;
+                                      controller.cod.value = false;
                                       Navigator.pop(context);
+
                                     },
                                   ),
                                   TextButton(
@@ -316,7 +324,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                             //  Navigator.push(context, MaterialPageRoute(builder: (context) =>EnterAmount(paymentType: "upi",)));
                             }else{
                               controller.upi.value = value;
-                              controller.cod.value = true;
+                              controller.cod.value = false;
                               controller.update();
                             //  cod = true;
                             }

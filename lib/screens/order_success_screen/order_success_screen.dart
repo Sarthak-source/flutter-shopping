@@ -41,11 +41,20 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final CommonController cmncontroller = Get.put(CommonController());
+
     return GetBuilder<MyCartController>(builder: (createOrderCtlr) {
       return WillPopScope(
         onWillPop: () async {
-          SystemChannels.platform.invokeMethod('SystemNavigator.pop');
-
+         // SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+          cmncontroller.commonCurTab.value=0;
+          cmncontroller.update();
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute<void>(
+              builder: (BuildContext context) => const TabScreen(),
+            ),
+          );
           return false;
         },
         child: Scaffold(
@@ -114,31 +123,47 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
                           ],
                           rows: createOrderCtlr.myOrderItems.map((item) {
                             return DataRow(
+
                               cells: [
                                 DataCell(
-                                  Text(
-                                    item["id"] == null
-                                        ? ""
-                                        : item["id"].toString(),
-                                    style: const TextStyle(fontSize: 12),
+                                  Column(
+                                    children: [
+                                      SizedBox(height: 6),
+                                      Text(
+                                        item["id"] == null
+                                            ? ""
+                                            : item["id"].toString(),
+                                        style: const TextStyle(fontSize: 12),
+                                      ),
+                                    ],
                                   ),
                                 ),
                                 DataCell(
-                                  Text(
-                                    item["total_value"] == null
-                                        ? ""
-                                        : twodecimalDigit(double.parse(
-                                            item["total_value"].toString())),
-                                    style: const TextStyle(fontSize: 12),
+                                  Column(
+                                    children: [
+                                      SizedBox(height: 6),
+                                      Text(
+                                        item["total_value"] == null
+                                            ? ""
+                                            : twodecimalDigit(double.parse(
+                                                item["total_value"].toString())),
+                                        style: const TextStyle(fontSize: 12),
+                                      ),
+                                    ],
                                   ),
                                 ),
                                 DataCell(
-                                  Text(
-                                    item["total_gst"] == null
-                                        ? ""
-                                        : twodecimalDigit(double.parse(
-                                            item["total_gst"].toString())),
-                                    style: const TextStyle(fontSize: 12),
+                                  Column(
+                                    children: [
+                                      SizedBox(height: 6),
+                                      Text(
+                                        item["total_gst"] == null
+                                            ? ""
+                                            : twodecimalDigit(double.parse(
+                                                item["total_gst"].toString())),
+                                        style: const TextStyle(fontSize: 12),
+                                      ),
+                                    ],
                                   ),
                                 ),
                                 DataCell(
@@ -158,6 +183,7 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
                                     child: SingleChildScrollView(
                                       child: Column(
                                         children: [
+                                         // SizedBox(height: 5),
                                           Text(
                                             item["total_amount"] == null
                                                 ? ""
@@ -168,32 +194,33 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
                                                 const TextStyle(fontSize: 12),
                                           ),
                                           if (item["title"] != "title")
-                                            TextButton(
-                                              onPressed: () {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        MyOrderDetail2(
-                                                      OrderId: int.parse(
-                                                          item["id"]
-                                                              .toString()),
-                                                    ),
+                                         InkWell(
+                                           onTap:() {
+                                             Navigator.push(
+                                               context,
+                                               MaterialPageRoute(
+                                                 builder: (context) =>
+                                                     MyOrderDetail2(
+                                                       OrderId: int.parse(
+                                                           item["id"]
+                                                               .toString()),
+                                                     ),
+                                               ),
+                                             );
+                                           },
+                                           child: const Text(
+                                                  "View Details",
+                                                  maxLines: 1,
+                                                  style: TextStyle(
+                                                    fontSize: 10,
+                                                    color: kPrimaryBlue,
+                                                    decoration:
+                                                        TextDecoration.underline,
+                                                    decorationColor: kPrimaryBlue,
                                                   ),
-                                                );
-                                              },
-                                              child: const Text(
-                                                "View Details",
-                                                maxLines: 1,
-                                                style: TextStyle(
-                                                  fontSize: 10,
-                                                  color: kPrimaryBlue,
-                                                  decoration:
-                                                      TextDecoration.underline,
-                                                  decorationColor: kPrimaryBlue,
                                                 ),
-                                              ),
-                                            ),
+                                         ),
+
                                         ],
                                       ),
                                     ),

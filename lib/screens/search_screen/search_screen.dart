@@ -22,11 +22,35 @@ class SearchScreen extends StatelessWidget {
         Get.put(AddToCartController());
     return Obx( ()=>
       Scaffold(
+
         bottomSheet: (addToCartController.productCount > 0 )
               ? const GoToCart(usedIn: "PoductsListScreen",)
               : const SizedBox.shrink(),
         body: SafeArea(
-          child: Stack(
+          child:Column(
+            children: [
+              Hero(
+                tag: 'search',
+                child: Material(
+                  child: SearchTab(
+                    key: const Key('value'),
+                    textEditingController: searchController,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: getProportionateScreenHeight(32),
+              ),
+              Expanded(
+                child: CustomStaggerGrid(
+                addCallback: () {},
+              ),
+              ),
+              SizedBox(height: 20,)
+            ],
+          )
+          
+  /*        Stack(
             children: [
               Hero(
                 tag: 'search',
@@ -49,8 +73,9 @@ class SearchScreen extends StatelessWidget {
                   ),
                 ),
               ),
+              SizedBox(height: 500,)
             ],
-          ),
+          ),*/
         ),
 
         //bottomNavigationBar: CustomNavBar((_) {}, 0),

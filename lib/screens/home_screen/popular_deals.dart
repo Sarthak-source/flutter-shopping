@@ -59,10 +59,12 @@ class _PopularDealTabState extends State<PopularDealTab> {
                 ),
               ),
             ));
-      } else if (controller.hasError.value) {
+      }
+      else if (controller.hasError.value) {
         // If there's an error, display it to the user
         return Center(child: Text('Error: ${controller.errorMsg.value}'));
-      } else {
+      }
+      else {
         return Column(
           children: [
             Container(
