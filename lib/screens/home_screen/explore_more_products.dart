@@ -90,9 +90,9 @@ class _ExploreMoreProductsState extends State<ExploreMoreProducts> {
                       });
                     },
                     onAddClicked: () {
-                      setState(() {
+                   /*   setState(() {
                         _selectedIndex = index;
-                      });
+                      });*/
                     },
                     isFrom: widget.isfrom,
                     loader: index == _selectedIndex

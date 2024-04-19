@@ -88,9 +88,9 @@ class _PopularDealTabState extends State<PopularDealTab> {
                       });
                     },
                     onAddClicked: () {
-                      setState(() {
+                  /*    setState(() {
                         _selectedIndex = index;
-                      });
+                      });*/
                     },
                     product: popularDeals[index],
                     isFrom: widget.isfrom,

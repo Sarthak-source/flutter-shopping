@@ -338,7 +338,7 @@ class _PopularCardState extends State<PopularCard> {
                   },
                   onAddPressed: () {
                     //  quantity.value++;
-                    widget.onAddClicked();
+                  //  widget.onAddClicked();
                     String minOrder =ordersMilk == "Crate" && widget.product['parent_code'].toString() == "1011"?"1": widget.product['min_order_qty'] == null ? "0.0" : widget.product['min_order_qty'].toString();
                     quantity.value = quantity.value + int.parse(convertDoubleToString(minOrder));
                     print('onClick of Add ${int.parse(convertDoubleToString(minOrder))} :: ${quantity.value}');
