@@ -19,15 +19,15 @@ class PopularCard extends StatefulWidget {
   final Function() onCardAddClicked;
   final Function() onCardMinusClicked;
   final Function() onAddClicked;
-  const PopularCard(
-      {super.key,
-        this.product,
-        this.isFrom,
-        this.loader,
-        required this.onCardAddClicked,
-        required this.onCardMinusClicked,
-        required this.onAddClicked,
-      });
+  const PopularCard({
+    super.key,
+    this.product,
+    this.isFrom,
+    this.loader,
+    required this.onCardAddClicked,
+    required this.onCardMinusClicked,
+    required this.onAddClicked,
+  });
 
   @override
   State<PopularCard> createState() => _PopularCardState();
@@ -41,9 +41,12 @@ class _PopularCardState extends State<PopularCard> {
   void initState() {
     super.initState();
 
-    storedUserData=box?.get('userData');
-    print('userdata in popularcard ${ storedUserData?['party']['orders_milk'].toString() }');
-    ordersMilk = storedUserData?['party']['orders_milk']!=null?storedUserData!['party']['orders_milk'].toString():"";
+    storedUserData = box?.get('userData');
+    print(
+        'userdata in popularcard ${storedUserData?['party']['orders_milk'].toString()}');
+    ordersMilk = storedUserData?['party']['orders_milk'] != null
+        ? storedUserData!['party']['orders_milk'].toString()
+        : "";
     if (widget.product != null && widget.product!["cart_count"] != null) {
       final cartCount = widget.product!["cart_count"];
       if (cartCount != null) {
@@ -57,6 +60,7 @@ class _PopularCardState extends State<PopularCard> {
       }
     }
   }
+
   @override
   void didUpdateWidget(covariant PopularCard oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -83,10 +87,10 @@ class _PopularCardState extends State<PopularCard> {
 
   final TextEditingController quantityCtrlr = TextEditingController();
   final AddToCartController addToCartController =
-  Get.put(AddToCartController());
+      Get.put(AddToCartController());
   final MyCartController myCartController = Get.put(MyCartController());
   final ProductDetailController prodDetailController =
-  Get.put(ProductDetailController());
+      Get.put(ProductDetailController());
 
   @override
   Widget build(BuildContext context) {
@@ -107,7 +111,7 @@ class _PopularCardState extends State<PopularCard> {
       }
     }*/
     return Obx(
-          () => Padding(
+      () => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: Container(
           width: 160,
@@ -187,9 +191,9 @@ class _PopularCardState extends State<PopularCard> {
                     Text(
                       "₹ ${convertDoubleToString(widget.product?['price'].toString() ?? '0.0 ')}",
                       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 13,
-                      ),
+                            fontWeight: FontWeight.w600,
+                            fontSize: 13,
+                          ),
                     ),
                     Text(
                       " / ${widget.product?['order_uom'] == null ? "" : widget.product?['order_uom']}",
@@ -322,26 +326,38 @@ class _PopularCardState extends State<PopularCard> {
                 const Spacer(),
 
                 AddButton(
-                  units: " ${widget.product?['order_uom'] == null ? "" : widget.product?['order_uom']}",
+                  units:
+                      " ${widget.product?['order_uom'] == null ? "" : widget.product?['order_uom']}",
                   width: 135,
-                  minOrder: int.parse(convertDoubleToString(widget.product['min_order_qty'] ?? "0.0")),
+                  minOrder: int.parse(convertDoubleToString(
+                      widget.product['min_order_qty'] ?? "0.0")),
                   textWidth: 120,
                   isLoading: widget.loader ?? false,
-                  qty: quantity.value < int.parse(convertDoubleToString(widget.product['min_order_qty'] ?? "0.0"))
+                  qty: quantity.value <
+                          int.parse(convertDoubleToString(
+                              widget.product['min_order_qty'] ?? "0.0"))
                       ? 0
                       : quantity.value,
                   onChangedPressed: (value) {
                     quantity.value = int.parse(value);
                     quantityCtrlr.text = quantity.value.toString();
                     controller.rxQty.value = quantity.value.toString();
-                    addToCartController.addToCart(quantity.value, widget.product?['id'], '1', widget.product);
+                    addToCartController.addToCart(quantity.value,
+                        widget.product?['id'], '1', widget.product);
                   },
                   onAddPressed: () {
                     //  quantity.value++;
-                  //  widget.onAddClicked();
-                    String minOrder =ordersMilk == "Crate" && widget.product['parent_code'].toString() == "1011"?"1": widget.product['min_order_qty'] == null ? "0.0" : widget.product['min_order_qty'].toString();
-                    quantity.value = quantity.value + int.parse(convertDoubleToString(minOrder));
-                    print('onClick of Add ${int.parse(convertDoubleToString(minOrder))} :: ${quantity.value}');
+                    widget.onAddClicked();
+                    String minOrder = ordersMilk == "Crate" &&
+                            widget.product['parent_code'].toString() == "1011"
+                        ? "1"
+                        : widget.product['min_order_qty'] == null
+                            ? "0.0"
+                            : widget.product['min_order_qty'].toString();
+                    quantity.value = quantity.value +
+                        int.parse(convertDoubleToString(minOrder));
+                    print(
+                        'onClick of Add ${int.parse(convertDoubleToString(minOrder))} :: ${quantity.value}');
                     addToCartController.productCount++;
                     addToCartController.addToCart(quantity.value,
                         widget.product?['id'], '1', widget.product);
@@ -357,8 +373,13 @@ class _PopularCardState extends State<PopularCard> {
                     print(
                         'isloading in addtocart ${addToCartController.isLoading.value}');
                     controller.rxQty.value = quantity.value.toString();
-                    String minOrder = ordersMilk == "Crate" && widget.product['parent_code'].toString() == "1011"?"1":widget.product['increment_order_qty'].toString() ?? "0.0";
-                    quantity.value = quantity.value + int.parse(convertDoubleToString(minOrder));
+                    String minOrder = ordersMilk == "Crate" &&
+                            widget.product['parent_code'].toString() == "1011"
+                        ? "1"
+                        : widget.product['increment_order_qty'].toString() ??
+                            "0.0";
+                    quantity.value = quantity.value +
+                        int.parse(convertDoubleToString(minOrder));
                     quantityCtrlr.text = quantity.value.toString();
                     addToCartController.addToCart(quantity.value,
                         widget.product?['id'], '1', widget.product);
@@ -371,7 +392,11 @@ class _PopularCardState extends State<PopularCard> {
                     //   if (quantity.value > 0) {
                     //quantity.value = widget.product['cart_count']??0;
 
-                    String minOrder = ordersMilk == "Crate" && widget.product['parent_code'].toString() == "1011"?"1":widget.product['increment_order_qty'].toString() ?? "0.0";
+                    String minOrder = ordersMilk == "Crate" &&
+                            widget.product['parent_code'].toString() == "1011"
+                        ? "1"
+                        : widget.product['increment_order_qty'].toString() ??
+                            "0.0";
                     quantity.value = quantity.value -
                         int.parse(convertDoubleToString(minOrder));
                     //addToCartController.productCount--;
@@ -397,7 +422,6 @@ class _PopularCardState extends State<PopularCard> {
                     addToCartController.update();*/
                   },
                   qtyController: quantityCtrlr,
-
                   parentCode: widget.product?['parent_code'] ?? "",
                 ),
                 const Spacer(),
@@ -407,19 +431,21 @@ class _PopularCardState extends State<PopularCard> {
                     quantity.value == 0
                         ? const Text("")
                         : Text(
-                      //newCrateValue,
-                      setCrateRate(
-                          quantity.value,
-                          widget.product?['multipack_qty'] ?? "0.0",
-                          widget.product?['multipack_uom'] ?? "",
-                          widget.product?['parent_code'] ?? "",ordersMilk).toString(),
-                      //  setCrateRate(quantity.value, widget.product?['multipack_qty'] ?? 0).toString(),
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyMedium!
-                          .copyWith(
-                          fontSize: 12, color: kTextColorAccent),
-                    ),
+                            //newCrateValue,
+                            setCrateRate(
+                                    quantity.value,
+                                    widget.product?['multipack_qty'] ?? "0.0",
+                                    widget.product?['multipack_uom'] ?? "",
+                                    widget.product?['parent_code'] ?? "",
+                                    ordersMilk)
+                                .toString(),
+                            //  setCrateRate(quantity.value, widget.product?['multipack_qty'] ?? 0).toString(),
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(
+                                    fontSize: 12, color: kTextColorAccent),
+                          ),
                     Text(
                       " ${widget.product?['multipack_uom'] == null ? "" : widget.product?['multipack_uom']}",
                       style: Theme.of(context)
@@ -430,7 +456,7 @@ class _PopularCardState extends State<PopularCard> {
                     // const Spacer(),
                     const Spacer(),
                     Text(
-                      "${setPackingValue(quantity.value, widget.product['packing_qty'] ?? "0.0", widget.product?['multipack_uom'] ?? "", widget.product?['no_of_pieces'] ?? 0, widget.product?['order_uom'] ?? '', widget.product?['packing_uom'] ?? '',ordersMilk,widget.product?['parent_code'] ?? "")} ",
+                      "${setPackingValue(quantity.value, widget.product['packing_qty'] ?? "0.0", widget.product?['multipack_uom'] ?? "", widget.product?['no_of_pieces'] ?? 0, widget.product?['order_uom'] ?? '', widget.product?['packing_uom'] ?? '', ordersMilk, widget.product?['parent_code'] ?? "")} ",
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium!
@@ -455,38 +481,36 @@ class _PopularCardState extends State<PopularCard> {
   }
 }
 
-setCrateRate(int qty, String multiPackQty, String multiPackUom,String parentCode,String ordersMilk) {
+setCrateRate(int qty, String multiPackQty, String multiPackUom,
+    String parentCode, String ordersMilk) {
   double crateValue = 0.0;
   String newCrateValue = "";
   print('parentCode:::: $parentCode');
   if (multiPackUom != null && multiPackUom == "CASE") {
     return qty.toString();
   } else {
-
     if (qty != null && multiPackQty != null) {
-
-      if(ordersMilk == "Crate" && parentCode == "1011"){
-        newCrateValue =qty.toString();
+      if (ordersMilk == "Crate" && parentCode == "1011") {
+        newCrateValue = qty.toString();
         return newCrateValue;
-      }else{
+      } else {
         crateValue = qty / int.parse(convertDoubleToString(multiPackQty));
         // crateValue = 3.0;
         if (crateValue.isFinite && !crateValue.isNaN) {
-          print("Crate:: qty===${qty} multiPackQty== ${multiPackQty} crateValue=== $crateValue");
+          print(
+              "Crate:: qty===${qty} multiPackQty== ${multiPackQty} crateValue=== $crateValue");
           print(crateValue.ceil());
           newCrateValue = crateValue.ceil().toString();
           return newCrateValue;
         }
       }
-
-
     }
     return newCrateValue;
   }
 }
 
 setPackingValue(int qty, String noOfPieces, String multiPackUom, int pieces,
-    String orderUom, String packingUom, String ordersMilk,String parentCode) {
+    String orderUom, String packingUom, String ordersMilk, String parentCode) {
   log(orderUom.toString());
   print('ordersMilk:::: $ordersMilk');
   if (multiPackUom != null && multiPackUom == "CASE") {
@@ -504,16 +528,16 @@ setPackingValue(int qty, String noOfPieces, String multiPackUom, int pieces,
       late double multiplier;
       if (packingUom == 'LTR' || packingUom == 'KG') {
         multiplier = 1.0;
-      }else if(ordersMilk == "Crate" && parentCode == "1011"){
-        multiplier =10.0*1000.0;
-      }
-      else {
+      } else if (ordersMilk == "Crate" && parentCode == "1011") {
+        multiplier = 10.0 * 1000.0;
+      } else {
         multiplier = 1000.0;
       }
       // double multiplier =
       //     (orderUom == 'LTR' || orderUom == 'KG') ? 1.0 : 1000.0;
       //     log(multiplier.toString());
-      double noOfPi = qty * multiplier / int.parse(convertDoubleToString(noOfPieces));
+      double noOfPi =
+          qty * multiplier / int.parse(convertDoubleToString(noOfPieces));
 
       log('multiplier.toString() ${multiplier.toString()} $noOfPi');
       // Check if noOfPi is finite and not NaN
