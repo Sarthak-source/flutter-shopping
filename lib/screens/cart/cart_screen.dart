@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sutra_ecommerce/controllers/mycart_controller.dart';
-import 'package:sutra_ecommerce/screens/paymentScreen/pendingPayment.dart';
 import 'package:sutra_ecommerce/screens/select_time/select_time.dart';
 
 import '../../config/common.dart';
@@ -16,7 +15,7 @@ import '../../widgets/order_card.dart';
 
 class CartScreen extends StatefulWidget {
   static const routeName = '/cartscreen';
-  CartScreen({super.key});
+  const CartScreen({super.key});
 
   @override
   State<CartScreen> createState() => _CartScreenState();
@@ -29,6 +28,9 @@ class _CartScreenState extends State<CartScreen> {
   final PaymentController payCtrlr = Get.put(PaymentController());
   final AddToCartController addToCartController =
       Get.put(AddToCartController());
+
+
+      
 
   String? isOrderLock = "";
   Map? storedUserData;
@@ -48,10 +50,20 @@ class _CartScreenState extends State<CartScreen> {
       setPDCount(controller.mycartItems,addToCartController);
     });*/
 
+    final double totalAmount =
+          double.parse(controller.mycartTotalAmount.value ?? "0.000");
+      final int valueLength = totalAmount.toInt().toString().length;
+      final double fontSize =
+          22 - (valueLength - 1) * 2;
+
+          final double rateFontSize =
+          15 - (valueLength - 1) * 2;
+
     return Scaffold(
       body: SafeArea(
         child: GetBuilder<MyCartController>(builder: (controller) {
           return Obx(
+            
             () => Center(
               child: Padding(
                 padding: EdgeInsets.symmetric(
@@ -90,7 +102,7 @@ class _CartScreenState extends State<CartScreen> {
                       () => Expanded(
                         child: SingleChildScrollView(
                           child: controller.mycartItems.isEmpty
-                              ? Container(
+                              ? SizedBox(
                                   height: Get.height / 2 + 150,
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -202,10 +214,10 @@ class _CartScreenState extends State<CartScreen> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    RateCardinBuyNow(context, "Total Basic Amt",
-                                        controller.mycartTotalValue.value),
-                                    RateCardinBuyNow(context, "Total Gst",
-                                        controller.mycartTotalGst.value),
+                                    rateCardinBuyNow(context, "Total Basic Amt",
+                                        controller.mycartTotalValue.value,rateFontSize),
+                                    rateCardinBuyNow(context, "Total Gst",
+                                        controller.mycartTotalGst.value,rateFontSize),
                                     /* Text(
                                       controller.mycartTotalGst.value,
                                       style: Theme.of(context)
@@ -221,7 +233,7 @@ class _CartScreenState extends State<CartScreen> {
                                           .headlineLarge!
                                           .copyWith(
                                               fontWeight: FontWeight.w700,
-                                              fontSize: 20),
+                                              fontSize: fontSize),
                                     ),
                                   ],
                                 ),
@@ -282,7 +294,7 @@ class _CartScreenState extends State<CartScreen> {
     );
   }
 
-  Row RateCardinBuyNow(BuildContext context, String key, String value) {
+  Row rateCardinBuyNow(BuildContext context, String key, String value, double? rateFontSize) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -293,7 +305,7 @@ class _CartScreenState extends State<CartScreen> {
             style: Theme.of(context)
                 .textTheme
                 .headlineSmall!
-                .copyWith(color: Colors.grey, fontSize: 14),
+                .copyWith(color: Colors.grey, fontSize: rateFontSize),
           ),
         ),
         Expanded(
@@ -303,7 +315,7 @@ class _CartScreenState extends State<CartScreen> {
             style: Theme.of(context)
                 .textTheme
                 .headlineSmall!
-                .copyWith(color: Colors.grey, fontSize: 14),
+                .copyWith(color: Colors.grey, fontSize: rateFontSize),
           ),
         ),
       ],

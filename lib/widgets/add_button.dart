@@ -24,22 +24,21 @@ class AddButton extends StatefulWidget {
   final bool constWidth;
   final String? parentCode;
 
-  const AddButton({
-    super.key,
-    required this.onPlusPressed,
-    required this.onMinusPressed,
-    required this.onAddPressed,
-    required this.onChangedPressed,
-    required this.qty,
-    required this.qtyController,
-    required this.isLoading,
-    this.minOrder = 1,
-    this.width = 80.0,
-    this.textWidth = 60,
-    this.units = 'items',
-    this.constWidth = false,
-    this.parentCode
-  });
+  const AddButton(
+      {super.key,
+      required this.onPlusPressed,
+      required this.onMinusPressed,
+      required this.onAddPressed,
+      required this.onChangedPressed,
+      required this.qty,
+      required this.qtyController,
+      required this.isLoading,
+      this.minOrder = 1,
+      this.width = 80.0,
+      this.textWidth = 60,
+      this.units = 'items',
+      this.constWidth = false,
+      this.parentCode});
 
   @override
   State<AddButton> createState() => _AddButtonState();
@@ -52,19 +51,21 @@ class _AddButtonState extends State<AddButton> {
   late FocusNode focusNode;
   ItemScrollController itemScrollController = ItemScrollController();
   final ScrollOffsetController scrollOffsetController =
-  ScrollOffsetController();
+      ScrollOffsetController();
   final ItemPositionsListener itemPositionsListener =
-  ItemPositionsListener.create();
+      ItemPositionsListener.create();
   int listLength = 300;
   String ordersMilk = "";
   Map? storedUserData;
   @override
   void initState() {
     super.initState();
-     storedUserData=box?.get('userData');
-    print('userdata in popularcard ${ storedUserData?['party']['orders_milk'].toString() }');
-    ordersMilk = storedUserData?['party']['orders_milk']!=null?storedUserData!['party']['orders_milk'].toString():"";
-
+    storedUserData = box?.get('userData');
+    print(
+        'userdata in popularcard ${storedUserData?['party']['orders_milk'].toString()}');
+    ordersMilk = storedUserData?['party']['orders_milk'] != null
+        ? storedUserData!['party']['orders_milk'].toString()
+        : "";
   }
 
   @override
@@ -83,12 +84,11 @@ class _AddButtonState extends State<AddButton> {
   }
 
   List<int> generateList(int minOrder, int length) {
-    print('widget.parentCode in add btn ${widget.parentCode} ordersmilk:: $ordersMilk');
-    if(widget.parentCode == "1011" && ordersMilk == "Crate"){
-
+    print(
+        'widget.parentCode in add btn ${widget.parentCode} ordersmilk:: $ordersMilk');
+    if (widget.parentCode == "1011" && ordersMilk == "Crate") {
       return List.generate(length, (index) => (index + 1));
-
-    }else{
+    } else {
       return List.generate(length, (index) => (index + 1) * minOrder);
     }
 
@@ -107,7 +107,8 @@ class _AddButtonState extends State<AddButton> {
     focusNode = FocusNode();
     itemScrollController = ItemScrollController();
 
-    int indexOfQuantity = generateList(widget.minOrder, listLength).indexOf(widget.qty);
+    int indexOfQuantity =
+        generateList(widget.minOrder, listLength).indexOf(widget.qty);
 
     log(indexOfQuantity.toString());
 
@@ -132,26 +133,26 @@ class _AddButtonState extends State<AddButton> {
 
     return widget.qty == 0
         ? SizedBox(
-      width: widget.width,
-      height: 32,
-      child: OutlinedButton(
-        style: OutlinedButton.styleFrom(
-          side:  BorderSide(color: Colors.black.withOpacity(0.2)),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5.0),
-          ),
-        ),
-        onPressed: widget.onAddPressed,
-        child:  Text(
-          'Add',
-          style: TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.bold,
-            color: Colors.black.withOpacity(0.5),
-          ),
-        ),
-      ),
-    )
+            width: widget.width,
+            height: 32,
+            child: OutlinedButton(
+              style: OutlinedButton.styleFrom(
+                side: BorderSide(color: Colors.black.withOpacity(0.2)),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5.0),
+                ),
+              ),
+              onPressed: widget.onAddPressed,
+              child: Text(
+                'Add',
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black.withOpacity(0.5),
+                ),
+              ),
+            ),
+          )
         : widget.isLoading
         ? const Padding(
       padding: EdgeInsets.all(8.0),
