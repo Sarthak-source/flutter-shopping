@@ -139,16 +139,25 @@ class _OrderCardState extends State<OrderCard> {
                           width: 8,
                         ),
                         InkWell(
-                          onTap: () {
+                          onTap: (){
                             setState(() {
                               widget.onDeleteItem(quantity);
                             });
                           },
-                          child: const Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Icon(
-                              Icons.delete_outline_outlined,
-                              color: Colors.grey,
+                          child: Container(
+                            height: 40,
+                            width: 60,
+                            color: Colors.white,
+                            child: Column(
+                              children: [
+                                const Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: Icon(
+                                    Icons.delete_outline_outlined,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         )

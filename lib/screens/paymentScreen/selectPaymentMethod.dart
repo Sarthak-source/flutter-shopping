@@ -45,16 +45,14 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
   void initState() {
     super.initState();
     focusNode = FocusNode();
+    checkForDBdata();
     focusNode.addListener(() {
       setState(() {
         isTextFieldFocused = focusNode.hasFocus;
       });
     });
 
-  /*  createOrderBox = Hive.box<CreateOrderModel>('createorder');
-    //catModelList?.clear();
-    catModelList = createOrderBox?.values.toList();
-    print('All data from hive in initstate:: ${catModelList?.length}');*/
+
 
 
     Map storedUserData=box!.get('userData');
@@ -521,5 +519,47 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
         ),
       ),
     );
+  }
+
+  Future<void> checkForDBdata() async {
+    localBox = await Hive.openBox<CreateOrderModel>('createorder');
+    createOrderBox = Hive.box<CreateOrderModel>('createorder');
+    catModelList = createOrderBox?.values.toList();
+    print('All data from hive in initstate:: ${catModelList?.length}');
+    if(catModelList!= null && catModelList!.isNotEmpty){
+      String amt ="";
+      String payMode ="";
+      String shift ="";
+      String date ="";
+      String address ="";
+      for(var i=0 ; i<catModelList!.length; i++){
+        print('All data from hive:: ${catModelList?[i].amtPaid},${catModelList?[i].payMode}');
+        amt = catModelList?[i].amtPaid ?? "";
+        payMode = catModelList?[i].payMode ?? "";
+        shift = catModelList?[i].shift ?? "";
+        date = catModelList?[i].date ?? "";
+        address = catModelList?[i].address ?? "";
+      }
+      print('All data from hive2::amnt: $amt,paymode: $payMode address: $address shift: $shift date: $date' );
+      createOrderCtlr.createOrderApi(   //COD FLOW
+          shift,
+          date,
+          address,
+          amt.toString(),
+          payMode,// "Online",
+          "",// "1234567",
+          "",//  "ggghhhh4444",
+          "",// "Success"
+              (v) async {
+            if(v == true){
+              await Hive.deleteBoxFromDisk('createorder');
+              catModelList = createOrderBox?.values.toList() ?? [];
+              print('after success from initstate:: ${catModelList?.length}');
+            }
+          }
+      );
+    }else{
+
+    }
   }
 }
