@@ -202,15 +202,20 @@ class _AddButtonState extends State<AddButton> {
             ),),
           const Spacer(),
           SizedBox(
-            width:widget.constWidth? 50:10.0 * quantity.toString().length,
+          //  width:widget.constWidth? 50: 10.0 * quantity.toString().length,
+          //  width: quantity != null && quantity.toString().length > 2?50:50,
+            width: 50,
             height: 30,
             child: TextField(
+
               inputFormatters: [
                 FilteringTextInputFormatter.digitsOnly
               ],
               keyboardType: TextInputType.number,
               readOnly: true,
               decoration: const InputDecoration(
+                filled: true,
+                fillColor: Colors.white,
                 isDense: true,
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.only(top: 5),
@@ -225,19 +230,24 @@ class _AddButtonState extends State<AddButton> {
                         vertical: 30,
                       ),
                       //contentPadding: const EdgeInsets.all(12),
-                      title: Row(
-                        children: [
-                          const Text("Quantity"),
-                          const Spacer(),
-                          IconButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              icon: const Icon(
-                                Icons.close,
-                                color: Colors.grey,
-                              ))
-                        ],
+                      title: GestureDetector(
+                        onTap: (){
+                          Navigator.pop(context);
+                        },
+                        child: Row(
+                          children: [
+                            const Text("Quantity"),
+                            const Spacer(),
+                            IconButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                icon: const Icon(
+                                  Icons.close,
+                                  color: Colors.grey,
+                                ))
+                          ],
+                        ),
                       ),
                       content: SizedBox(
                         width: double.maxFinite,
@@ -326,16 +336,15 @@ class _AddButtonState extends State<AddButton> {
             ),
           ),
           const Spacer(),
-          Container(width: 1,
+/*          Container(width: 1,
             height: 30,
             decoration:   BoxDecoration(
               color: Colors.black.withOpacity(0.2),
-
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(5.0),
                 bottomLeft: Radius.circular(5.0),
               ),
-            ),),
+            ),),*/
           InkWell(
             onTap: widget.onPlusPressed,
             child: Container(

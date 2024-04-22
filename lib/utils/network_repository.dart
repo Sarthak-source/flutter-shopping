@@ -661,7 +661,7 @@ class NetworkRepository {
         header: Options(headers: <String, String>{'authorization': auth}),
       );
 
-      print('\x1b[97m products Response : $apiResponse');
+      print('\x1b[97m exploreProducts Response : $apiResponse');
 
       final body = apiResponse['body'];
 

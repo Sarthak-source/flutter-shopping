@@ -346,7 +346,7 @@ class _PopularCardState extends State<PopularCard> {
                     addToCartController.addToCart(quantity.value,
                         widget.product?['id'], '1', widget.product);
                     addToCartController.update();
-                    quantityCtrlr.text = quantity.value.toString();
+                   quantityCtrlr.text = quantity.value.toString();
                     controller.rxQty.value = quantity.value.toString();
                     log("widget.product ${widget.product} ${quantity.value}");
                   },
