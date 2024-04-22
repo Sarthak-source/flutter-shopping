@@ -194,10 +194,6 @@ class NetworkRepository {
     }
   }
 
-
-
-
-
   Future getStates() async {
     log("${ApiAppConstants.apiEndPoint}${ApiAppConstants.getstates}?page=1");
     try {
@@ -306,7 +302,7 @@ class NetworkRepository {
     try {
       final apiResponse = await NetworkDioHttp.getDioHttpMethod(
         url:
-        "${ApiAppConstants.apiEndPoint}${ApiAppConstants.pendingpayment}?party=$dispatchParty",
+            "${ApiAppConstants.apiEndPoint}${ApiAppConstants.pendingpayment}?party=$dispatchParty",
         header: Options(headers: <String, String>{'authorization': auth}),
       );
 
@@ -374,16 +370,15 @@ class NetworkRepository {
     try {
       final apiResponse = await NetworkDioHttp.postDioHttpMethod(
         url:
-        "${ApiAppConstants.apiEndPoint}${ApiAppConstants.updateInvoicePayments}",
+            "${ApiAppConstants.apiEndPoint}${ApiAppConstants.updateInvoicePayments}",
         data: {
           "confirmation_status": status,
           "invoice": invoiceId,
           "id": id,
-          "party":partyId,
-          "order":order,
-          "amount_paid":amountPaid
+          "party": partyId,
+          "order": order,
+          "amount_paid": amountPaid
         },
-
         header: Options(headers: <String, String>{'authorization': auth}),
       );
       debugPrint('\x1b[97m confirm api param : $amountPaid');
@@ -391,11 +386,11 @@ class NetworkRepository {
       return await apiResponse['body'];
     } catch (e) {
       // CommonMethod().getXSnackBar("Error", e.toString(), Colors.red);
-      Fluttertoast.showToast(msg: "something went wrong", backgroundColor: Colors.red);
+      Fluttertoast.showToast(
+          msg: "something went wrong", backgroundColor: Colors.red);
       return e.toString();
     }
   }
-
 
   static Future addPayments({
     required String invoice,
@@ -507,7 +502,9 @@ class NetworkRepository {
       if (appException.statusCode == 500 ||
           appException.statusCode == 400 ||
           appException.statusCode == 404) {
-        Fluttertoast.showToast(msg: "Something went wrong in mycart! ${appException.statusCode.toString()}");
+        Fluttertoast.showToast(
+            msg:
+                "Something went wrong in mycart! ${appException.statusCode.toString()}");
       }
 
       return appException.res?.statusCode.toString();
@@ -821,13 +818,11 @@ class NetworkRepository {
         "shift": shift,
         "delivery_required_on": deliverydate,
         "address": address,
-        "amount_paid":amtPaid,
-        "payment_mode":payMode,
-        "UPI_id":upiId,
-        "UPI_transaction_id":upiTransId,
-        "UPI_transaction_status":upiTransSts
-
-
+        "amount_paid": amtPaid,
+        "payment_mode": payMode,
+        "UPI_id": upiId,
+        "UPI_transaction_id": upiTransId,
+        "UPI_transaction_status": upiTransSts
       };
       log("dataposted $data");
 
