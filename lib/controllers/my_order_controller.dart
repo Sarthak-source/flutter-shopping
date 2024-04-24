@@ -65,6 +65,7 @@ class MyOrderController extends GetxController{
       hasError.value = true;
     } finally {
       isLoading.value = false;
+      update();
     }
   }
 

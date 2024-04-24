@@ -10,6 +10,7 @@ import 'package:sutra_ecommerce/widgets/popular_card/popular_card.dart';
 import '../../config/common.dart';
 import '../../constants/colors.dart';
 import '../../utils/screen_utils.dart';
+import '../add_buttonDouble.dart';
 
 class ProductCard extends StatefulWidget {
   final dynamic product;
@@ -38,8 +39,8 @@ class ProductCard extends StatefulWidget {
 class _ProductCardState extends State<ProductCard> {
   final TextEditingController quantityCtrlr = TextEditingController();
 
-  RxInt quantity =
-      0.obs; // Initialize quantity as observable RxInt with value 0
+  RxInt quantity = 0.obs;
+  RxString dblquantity = "0.0".obs;
   String ordersMilk = "";
   @override
   void initState() {
@@ -56,6 +57,7 @@ class _ProductCardState extends State<ProductCard> {
           log('double count $parsedCount');
           log('int count ${parsedCount.toInt()}');
           quantity.value = parsedCount.toInt();
+          dblquantity.value = cartCount.toString();
         }
       }
     }
@@ -176,7 +178,91 @@ class _ProductCardState extends State<ProductCard> {
               Padding(
                 
                 padding: const EdgeInsets.symmetric(horizontal: 12),
-                child: AddButton(
+                child:
+               /* AddButtonDouble(
+                  minOrder:  widget.product['min_order_qty'] ?? "0.0",
+                  units:
+                  " ${widget.product?['order_uom'] == null ? "" : widget.product?['order_uom']}",
+                  width: 165,
+                  textWidth: 150,
+                  isLoading: widget.loader ?? false,
+                  qty: quantity.value <
+                      int.parse(convertDoubleToString(
+                          widget.product['min_order_qty'] ?? "0.0"))
+                      ? 0
+                      :dblquantity.value,
+                  onChangedPressed: (value) {
+                    quantity.value = int.parse(value);
+                    quantityCtrlr.text = quantity.value.toString();
+                    controller.rxQty.value = quantity.value.toString();
+
+                    addToCartController.addToCart(quantity.value,
+                        widget.product?['id'], '1', widget.product);
+                  },
+                  onAddPressed: () {
+                    //  quantity.value++;
+                    String minOrder = widget.product['min_order_qty'] == null
+                        ? "0.0"
+                        : widget.product['min_order_qty'].toString();
+                    quantity.value = quantity.value + int.parse(convertDoubleToString(minOrder));
+                    double cc = 0.0;
+                    cc =cc+ double.parse(widget.product['min_order_qty'].toString());
+                    dblquantity.value = cc.toString();
+                    print(
+                        'onClick of Add ${int.parse(convertDoubleToString(minOrder))} :: ${quantity.value}');
+                    addToCartController.productCount++;
+                    addToCartController.addToCart(quantity.value,
+                        widget.product?['id'], '1', widget.product);
+
+                   // quantityCtrlr.text = quantity.value.toString();
+                    quantityCtrlr.text = dblquantity.value.toString();
+                  //  controller.rxQty.value = quantity.value.toString();
+                    controller.rxQty.value = dblquantity.value.toString();
+                    addToCartController.update();
+                  },
+                  onPlusPressed: () {
+                    widget.onCardAddClicked();
+                    //  final ValueNotifier<bool> isLoadingButton1 = ValueNotifier(false);
+                    print(
+                        'isloading in addtocart ${addToCartController.isLoading.value}');
+                    controller.rxQty.value = quantity.value.toString();
+                    String minOrder =
+                        widget.product['increment_order_qty'].toString() ??
+                            "0.0";
+                    quantity.value = quantity.value +
+                        int.parse(convertDoubleToString(minOrder));
+                    quantityCtrlr.text = quantity.value.toString();
+                    addToCartController.addToCart(quantity.value,
+                        widget.product?['id'], '1', widget.product);
+
+                    addToCartController.productCount++;
+                    addToCartController.update();
+                  },
+                  onMinusPressed: () {
+                    widget.onCardMinusClicked();
+                    //   if (quantity.value > 0) {
+                    // quantity.value--;
+                    String minOrder =
+                        widget.product['increment_order_qty'].toString() ??
+                            "0.0";
+                    quantity.value = quantity.value -
+                        int.parse(convertDoubleToString(minOrder));
+                    addToCartController.productCount--;
+                    quantityCtrlr.text = quantity.value.toString();
+                    controller.rxQty.value = quantity.value.toString();
+                    addToCartController.addToCart(quantity.value,
+                        widget.product?['id'], '1', widget.product);
+                    if (quantity.value <
+                        int.parse(convertDoubleToString(
+                            widget.product['min_order_qty'] ?? "0.0"))) {
+                      quantity.value = 0;
+                    }
+                    addToCartController.update();
+                  },
+                  qtyController: quantityCtrlr,
+                  parentCode: widget.product?['parent_code'] ?? "",
+                )*/
+                AddButton(
                    minOrder: int.parse(convertDoubleToString(
                       widget.product['min_order_qty'] ?? "0.0")),
                   units:

@@ -319,7 +319,7 @@ class _MyOrdersState extends State<MyOrders> {
                           controllerrr.update();
                         },
                         itemBuilder: (context, pageIndex) {
-                          if (!controllerrr.isLoading.value) {
+                          if (controllerrr.isLoading.value) {
                             return Shimmer.fromColors(
                               baseColor: Colors.grey[300]!,
                               highlightColor: Colors.grey[100]!,
