@@ -23,6 +23,7 @@ class MyOrderController extends GetxController{
   var nxt = ''.obs;
   var currentStatus = ''.obs;
   var myOrderList = [].obs;
+  var myFavOrderList = [].obs;
   var myApprovedOrderList = [].obs;
   var myOrderDetailList = [].obs;
   RxMap orderdetailDatas = {}.obs;
@@ -30,7 +31,7 @@ class MyOrderController extends GetxController{
   @override
   void onInit() {
     super.onInit();
-    //getMyOrders("Created","1");
+   // getMyOrders("Approved","1");
 
     print('selectedBtn in myorder controller ${selectedBtn.value}');
   }
@@ -48,18 +49,25 @@ class MyOrderController extends GetxController{
       nxt.value=responseData['body']['next'] ?? "";
       if(currentStatus.value == status){
         //myOrderList.assignAll(myorders);
+        myOrderList.clear();
+        update();
         for (dynamic orderLists in myorders ?? []) {
+
           myOrderList.add(orderLists);
           update();
         }
 
+
       }else{
         myOrderList.clear();
-        myOrderList.addAll(myorders);
         update();
+        myFavOrderList.clear();
+        myOrderList.addAll(myorders);
+
+
       }
 
-      log('myOrderList++++ ${myOrderList.length}');
+      print('myOrderList++++ ${myOrderList.length}');
     } catch (e) {
       errorMsg.value = e.toString();
       hasError.value = true;

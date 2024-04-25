@@ -220,9 +220,9 @@ class UserScreen extends StatelessWidget {
                                 log(box!.get('userData').toString());
                                 userController!.update();
                                 log(box!.get('userData').toString());
-                                await Hive.deleteBoxFromDisk('userData');
-                                box!.deleteAll(['userData', 'login', 'isTestEnvironment']);
-                                log(box!.get('userData').toString());
+                                box = await Hive.openBox('Box');
+                                await Hive.deleteBoxFromDisk('Box');
+
                                 Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute(builder: (BuildContext context) => LandingScreen()),

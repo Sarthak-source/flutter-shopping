@@ -114,10 +114,10 @@ class _GoToCartState extends State<GoToCart> {
                     ),
                   );
 
-                  cmncontroller.commonCurTab.value = 2;
+                  cmncontroller.commonCurTab.value = 3;
                   cmncontroller.update();
                 } else {
-                  cmncontroller.commonCurTab.value = 2;
+                  cmncontroller.commonCurTab.value = 3;
                   cmncontroller.update();
                 }
               },

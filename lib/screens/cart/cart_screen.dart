@@ -11,6 +11,7 @@ import '../../controllers/add_to_cart_controller.dart';
 import '../../controllers/payment_controller.dart';
 import '../../utils/common_functions.dart';
 import '../../utils/screen_utils.dart';
+import '../../widgets/loading_widgets/loader.dart';
 import '../../widgets/order_card.dart';
 
 class CartScreen extends StatefulWidget {
@@ -100,7 +101,7 @@ class _CartScreenState extends State<CartScreen> {
                     ),
                     Obx(
                       () => Expanded(
-                        child: SingleChildScrollView(
+                        child: controller.isLoading.value?Center(child: Loader()):SingleChildScrollView(
                           child: controller.mycartItems.isEmpty
                               ? SizedBox(
                                   height: Get.height / 2 + 150,
@@ -207,80 +208,82 @@ class _CartScreenState extends State<CartScreen> {
                     ),
                     controller.mycartItems.isEmpty
                         ? const SizedBox.shrink()
-                        : Row(
-                            children: [
-                              Expanded(
-                                flex: 3,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    rateCardinBuyNow(context, "Total Basic Amt",
-                                        controller.mycartTotalValue.value,rateFontSize),
-                                    rateCardinBuyNow(context, "Total Gst",
-                                        controller.mycartTotalGst.value,rateFontSize),
-                                    /* Text(
-                                      controller.mycartTotalGst.value,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headlineSmall!
-                                          .copyWith(
-                                              color: Colors.grey, fontSize: 14),
-                                    ),*/
-                                    Text(
-                                      "₹ ${twodecimalDigit(double.parse(controller.mycartTotalAmount.value ?? "0.000"))}",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headlineLarge!
-                                          .copyWith(
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: fontSize),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Expanded(
-                                flex: 2,
-                                child: Transform.translate(
-                                  offset: const Offset(0, 20),
-                                  child: ElevatedButton(
-                                    style: ButtonStyle(
-                                      shape: MaterialStateProperty.all(
-                                        const StadiumBorder(),
+                        : Container(
+                          child: Row(
+                              children: [
+                                Expanded(
+                                  flex: 3,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      rateCardinBuyNow(context, "Total Basic Amt",
+                                          controller.mycartTotalValue.value,rateFontSize),
+                                      rateCardinBuyNow(context, "Total Gst",
+                                          controller.mycartTotalGst.value,rateFontSize),
+                                      /* Text(
+                                        controller.mycartTotalGst.value,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headlineSmall!
+                                            .copyWith(
+                                                color: Colors.grey, fontSize: 14),
+                                      ),*/
+                                      Text(
+                                        "₹ ${twodecimalDigit(double.parse(controller.mycartTotalAmount.value ?? "0.000"))}",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headlineLarge!
+                                            .copyWith(
+                                                fontWeight: FontWeight.w700,
+                                                fontSize: fontSize),
                                       ),
-                                      minimumSize: MaterialStateProperty.all(
-                                        Size(
-                                          getProportionateScreenWidth(
-                                              1), // Width
-                                          44, // Height
+                                    ],
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 2,
+                                  child: Transform.translate(
+                                    offset: const Offset(0, 20),
+                                    child: ElevatedButton(
+                                      style: ButtonStyle(
+                                        shape: MaterialStateProperty.all(
+                                          const StadiumBorder(),
+                                        ),
+                                        minimumSize: MaterialStateProperty.all(
+                                          Size(
+                                            getProportionateScreenWidth(
+                                                1), // Width
+                                            44, // Height
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    onPressed: () {
-                                    //  Navigator.of(context).pushNamed(AddAddressScreen.routeName);
-                                     // Get.toNamed(SelectTime.routeName);
+                                      onPressed: () {
+                                      //  Navigator.of(context).pushNamed(AddAddressScreen.routeName);
+                                       // Get.toNamed(SelectTime.routeName);
 
-                                  /*   if(isOrderLock=="Yes"){
-                                       payCtrlr.fetchPendingPayment();
-                                       Navigator.push(context, MaterialPageRoute(builder: (context) => PendingPayment()));
-                                     }else{
-                                       Navigator.push(context, MaterialPageRoute(builder: (context) => SelectTime(
-                                         totalamount: twodecimalDigit(double.parse(controller.mycartTotalAmount.value ?? "0.000")) ?? "",
-                                       )));
-                                     }*/
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => SelectTime(
-                                        totalamount: twodecimalDigit(double.parse(controller.mycartTotalAmount.value ?? "0.000")) ?? "",
-                                      )));
+                                    /*   if(isOrderLock=="Yes"){
+                                         payCtrlr.fetchPendingPayment();
+                                         Navigator.push(context, MaterialPageRoute(builder: (context) => PendingPayment()));
+                                       }else{
+                                         Navigator.push(context, MaterialPageRoute(builder: (context) => SelectTime(
+                                           totalamount: twodecimalDigit(double.parse(controller.mycartTotalAmount.value ?? "0.000")) ?? "",
+                                         )));
+                                       }*/
+                                        Navigator.push(context, MaterialPageRoute(builder: (context) => SelectTime(
+                                          totalamount: twodecimalDigit(double.parse(controller.mycartTotalAmount.value ?? "0.000")) ?? "",
+                                        )));
 
-                                    },
-                                    child: const Text(
-                                      'Buy Now',
-                                      style: TextStyle(fontSize: 16),
+                                      },
+                                      child: const Text(
+                                        'Buy Now',
+                                        style: TextStyle(fontSize: 16),
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
+                              ],
+                            ),
+                        ),
                     SizedBox(
                       height: getProportionateScreenHeight(24.0),
                     ),

@@ -118,6 +118,7 @@ class _MyAppState extends State<MyApp> {
           navigatorObservers: [ChuckerFlutter.navigatorObserver],
           theme: ThemeData(
               //primarySwatch: Colors.green,
+              useMaterial3: false,
               primarySwatch: const MaterialColor(
                 0xFF71C4ED,
                 <int, Color>{

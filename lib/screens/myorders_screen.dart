@@ -459,13 +459,13 @@ class _MyOrderCardsState extends State<MyOrderCards> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          ListView.builder(
+    return Column(
+      children: [
+        Expanded(
+          child: ListView.builder(
               // itemCount: orderlist.length,
               shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
+            //  physics: NeverScrollableScrollPhysics(),
               controller: _scrollController,
               itemCount: widget.myOrderList.length,
               itemBuilder: (context, index) {
@@ -551,7 +551,7 @@ class _MyOrderCardsState extends State<MyOrderCards> {
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-
+          
                                       Text(setAddress(myOrderList[index]["address"],"address_line1"), style: const TextStyle(
                                           color: Colors.black,
                                           fontSize: 12,
@@ -768,10 +768,7 @@ class _MyOrderCardsState extends State<MyOrderCards> {
                                                       Expanded(
                                                         flex: 4,
                                                         child: Text(
-                                                          widget.myOrderList[index]
-                                                                      ["order_items"]
-                                                                  [newindex]
-                                                              ["product"]["name"],
+                                                          widget.myOrderList[index]["order_items"][newindex]["product"]["name"] ?? "",
                                                           style: TextStyle(
                                                             color: Colors.grey,
                                                             fontSize: Get.width >= 600
@@ -798,10 +795,7 @@ class _MyOrderCardsState extends State<MyOrderCards> {
                                                       Expanded(
                                                         flex: 1,
                                                         child: Text(
-                                                          widget.myOrderList[index]
-                                                                      ["order_items"][
-                                                                  newindex]["product"]
-                                                              ["order_uom"],
+                                                          widget.myOrderList[index]["order_items"][newindex]["product"]["order_uom"] == null? "null": widget.myOrderList[index]["order_items"][newindex]["product"]["order_uom"],
                                                           style: TextStyle(
                                                             color: Colors.grey,
                                                             fontSize: Get.width >= 600
@@ -821,7 +815,7 @@ class _MyOrderCardsState extends State<MyOrderCards> {
                             ],
                           )),
                     )
-
+          
                     /*PagedListView<int, dynamic>(
               pagingController: controller.pagingController,
               builderDelegate: PagedChildBuilderDelegate<dynamic>(
@@ -857,13 +851,13 @@ class _MyOrderCardsState extends State<MyOrderCards> {
                       ),
                     );
                   },
-
+          
                   firstPageErrorIndicatorBuilder: (context) {
                     return const Column(
                       children: [Text("No Data")],
                     );
                   },
-
+          
                 itemBuilder: (context, item, index){
                   return Container(
                       height: 200,
@@ -872,16 +866,16 @@ class _MyOrderCardsState extends State<MyOrderCards> {
                       child: Text(pageIndex.toString()));
                 }
               ),
-
+          
             ),*/
                     );
               }),
-          Container(
-            height: 200,
-            width: Get.width,
-          )
-        ],
-      ),
+        ),
+      /*  Container(
+          height: 200,
+          width: Get.width,
+        )*/
+      ],
     );
   }
 

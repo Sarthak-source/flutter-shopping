@@ -12,6 +12,7 @@ import '../../controllers/product_detail_controller.dart';
 import '../../widgets/custom_nav_bar.dart';
 import '../cart/cart_screen.dart';
 import '../fav_screen/fav_screen.dart';
+import '../fav_screen/newFavScreen.dart';
 import '../home_screen/home_screen.dart';
 import '../myorders_screen.dart';
 import '../user_screen/user_screen.dart';
@@ -68,6 +69,7 @@ class TabScreenState extends State<TabScreen> {
   Widget build(BuildContext context) {
     List<Widget> pages = [
       const HomeScreen(),
+      const newFavScreen(),
       const FavScreen(),
       CartScreen(),
       //  const PaymentScreen(),
@@ -91,7 +93,7 @@ class TabScreenState extends State<TabScreen> {
       child: Obx(() {
         return Scaffold(
           bottomSheet: (addToCartController.productCount > 0 &&
-                  commonController.commonCurTab.value != 2)
+                  commonController.commonCurTab.value != 3)
               ? const GoToCart(
                   usedIn: 'home',
                 )

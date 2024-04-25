@@ -31,7 +31,7 @@ class LoginController extends GetxController {
       Map<String, dynamic> responseData =
           await networkRepository.checkUser(number: phoneNumberTyped);
       log(responseData.toString());
-      box!.delete('userData');
+     // box!.delete('userData');
 
       userController.user.value = responseData['body'];
       await box!.put('userData',  userController.user);

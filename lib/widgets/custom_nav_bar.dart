@@ -58,9 +58,15 @@ class CustomNavBarState extends State<CustomNavBar> {
                 label: 'Favorite',
               ),
               BottomNavigationBarItem(
+                icon: widget.curTabIndex == 2
+                    ? const Icon(Icons.border_all_sharp)
+                    : const Icon(Icons.border_all_sharp),
+                label: 'Recent',
+              ),
+              BottomNavigationBarItem(
                 icon: Stack(
                   children: [
-                    widget.curTabIndex == 2
+                    widget.curTabIndex == 3
                         ? const Icon(Icons.shopping_cart)
                         : const Icon(Icons.shopping_cart_outlined),
                     if (addToCartController.productCount > 0)
@@ -113,7 +119,7 @@ class CustomNavBarState extends State<CustomNavBar> {
                 label: 'Orders',
               ),
               BottomNavigationBarItem(
-                icon: widget.curTabIndex == 3
+                icon: widget.curTabIndex == 5
                     ? const Icon(Icons.person)
                     : const Icon(Icons.person_outline),
                 label: 'Profile',

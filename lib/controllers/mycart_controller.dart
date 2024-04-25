@@ -54,6 +54,8 @@ class MyCartController extends GetxController {
     try {
       // Assuming NetworkRepository.getCategories returns a Future<dynamic>
       Map storedUserData = box!.get('userData');
+      isLoading.value =true;
+      update();
       print('userdata in mycart ${storedUserData['party']['id'].toString()}');
       var responseData = await NetworkRepository.getMyCart(
           party: storedUserData['party']['id'].toString());
@@ -82,6 +84,7 @@ class MyCartController extends GetxController {
       hasError.value = true;
     } finally {
       isLoading.value = false;
+      update();
     }
   }
 

@@ -34,7 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void initState() {
-    log(box!.get('userData').toString());
+   // log(box!.get('userData').toString());
     // userController.user.value={};
     // log(userController.user.value.toString());
     

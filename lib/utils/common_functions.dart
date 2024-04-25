@@ -23,6 +23,25 @@ String convertTimestampToDateString(String? timestampString) {
   }
 }
 
+String convertTimestampToDateString2(String? timestampString) {
+  if (timestampString == null) {
+    return ''; // Return an empty string for null values
+  }
+
+  try {
+    // Parse the timestamp string to a DateTime object
+    DateTime dateTime = DateTime.parse(timestampString);
+
+    // Format the DateTime object as dd/mm/yy
+    String formattedDate = DateFormat('dd-MMM-yy').format(dateTime);
+    print('valid date format: $timestampString');
+    return formattedDate;
+  } catch (e) {
+    print('Invalid date format: $timestampString');
+    return ''; // Return an empty string if the date format is invalid
+  }
+}
+
 String convertDoubleToString(String? value) {
   if (value == null || value == "null") {
     // Handle null or "null" input values

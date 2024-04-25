@@ -233,15 +233,18 @@ class _AddButtonState extends State<AddButton> {
                                   onTap: () {
                                     Navigator.pop(context);
                                   },
-                                  child: const Row(
-                                    children: [
-                                      Text("Quantity"),
-                                      Spacer(),
-                                      Icon(
-                                        Icons.close,
-                                        color: Colors.grey,
-                                      ),
-                                    ],
+                                  child:  Padding(
+                                    padding: const EdgeInsets.only(top:8),
+                                    child: Row(
+                                      children: [
+                                        Text("Quantity"),
+                                        Spacer(),
+                                        Icon(
+                                          Icons.close,
+                                          color: Colors.grey,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                                 content: SizedBox(
