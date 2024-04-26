@@ -6,6 +6,7 @@ import 'package:sutra_ecommerce/controllers/user_controller.dart';
 import 'package:sutra_ecommerce/widgets/go_cart/go_to_cart.dart';
 
 import '../../controllers/catagories_controller.dart';
+import '../../controllers/explore_more_poducts_controller.dart';
 import '../../controllers/get_deals_controller.dart';
 import '../../controllers/popular_controller.dart';
 import '../../controllers/product_detail_controller.dart';
@@ -35,6 +36,8 @@ class TabScreenState extends State<TabScreen> {
   final categoriesController = Get.put(CategoriesController(), permanent: true);
   final popularController =
       Get.put(PopularDealController(categoryId: ""), permanent: true);
+  final ExploreProductsController expProdController = Get.put(ExploreProductsController(categoryId: ''), permanent: true);
+
   final prodDetailController =
       Get.put(ProductDetailController(), permanent: true);
   final commonController = Get.put(CommonController(), permanent: true);
@@ -56,6 +59,8 @@ class TabScreenState extends State<TabScreen> {
       commonController.update();
       popularController.fetchPopularDeals();
       popularController.update();
+      expProdController.fetchExploreProductss();
+      expProdController.update();
       dealsController.fetchDealss();
       dealsController.update();
       categoriesController.getCategories();

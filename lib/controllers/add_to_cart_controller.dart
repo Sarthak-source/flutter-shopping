@@ -10,11 +10,13 @@ import 'package:sutra_ecommerce/utils/network_repository.dart';
 
 import '../config/common.dart';
 import 'catagories_controller.dart';
+import 'explore_more_poducts_controller.dart';
 
 class AddToCartController extends GetxController {
   //final UserController userController = Get.put(UserController());
   final MyCartController cartController = Get.put(MyCartController());
   final PopularDealController popController = Get.put(PopularDealController(categoryId: ''));
+  final ExploreProductsController expProdController = Get.put(ExploreProductsController(categoryId: ''));
   final ProductDetailController prodDetailController = Get.put(ProductDetailController());
 
   RxInt productCount = 0.obs;
@@ -76,6 +78,8 @@ class AddToCartController extends GetxController {
       cartController.update();
       popController.fetchPopularDeals();
       popController.update();
+      expProdController.fetchExploreProductss();
+      expProdController.update();
       prodDetailController.fetchProductDetail(product.toString());
       prodDetailController.update();
       if (responseData != null) {
@@ -114,6 +118,8 @@ class AddToCartController extends GetxController {
       cartController.update();
       popController.fetchPopularDeals();
       popController.update();
+      expProdController.fetchExploreProductss();
+      expProdController.update();
       // mycartItems.add(addToCartData);
     } catch (e) {
       log(e.toString());

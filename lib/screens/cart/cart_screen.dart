@@ -61,6 +61,7 @@ class _CartScreenState extends State<CartScreen> {
           15 - (valueLength - 1) * 2;
 
     return Scaffold(
+
       body: SafeArea(
         child: GetBuilder<MyCartController>(builder: (controller) {
           return Obx(

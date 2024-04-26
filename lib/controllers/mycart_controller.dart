@@ -8,10 +8,13 @@ import 'package:sutra_ecommerce/utils/network_repository.dart';
 import '../config/common.dart';
 import '../hive_models/Orders/create_order.dart';
 import '../screens/order_success_screen/order_success_screen.dart';
+import 'explore_more_poducts_controller.dart';
 
 class MyCartController extends GetxController {
   // AddToCartController addToCardController =Get.find();
   final PopularDealController popController = Get.put(PopularDealController(categoryId: ''));
+  final ExploreProductsController expProdController = Get.put(ExploreProductsController(categoryId: ''));
+
   var isLoading = true.obs;
   var isOrderCreated = false.obs;
   var hasError = false.obs;
@@ -41,6 +44,7 @@ class MyCartController extends GetxController {
 
     mycartItems.assignAll(newCartItems);
     popController.fetchPopularDeals();
+    expProdController.fetchExploreProductss();
     /*  for(var i =0; i<newCartItems.length ; i++){
       if(newCartItems.isNotEmpty){
         addToCardController.productCount.value=newCartItems[i]['party_cart_count'].toInt();
@@ -121,6 +125,7 @@ class MyCartController extends GetxController {
         update();
         getMyCart();
         popController.fetchPopularDeals();
+        expProdController.fetchExploreProductss();
         onSuccessRes(true);
         // createOrderBoxCLR?.delete("createorder");
         // catModelListCLR = createOrderBoxCLR?.values.toList();
