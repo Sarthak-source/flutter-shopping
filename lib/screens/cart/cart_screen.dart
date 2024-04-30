@@ -13,6 +13,7 @@ import '../../utils/common_functions.dart';
 import '../../utils/screen_utils.dart';
 import '../../widgets/loading_widgets/loader.dart';
 import '../../widgets/order_card.dart';
+import '../paymentScreen/pendingPayment.dart';
 
 class CartScreen extends StatefulWidget {
   static const routeName = '/cartscreen';
@@ -297,15 +298,15 @@ final double totalAmount =
                                             //  Navigator.of(context).pushNamed(AddAddressScreen.routeName);
                                             // Get.toNamed(SelectTime.routeName);
 
-                                            /*   if(isOrderLock=="Yes"){
+                                               if(isOrderLock=="Yes"){
                                              payCtrlr.fetchPendingPayment();
                                              Navigator.push(context, MaterialPageRoute(builder: (context) => PendingPayment()));
                                            }else{
                                              Navigator.push(context, MaterialPageRoute(builder: (context) => SelectTime(
                                                totalamount: twodecimalDigit(double.parse(controller.mycartTotalAmount.value ?? "0.000")) ?? "",
                                              )));
-                                           }*/
-                                            Navigator.push(
+                                           }
+                                           /* Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) =>
@@ -316,7 +317,7 @@ final double totalAmount =
                                                                           .value ??
                                                                       "0.000")) ??
                                                               "",
-                                                        )));
+                                                        )));*/
                                           },
                                           child: const Text(
                                             'Buy Now',

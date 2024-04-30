@@ -71,7 +71,7 @@ class _AddButtonState extends State<AddButton> {
   @override
   void didUpdateWidget(covariant AddButton oldWidget) {
     super.didUpdateWidget(oldWidget);
-    widget.qtyController?.text = widget.qty.toString();
+  //  widget.qtyController?.text = widget.qty.toString();
     //itemScrollController=ItemScrollController();
     focusNode = FocusNode();
   }
@@ -98,6 +98,7 @@ class _AddButtonState extends State<AddButton> {
     log("{widget.minOrder.toString()} ${widget.minOrder.toString()}");
 
     quantity = widget.qty;
+    widget.qtyController?.text ="";
     widget.qtyController?.text = widget.qty.toString();
     focusNode = FocusNode();
     itemScrollController = ItemScrollController();
