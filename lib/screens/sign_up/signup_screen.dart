@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../../constants/colors.dart';
@@ -92,7 +93,14 @@ class _SignupScreenState extends State<SignupScreen> {
                             flex: 5,
                             child: CustomTextField(
                                 controller: phoneController,
+                                inputFormatters: [FilteringTextInputFormatter.digitsOnly, LengthLimitingTextInputFormatter(10)], // Add inputFormatters to limit to digits and length
                                 hint: 'Phone Number',
+                                validator: (value) {
+                                  if (value!.length != 10 || value.isEmpty) {
+                                    return 'Please enter a valid number';
+                                  }
+                                  return null; // Return null if input is valid
+                                },
                                 TextInputType: TextInputType.number),
                           ),
                         ],
@@ -126,10 +134,6 @@ class _SignupScreenState extends State<SignupScreen> {
 
                           loginController.signUp(nameController.text,
                               phoneController.text, selectedStateId);
-
-                                    
-
-                              
                         },
                         child: const Text('Sign Up'),
                       ),
