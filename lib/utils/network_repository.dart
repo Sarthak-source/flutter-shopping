@@ -18,8 +18,7 @@ import 'generic_exception.dart';
 NetworkRepository networkRepository = NetworkRepository();
 
 class NetworkRepository {
-  static final NetworkRepository _networkRepository =
-      NetworkRepository._internal();
+  static final NetworkRepository _networkRepository = NetworkRepository._internal();
   factory NetworkRepository() {
     return _networkRepository;
   }
