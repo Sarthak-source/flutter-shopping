@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter/services.dart';
 
 import '../constants/colors.dart';
 import '../utils/screen_utils.dart';
@@ -12,7 +12,10 @@ class CustomTextField extends StatelessWidget {
     this.onChanged,
     this.controller,
     this.TextInputType,
-    this.FocusNode
+    this.validator,
+    this.FocusNode,
+        this.inputFormatters, // Add inputFormatters parameter
+
   });
   final String? hint;
   final Widget? icon;
@@ -20,7 +23,10 @@ class CustomTextField extends StatelessWidget {
   final void Function()? onTap;
   final TextEditingController? controller;
   final  TextInputType;
+  final String? Function(String?)? validator;
   final FocusNode ;
+    final List<TextInputFormatter>? inputFormatters; // Define inputFormatters as a List of TextInputFormatter
+
   @override
   Widget build(BuildContext context) {
     return TextField(
@@ -30,6 +36,7 @@ class CustomTextField extends StatelessWidget {
       onTap: onTap,
       onChanged: onChanged,
       keyboardType: TextInputType,
+      inputFormatters: inputFormatters,
       decoration: InputDecoration(
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(
