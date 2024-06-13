@@ -8,7 +8,6 @@ import 'package:sutra_ecommerce/controllers/user_controller.dart';
 import 'package:sutra_ecommerce/screens/landing_screen.dart';
 import 'package:sutra_ecommerce/screens/notification/notification.dart'
     as notificationpage;
-import 'package:sutra_ecommerce/screens/paymentScreen/pendingPayment.dart';
 
 import '../../constants/colors.dart';
 import '../../utils/screen_utils.dart';
@@ -31,9 +30,7 @@ class UserScreen extends StatelessWidget {
             horizontal: getProportionateScreenWidth(16.0),
           ),
           child: Column(
-
             children: [
-              
               SizedBox(
                 height: getProportionateScreenHeight(8.0),
               ),
@@ -180,7 +177,7 @@ class UserScreen extends StatelessWidget {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                        const LandingScreen()));
+                                            const LandingScreen()));
                                 //Get.toNamed(IntroScreen.routeName);
                               },
                             ),
@@ -188,10 +185,8 @@ class UserScreen extends StatelessWidget {
                         );
                       },
                     );
-                   // Navigator.push(context, MaterialPageRoute(builder: (context) => const PendingPayment()));
-
-                  }
-                  ),
+                    // Navigator.push(context, MaterialPageRoute(builder: (context) => const PendingPayment()));
+                  }),
 
               SizedBox(
                 height: getProportionateScreenHeight(8.0),
@@ -220,21 +215,22 @@ class UserScreen extends StatelessWidget {
                                 log(box!.get('userData').toString());
                                 userController!.update();
                                 log(box!.get('userData').toString());
-                              //  box = await Hive.openBox('Box');
-                                //await Hive.deleteBoxFromDisk('Box');
+                                box = await Hive.openBox('Box');
+                                await Hive.deleteBoxFromDisk('Box');
 
+                                if (!context.mounted) return;
                                 Navigator.pushAndRemoveUntil(
                                     context,
-                                    MaterialPageRoute(builder: (BuildContext context) => LandingScreen()),
-                                    ModalRoute.withName('/')
-                                );
+                                    MaterialPageRoute(
+                                        builder: (BuildContext context) =>
+                                            const LandingScreen()),
+                                    ModalRoute.withName('/'));
 
-                             /*   Navigator.push(
+                                /*   Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
                                             const LandingScreen()));*/
-
 
                                 //Get.toNamed(IntroScreen.routeName);
                               },

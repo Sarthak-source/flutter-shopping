@@ -1,4 +1,7 @@
 {
     "cmake.sourceDirectory": "/Users/fao/Documents/dilicia-flutter/linux",
-    "java.compile.nullAnalysis.mode": "automatic"
+    "java.compile.nullAnalysis.mode": "automatic",
+    "cSpell.words": [
+        "lotties"
+    ]
 }

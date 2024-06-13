@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sutra_ecommerce/controllers/popular_controller.dart';
+import 'package:sutra_ecommerce/utils/error.dart';
 import 'package:sutra_ecommerce/widgets/popular_card/popular_card.dart';
 
 import '../../constants/colors.dart';
@@ -29,7 +30,8 @@ class _PopularDealTabState extends State<PopularDealTab> {
   @override
   Widget build(BuildContext context) {
     // Initialize the controller inside the build method
-    final PopularDealController controller = Get.put(PopularDealController(categoryId: widget.categoryId));
+    final PopularDealController controller =
+        Get.put(PopularDealController(categoryId: widget.categoryId));
 
     log(widget.categoryId.toString());
 
@@ -45,7 +47,7 @@ class _PopularDealTabState extends State<PopularDealTab> {
               baseColor: Colors.grey[300]!,
               highlightColor: Colors.grey[100]!,
               child: SizedBox(
-                height: Get.height/4.5,
+                height: Get.height / 4.5,
                 child: ListView.builder(
                   clipBehavior: Clip.none,
                   scrollDirection: Axis.horizontal,
@@ -59,47 +61,47 @@ class _PopularDealTabState extends State<PopularDealTab> {
                 ),
               ),
             ));
-      }
-      else if (controller.hasError.value) {
+      } else if (controller.hasError.value) {
         // If there's an error, display it to the user
-        return Center(child: Text('Error: ${controller.errorMsg.value}'));
-      }
-      else {
+        return const ErrorHandleWidget();
+      } else {
         return Column(
           children: [
             Container(
-              height: Get.width>= 600? 265:205,
-            //  color: popularDeals.isEmpty ? Colors.white : Colors.grey.shade300,
+              height: Get.width >= 600 ? 265 : 205,
+              //  color: popularDeals.isEmpty ? Colors.white : Colors.grey.shade300,
               color: popularDeals.isEmpty ? Colors.white : kPrimaryBlueTest,
-              child: popularDeals == null || popularDeals.isEmpty?SizedBox.shrink():ListView.builder(
-                clipBehavior: Clip.none,
-                scrollDirection: Axis.horizontal,
-                itemCount: popularDeals.length ?? 0,
-                itemBuilder: (context, index) {
-                  return PopularCard(
-                    onCardAddClicked: () {
-                      setState(() {
-                        _selectedIndex = index;
-                      });
-                    },
-                    onCardMinusClicked: () {
-                      setState(() {
-                        _selectedIndex = index;
-                      });
-                    },
-                    onAddClicked: () {
-                  /*    setState(() {
+              child: popularDeals == null || popularDeals.isEmpty
+                  ? SizedBox.shrink()
+                  : ListView.builder(
+                      clipBehavior: Clip.none,
+                      scrollDirection: Axis.horizontal,
+                      itemCount: popularDeals.length ?? 0,
+                      itemBuilder: (context, index) {
+                        return PopularCard(
+                          onCardAddClicked: () {
+                            setState(() {
+                              _selectedIndex = index;
+                            });
+                          },
+                          onCardMinusClicked: () {
+                            setState(() {
+                              _selectedIndex = index;
+                            });
+                          },
+                          onAddClicked: () {
+                            /*    setState(() {
                         _selectedIndex = index;
                       });*/
-                    },
-                    product: popularDeals[index],
-                    isFrom: widget.isfrom,
-                    loader: index == _selectedIndex
-                        ? addToCartController.isLoading.value
-                        : false,
-                  );
-                },
-              ),
+                          },
+                          product: popularDeals[index],
+                          isFrom: widget.isfrom,
+                          loader: index == _selectedIndex
+                              ? addToCartController.isLoading.value
+                              : false,
+                        );
+                      },
+                    ),
             ),
           ],
         );

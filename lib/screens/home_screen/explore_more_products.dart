@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sutra_ecommerce/controllers/explore_more_poducts_controller.dart';
+import 'package:sutra_ecommerce/utils/error.dart';
 import 'package:sutra_ecommerce/widgets/popular_card/popular_card.dart';
 
 import '../../constants/colors.dart';
@@ -24,7 +25,7 @@ class ExploreMoreProducts extends StatefulWidget {
 class _ExploreMoreProductsState extends State<ExploreMoreProducts> {
   int _selectedIndex = -1;
   final AddToCartController addToCartController =
-  Get.put(AddToCartController());
+      Get.put(AddToCartController());
   @override
   Widget build(BuildContext context) {
     // Initialize the controller inside the build method
@@ -62,13 +63,12 @@ class _ExploreMoreProductsState extends State<ExploreMoreProducts> {
             ));
       } else if (controller.hasError.value) {
         // If there's an error, display it to the user
-        return Center(child: Text('Error: ${controller.errorMsg.value}'));
+        return const ErrorHandleWidget();
       } else {
         return Column(
           children: [
-            
             Container(
-            height: Get.width>= 600? 265:205,
+              height: Get.width >= 600 ? 265 : 205,
               // color: controller.popularDeals.isEmpty?Colors.white:Colors.grey.shade300,
               color: kPrimaryBlueTest,
 
@@ -90,7 +90,7 @@ class _ExploreMoreProductsState extends State<ExploreMoreProducts> {
                       });
                     },
                     onAddClicked: () {
-                   /*   setState(() {
+                      /*   setState(() {
                         _selectedIndex = index;
                       });*/
                     },

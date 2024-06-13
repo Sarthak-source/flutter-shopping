@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sutra_ecommerce/controllers/explore_more_controller.dart';
 import 'package:sutra_ecommerce/screens/category_screen/explore_category_screen.dart';
+import 'package:sutra_ecommerce/utils/error.dart';
 
 import '../../constants/colors.dart';
 import '../../widgets/tab_title.dart';
@@ -64,7 +65,7 @@ class ExploreNewCategory extends StatelessWidget {
             ));
       } else if (controller.hasError.value) {
         // If there's an error, display it to the user
-        return Center(child: Text('Error: ${controller.errorMsg.value}'));
+        return const ErrorHandleWidget();
       } else {
         return Column(
           children: [
@@ -80,8 +81,13 @@ class ExploreNewCategory extends StatelessWidget {
                 title: 'Explore New Catrgories',
                 seeAll: () {
                   //Get.toNamed(CategoryScreen.routeName);
-                  Navigator.push(context, MaterialPageRoute(builder: (context) =>const ExploreCategoryScreen(subCatId: null,catName: "Explore Categories",)));
-
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ExploreCategoryScreen(
+                                subCatId: null,
+                                catName: "Explore Categories",
+                              )));
                 },
               ),
             ),
@@ -149,8 +155,8 @@ class ExploreNewCategory extends StatelessWidget {
             GridView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: Get.width>= 600? 6:3,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: Get.width >= 600 ? 6 : 3,
                 mainAxisSpacing: 2.0, // spacing between rows
                 crossAxisSpacing: 2.0, // spacing between columns
               ),
@@ -183,9 +189,12 @@ class ExploreNewCategory extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => CategoryScreen(
-                                        subCatId: controller.exploreMores[index]["id"].toString(),
-                                    catName: controller.exploreMores[index]['name'],
-                                    )));
+                                          subCatId: controller
+                                              .exploreMores[index]["id"]
+                                              .toString(),
+                                          catName: controller
+                                              .exploreMores[index]['name'],
+                                        )));
                           }
                         } else {
                           Get.toNamed(

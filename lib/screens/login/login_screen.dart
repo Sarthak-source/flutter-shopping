@@ -7,6 +7,7 @@ import 'package:sutra_ecommerce/assets/logo.dart';
 import 'package:sutra_ecommerce/config/common.dart';
 import 'package:sutra_ecommerce/controllers/common_controller.dart';
 import 'package:sutra_ecommerce/controllers/login_controller.dart';
+import 'package:sutra_ecommerce/screens/login/verify_otp.dart';
 import 'package:sutra_ecommerce/screens/sign_up/signup_screen.dart';
 
 import '../../utils/screen_utils.dart';
@@ -27,21 +28,20 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController phoneNumberController = TextEditingController(text: '');
   //LoginController loginController = LoginController();
   final LoginController loginController = Get.put(LoginController());
-    final commonController = Get.put(CommonController());
+  final commonController = Get.put(CommonController());
 
   //final UserController userController = Get.put(UserController());
   bool repeat = false;
 
   @override
   void initState() {
-   // log(box!.get('userData').toString());
+    // log(box!.get('userData').toString());
     // userController.user.value={};
     // log(userController.user.value.toString());
-    
+
     box!.delete('userData');
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -61,101 +61,105 @@ class _LoginScreenState extends State<LoginScreen> {
     // }
 
     return Scaffold(
-        backgroundColor: Colors.white,
-        body: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              //const BackButtonLS(),
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: getProportionateScreenWidth(16),
-                  ),
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: getProportionateScreenHeight(30),
-                      ),
-                      Transform.translate(
-                          offset: const Offset(-70, -50),
-                          child: Transform.scale(
-                              scale: 0.30, child: const BouncingLogo())),
-                      SizedBox(
-                        height: getProportionateScreenHeight(60),
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            'Log In To Continue!',
-                            style: Theme.of(context)
-                                .textTheme
-                                .displaySmall!
-                                .copyWith(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                          ),
-                        ],
-                      ),
-                      const Spacer(),
-                      CustomTextField(
-                        hint: 'Phone number',
-                        controller: phoneNumberController,
-                        TextInputType: TextInputType.number,
-                        //onChanged: handlePhoneNumberChange,
-                      ),
-                      SizedBox(
-                        height: getProportionateScreenHeight(30),
-                      ),
-                      Obx(
-                        () => SizedBox(
-                          width: getProportionateScreenHeight(Get.width),
-                          child: loginController.isLoading.value
-                              ? const Loader()
-                              : ElevatedButton(
-                                  onPressed: () {
-                                    String phoneNumber =
-                                        phoneNumberController.text;
-
-                                    //Get.toNamed(TabScreen.routeName);
-
-                                    if (phoneNumber.length < 10 ||
-                                        phoneNumber.length > 10) {
-                                      // Handle the case where the phone number is too shrort
-                                      Fluttertoast.showToast(
-                                        msg: 'Enter a proper number',
-                                        backgroundColor: Colors.red,
-                                      );
-                                    } else {
-                                      log(phoneNumber);
-                                      commonController.commonCurTab.value=0;
-                                      loginController.userExists(phoneNumber);
-                                      loginController.update();
-                                    }
-                                  },
-                                  child: const Text('Continue'),
-                                ),
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            //const BackButtonLS(),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: getProportionateScreenWidth(16),
+                ),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: getProportionateScreenHeight(30),
+                    ),
+                    Transform.translate(
+                        offset: const Offset(-70, -50),
+                        child: Transform.scale(
+                            scale: 0.30, child: const BouncingLogo())),
+                    SizedBox(
+                      height: getProportionateScreenHeight(60),
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          'Log In To Continue!',
+                          style: Theme.of(context)
+                              .textTheme
+                              .displaySmall!
+                              .copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
                         ),
+                      ],
+                    ),
+                    const Spacer(),
+                    CustomTextField(
+                      hint: 'Phone number',
+                      controller: phoneNumberController,
+                      TextInputType: TextInputType.number,
+                      //onChanged: handlePhoneNumberChange,
+                    ),
+                    SizedBox(
+                      height: getProportionateScreenHeight(30),
+                    ),
+                    Obx(
+                      () => SizedBox(
+                        width: getProportionateScreenHeight(Get.width),
+                        child: loginController.isLoading.value
+                            ? const Loader()
+                            : ElevatedButton(
+                                onPressed: () {
+                                  String phoneNumber =
+                                      phoneNumberController.text;
+
+                                  //Get.toNamed(TabScreen.routeName);
+
+                                  if (phoneNumber.length < 10 ||
+                                      phoneNumber.length > 10) {
+                                    // Handle the case where the phone number is too shrort
+                                    Fluttertoast.showToast(
+                                      msg: 'Enter a proper number',
+                                      backgroundColor: Colors.red,
+                                    );
+                                  } else {
+                                    log(phoneNumber);
+                                    commonController.commonCurTab.value = 0;
+                                    loginController.userExists(phoneNumber);
+                                    loginController.update();
+                                  }
+                                },
+                                child: const Text('Continue'),
+                              ),
                       ),
-                      const Spacer(
-                        flex: 4,
-                      ),
-                      OptionButton(
-                        desc: 'Don\'t have an account? ',
-                        method: 'Sign Up',
-                        onPressHandler: () {
-                          loginController.getStates();
-                          Get.toNamed(SignupScreen.routeName);
-                        },
-                      ),
-                      const Spacer(),
-                    ],
-                  ),
+                    ),
+                    const Spacer(
+                      flex: 4,
+                    ),
+                    OptionButton(
+                      desc: 'Don\'t have an account? ',
+                      method: 'Sign Up',
+                      onPressHandler: () {
+                        loginController.getStates();
+
+                        Get.toNamed(SignupScreen.routeName,
+                            arguments: OtpScreenArguments(
+                                phoneNumber: phoneNumberController.text));
+                      },
+                    ),
+                    const Spacer(),
+                  ],
                 ),
               ),
-            ],
-          ),
-        ));
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
 

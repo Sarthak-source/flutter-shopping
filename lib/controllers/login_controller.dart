@@ -7,12 +7,13 @@ import 'package:sutra_ecommerce/config/common.dart';
 import 'package:sutra_ecommerce/controllers/user_controller.dart';
 import 'package:sutra_ecommerce/screens/login/verify_otp.dart';
 import 'package:sutra_ecommerce/screens/sign_up/sign_message_screen.dart';
+import 'package:sutra_ecommerce/screens/tab_screen/tab_screen.dart';
 import 'package:sutra_ecommerce/utils/network_repository.dart';
 
 import '../models/stateResponseModel.dart';
 
 class LoginController extends GetxController {
-    final UserController userController = Get.put(UserController());
+  final UserController userController = Get.put(UserController());
 
   var isLoading = false.obs;
   var hasError = false.obs;
@@ -31,10 +32,10 @@ class LoginController extends GetxController {
       Map<String, dynamic> responseData =
           await networkRepository.checkUser(number: phoneNumberTyped);
       log(responseData.toString());
-     // box!.delete('userData');
+      // box!.delete('userData');
 
       userController.user.value = responseData['body'];
-      await box!.put('userData',  userController.user);
+      await box!.put('userData', userController.user);
       update();
 
       if (responseData.isNotEmpty) {
@@ -95,6 +96,62 @@ class LoginController extends GetxController {
       hasError.value = true;
     } finally {
       isLoading.value = false;
+    }
+  }
+
+  verifyOtpCode(
+      OtpScreenArguments args,
+      TextEditingController otpController,
+      BuildContext context,
+      String? name,
+      String? phone,
+      String? state,
+      String? usedIn) async {
+    FocusScope.of(context).requestFocus(FocusNode());
+
+    isLoading.value = false;
+
+    if (otpController.text.isNotEmpty) {
+      try {
+        //  Get.toNamed(TabScreen.routeName);
+
+        //Get.offNamed(TabScreen.routeName);
+
+        log('cybercripe ${args.phoneNumber} ${otpController.text}');
+
+        var value = await networkRepository.verifyLogin(
+          number: args.phoneNumber,
+          otp: otpController.text,
+        );
+
+        //log(value.toString());
+
+        if (value["type"].toString() == "error") {
+          Fluttertoast.showToast(msg: 'wrong OTP');
+          otpController.clear();
+        } else {
+          Future.delayed(Duration.zero, () async {
+            try {
+              //await sendFCMAndLocation();
+            } catch (e) {
+              Fluttertoast.showToast(msg: e.toString());
+            }
+          });
+
+          //box!.put("login", true);
+          if (!context.mounted) return;
+          await box!.put('login', true);
+          if (usedIn == 'signUp') {
+            signUp(name!, phone!, state!);
+          } else {
+            Get.offNamed(TabScreen.routeName);
+          }
+        }
+      } catch (error) {
+        Fluttertoast.showToast(msg: 'Error verifying OTP');
+      }
+    } else {
+      Fluttertoast.showToast(msg: 'Enter OTP');
     }
   }
 }

@@ -13,6 +13,7 @@ import 'package:sutra_ecommerce/screens/home_screen/categories.dart';
 import 'package:sutra_ecommerce/screens/home_screen/explore_more_products.dart';
 import 'package:sutra_ecommerce/screens/home_screen/popular_deals.dart';
 import 'package:sutra_ecommerce/screens/product_grid_screen/produts_grid_screen.dart';
+import 'package:sutra_ecommerce/utils/error.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../constants/colors.dart';
@@ -374,7 +375,7 @@ class _DealsTabState extends State<DealsTab> {
                 ),
               );
             } else if (controller.hasError.value) {
-              return Text('Error: ${controller.errorMsg.value}');
+              return const ErrorHandleWidget();
             } else {
               return Container(
                 color: kPrimaryBlueTest,
@@ -482,7 +483,7 @@ class HomeAppBar extends StatelessWidget {
                                             children: [
                                               Expanded(
                                                 child: Text(
-                                                  "${titleCase(userController.user['party']['address'] != null ?userController.user['party']['address']['address_line1'].toString() :"")}, ${titleCase(userController.user['party']['address']['address_line2'].toString() ?? "")}",
+                                                  "${titleCase(userController.user['party']['address'] != null ? userController.user['party']['address']['address_line1'].toString() : "")}, ${titleCase(userController.user['party']['address']['address_line2'].toString() ?? "")}",
                                                   style: const TextStyle(
                                                     color: Colors.black,
                                                     fontSize: 12,

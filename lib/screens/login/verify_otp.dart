@@ -2,16 +2,13 @@
 
 import 'dart:async';
 
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:sutra_ecommerce/config/common.dart';
 import 'package:sutra_ecommerce/constants/colors.dart';
-import 'package:sutra_ecommerce/screens/tab_screen/tab_screen.dart';
-import 'package:sutra_ecommerce/utils/network_repository.dart';
+import 'package:sutra_ecommerce/controllers/login_controller.dart';
 import 'package:sutra_ecommerce/utils/screen_utils.dart';
+
 class OtpScreenArguments {
   final String phoneNumber;
 
@@ -30,8 +27,10 @@ class _OtpScreenState extends State<OtpScreen> {
   int countdown = 30;
   late Timer timer;
   bool isLoadingButton = false;
+  bool showOtp = false;
   TextEditingController otpController = TextEditingController(text: "");
   //FirebaseMessaging messaging = FirebaseMessaging.instance;
+  LoginController loginController = LoginController();
 
   @override
   void initState() {
@@ -57,51 +56,6 @@ class _OtpScreenState extends State<OtpScreen> {
     super.dispose();
   }
 
-  _verifyOtpCode(OtpScreenArguments args) async {
-    final deviceInfoPlugin = DeviceInfoPlugin();
-    FocusScope.of(context).requestFocus(FocusNode());
-    setState(() {
-      isLoadingButton = false;
-    });
-
-    if (otpController.text.isNotEmpty) {
-      try {
-      //  Get.toNamed(TabScreen.routeName);
-
-        //Get.offNamed(TabScreen.routeName);
-
-        var value = await networkRepository.verifyLogin(
-          number: args.phoneNumber,
-          otp: otpController.text,
-        );
-
-        //log(value.toString());
-
-        if (value["type"].toString() == "error") {
-          Fluttertoast.showToast(msg: 'wrong OTP');
-          otpController.clear();
-        } else {
-          Future.delayed(Duration.zero, () async {
-            try {
-              //await sendFCMAndLocation();
-            } catch (e) {
-              Fluttertoast.showToast(msg: e.toString());
-            }
-          });
-
-          //box!.put("login", true);
-          if (!context.mounted) return;
-            await box!.put('login', true);
-          Get.offNamed(TabScreen.routeName);
-        }
-      } catch (error) {
-        Fluttertoast.showToast(msg: 'Error verifying OTP');
-      }
-    } else {
-      Fluttertoast.showToast(msg: 'Enter OTP');
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     var args = ModalRoute.of(context)?.settings.arguments as OtpScreenArguments;
@@ -118,22 +72,22 @@ class _OtpScreenState extends State<OtpScreen> {
       },
       child: Scaffold(
         //appBar: AppBar(),
-        body: Container(
-         // color: Colors.red,
-          height: Get.height/2 +180,
+        body: SizedBox(
+          // color: Colors.red,
+          height: Get.height / 2 + 180,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
                 height: getProportionateScreenHeight(80),
               ),
-               Text(
+              Text(
                 'Enter OTP',
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                  fontWeight: FontWeight.w700,
-                  fontSize: getProportionateScreenWidth(23),
-                ),
+                      fontWeight: FontWeight.w700,
+                      fontSize: getProportionateScreenWidth(23),
+                    ),
               ),
               const SizedBox(
                 height: 20,
@@ -145,27 +99,25 @@ class _OtpScreenState extends State<OtpScreen> {
                         fontSize: 16.0, // Set the font size to 14
                       ),
                   children: <TextSpan>[
-                     TextSpan(
+                    TextSpan(
                       text: 'We have sent verification code\nto ',
-                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                       // fontWeight: FontWeight.w700,
-                        color: Colors.grey,
-                        fontSize: getProportionateScreenWidth(20),
-                      ),
+                      style:
+                          Theme.of(context).textTheme.headlineMedium?.copyWith(
+                                // fontWeight: FontWeight.w700,
+                                color: Colors.grey,
+                                fontSize: getProportionateScreenWidth(20),
+                              ),
                     ),
                     TextSpan(
                       text: '+91-${args.phoneNumber}',
-                      style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                        fontWeight: FontWeight.w700,
-                        color: kPrimaryBlue,
-                        fontSize: getProportionateScreenWidth(16),
-                      ),
-    
-                   /*   const TextStyle(
-                        fontWeight: FontWeight.normal,
-                        color: kPrimaryBlue,
-                        decoration: TextDecoration.none, // Remove underline
-                      ),*/
+                      style:
+                          Theme.of(context).textTheme.headlineSmall?.copyWith(
+                                fontWeight: FontWeight.w700,
+                                color: kPrimaryBlue,
+                                fontSize: getProportionateScreenWidth(16),
+                              ),
+
+                      
                     ),
                   ],
                 ),
@@ -188,19 +140,20 @@ class _OtpScreenState extends State<OtpScreen> {
                 onCodeChanged: (String code) {},
                 onSubmit: (String verificationCode) {
                   otpController.text = verificationCode;
-                  _verifyOtpCode(args);
+                  loginController.verifyOtpCode(
+                      args, otpController, context, null, null, null, null);
                   //Get.toNamed(TabScreen.routeName);
                 }, // end onSubmit
               ),
               const SizedBox(
                 height: 20,
               ),
-               Text(
+              Text(
                 'Did not receive code?',
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                  fontSize: getProportionateScreenWidth(14),
-                ),
+                      fontSize: getProportionateScreenWidth(14),
+                    ),
               ),
               const SizedBox(
                 height: 10,
@@ -212,20 +165,22 @@ class _OtpScreenState extends State<OtpScreen> {
                         fontSize: 16.0, // Set the font size to 14
                       ),
                   children: <TextSpan>[
-                     TextSpan(
+                    TextSpan(
                       text: 'Please wait..   ',
-                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-    
-                        fontSize: getProportionateScreenWidth(16),
-                      ),
+                      style:
+                          Theme.of(context).textTheme.headlineMedium?.copyWith(
+                                fontSize: getProportionateScreenWidth(16),
+                              ),
                     ),
                     TextSpan(
                       text: countdown > 0 ? '$countdown' : 'done',
-                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                        fontWeight: FontWeight.w700,
-                        fontSize: getProportionateScreenWidth(14),
-                        color: kPrimaryBlue
-                      ),
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineMedium
+                          ?.copyWith(
+                              fontWeight: FontWeight.w700,
+                              fontSize: getProportionateScreenWidth(14),
+                              color: kPrimaryBlue),
                     ),
                   ],
                 ),
