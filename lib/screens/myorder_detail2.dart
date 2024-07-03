@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:sutra_ecommerce/utils/error.dart';
 
 import '../constants/colors.dart';
 import '../controllers/my_order_controller.dart';
@@ -10,7 +11,6 @@ import '../utils/common_functions.dart';
 import '../utils/screen_utils.dart';
 import '../utils/shimmer_placeholders/myorder_shimmer.dart';
 import '../widgets/custom_app_bar.dart';
-import '../widgets/order_card.dart';
 
 class MyOrderDetail2 extends StatefulWidget {
   final int OrderId;
@@ -184,10 +184,28 @@ class _MyOrderDetail2State extends State<MyOrderDetail2> {
                                           children: [
                                             orderRateCard(
                                                 context,
-                                                "Total Basic Amt", twodecimalDigit(double.parse(controller.orderdetailDatas["total_value"]==null?"0.000":controller.orderdetailDatas["total_value"].toString()))),
+                                                "Total Basic Amt",
+                                                twodecimalDigit(double.parse(
+                                                    controller.orderdetailDatas[
+                                                                "total_value"] ==
+                                                            null
+                                                        ? "0.000"
+                                                        : controller
+                                                            .orderdetailDatas[
+                                                                "total_value"]
+                                                            .toString()))),
                                             orderRateCard(
                                                 context,
-                                                "Total GST", twodecimalDigit(double.parse(controller.orderdetailDatas["total_gst"]==null?"0.000":controller.orderdetailDatas["total_gst"].toString()))),
+                                                "Total GST",
+                                                twodecimalDigit(double.parse(
+                                                    controller.orderdetailDatas[
+                                                                "total_gst"] ==
+                                                            null
+                                                        ? "0.000"
+                                                        : controller
+                                                            .orderdetailDatas[
+                                                                "total_gst"]
+                                                            .toString()))),
                                             Row(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.center,
@@ -197,7 +215,7 @@ class _MyOrderDetail2State extends State<MyOrderDetail2> {
                                                 Expanded(
                                                   flex: 1,
                                                   child: Text(
-                                                    ("₹ ${twodecimalDigit(double.parse(controller.orderdetailDatas["total_amount"]==null?"0.000":controller.orderdetailDatas["total_amount"].toString()))}"),
+                                                    ("₹ ${twodecimalDigit(double.parse(controller.orderdetailDatas["total_amount"] == null ? "0.000" : controller.orderdetailDatas["total_amount"].toString()))}"),
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .headlineMedium
@@ -226,7 +244,8 @@ class _MyOrderDetail2State extends State<MyOrderDetail2> {
                                     // color: Colors.red,
                                     child: ElevatedButton(
                                         onPressed: () {
-                                          controller.reOrderApi(widget.OrderId.toString());
+                                          controller.reOrderApi(
+                                              widget.OrderId.toString());
                                         },
                                         style: ElevatedButton.styleFrom(
                                           shape: RoundedRectangleBorder(
@@ -271,24 +290,26 @@ class _MyOrderDetail2State extends State<MyOrderDetail2> {
                               itemBuilder: (context, index) {
                                 return const Padding(
                                   padding: EdgeInsets.all(0),
-                                  child: MyOrderShimmer(from: "orderdetail"),
+                                  child: MyOrderShimmer(from: '',),
                                 );
                               },
                             ),
                           ),
                         )
                       : controller.hasError.value
-                          ? Text('Error: ${controller.errorMsg.value}')
+                          ? const ErrorHandleWidget()
                           : ListView.builder(
                               shrinkWrap: true,
                               itemCount: controller.myOrderDetailList.length,
                               itemBuilder: (context, index) {
-                               // return OrderTile(context, controller.myOrderDetailList[index]);
-                             return Padding(
-                               padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                               child: orderDetailNewTile(myOrderDetailList: controller.myOrderDetailList[index]),
-                             );
-
+                                // return OrderTile(context, controller.myOrderDetailList[index]);
+                                return Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8.0),
+                                  child: orderDetailNewTile(
+                                      myOrderDetailList:
+                                          controller.myOrderDetailList[index]),
+                                );
                               },
                             ),
                 ),
@@ -479,10 +500,7 @@ class _MyOrderDetail2State extends State<MyOrderDetail2> {
 
 class orderDetailNewTile extends StatelessWidget {
   dynamic myOrderDetailList;
-   orderDetailNewTile( {
-    super.key,
-    this.myOrderDetailList
-  });
+  orderDetailNewTile({super.key, this.myOrderDetailList});
 
   @override
   Widget build(BuildContext context) {
@@ -495,7 +513,8 @@ class orderDetailNewTile extends StatelessWidget {
             color: Colors.grey, // Border color
             width: 1.0, // Border width
           ),
-          borderRadius: BorderRadius.circular(getProportionateScreenWidth(8)),),
+          borderRadius: BorderRadius.circular(getProportionateScreenWidth(8)),
+        ),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
@@ -503,7 +522,8 @@ class orderDetailNewTile extends StatelessWidget {
               SizedBox(
                 width: getProportionateScreenWidth(80),
                 child: Image.network(
-                  myOrderDetailList["product"]["product_img"] ?? "http://170.187.232.148/static/images/dilicia.png",
+                  myOrderDetailList["product"]["product_img"] ??
+                      "http://170.187.232.148/static/images/dilicia.png",
                   fit: BoxFit.contain,
                 ),
               ),
@@ -524,27 +544,34 @@ class orderDetailNewTile extends StatelessWidget {
                                 .textTheme
                                 .headlineMedium
                                 ?.copyWith(
-                              fontWeight: FontWeight.w700,
-                              fontSize: getProportionateScreenWidth(14),
-                            ),
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: getProportionateScreenWidth(14),
+                                ),
                           ),
                         ),
                       ],
                     ),
                     rateCard(
                       "Qty ",
-                      "${twodecimalDigit(double.parse( convertDoubleToString(myOrderDetailList["count"] ??"0.000") ))}",
-                    ),rateCard(
+                      "${twodecimalDigit(double.parse(convertDoubleToString(myOrderDetailList["count"] ?? "0.000")))}",
+                    ),
+                    rateCard(
                       "Price ",
-                      "${twodecimalDigit(double.parse(convertDoubleToString(myOrderDetailList["item_price"] ==null?"0.000":myOrderDetailList["item_price"].toString()) ))} / ${myOrderDetailList["product"]['order_uom'] ?? ""}",
+                      "${twodecimalDigit(double.parse(convertDoubleToString(myOrderDetailList["item_price"] == null ? "0.000" : myOrderDetailList["item_price"].toString())))} / ${myOrderDetailList["product"]['order_uom'] ?? ""}",
                     ),
                     rateCard(
                         "Basic Amount ",
-                        twodecimalDigit(double.parse(convertDoubleToString(myOrderDetailList["total_value"]==null?"0.000":myOrderDetailList["total_value"].toString())))),
+                        twodecimalDigit(double.parse(convertDoubleToString(
+                            myOrderDetailList["total_value"] == null
+                                ? "0.000"
+                                : myOrderDetailList["total_value"]
+                                    .toString())))),
                     rateCard(
                         "GST ",
-                        twodecimalDigit(double.parse(convertDoubleToString(myOrderDetailList["total_gst"]==null?"0.000":myOrderDetailList["total_gst"].toString())))),
-
+                        twodecimalDigit(double.parse(convertDoubleToString(
+                            myOrderDetailList["total_gst"] == null
+                                ? "0.000"
+                                : myOrderDetailList["total_gst"].toString())))),
 
                     /*    Text(
                             widget.mycartItem["total_value"].toString(),
@@ -568,7 +595,7 @@ class orderDetailNewTile extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          '₹ ${twodecimalDigit(double.parse( myOrderDetailList["total_amount"]==null?"0.000":myOrderDetailList["total_amount"].toString() ))}',
+                          '₹ ${twodecimalDigit(double.parse(myOrderDetailList["total_amount"] == null ? "0.000" : myOrderDetailList["total_amount"].toString()))}',
                           style: TextStyle(
                             fontSize: getProportionateScreenWidth(14),
                             fontWeight: FontWeight.w700,
@@ -635,7 +662,6 @@ class orderDetailNewTile extends StatelessWidget {
 
                                 ),
                               ),*/
-
                       ],
                     ),
                   ],
@@ -667,8 +693,8 @@ class orderDetailNewTile extends StatelessWidget {
         Expanded(
           flex: 1,
           child: Text(
-            setQty(keyy,values),
-           // keyy == "Qty" ? ":   ${convertDoubleToString(values ?? "")}" :  ":  ₹ ${values ?? ""}",
+            setQty(keyy, values),
+            // keyy == "Qty" ? ":   ${convertDoubleToString(values ?? "")}" :  ":  ₹ ${values ?? ""}",
             //widget.mycartItem["product"]["price"].toString(),
             style: TextStyle(
               color: kTextColorAccent,
@@ -683,10 +709,10 @@ class orderDetailNewTile extends StatelessWidget {
   }
 
   String setQty(String keyy, String? values) {
-    if(keyy == "Qty " ){
+    if (keyy == "Qty ") {
       return ":   ${convertDoubleToString(values ?? "")}";
-    }else{
-      return  ":  ₹ ${values ?? ""}";
+    } else {
+      return ":  ₹ ${values ?? ""}";
     }
   }
 }

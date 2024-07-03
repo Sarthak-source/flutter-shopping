@@ -1,8 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sutra_ecommerce/controllers/add_to_cart_controller.dart';
+import 'package:lottie/lottie.dart';
 import 'package:sutra_ecommerce/controllers/common_controller.dart';
 import 'package:sutra_ecommerce/controllers/user_controller.dart';
+import 'package:sutra_ecommerce/screens/term_and_conditions/terms_and_conditions.dart';
 import 'package:sutra_ecommerce/widgets/go_cart/go_to_cart.dart';
 
 import '../../controllers/catagories_controller.dart';
@@ -30,19 +33,20 @@ class TabScreen extends StatefulWidget {
 
 class TabScreenState extends State<TabScreen> {
   int curTab = 0;
-    final userController = Get.put(UserController(), permanent: true);  
+  final userController = Get.put(UserController(), permanent: true);
 
   final dealsController = Get.put(DealsController(), permanent: true);
   final categoriesController = Get.put(CategoriesController(), permanent: true);
   final popularController =
       Get.put(PopularDealController(categoryId: ""), permanent: true);
-  final ExploreProductsController expProdController = Get.put(ExploreProductsController(categoryId: ''), permanent: true);
+  final ExploreProductsController expProdController =
+      Get.put(ExploreProductsController(categoryId: ''), permanent: true);
 
   final prodDetailController =
       Get.put(ProductDetailController(), permanent: true);
   final commonController = Get.put(CommonController(), permanent: true);
-  
-  
+
+  final usercontroller = Get.put(UserController());
 
   //final addToCartController = Get.put(AddToCartController(), permanent: true);
 
@@ -76,14 +80,15 @@ class TabScreenState extends State<TabScreen> {
       const HomeScreen(),
       const newFavScreen(),
       const FavScreen(),
-      CartScreen(),
+      const CartScreen(),
       //  const PaymentScreen(),
       const MyOrders(),
       UserScreen(),
     ];
 
-    final AddToCartController addToCartController =
-        Get.put(AddToCartController());
+    bool routeEnabled = (usercontroller.partyConfig['party']?['route_code']
+            ['is_route_started'] ==
+        'NO');
 
     return WillPopScope(
       onWillPop: () async {
@@ -96,24 +101,46 @@ class TabScreenState extends State<TabScreen> {
         return true;
       },
       child: Obx(() {
-        return Scaffold(
-          bottomSheet: (addToCartController.productCount > 0 &&
-                  commonController.commonCurTab.value != 3)
-              ? const GoToCart(
-                  usedIn: 'home',
-                )
-              : const SizedBox.shrink(),
-          body: SafeArea(
-            child: pages[commonController.commonCurTab.value],
-          ),
-          bottomNavigationBar: CustomNavBar((index) {
-            // setState(() {
-            commonController.commonCurTab.value = index;
-            commonController.update();
+        log("userControllerDataTab ${usercontroller.partyConfig['link']}");
 
-            // });
-          }, commonController.commonCurTab.value),
-        );
+        return (usercontroller.user['party']?['conditions_accepted']
+                    ?.toString() ==
+                "NO")
+            ? Scaffold(
+                bottomSheet:
+                    (routeEnabled || commonController.commonCurTab.value == 3)
+                        ? null
+                        : const GoToCart(usedIn: 'home'),
+                body: SafeArea(
+                  child: routeEnabled
+                      ? Scaffold(
+                          body: Center(
+                            child: SizedBox(
+                              height: 500,
+                              
+                                child: Column(
+                                  children: [
+                                    const Text(
+                                        'The route has not been started yet.'),
+                                    Lottie.asset('assets/lotties/routes.json',repeat: false),
+                                  ],
+                                ),
+                                
+                              ),
+                            ),
+                          
+                        )
+                      : pages[commonController.commonCurTab.value],
+                ),
+                bottomNavigationBar: routeEnabled
+                    ? null
+                    : CustomNavBar((index) {
+                        commonController.commonCurTab.value = index;
+                        commonController.update();
+                      }, commonController.commonCurTab.value),
+              )
+            : TermsOfServiceScreen(
+                url: usercontroller.partyConfig['link'].toString());
       }),
     );
   }

@@ -72,7 +72,7 @@ class _PopularDealTabState extends State<PopularDealTab> {
               //  color: popularDeals.isEmpty ? Colors.white : Colors.grey.shade300,
               color: popularDeals.isEmpty ? Colors.white : kPrimaryBlueTest,
               child: popularDeals == null || popularDeals.isEmpty
-                  ? SizedBox.shrink()
+                  ? const SizedBox.shrink()
                   : ListView.builder(
                       clipBehavior: Clip.none,
                       scrollDirection: Axis.horizontal,

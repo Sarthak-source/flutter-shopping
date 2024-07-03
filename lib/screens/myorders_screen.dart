@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sutra_ecommerce/controllers/my_order_controller.dart';
+import 'package:sutra_ecommerce/utils/error.dart';
 
 import '../config/common.dart';
 import '../constants/colors.dart';
@@ -339,7 +340,7 @@ class _MyOrdersState extends State<MyOrders> {
                               ),
                             );
                           } else if (controllerrr.hasError.value) {
-                            return Text('Error: ${controllerrr.errorMsg.value}');
+                            return const ErrorHandleWidget();
                           } else {
                             if (controllerrr.myOrderList.isEmpty) {
                               return Column(

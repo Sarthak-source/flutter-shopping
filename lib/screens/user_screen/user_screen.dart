@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:sutra_ecommerce/config/common.dart';
@@ -165,19 +166,26 @@ class UserScreen extends StatelessWidget {
                             ),
                             TextButton(
                               child: const Text("Ok"),
-                              onPressed: () {
+                              onPressed: () async {
                                 log(box!.get('userData').toString());
-                                userController!.update();
-                                log(box!.get('userData').toString());
-                                box!.deleteAll(
-                                    ['userData', 'login', 'isTestEnvironment']);
+                                //userController!.update();
                                 log(box!.get('userData').toString());
 
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const LandingScreen()));
+                                box!.deleteFromDisk();
+                                
+                                log(box!.get('userData').toString());
+
+                                SystemNavigator.pop();
+
+                                if (context.mounted) {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const LandingScreen()));
+                                }
+
+
                                 //Get.toNamed(IntroScreen.routeName);
                               },
                             ),

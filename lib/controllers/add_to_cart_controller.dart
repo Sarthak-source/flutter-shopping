@@ -15,11 +15,14 @@ import 'explore_more_poducts_controller.dart';
 class AddToCartController extends GetxController {
   //final UserController userController = Get.put(UserController());
   final MyCartController cartController = Get.put(MyCartController());
-  final PopularDealController popController = Get.put(PopularDealController(categoryId: ''));
-  final ExploreProductsController expProdController = Get.put(ExploreProductsController(categoryId: ''));
-  final ProductDetailController prodDetailController = Get.put(ProductDetailController());
-
+  final PopularDealController popController =
+      Get.put(PopularDealController(categoryId: ''));
+  final ExploreProductsController expProdController =
+      Get.put(ExploreProductsController(categoryId: ''));
+  final ProductDetailController prodDetailController =
+      Get.put(ProductDetailController());
   RxInt productCount = 0.obs;
+
   @override
   void onInit() {
     // Get called when controller is created
@@ -82,6 +85,7 @@ class AddToCartController extends GetxController {
       expProdController.update();
       prodDetailController.fetchProductDetail(product.toString());
       prodDetailController.update();
+      //productControler.fetchProducts();
       if (responseData != null) {
         isLoading.value = false;
       }
@@ -97,7 +101,7 @@ class AddToCartController extends GetxController {
     }
   }
 
-  void updateCart(count, cart, type, party) async {
+  void updateCart(count, cart, type, product, party) async {
     try {
       Map storedUserData = box!.get('userData');
       var responseData = await NetworkRepository.UpdateCart(
@@ -117,6 +121,7 @@ class AddToCartController extends GetxController {
       //  cartController.mycartItems.add(addToCartData);
       cartController.update();
       popController.fetchPopularDeals();
+      //prodDetailController.fetchProductDetail(product.toString());
       popController.update();
       expProdController.fetchExploreProductss();
       expProdController.update();
@@ -144,7 +149,6 @@ class StoreBinding implements Bindings {
     Get.put(() => DealsController());
     Get.put(() => CategoriesController());
     Get.put(() => ProductDetailController());
-    
   }
 }
 

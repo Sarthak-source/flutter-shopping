@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sutra_ecommerce/controllers/catagories_controller.dart';
+import 'package:sutra_ecommerce/controllers/catagories_store_controller.dart';
 import 'package:sutra_ecommerce/models/category.dart';
 import 'package:sutra_ecommerce/screens/category_screen/category_screen.dart';
 import 'package:sutra_ecommerce/screens/product_grid_screen/produts_grid_screen.dart';
@@ -13,6 +14,8 @@ import '../../widgets/tab_title.dart';
 
 class CategoryTab extends StatelessWidget {
   final CategoriesController controller = Get.put(CategoriesController());
+  final CategoryStoreController categoryController =
+      Get.put(CategoryStoreController());
 
   CategoryTab({super.key});
 
@@ -103,6 +106,9 @@ class CategoryTab extends StatelessWidget {
                           if (checkSubCat != null && checkSubCat == true) {
                             // Get.toNamed(CategoryScreen.routeName);
                             if (catData[index]["id"] != null) {
+                              categoryController.updateCategory(
+                                  catData[index]["id"].toString());
+
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -115,6 +121,10 @@ class CategoryTab extends StatelessWidget {
                                           )));
                             }
                           } else {
+                            categoryController.updateCategory(
+                                   controller.categories[index]['id']
+                                    .toString());
+
                             Get.toNamed(
                               PoductsListScreen.routeName,
                               arguments: PoductsListArguments(

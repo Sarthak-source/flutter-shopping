@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
@@ -283,7 +285,7 @@ class _FavScreenState extends State<FavScreen> {
                                                   const SizedBox(
                                                     height: 8,
                                                   ),
-                                                  Container(
+                                                  SizedBox(
                                                     height: 40,
                                                     child: Padding(
                                                       padding:
@@ -301,8 +303,7 @@ class _FavScreenState extends State<FavScreen> {
                                                           ),
                                                         ),
                                                         onPressed: () {
-                                                          print(
-                                                              'orderId:: ${myOrderController.myOrderList[index]["id"]}');
+                                                          log('orderId:: ${myOrderController.myOrderList[index]["id"]}');
                                                           myOrderController.reOrderApi(
                                                               myOrderController
                                                                   .myOrderList[
@@ -469,12 +470,12 @@ class _FavScreenState extends State<FavScreen> {
   }
 
   setOrdersNum(length, int index) {
-    print('length of order items $length');
+    log('length of order items $length');
     if (length > 3) {
       int l = length - 3;
       return "+${l.toString()}";
     } else {
-      print('length of order index $index');
+      log('length of order index $index');
       return "";
     }
   }

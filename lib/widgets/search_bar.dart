@@ -20,6 +20,7 @@ class SearchBar extends StatelessWidget {
         
     return TextField(
       controller: controller,
+      cursorColor: kPrimaryBlue,
       onChanged: (value) {
         // Update search term directly in ProductController
         productController.searchTerm = value;
@@ -29,7 +30,7 @@ class SearchBar extends StatelessWidget {
       decoration: InputDecoration(
         filled: true,
         fillColor: kFillColorThird,
-        prefixIcon: const Icon(Icons.search),
+        prefixIcon: const Icon(Icons.search,color: kPrimaryBlue,),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(getProportionateScreenWidth(4)),
           

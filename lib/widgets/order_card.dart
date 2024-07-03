@@ -2,6 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sutra_ecommerce/widgets/add_buttonDouble.dart';
+import 'package:sutra_ecommerce/widgets/product_card/product_card.dart';
 
 import '../constants/colors.dart';
 import '../controllers/add_to_cart_controller.dart';
@@ -10,87 +12,72 @@ import '../utils/screen_utils.dart';
 import 'add_button.dart';
 
 class OrderCard extends StatefulWidget {
-  const OrderCard(
-      {super.key,
-      this.isSelected = false,
-      this.onTapHandler,
-      required this.onPlusinCard,
-      required this.onMinusinCard,
-      required this.onAddItem,
-      required this.onDeleteItem,
-      required this.onChangeQty,
-      this.mycartItem});
+  const OrderCard({
+    super.key,
+    this.isSelected = false,
+    this.onTapHandler,
+    required this.onPlusinCard,
+    required this.onMinusinCard,
+    required this.onAddItem,
+    required this.onDeleteItem,
+    required this.onChangeQty,
+    this.mycartItem,
+  });
 
   final bool isSelected;
   final Function()? onTapHandler;
-  final Function(int) onPlusinCard;
-  final Function(int) onMinusinCard;
-  final Function(int) onAddItem;
-  final Function(int) onDeleteItem;
-  final Function(int) onChangeQty;
+  final Function(dynamic) onPlusinCard;
+  final Function(dynamic) onMinusinCard;
+  final Function(dynamic) onAddItem;
+  final Function(dynamic) onDeleteItem;
+  final Function(dynamic) onChangeQty;
 
   final dynamic mycartItem;
+
   @override
   createState() => _OrderCardState();
 }
 
 class _OrderCardState extends State<OrderCard> {
-  //final textController = TextEditingController(text: '1');
   late TextEditingController _controller;
   final AddToCartController addToCartController =
       Get.put(AddToCartController());
   int quantity = 0;
+  double dbquantity = 0.0;
+  RxBool isWhole = false.obs;
+
   @override
   void initState() {
     super.initState();
 
-    //if( widget.mycartItem["count"] != null){
-/*  print("count::: ${widget.mycartItem["count"].toString()}");
-
-
-  double d = double.parse(widget.mycartItem["count"].toString());
-  print('double count $d');
-  print('int count ${d.toInt()}');
-  quantity = d.toInt();*/
-    //}
-
-    // widget.Txtctrlr?.text=quantity.toString();
+    if (widget.mycartItem["count"] != null) {
+      double d = double.parse(widget.mycartItem["count"].toString());
+      quantity = d.toInt();
+      dbquantity = d;
+      _controller = TextEditingController(
+          text: isWhole.value ? quantity.toString() : dbquantity.toString());
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    if (widget.mycartItem["count"] != null) {
-      print("count::: ${widget.mycartItem["count"].toString()}");
-      double? d = double.parse(widget.mycartItem["count"].toString());
-      print('double count $d');
-      print('int count ${d.toInt()}');
-      quantity = d.toInt();
-      _controller = TextEditingController(text: quantity.toString());
-      // widget.Txtctrlr?.text=quantity.toString();
-    }
+    String multipackQtyStr =
+        widget.mycartItem['product']['multipack_qty'] ?? '0.0';
+    double? multipackQty = double.tryParse(multipackQtyStr);
 
-    log(widget.mycartItem.toString());
+    log("multipackQtyStr $multipackQtyStr ${widget.mycartItem['product']['multipack_qty']}");
 
+    isWhole.value = isWholeNumber(multipackQty!);
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
           border: Border.all(
-            color: Colors.grey, // Border color
-            width: 1.0, // Border width
+            color: Colors.grey,
+            width: 1.0,
           ),
           borderRadius: BorderRadius.circular(getProportionateScreenWidth(8)),
-          // boxShadow: [
-          //   BoxShadow(
-          //     color: kShadowColor,
-          //     offset: Offset(
-          //       getProportionateScreenWidth(3),
-          //       getProportionateScreenWidth(3),
-          //     ),
-          //     blurRadius: 1,
-          //   )
-          // ],
         ),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -126,31 +113,21 @@ class _OrderCardState extends State<OrderCard> {
                                 ),
                           ),
                         ),
-                        /*      Text(
-                            widget.mycartItem["product"]["price"].toString(),
-                            style: TextStyle(
-                              color: kTextColorAccent,
-                              fontSize: getProportionateScreenWidth(
-                                12,
-                              ),
-                            ),
-                          ),*/
-                        const SizedBox(
-                          width: 8,
-                        ),
                         InkWell(
-                          onTap: (){
+                          onTap: () {
                             setState(() {
-                              widget.onDeleteItem(quantity);
+                              widget.onDeleteItem(isWhole.value
+                                  ? quantity
+                                  : dbquantity.toInt());
                             });
                           },
                           child: Container(
                             height: 40,
                             width: 60,
                             color: Colors.white,
-                            child: Column(
+                            child: const Column(
                               children: [
-                                const Padding(
+                                Padding(
                                   padding: EdgeInsets.all(8.0),
                                   child: Icon(
                                     Icons.delete_outline_outlined,
@@ -160,7 +137,7 @@ class _OrderCardState extends State<OrderCard> {
                               ],
                             ),
                           ),
-                        )
+                        ),
                       ],
                     ),
                     rateCard(
@@ -168,39 +145,19 @@ class _OrderCardState extends State<OrderCard> {
                       "${twodecimalDigit(double.parse(widget.mycartItem["product"]["price"] == null ? "0.000" : widget.mycartItem["product"]["price"].toString()))} / ${widget.mycartItem?["product"]['order_uom'] == null ? "" : widget.mycartItem?["product"]['order_uom']}",
                     ),
                     rateCard(
-                        "Basic Amount ",
-                        twodecimalDigit(double.parse(
-                            widget.mycartItem["total_value"] == null
-                                ? "0.000"
-                                : widget.mycartItem["total_value"]
-                                .toString()))),
+                      "Basic Amount ",
+                      twodecimalDigit(double.parse(
+                          widget.mycartItem["total_value"] == null
+                              ? "0.000"
+                              : widget.mycartItem["total_value"].toString())),
+                    ),
                     rateCard(
-                        "GST ",
-                        twodecimalDigit(double.parse(
-                            widget.mycartItem["total_gst"] == null
-                                ? "0.000"
-                                : widget.mycartItem["total_gst"].toString()))),
-
-
-                    /*    Text(
-                        widget.mycartItem["total_value"].toString(),
-                        style: TextStyle(
-                          color: kTextColorAccent,
-                          fontSize: getProportionateScreenWidth(
-                            12,
-                          ),
-                        ),
-                      ),
-                      Text(
-                        widget.mycartItem["total_gst"].toString(),
-                        style: TextStyle(
-                          color: kTextColorAccent,
-                          fontSize: getProportionateScreenWidth(
-                            12,
-                          ),
-                        ),
-                      ),*/
-
+                      "GST ",
+                      twodecimalDigit(double.parse(
+                          widget.mycartItem["total_gst"] == null
+                              ? "0.000"
+                              : widget.mycartItem["total_gst"].toString())),
+                    ),
                     Row(
                       children: [
                         Text(
@@ -211,140 +168,123 @@ class _OrderCardState extends State<OrderCard> {
                           ),
                         ),
                         const Spacer(),
-
-                        /* Card(
-                            elevation: 0,
-                            shape: RoundedRectangleBorder(
-                              side: const BorderSide(
-                                color: kPrimaryBlue, // Set your desired border color
-                                width: 1.0, // Set the border width
-                              ),
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            child: SizedBox(
-                              height: 35,
-                              width:  quantity == 0 ? 75
-                                  : ( quantity.toString().length * 11) + 75,
-                              child:  quantity == 0
-                                  ? OutlinedButton(
-                                      style: OutlinedButton.styleFrom(
-                                        side: const BorderSide(color: kPrimaryBlue),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(
-                                              10.0), // Set your desired border radius
-                                        ),
-                                      ),
-                                      onPressed: () {
-                                        log('widget.mycartItem["product"]["name"] ${widget.mycartItem["product"]["name"].toString()}');
-                                          setState(() {
-                                          quantity++;
-                                          log(quantity.toString());
-                                          widget.onAddItem(quantity);
-                                        });
-                                      },
-                                      child: const Text(
-                                        'Add',
-                                        style: TextStyle(
-                                            color: kPrimaryBlue, fontSize: 14),
-                                      ),
-                                    )
-                                  : PlusMinusUI(
-                                onPlusPressed: (){
-                                      setState(() {
-                                        quantity++;
-                                        widget.onPlusinCard(quantity);
-                                      });
-                                      },
-                                    onMinusPressed: (){
-                                      if (quantity != 0) {
-                                        setState(() {
-                                          quantity--;
-                                          widget.onMinusinCard(quantity);
-                                        });
-                
-                                      }
-                                    },
-                                    qty: quantity,
-                              ),
-                                  // :
-                
-                
-                            ),
-                          ),*/
                         Column(
                           children: [
-                            AddButton(
-                              constWidth:true,
-                              minOrder: int.parse(convertDoubleToString(
-                                  widget.mycartItem["product"]['min_order_qty'] ?? "0.0")),
-                              units:
-                                  " ${widget.mycartItem?["product"]['order_uom'] == null ? "" : widget.mycartItem?["product"]['order_uom']}",
-                              width: 115,
-                              textWidth: 70,
-                              isLoading: false,
-                              qty: quantity <
-                                      int.parse(convertDoubleToString(
-                                          widget.mycartItem["product"]
-                                                  ['min_order_qty'] ??
-                                              "0.0"))
-                                  ? 0
-                                  : quantity,
-                              onChangedPressed: (value) {
-                                quantity = int.parse(value);
-                                //  widget.Txtctrlr?.text =quantity.toString();
-                                // controller.rxQty.value = quantity.toString();
-                                widget.onChangeQty(quantity);
-                              },
-                              onAddPressed: () {
-                                log('widget.mycartItem["product"]["name"] ${widget.mycartItem["product"]["name"].toString()}');
-                                setState(() {
-                                  // quantity++;
-                                  String minOrder = widget.mycartItem["product"]
-                                              ['min_order_qty'] ==
-                                          null
-                                      ? "0.0"
-                                      : widget.mycartItem["product"]
-                                              ['min_order_qty']
-                                          .toString();
-
-                                  quantity = quantity +
-                                      int.parse(
-                                          convertDoubleToString(minOrder));
-                                  log(quantity.toString());
-                                  widget.onAddItem(quantity);
-                                });
-                              },
-                              onPlusPressed: () {
-                                setState(() {
-                                  //  quantity++;
-                                  String minOrder = widget.mycartItem["product"]
-                                              ['increment_order_qty']
-                                          .toString() ??
-                                      "0.0";
-                                  quantity = quantity +
-                                      int.parse(
-                                          convertDoubleToString(minOrder));
-                                  widget.onPlusinCard(quantity);
-                                });
-                              },
-                              onMinusPressed: () {
-                                if (quantity != 0) {
-                                  setState(() {
-                                    //  quantity--;
-                                    String minOrder = widget
-                                            .mycartItem["product"]
-                                                ['increment_order_qty']
-                                            .toString() ??
-                                        "0.0";
-                                    quantity = quantity -
-                                        int.parse(
-                                            convertDoubleToString(minOrder));
-                                    widget.onMinusinCard(quantity);
-                                  });
-                                }
-                              },
-                              qtyController: _controller, //widget.Txtctrlr,
-                            ),
+                            isWhole.value
+                                ? AddButton(
+                                    constWidth: true,
+                                    minOrder: int.parse(convertDoubleToString(
+                                        widget.mycartItem["product"]
+                                                ['min_order_qty'] ??
+                                            "0.0")),
+                                    units:
+                                        " ${widget.mycartItem?["product"]['order_uom'] ?? ""}",
+                                    width: 115,
+                                    textWidth: 70,
+                                    isLoading: false,
+                                    qty: quantity <
+                                            int.parse(convertDoubleToString(
+                                                widget.mycartItem["product"]
+                                                        ['min_order_qty'] ??
+                                                    "0.0"))
+                                        ? 0
+                                        : quantity,
+                                    onChangedPressed: (value) {
+                                      setState(() {
+                                        quantity = int.parse(value);
+                                        widget.onChangeQty(quantity);
+                                      });
+                                    },
+                                    onAddPressed: () {
+                                      setState(() {
+                                        quantity += int.parse(
+                                            convertDoubleToString(
+                                                widget.mycartItem["product"]
+                                                        ['min_order_qty'] ??
+                                                    "0.0"));
+                                        widget.onAddItem(quantity);
+                                      });
+                                    },
+                                    onPlusPressed: () {
+                                      setState(() {
+                                        quantity += int.parse(
+                                            convertDoubleToString(widget
+                                                        .mycartItem["product"]
+                                                    ['increment_order_qty'] ??
+                                                "0.0"));
+                                        widget.onPlusinCard(quantity);
+                                      });
+                                    },
+                                    onMinusPressed: () {
+                                      if (quantity > 0) {
+                                        setState(() {
+                                          quantity -= int.parse(
+                                              convertDoubleToString(widget
+                                                          .mycartItem["product"]
+                                                      ['increment_order_qty'] ??
+                                                  "0.0"));
+                                          widget.onMinusinCard(quantity);
+                                        });
+                                      }
+                                    },
+                                    qtyController: _controller,
+                                  )
+                                : AddButtonDouble(
+                                    constWidth: true,
+                                    minOrder: widget.mycartItem["product"]
+                                            ['min_order_qty'] ??
+                                        "0.0",
+                                    units:
+                                        " ${widget.mycartItem?["product"]['order_uom'] ?? ""}",
+                                    width: 115,
+                                    textWidth: 70,
+                                    isLoading: false,
+                                    qty: dbquantity <
+                                            double.parse(
+                                                widget.mycartItem["product"]
+                                                        ['min_order_qty'] ??
+                                                    "0.0")
+                                        ? 0
+                                        : double.parse(dbquantity.toStringAsFixed(
+                                            1)), // Round to two decimal places
+                                    onChangedPressed: (value) {
+                                      setState(() {
+                                        dbquantity = double.parse(value);
+                                        widget.onChangeQty(dbquantity);
+                                      });
+                                    },
+                                    onAddPressed: () {
+                                      setState(() {
+                                        dbquantity += double.parse(
+                                            widget.mycartItem["product"]
+                                                    ['min_order_qty'] ??
+                                                "0.0");
+                                        widget.onAddItem(dbquantity);
+                                      });
+                                    },
+                                    onPlusPressed: () {
+                                      setState(() {
+                                        dbquantity += double.parse(
+                                            widget.mycartItem["product"]
+                                                    ['increment_order_qty'] ??
+                                                "0.0");
+                                        widget.onPlusinCard(dbquantity);
+                                      });
+                                    },
+                                    onMinusPressed: () {
+                                      if (dbquantity > 0) {
+                                        setState(() {
+                                          dbquantity -= double.parse(
+                                              widget.mycartItem["product"]
+                                                      ['increment_order_qty'] ??
+                                                  "0.0");
+                                          widget.onMinusinCard(
+                                              dbquantity.toInt());
+                                        });
+                                      }
+                                    },
+                                    qtyController: _controller,
+                                  ),
                           ],
                         ),
                       ],
@@ -369,9 +309,7 @@ class _OrderCardState extends State<OrderCard> {
             key,
             style: TextStyle(
               color: kTextColorAccent,
-              fontSize: getProportionateScreenWidth(
-                12,
-              ),
+              fontSize: getProportionateScreenWidth(12),
             ),
           ),
         ),
@@ -379,77 +317,10 @@ class _OrderCardState extends State<OrderCard> {
           flex: 1,
           child: Text(
             ":  ₹ ${values ?? ""}",
-            //widget.mycartItem["product"]["price"].toString(),
             style: TextStyle(
               color: kTextColorAccent,
-              fontSize: getProportionateScreenWidth(
-                12,
-              ),
+              fontSize: getProportionateScreenWidth(12),
             ),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class PlusMinusUI extends StatelessWidget {
-  final Function() onPlusPressed;
-  final Function() onMinusPressed;
-  final int qty;
-  const PlusMinusUI(
-      {super.key,
-      required this.onPlusPressed,
-      required this.onMinusPressed,
-      required this.qty});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      mainAxisSize: MainAxisSize.max,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Transform.translate(
-          offset: const Offset(-12, 0),
-          child: SizedBox(
-            width: 12,
-            child: IconButton(
-                padding: EdgeInsets.zero,
-                icon: const Icon(
-                  Icons.remove,
-                  color: kPrimaryBlue,
-                  size: 20,
-                ),
-                onPressed: onMinusPressed),
-          ),
-        ),
-        Container(
-          height: 35,
-          width: (qty.toString().length * 11) + 20,
-          color: kPrimaryBlue,
-          child: Center(
-            child: Text(
-              qty.toString(),
-              style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  fontSize: 14),
-            ),
-          ),
-        ),
-        Transform.translate(
-          offset: const Offset(3.5, 0),
-          child: SizedBox(
-            width: 12,
-            child: IconButton(
-                padding: EdgeInsets.zero,
-                icon: const Icon(
-                  Icons.add,
-                  color: kPrimaryBlue,
-                  size: 20,
-                ),
-                onPressed: onPlusPressed),
           ),
         ),
       ],

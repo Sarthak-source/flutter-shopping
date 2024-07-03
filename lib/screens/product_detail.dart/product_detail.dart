@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sutra_ecommerce/screens/home_screen/popular_deals.dart';
 import 'package:sutra_ecommerce/widgets/custom_app_bar.dart';
-import 'package:sutra_ecommerce/widgets/discount_text.dart';
 import 'package:sutra_ecommerce/widgets/fruit_title.dart';
 import 'package:sutra_ecommerce/widgets/go_cart/go_to_cart.dart';
 import 'package:sutra_ecommerce/widgets/loading_widgets/loader.dart';
@@ -212,14 +211,12 @@ class _ProductBodyState extends State<ProductBody> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const DiscoutText(),
+                const Text('data'),
                 SizedBox(
                   height: getProportionateScreenHeight(14),
                 ),
                 FruitTitle(
-                    title: widget.product?['name'] == null
-                        ? ""
-                        : widget.product?['name']),
+                    title: widget.product?['name'] ?? ""),
                 SizedBox(
                   height: getProportionateScreenHeight(10),
                 ),
@@ -247,7 +244,7 @@ class _ProductBodyState extends State<ProductBody> {
                               ),
                     ),
                     Text(
-                      " / ${widget.product?['order_uom'] == null ? "" : widget.product?['order_uom']}",
+                      " / ${widget.product?['order_uom'] ?? ""}",
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium!
@@ -339,8 +336,8 @@ class _ProductBodyState extends State<ProductBody> {
                     controller.isLoading.value
                         ? const Loader()
                         : AddButton(
-                          units:  " ${widget.product?['order_uom'] == null ? "" : widget.product?['order_uom']}",
-                            isLoading: false,
+                          units:  " ${widget.product?['order_uom'] ?? ""}",
+                            isLoading: controller.isLoading.value,
                             qty: quantity.value <
                                     int.parse(convertDoubleToString(
                                         widget.product?['min_order_qty'] ??

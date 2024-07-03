@@ -3,10 +3,12 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
 import 'package:sutra_ecommerce/config/common.dart';
 import 'package:sutra_ecommerce/controllers/user_controller.dart';
 import 'package:sutra_ecommerce/screens/login/verify_otp.dart';
 import 'package:sutra_ecommerce/screens/sign_up/sign_message_screen.dart';
+import 'package:sutra_ecommerce/screens/sign_up/sign_wait_screen.dart';
 import 'package:sutra_ecommerce/screens/tab_screen/tab_screen.dart';
 import 'package:sutra_ecommerce/utils/network_repository.dart';
 
@@ -28,6 +30,9 @@ class LoginController extends GetxController {
 
   void userExists(String phoneNumberTyped) async {
     try {
+      if (!box!.isOpen) {
+        box = await Hive.openBox('Box');
+      }
       isLoading.value = true;
       Map<String, dynamic> responseData =
           await networkRepository.checkUser(number: phoneNumberTyped);
@@ -35,6 +40,8 @@ class LoginController extends GetxController {
       // box!.delete('userData');
 
       userController.user.value = responseData['body'];
+
+      log('userController.user ${userController.user}');
       await box!.put('userData', userController.user);
       update();
 
@@ -62,13 +69,34 @@ class LoginController extends GetxController {
       log(responseData.toString());
 
       if (responseData.isNotEmpty) {
-        Fluttertoast.showToast(
-            msg: "Registered Successfully!", backgroundColor: Colors.green);
+        if (responseData.containsKey('mobile_NO') &&
+            responseData['mobile_NO'][0] ==
+                'new party contact with this mobile NO already exists.') {
+          Fluttertoast.showToast(
+              msg: responseData['mobile_NO'][0].toString(),
+              backgroundColor: Colors.red);
 
-        Get.offNamed(SignUpSuccess.routeName);
+          Get.offNamed(SignUpWait.routeName);
+        } else {
+          Fluttertoast.showToast(
+              msg: "Registered Successfully!", backgroundColor: Colors.green);
+
+          Get.offNamed(SignUpSuccess.routeName);
+        }
       }
     } catch (e) {
-      errorMsg.value = e.toString();
+      log(e.toString());
+      String errorMessage;
+
+      if (e is Map<String, dynamic> && e.containsKey('body')) {
+        errorMessage = e['body'].toString();
+      } else {
+        errorMessage = e.toString();
+      }
+
+      errorMsg.value = errorMessage;
+      //Get.offNamed(SignUpWait.routeName);
+      //Fluttertoast.showToast(msg: errorMessage, backgroundColor: Colors.red);
       hasError.value = true;
     } finally {
       isLoading.value = false;
@@ -140,10 +168,11 @@ class LoginController extends GetxController {
 
           //box!.put("login", true);
           if (!context.mounted) return;
-          await box!.put('login', true);
+
           if (usedIn == 'signUp') {
             signUp(name!, phone!, state!);
           } else {
+            await box!.put('login', true);
             Get.offNamed(TabScreen.routeName);
           }
         }

@@ -7,7 +7,6 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:sutra_ecommerce/controllers/common_controller.dart';
 
 import '../config/common.dart';
-import 'loading_widgets/loader.dart';
 
 class AddButton extends StatefulWidget {
   final Function() onPlusPressed;
@@ -24,21 +23,22 @@ class AddButton extends StatefulWidget {
   final bool constWidth;
   final String? parentCode;
 
-  const AddButton(
-      {super.key,
-      required this.onPlusPressed,
-      required this.onMinusPressed,
-      required this.onAddPressed,
-      required this.onChangedPressed,
-      required this.qty,
-      required this.qtyController,
-      required this.isLoading,
-      this.minOrder = 1,
-      this.width = 80.0,
-      this.textWidth = 60,
-      this.units = 'items',
-      this.constWidth = false,
-      this.parentCode});
+  const AddButton({
+    super.key,
+    required this.onPlusPressed,
+    required this.onMinusPressed,
+    required this.onAddPressed,
+    required this.onChangedPressed,
+    required this.qty,
+    required this.qtyController,
+    required this.isLoading,
+    this.minOrder = 1,
+    this.width = 80.0,
+    this.textWidth = 60,
+    this.units = 'items',
+    this.constWidth = false,
+    this.parentCode,
+  });
 
   @override
   State<AddButton> createState() => _AddButtonState();
@@ -54,9 +54,10 @@ class _AddButtonState extends State<AddButton> {
       ScrollOffsetController();
   final ItemPositionsListener itemPositionsListener =
       ItemPositionsListener.create();
-  int listLength = 300;
+  RxInt listLength = 300.obs;
   String ordersMilk = "";
   Map? storedUserData;
+
   @override
   void initState() {
     super.initState();
@@ -66,20 +67,38 @@ class _AddButtonState extends State<AddButton> {
     ordersMilk = storedUserData?['party']['orders_milk'] != null
         ? storedUserData!['party']['orders_milk'].toString()
         : "";
+
+    log(listLength.toString());
+    itemPositionsListener.itemPositions.addListener(_onScroll);
+  }
+
+  void _onScroll() {
+    final positions = itemPositionsListener.itemPositions.value;
+    if (positions.isNotEmpty) {
+      final maxVisibleIndex = positions
+          .map((item) => item.index)
+          .reduce((max, item) => item > max ? item : max);
+
+      if (maxVisibleIndex >= listLength.value - 1) {
+        _fetchMoreInList();
+      }
+    }
+  }
+
+  _fetchMoreInList() {
+    listLength.value = listLength.value + 10;
   }
 
   @override
   void didUpdateWidget(covariant AddButton oldWidget) {
     super.didUpdateWidget(oldWidget);
-  //  widget.qtyController?.text = widget.qty.toString();
-    //itemScrollController=ItemScrollController();
     focusNode = FocusNode();
   }
 
   @override
   void dispose() {
     focusNode.dispose();
-
+    itemPositionsListener.itemPositions.removeListener(_onScroll);
     super.dispose();
   }
 
@@ -98,13 +117,13 @@ class _AddButtonState extends State<AddButton> {
     log("{widget.minOrder.toString()} ${widget.minOrder.toString()}");
 
     quantity = widget.qty;
-    widget.qtyController?.text ="";
+    widget.qtyController?.text = "";
     widget.qtyController?.text = widget.qty.toString();
     focusNode = FocusNode();
     itemScrollController = ItemScrollController();
 
     int indexOfQuantity =
-        generateList(widget.minOrder, listLength).indexOf(widget.qty);
+        generateList(widget.minOrder, listLength.value).indexOf(widget.qty);
 
     log(indexOfQuantity.toString());
 
@@ -115,16 +134,10 @@ class _AddButtonState extends State<AddButton> {
     }
 
     if (indexOfQuantity == -1) {
-      // If the quantity is not found in the list, set a default index
       indexOfQuantity = 0;
-      //quantity = customCeil(quantity, widget.minOrder);
-
-      // indexOfQuantity =
-      //     generateList(widget.minOrder, listLength).indexOf(quantity);
-
       log('------------------------------');
       log("quantity.toString() ${quantity.toString()}");
-      log("test ${generateList(widget.minOrder, listLength).indexOf(quantity).toString()}");
+      log("test ${generateList(widget.minOrder, listLength.value).indexOf(quantity).toString()}");
     }
 
     return widget.qty == 0
@@ -138,237 +151,227 @@ class _AddButtonState extends State<AddButton> {
                   borderRadius: BorderRadius.circular(5.0),
                 ),
               ),
-              onPressed: widget.onAddPressed,
+              onPressed: widget.isLoading ? null : widget.onAddPressed,
               child: Text(
                 'Add',
                 style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black.withOpacity(0.5),
+                  color: widget.isLoading
+                      ? Colors.grey
+                      : Colors.black.withOpacity(0.5),
                 ),
               ),
             ),
           )
-        : widget.isLoading
-            ? const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Loader(),
-              )
-            : Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5.5),
-                  border: Border.all(
-                    color: Colors.black.withOpacity(0.2),
+        : Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5.5),
+              border: Border.all(
+                color: Colors.black.withOpacity(0.2),
+              ),
+            ),
+            width: widget.constWidth
+                ? 140
+                : quantity.toString().length == 1
+                    ? (widget.textWidth! + 20)
+                    : widget.textWidth! + 18.0 * quantity.toString().length,
+            child: Row(
+              children: [
+                InkWell(
+                  onTap: widget.isLoading ? null : widget.onMinusPressed,
+                  child: Container(
+                    width: 35,
+                    height: 30,
+                    decoration: BoxDecoration(
+                      color: widget.isLoading
+                          ? Colors.grey.withOpacity(0.2)
+                          : Colors.grey.withOpacity(0.2),
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(5.0),
+                        bottomLeft: Radius.circular(5.0),
+                      ),
+                    ),
+                    child: Icon(
+                      Icons.remove,
+                      size: 20,
+                      color: widget.isLoading
+                          ? Colors.grey
+                          : Colors.black.withOpacity(0.8),
+                    ),
                   ),
                 ),
-                width: widget.constWidth
-                    ? 140
-                    : quantity.toString().length == 1
-                        ? (widget.textWidth! + 20)
-                        : widget.textWidth! + 18.0 * quantity.toString().length,
-                child: Row(
-                  children: [
-                    InkWell(
-                      onTap: widget.onMinusPressed,
-                      child: Container(
-                        width: 35,
-                        height: 30,
-                        decoration: BoxDecoration(
-                          color: Colors.grey.withOpacity(0.2),
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(5.0),
-                            bottomLeft: Radius.circular(5.0),
-                          ),
-                        ),
-                        child: Icon(
-                          Icons.remove,
-                          //widget.minOrder==quantity?Icons.delete_outline :Icons.remove,
-                          size: 20,
-                          color: Colors.black.withOpacity(0.8),
-                        ),
-                      ),
+                Container(
+                  width: 1,
+                  height: 30,
+                  decoration: BoxDecoration(
+                    color: Colors.black.withOpacity(0.2),
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(5.0),
+                      bottomLeft: Radius.circular(5.0),
                     ),
-                    Container(
-                      width: 1,
-                      height: 30,
-                      decoration: BoxDecoration(
-                        color: Colors.black.withOpacity(0.2),
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(5.0),
-                          bottomLeft: Radius.circular(5.0),
-                        ),
-                      ),
+                  ),
+                ),
+                const Spacer(),
+                SizedBox(
+                  width: 50,
+                  height: 30,
+                  child: TextField(
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                    keyboardType: TextInputType.number,
+                    readOnly: true,
+                    decoration: const InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      isDense: true,
+                      border: InputBorder.none,
+                      contentPadding: EdgeInsets.only(top: 5),
                     ),
-                    const Spacer(),
-                    SizedBox(
-                      //  width:widget.constWidth? 50: 10.0 * quantity.toString().length,
-                      //  width: quantity != null && quantity.toString().length > 2?50:50,
-                      width: 50,
-                      height: 30,
-                      child: TextField(
-                        inputFormatters: [
-                          FilteringTextInputFormatter.digitsOnly
-                        ],
-                        keyboardType: TextInputType.number,
-                        readOnly: true,
-                        decoration: const InputDecoration(
-                          filled: true,
-                          fillColor: Colors.white,
-                          isDense: true,
-                          border: InputBorder.none,
-                          contentPadding: EdgeInsets.only(top: 5),
-                        ),
-                        onTap: () {
-                          showDialog(
-                            context: context,
-                            builder: (_) {
-                              return AlertDialog(
-                                insetPadding: const EdgeInsets.symmetric(
-                                  horizontal: 100,
-                                  vertical: 30,
-                                ),
-                                titlePadding: const EdgeInsets.all(12),
-                                //contentPadding: const EdgeInsets.all(12),
-                                title: GestureDetector(
-                                  behavior: HitTestBehavior.translucent,
-                                  onTap: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child:  Padding(
-                                    padding: const EdgeInsets.only(top:8),
-                                    child: Row(
-                                      children: [
-                                        Text("Quantity"),
-                                        Spacer(),
-                                        Icon(
-                                          Icons.close,
-                                          color: Colors.grey,
-                                        ),
-                                      ],
-                                    ),
+                    onTap: () {
+                      if (widget.isLoading) return;
+                      showDialog(
+                        context: context,
+                        builder: (_) {
+                          return Obx(() {
+                            return AlertDialog(
+                              insetPadding: const EdgeInsets.symmetric(
+                                horizontal: 100,
+                                vertical: 30,
+                              ),
+                              titlePadding: const EdgeInsets.all(12),
+                              title: GestureDetector(
+                                behavior: HitTestBehavior.translucent,
+                                onTap: () {
+                                  Navigator.pop(context);
+                                },
+                                child: const Padding(
+                                  padding: EdgeInsets.only(top: 8),
+                                  child: Row(
+                                    children: [
+                                      Text("Quantity"),
+                                      Spacer(),
+                                      Icon(
+                                        Icons.close,
+                                        color: Colors.grey,
+                                      ),
+                                    ],
                                   ),
                                 ),
-                                content: SizedBox(
-                                  width: double.maxFinite,
-                                  child: ScrollablePositionedList.separated(
-                                    scrollOffsetController:
-                                        scrollOffsetController,
-                                    initialScrollIndex: indexOfQuantity,
-                                    itemScrollController: itemScrollController,
-                                    itemPositionsListener:
-                                        itemPositionsListener,
-                                    separatorBuilder: (context, index) {
-                                      return Divider(
-                                        color: Colors.grey.withOpacity(0.6),
-                                        thickness: 0.5,
-                                      );
-                                    },
-                                    itemCount: listLength,
-                                    itemBuilder: (_, i) {
-                                      return Container(
-                                        color: indexOfQuantity == i
-                                            ? Colors.grey.withOpacity(0.2)
-                                            : Colors.white,
-                                        child: InkWell(
-                                          onTap: () {
-                                            setState(() {
-                                              quantity = generateList(
-                                                  widget.minOrder,
-                                                  listLength)[i];
-                                            });
-                                            widget.onChangedPressed(
-                                                "${generateList(widget.minOrder, listLength)[i]}");
+                              ),
+                              content: SizedBox(
+                                width: double.maxFinite,
+                                child: ScrollablePositionedList.separated(
+                                  scrollOffsetController:
+                                      scrollOffsetController,
+                                  initialScrollIndex: indexOfQuantity,
+                                  itemScrollController: itemScrollController,
+                                  itemPositionsListener: itemPositionsListener,
+                                  separatorBuilder: (context, index) {
+                                    return Divider(
+                                      color: Colors.grey.withOpacity(0.6),
+                                      thickness: 0.5,
+                                    );
+                                  },
+                                  itemCount: listLength.value,
+                                  itemBuilder: (_, i) {
+                                    return Container(
+                                      color: indexOfQuantity == i
+                                          ? Colors.grey.withOpacity(0.2)
+                                          : Colors.white,
+                                      child: InkWell(
+                                        onTap: () {
+                                          setState(() {
+                                            quantity = generateList(
+                                                widget.minOrder,
+                                                listLength.value)[i];
+                                          });
+                                          widget.onChangedPressed(
+                                              "${generateList(widget.minOrder, listLength.value)[i]}");
 
-                                            Navigator.of(context).pop();
-                                          },
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(
-                                                bottom: 5,
-                                                top: 5,
-                                                right: 5,
-                                                left: 5),
-                                            child: Row(
-                                              children: [
-                                                Text(
-                                                  "${generateList(widget.minOrder, listLength)[i]}",
-                                                  style: TextStyle(
-                                                      fontSize: 16,
-                                                      color: indexOfQuantity ==
-                                                              i
-                                                          ? Colors.black
-                                                              .withOpacity(0.8)
-                                                          : Colors.black),
-                                                ),
-                                                const Spacer(),
-                                                Text(
-                                                  widget.parentCode == "1011"
-                                                      ? ordersMilk ?? ""
-                                                      : widget.units,
-                                                  style: TextStyle(
-                                                      fontSize: 13,
-                                                      color: indexOfQuantity ==
-                                                              i
-                                                          ? Colors.black
-                                                              .withOpacity(0.8)
-                                                          : Colors.grey),
-                                                )
-                                              ],
-                                            ),
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              bottom: 5,
+                                              top: 5,
+                                              right: 5,
+                                              left: 5),
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                "${generateList(widget.minOrder, listLength.value)[i]}",
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    color: indexOfQuantity == i
+                                                        ? Colors.black
+                                                            .withOpacity(0.8)
+                                                        : Colors.black),
+                                              ),
+                                              const Spacer(),
+                                              Text(
+                                                widget.parentCode == "1011"
+                                                    ? ordersMilk ?? ""
+                                                    : widget.units,
+                                                style: TextStyle(
+                                                    fontSize: 13,
+                                                    color: indexOfQuantity == i
+                                                        ? Colors.black
+                                                            .withOpacity(0.8)
+                                                        : Colors.grey),
+                                              )
+                                            ],
                                           ),
                                         ),
-                                      );
-                                    },
-                                  ),
+                                      ),
+                                    );
+                                  },
                                 ),
-                              );
-                            },
-                          );
+                              ),
+                            );
+                          });
                         },
-                        onChanged: (value) {
-                          widget.onChangedPressed(value);
-                        },
-                        onEditingComplete: () {
-                          setState(() {});
-                        },
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 16,
-                        ),
-                        controller: widget.qtyController,
-                      ),
+                      );
+                    },
+                    onChanged: (value) {
+                      widget.onChangedPressed(value);
+                    },
+                    onEditingComplete: () {
+                      setState(() {});
+                    },
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 16,
                     ),
-                    const Spacer(),
-/*          Container(width: 1,
-            height: 30,
-            decoration:   BoxDecoration(
-              color: Colors.black.withOpacity(0.2),
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(5.0),
-                bottomLeft: Radius.circular(5.0),
-              ),
-            ),),*/
-                    InkWell(
-                      onTap: widget.onPlusPressed,
-                      child: Container(
-                        width: 35,
-                        height: 30,
-                        decoration: BoxDecoration(
-                          color: Colors.grey.withOpacity(0.2),
-                          borderRadius: const BorderRadius.only(
-                            topRight: Radius.circular(5.0),
-                            bottomRight: Radius.circular(5.0),
-                          ),
-                        ),
-                        child: Icon(
-                          Icons.add,
-                          size: 20,
-                          color: Colors.black.withOpacity(0.8),
-                        ),
-                      ),
-                    ),
-                  ],
+                    controller: widget.qtyController,
+                  ),
                 ),
-              );
+                const Spacer(),
+                InkWell(
+                  onTap: widget.isLoading ? null : widget.onPlusPressed,
+                  child: Container(
+                    width: 35,
+                    height: 30,
+                    decoration: BoxDecoration(
+                      color: widget.isLoading
+                          ? Colors.grey.withOpacity(0.2)
+                          : Colors.grey.withOpacity(0.2),
+                      borderRadius: const BorderRadius.only(
+                        topRight: Radius.circular(5.0),
+                        bottomRight: Radius.circular(5.0),
+                      ),
+                    ),
+                    child: Icon(
+                      Icons.add,
+                      size: 20,
+                      color: widget.isLoading
+                          ? Colors.grey
+                          : Colors.black.withOpacity(0.8),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
   }
 }

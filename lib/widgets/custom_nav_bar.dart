@@ -90,7 +90,7 @@ class CustomNavBarState extends State<CustomNavBar> {
                               backgroundColor: Colors.transparent,
                               radius: 8,
                               child: Text(
-                                 addToCartController.productCount
+                                addToCartController.productCount
                                         .toString()
                                     ,
                                     maxLines: 1,

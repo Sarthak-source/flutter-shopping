@@ -4,6 +4,7 @@ import 'package:lottie/lottie.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sutra_ecommerce/controllers/add_to_cart_controller.dart';
 import 'package:sutra_ecommerce/controllers/products_controller.dart';
+import 'package:sutra_ecommerce/utils/error.dart';
 import 'package:sutra_ecommerce/widgets/go_cart/go_to_cart.dart';
 import 'package:sutra_ecommerce/widgets/product_card/product_card.dart';
 import 'package:sutra_ecommerce/widgets/search_bar.dart' as search;
@@ -129,7 +130,10 @@ class CustomStaggerGrid extends StatefulWidget {
 }
 
 class _CustomStaggerGridState extends State<CustomStaggerGrid> {
-    int selectedIndex = -1;
+  int selectedIndex = -1;
+
+  final AddToCartController addToCartController =
+      Get.put(AddToCartController());
 
   @override
   Widget build(BuildContext context) {
@@ -137,133 +141,140 @@ class _CustomStaggerGridState extends State<CustomStaggerGrid> {
       categoryId: widget.categoryId ?? '',
     ));
 
-    return  Obx(() {
-        if (controller.isLoading.value) {
-          // If the Future is still running, show a loading indicator
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Shimmer.fromColors(
-              baseColor: Colors.grey[300]!,
-              highlightColor: Colors.grey[100]!,
-              child: SizedBox(
-                height: 100,
-                child: GridView.builder(
-                  clipBehavior: Clip.none,
-                  itemCount: 10, // Use a placeholder count
-                  itemBuilder: (context, index) {
-                    return const Padding(
-                      padding: EdgeInsets.only(left: 16, bottom: 8),
-                      child: ProductCardPlaceholder(),
-                    );
-                  },
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: getProportionateScreenWidth(8),
-                      mainAxisSpacing: getProportionateScreenHeight(8),
-                      childAspectRatio:
-                          widget.childAspectRatio ?? (Get.width / Get.height) * 1.70),
-                ),
+    return Obx(() {
+      if (controller.isLoading.value && controller.products.isEmpty) {
+        // If the Future is still running, show a loading indicator
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Shimmer.fromColors(
+            baseColor: Colors.grey[300]!,
+            highlightColor: Colors.grey[100]!,
+            child: SizedBox(
+              height: 100,
+              child: GridView.builder(
+                clipBehavior: Clip.none,
+                itemCount: 10, // Use a placeholder count
+                itemBuilder: (context, index) {
+                  return const Padding(
+                    padding: EdgeInsets.only(left: 16, bottom: 8),
+                    child: ProductCardPlaceholder(),
+                  );
+                },
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: getProportionateScreenWidth(8),
+                    mainAxisSpacing: getProportionateScreenHeight(8),
+                    childAspectRatio: widget.childAspectRatio ??
+                        (Get.width / Get.height) * 1.70),
               ),
             ),
-          );
-        } else if (controller.hasError.value) {
-          // If there's an error, display it to the user
-          return Center(child: Text('Error: ${controller.errorMsg.value}'));
-        } else {
-          // If the Future is complete with data, display the GridView
-          List products = controller.products;
+          ),
+        );
+      } else if (controller.hasError.value) {
+        // If there's an error, display it to the user
+        return const Center(child: ErrorHandleWidget());
+      } else {
+        // If the Future is complete with data, display the GridView
+        List products = controller.products;
 
-          if (products.isEmpty || widget.categoryId == "") {
-            return Column(
-              children: [
-                Lottie.asset('assets/lotties/no-data.json',
-                    repeat: false,
-                    height: getProportionateScreenHeight(250.0),
-                    width: getProportionateScreenWidth(250.0)),
-                SizedBox(height: getProportionateScreenHeight(10.0)),
-                const Text(
-                  'No products found',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600, ),
+        if (products.isEmpty || widget.categoryId == "") {
+          return Column(
+            children: [
+              Lottie.asset('assets/lotties/no-data.json',
+                  repeat: false,
+                  height: getProportionateScreenHeight(250.0),
+                  width: getProportionateScreenWidth(250.0)),
+              SizedBox(height: getProportionateScreenHeight(10.0)),
+              const Text(
+                'No products found',
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
                 ),
-              ],
-            );
-          } else {
-            //return Text(controller.products.toString());
-            return GridView.builder(
-              itemCount: products.length,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: getProportionateScreenWidth(8),
-                  mainAxisSpacing: getProportionateScreenHeight(8),
-                  childAspectRatio:
-                      widget.childAspectRatio ?? (Get.width / Get.height) * 1.80),
-              itemBuilder: (ctx, index) {
-                if (index % 2 != 0) {
-                  return ProductCard(
-                    isLeft: false,
-                    product: products[index],
-                    onCardAddClicked: () {
-                      setState(() {
-                        selectedIndex = index;
-                      });
-                    },
-                    onCardMinusClicked: () {
-                      setState(() {
-                        selectedIndex = index;
-                      });
-                    },
-                    
-                  );
-                }
-                else if (index == 0) {
-                  return ProductCard(
-                    isLeft: true,
-                    addHandler: widget.addCallback,
-                    product: products[index],
-                    onCardAddClicked: () {
-                      setState(() {
-                        selectedIndex = index;
-                      });
-                    },
-                    onCardMinusClicked: () {
-                      setState(() {
-                        selectedIndex = index;
-                      });
-                    },
-                  );
-                }
+              ),
+            ],
+          );
+        } else {
+          //return Text(controller.products.toString());
+          return GridView.builder(
+            itemCount: products.length,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: getProportionateScreenWidth(8),
+                mainAxisSpacing: getProportionateScreenHeight(8),
+                childAspectRatio:
+                    widget.childAspectRatio ?? (Get.width / Get.height) * 1.80),
+            itemBuilder: (ctx, index) {
+              if (index % 2 != 0) {
+                return ProductCard(
+                  isLeft: false,
+                  product: products[index],
+                  loader: index == selectedIndex
+                      ? addToCartController.isLoading.value
+                      : false,
+                  onCardAddClicked: () {
+                    setState(() {
+                      selectedIndex = index;
+                    });
+                  },
+                  onCardMinusClicked: () {
+                    setState(() {
+                      selectedIndex = index;
+                    });
+                  },
+                );
+              } else if (index == 0) {
                 return ProductCard(
                   isLeft: true,
+                  addHandler: widget.addCallback,
+                  loader: index == selectedIndex
+                      ? addToCartController.isLoading.value
+                      : false,
                   product: products[index],
                   onCardAddClicked: () {
-                      setState(() {
-                        selectedIndex = index;
-                      });
-                    },
-                    onCardMinusClicked: () {
-                      setState(() {
-                        selectedIndex = index;
-                      });
-                    },
+                    setState(() {
+                      selectedIndex = index;
+                    });
+                  },
+                  onCardMinusClicked: () {
+                    setState(() {
+                      selectedIndex = index;
+                    });
+                  },
                 );
-              },
-            );
-          }
+              }
+              return ProductCard(
+                isLeft: true,
+                product: products[index],
+                loader: index == selectedIndex
+                    ? addToCartController.isLoading.value
+                    : false,
+                onCardAddClicked: () {
+                  setState(() {
+                    selectedIndex = index;
+                  });
+                },
+                onCardMinusClicked: () {
+                  setState(() {
+                    selectedIndex = index;
+                  });
+                },
+              );
+            },
+          );
         }
-      });
-    
+      }
+    });
   }
 }
 
 class ProductCardPlaceholder extends StatelessWidget {
   final String? isFrom;
-  const ProductCardPlaceholder({Key? key, this.isFrom}) : super(key: key);
+  const ProductCardPlaceholder({super.key, this.isFrom});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: Get.width / 2,
+      width: 180,
       height: isFrom == "homepop" ? 5 : 10,
       margin: const EdgeInsets.only(right: 12.0),
       decoration: BoxDecoration(

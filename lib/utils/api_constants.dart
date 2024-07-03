@@ -23,9 +23,10 @@ class ApiAppConstants {
   // static String apiEndPoint = "http://139.162.12.150/api/";
   //static String apiEndPoint = "http://170.187.232.148/api/";// Prod
   static String apiEndPoint = "http://170.187.232.148/api/";
- //static String apiEndPoint = "http://192.168.1.23:8000/api/";
+  //static String apiEndPoint = "http://192.168.1.23:8000/api/";
 
   static const String signup = 'new_party/';
+  static const String partyUpdate = 'party_update/';
   static const String otp = 'sendLoginOTP/';
   static const String resendOTP = 'resendLogiOTP/';
   static const String verifyOTP = 'verifyLoginOTP/';
@@ -54,6 +55,6 @@ class ApiAppConstants {
   static const String postaddress = 'inventory/address_post/';
   static const String getstates = 'inventory/state/';
   static const String addressListPost = 'addressListPost/';
-  static const String invoicePayments= 'invoice_payments/';
-  static const String updateInvoicePayments= 'invoice_update_payments/';
+  static const String invoicePayments = 'invoice_payments/';
+  static const String updateInvoicePayments = 'invoice_update_payments/';
 }

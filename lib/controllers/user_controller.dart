@@ -7,23 +7,26 @@ import 'package:sutra_ecommerce/controllers/add_to_cart_controller.dart';
 import 'package:sutra_ecommerce/utils/network_repository.dart';
 
 class UserController extends GetxController {
-  final AddToCartController addToCardController = Get.put(AddToCartController());
+  final AddToCartController addToCardController =
+      Get.put(AddToCartController());
 
   var isLoading = true.obs;
   var hasError = false.obs;
   var errorMsg = ''.obs;
 
-  var partyConfig={}.obs;
+  var partyConfig = {}.obs;
   // Define storedUserData as a local variable inside the class
 
   // Define user as an observable variable
   var user = {}.obs;
-  var version =''.obs;
-  var localVersion =0.obs;
+  var version = ''.obs;
+  var localVersion = 0.obs;
   var isUpdate = false.obs;
   num buildNumber = 0;
   num localBuildNumber = 0;
   var buildversion = 0.obs;
+
+  var link=''.obs;
 
   PackageInfo? packageInfo;
   @override
@@ -84,32 +87,33 @@ class UserController extends GetxController {
       var responseData = await networkRepository.partyConfig(
         storedUserData['party']['id'].toString(),
       );
+      log(responseData.toString());
       packageInfo = await PackageInfo.fromPlatform();
       log("storedUserData['party']['id'] ${storedUserData['party']['id'].toString()}");
 
+      partyConfig.value = responseData['body'];
 
-      partyConfig.value= responseData['body'];
-
-         await box!.delete('partyConfigData');
-       await box!.put('partyConfigData',  partyConfig);
+      await box!.delete('partyConfigData');
+      await box!.put('partyConfigData', partyConfig);
       Map getPartyConfig = box!.get('partyConfigData');
       //print("app version in user user ctrlr ${getPartyConfig['update']['app_version'].toString()}");
 
-      if(getPartyConfig['update'] != null && getPartyConfig['update']['app_version'] != null){
+      if (getPartyConfig['update'] != null &&
+          getPartyConfig['update']['app_version'] != null) {
         version.value = getPartyConfig['update']['app_version'].toString();
+        link.value= getPartyConfig['update']['link'];
         String buildNumberString = version.value!.split('+')[1];
         buildNumber = num.tryParse(buildNumberString) ?? 0;
         print('App buildNumber : ${buildNumber.toString()}');
         buildversion.value = buildNumber.toInt();
-        localBuildNumber =num.parse(packageInfo?.buildNumber.toString() ?? "");
+        localBuildNumber = num.parse(packageInfo?.buildNumber.toString() ?? "");
         localVersion.value = localBuildNumber.toInt();
         print('localVersion : ${localVersion.value.toString()}');
-        if(localVersion.value < buildversion.value){
+        if (localVersion.value < buildversion.value) {
           isUpdate.value = true;
           update();
         }
       }
-
     } catch (e) {
       errorMsg.value = e.toString();
       log(e.toString());

@@ -65,7 +65,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     ScreenUtils().init(context);
-
     return WillPopScope(
       onWillPop: () async {
         SystemChannels.platform.invokeMethod('SystemNavigator.pop');
@@ -88,8 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   TextButton(
                     child: const Text('Update'),
                     onPressed: () async {
-                      var url =
-                          "https://play.google.com/store/apps/details?id=com.sanvi.goflamingo";
+                      var url = usercontroller.link.value;
                       if (await canLaunchUrl(Uri.parse(url))) {
                         await launchUrl(
                           Uri.parse(url),
@@ -339,11 +337,8 @@ class _DealsTabState extends State<DealsTab> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // color: controller.deals.isEmpty?Colors.white:Colors.grey.shade300,
       color: controller.deals.isEmpty ? Colors.white : kPrimaryBlueTest,
       child: Column(
-        // crossAxisAlignment: CrossAxisAlignment.start,
-        //mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
             color: kPrimaryBlueTest,
@@ -359,12 +354,12 @@ class _DealsTabState extends State<DealsTab> {
                 baseColor: Colors.grey[300]!,
                 highlightColor: Colors.grey[100]!,
                 child: SizedBox(
-                  height: 140,
+                  height: 200,
                   child: ListView.builder(
                     controller: _scrollController,
                     clipBehavior: Clip.none,
                     scrollDirection: Axis.horizontal,
-                    itemCount: 5, // Use a placeholder count
+                    itemCount: 5,
                     itemBuilder: (context, index) {
                       return const Padding(
                         padding: EdgeInsets.only(right: 12.0),
@@ -387,7 +382,6 @@ class _DealsTabState extends State<DealsTab> {
                       controller.deals.length, // Set the total number of items
                   itemBuilder: (BuildContext context, int index) {
                     // Return your item widget based on the index
-                    //log(controller.deals.toString());
                     return InkWell(
                       onTap: () {
                         log('message, ${controller.deals[index]}');
@@ -409,19 +403,8 @@ class _DealsTabState extends State<DealsTab> {
                 ),
               );
             }
-
-            // SingleChildScrollView(
-            //   scrollDirection: Axis.horizontal,
-            //   child: Row(
-            //     children: [
-            //       DealCard(),
-            //       DealCard(),
-            //     ],
-            //   ),
-            // );
           }),
           const SizedBox(height: 8),
-          //  const Divider()
         ],
       ),
     );
@@ -430,23 +413,20 @@ class _DealsTabState extends State<DealsTab> {
 
 class HomeAppBar extends StatelessWidget {
   final UserController userController = Get.put(UserController());
+
   HomeAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Obx(() {
       return Container(
-        //  height: 80,
-        //color: Colors.grey.shade200,
         color: kPrimaryBlueTest2,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
               padding: EdgeInsets.symmetric(
-                horizontal: getProportionateScreenWidth(
-                  0,
-                ),
+                horizontal: getProportionateScreenWidth(0),
               ),
               child: InkWell(
                 onTap: () {
@@ -458,15 +438,11 @@ class HomeAppBar extends StatelessWidget {
                         child: Row(
                           children: [
                             SizedBox(
-                              // height: 60,
                               width: Get.width,
-                              // color: Colors.red.shade50,
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const SizedBox(
-                                    width: 8,
-                                  ),
+                                  const SizedBox(width: 8),
                                   const Icon(
                                     Icons.location_on_outlined,
                                     color: Colors.grey,
@@ -493,26 +469,16 @@ class HomeAppBar extends StatelessWidget {
                                                   maxLines: 1,
                                                 ),
                                               ),
-
-                                              /* Expanded(
-                                          flex:1,
-                                          child: Text(setAddress(controller.myOrderList.isEmpty?"":controller.myOrderList[0]["address"],"address_line2"), style: TextStyle(
-                                            overflow: TextOverflow.ellipsis,
-                                              color: Colors.black,
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.normal),
-                                            maxLines: 1,
-                                          ),
-                                        ),*/
                                             ],
                                           ),
                                           Text(
                                             "${titleCase(userController.user['party']['address']['address_line3'].toString())},  ${userController.user['party']['address']['pin_code']['pin_code'].toString()}" ??
                                                 "",
                                             style: const TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.normal),
+                                              color: Colors.black,
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.normal,
+                                            ),
                                             maxLines: 1,
                                           ),
                                         ],
@@ -525,7 +491,40 @@ class HomeAppBar extends StatelessWidget {
                           ],
                         ),
                       )
-                    : const Text('loading'),
+                    : SizedBox(
+                        height: 40,
+                        child: Shimmer.fromColors(
+                          baseColor: Colors.grey[300]!,
+                          highlightColor: Colors.grey[100]!,
+                          child: Row(
+                            children: [
+                              const SizedBox(width: 8),
+                              const Icon(Icons.location_on_outlined,
+                                  color: Colors.grey),
+                              const SizedBox(width: 8),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const SizedBox(height: 6),
+                                    Container(
+                                      width: Get.width / 1.8,
+                                      height: 12,
+                                      color: Colors.white,
+                                    ),
+                                    const SizedBox(height: 4),
+                                    Container(
+                                      width: Get.width / 1.8,
+                                      height: 12,
+                                      color: Colors.white,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
               ),
             ),
           ],
@@ -534,9 +533,7 @@ class HomeAppBar extends StatelessWidget {
     });
   }
 }
-    
-  
-  
+
 
 
 // class MyWidget extends StatelessWidget {

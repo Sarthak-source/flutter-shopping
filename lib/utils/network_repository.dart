@@ -5,6 +5,7 @@ import 'dart:developer';
 //import 'package:geolocator/geolocator.dart';
 // ignore: depend_on_referenced_packages
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
 import 'package:fluttertoast/fluttertoast.dart';
@@ -18,7 +19,8 @@ import 'generic_exception.dart';
 NetworkRepository networkRepository = NetworkRepository();
 
 class NetworkRepository {
-  static final NetworkRepository _networkRepository = NetworkRepository._internal();
+  static final NetworkRepository _networkRepository =
+      NetworkRepository._internal();
   factory NetworkRepository() {
     return _networkRepository;
   }
@@ -52,6 +54,35 @@ class NetworkRepository {
       final apiResponse = await NetworkDioHttp.postDioHttpMethod(
         url: "${ApiAppConstants.apiEndPoint}${ApiAppConstants.signup}",
         data: {"party_name": name, "mobile_NO": mobnum, "state": state},
+        header: Options(headers: <String, String>{'authorization': auth}),
+      );
+      debugPrint('\x1b[97m signup : $apiResponse');
+
+      return await apiResponse['body'];
+    } catch (e) {
+      Fluttertoast.showToast(msg: e.toString(), backgroundColor: Colors.red);
+      return e.toString();
+    }
+  }
+
+  static userSignupUpdate(
+      {required String MobileApp_Agr_Accepted,
+      required String Agrement_Signed_doc,
+      required String MobileApp_PAN,
+      required String MobileApp_AADHAR,
+      required String memberId}) async {
+    FormData formData = FormData.fromMap({
+      'conditions_accepted':
+          MobileApp_Agr_Accepted,
+      'agreement_signed_doc': await MultipartFile.fromFile(Agrement_Signed_doc),
+      'pan_doc': await MultipartFile.fromFile(MobileApp_PAN),
+      'aadhar_doc': await MultipartFile.fromFile(MobileApp_AADHAR),
+      'member':memberId,
+    });
+    try {
+      final apiResponse = await NetworkDioHttp.patchDioHttpMethod(
+        url: "${ApiAppConstants.apiEndPoint}${ApiAppConstants.partyUpdate}${memberId.toString()}/",
+        data: formData,
         header: Options(headers: <String, String>{'authorization': auth}),
       );
       debugPrint('\x1b[97m signup : $apiResponse');
@@ -103,7 +134,9 @@ class NetworkRepository {
         header: Options(headers: <String, String>{'authorization': auth}),
       );
 
-      print('\x1b[97m checkParty Response : $apiResponse');
+      if (kDebugMode) {
+        print('\x1b[97m checkParty Response : $apiResponse');
+      }
 
       final body = apiResponse['body'];
 
@@ -113,10 +146,14 @@ class NetworkRepository {
 
       return apiResponse;
     } on AppException catch (appException) {
-      print('appException.type in net repo ${appException.type.toString()}');
+      if (kDebugMode) {
+        print('appException.type in net repo ${appException.type.toString()}');
+      }
       String errorMsg = '';
       errorMsg = errorHandler(appException);
-      print('ERROR MESSAGE :: ${errorMsg}');
+      if (kDebugMode) {
+        print('ERROR MESSAGE :: $errorMsg');
+      }
       if (appException.res != null &&
           appException.res?.data['detail'] != null) {
         Fluttertoast.showToast(
@@ -136,7 +173,9 @@ class NetworkRepository {
         header: Options(headers: <String, String>{'authorization': auth}),
       );
 
-      print('\x1b[97m partyConfig Response : $apiResponse');
+      if (kDebugMode) {
+        print('\x1b[97m partyConfig Response : $apiResponse');
+      }
 
       final body = apiResponse['body'];
 
@@ -146,10 +185,14 @@ class NetworkRepository {
 
       return apiResponse;
     } on AppException catch (appException) {
-      print('appException.type in net repo ${appException.type.toString()}');
+      if (kDebugMode) {
+        print('appException.type in net repo ${appException.type.toString()}');
+      }
       String errorMsg = '';
       errorMsg = errorHandler(appException);
-      print('ERROR MESSAGE :: ${errorMsg}');
+      if (kDebugMode) {
+        print('ERROR MESSAGE :: $errorMsg');
+      }
       if (appException.res != null &&
           appException.res?.data['detail'] != null) {
         Fluttertoast.showToast(
@@ -169,7 +212,9 @@ class NetworkRepository {
         header: Options(headers: <String, String>{'authorization': auth}),
       );
 
-      print('\x1b[97m partyConfig Response : $apiResponse');
+      if (kDebugMode) {
+        print('\x1b[97m partyConfig Response : $apiResponse');
+      }
 
       final body = apiResponse['body'];
 
@@ -179,10 +224,14 @@ class NetworkRepository {
 
       return apiResponse;
     } on AppException catch (appException) {
-      print('appException.type in net repo ${appException.type.toString()}');
+      if (kDebugMode) {
+        print('appException.type in net repo ${appException.type.toString()}');
+      }
       String errorMsg = '';
       errorMsg = errorHandler(appException);
-      print('ERROR MESSAGE :: ${errorMsg}');
+      if (kDebugMode) {
+        print('ERROR MESSAGE :: $errorMsg');
+      }
       if (appException.res != null &&
           appException.res?.data['detail'] != null) {
         Fluttertoast.showToast(
@@ -221,10 +270,14 @@ class NetworkRepository {
 
       return apiResponse;*/
     } on AppException catch (appException) {
-      print('appException.type in net repo ${appException.type.toString()}');
+      if (kDebugMode) {
+        print('appException.type in net repo ${appException.type.toString()}');
+      }
       String errorMsg = '';
       errorMsg = errorHandler(appException);
-      print('ERROR MESSAGE :: ${errorMsg}');
+      if (kDebugMode) {
+        print('ERROR MESSAGE :: $errorMsg');
+      }
       if (appException.res != null &&
           appException.res?.data['detail'] != null) {
         Fluttertoast.showToast(
@@ -479,13 +532,16 @@ class NetworkRepository {
 
   static Future getMyCart({required String party}) async {
     try {
+      log('cartdata ${ApiAppConstants.apiEndPoint}${ApiAppConstants.mycart}?party=$party');
       final apiResponse = await NetworkDioHttp.getDioHttpMethod(
         url:
             "${ApiAppConstants.apiEndPoint}${ApiAppConstants.mycart}?party=$party",
         header: Options(headers: <String, String>{'authorization': auth}),
       );
       log('mycartItems in repo++++$apiResponse');
-      print('authorization $auth');
+      if (kDebugMode) {
+        print('authorization $auth');
+      }
       debugPrint('\x1b[97m mycart Response : $apiResponse');
 
       final body = apiResponse['body'];
@@ -616,13 +672,16 @@ class NetworkRepository {
       String? partyId,
       String? page}) async {
     try {
+      log('link_product ${ApiAppConstants.apiEndPoint}${ApiAppConstants.products}?category=$category&status=$status&search=$search&party=$partyId&page=$page');
       final apiResponse = await NetworkDioHttp.getDioHttpMethod(
         url:
             "${ApiAppConstants.apiEndPoint}${ApiAppConstants.products}?category=$category&status=$status&search=$search&party=$partyId&page=$page",
         header: Options(headers: <String, String>{'authorization': auth}),
       );
 
-      print('\x1b[97m products Response : $apiResponse');
+      if (kDebugMode) {
+        print('\x1b[97m products Response : $apiResponse');
+      }
 
       final body = apiResponse['body'];
 
@@ -657,7 +716,9 @@ class NetworkRepository {
         header: Options(headers: <String, String>{'authorization': auth}),
       );
 
-      print('\x1b[97m exploreProducts Response : $apiResponse');
+      if (kDebugMode) {
+        print('\x1b[97m exploreProducts Response : $apiResponse');
+      }
 
       final body = apiResponse['body'];
 
@@ -690,7 +751,9 @@ class NetworkRepository {
         header: Options(headers: <String, String>{'authorization': auth}),
       );
 
-      print('\x1b[97m products Response : $apiResponse');
+      if (kDebugMode) {
+        print('\x1b[97m products Response : $apiResponse');
+      }
 
       final body = apiResponse['body'];
 
@@ -860,7 +923,9 @@ class NetworkRepository {
         "order": orderId,
       });
 
-      print("dataposted $data");
+      if (kDebugMode) {
+        print("dataposted $data");
+      }
 
       log('${ApiAppConstants.apiEndPoint}${ApiAppConstants.reorderapi}');
       final apiResponse = await NetworkDioHttp.postDioHttpMethod(

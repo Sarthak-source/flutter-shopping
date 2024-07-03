@@ -47,7 +47,7 @@ class CategoryCardPlaceholder extends StatelessWidget {
     return Column(
       children: [
         Container(
-          width: 120,
+          width: 80,
           height: 60,
           margin: const EdgeInsets.only(right: 12.0),
           decoration: BoxDecoration(
@@ -59,7 +59,7 @@ class CategoryCardPlaceholder extends StatelessWidget {
           height: 10,
         ),
         Container(
-          width: 120,
+          width: 80,
           height: 15,
           margin: const EdgeInsets.only(right: 12.0),
           decoration: BoxDecoration(

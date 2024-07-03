@@ -19,7 +19,7 @@ import '../login/login_screen.dart';
 class SignupScreen extends StatefulWidget {
   static const routeName = '/signupScreen';
 
-  const SignupScreen({Key? key}) : super(key: key);
+  const SignupScreen({super.key});
 
   @override
   State<SignupScreen> createState() => _SignupScreenState();
@@ -56,13 +56,6 @@ class _SignupScreenState extends State<SignupScreen> {
         return FutureBuilder(
           future: initHive(),
           builder: (context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const CircularProgressIndicator(color: kPrimaryBlue,);
-            }
-            // if (snapshot.hasError) {
-            //   return Text('Error: ${snapshot.error}');
-            // }
-            
             return Scaffold(
               body: !showOtp
                   ? SafeArea(
@@ -174,7 +167,6 @@ class _SignupScreenState extends State<SignupScreen> {
                                                 .difference(lastOtpTimestamp)
                                                 .inHours >=
                                             1) {
-                                          // It has been more than an hour, allow sending OTP again
                                           otpCount = 0;
                                         }
 
@@ -285,11 +277,10 @@ class _SignupScreenState extends State<SignupScreen> {
                           RichText(
                             textAlign: TextAlign.center,
                             text: TextSpan(
-                              style: DefaultTextStyle.of(context)
-                                  .style
-                                  .copyWith(
-                                    fontSize: 16.0, // Set the font size to 14
-                                  ),
+                              style:
+                                  DefaultTextStyle.of(context).style.copyWith(
+                                        fontSize: 16.0,
+                                      ),
                               children: <TextSpan>[
                                 TextSpan(
                                   text: 'We have sent verification code\nto ',
@@ -297,10 +288,9 @@ class _SignupScreenState extends State<SignupScreen> {
                                       .textTheme
                                       .headlineMedium
                                       ?.copyWith(
-                                        // fontWeight: FontWeight.w700,
                                         color: Colors.grey,
                                         fontSize:
-                                            getProportionateScreenWidth(20),
+                                            getProportionateScreenWidth(16),
                                       ),
                                 ),
                                 TextSpan(
@@ -321,7 +311,6 @@ class _SignupScreenState extends State<SignupScreen> {
                           const SizedBox(
                             height: 20,
                           ),
-                          Text("$otpCount, $lastOtpTimestamp"),
                           OtpTextField(
                             numberOfFields: 4,
                             borderRadius:
@@ -338,18 +327,40 @@ class _SignupScreenState extends State<SignupScreen> {
                             onCodeChanged: (String code) {},
                             onSubmit: (String verificationCode) {
                               otpController.text = verificationCode;
-
-                              loginController.verifyOtpCode(
-                                  OtpScreenArguments(
-                                    phoneNumber: phoneController.text,
-                                  ),
-                                  otpController,
-                                  context,
-                                  nameController.text,
-                                  phoneController.text,
-                                  selectedStateId,
-                                  'signUp');
                             },
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(40.0),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                if (otpController.text.isNotEmpty) {
+                                  loginController.verifyOtpCode(
+                                      OtpScreenArguments(
+                                        phoneNumber: phoneController.text,
+                                      ),
+                                      otpController,
+                                      context,
+                                      nameController.text,
+                                      phoneController.text,
+                                      selectedStateId,
+                                      'signUp');
+                                } else {
+                                  Fluttertoast.showToast(
+                                    msg: "Please enter the OTP",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.BOTTOM,
+                                    timeInSecForIosWeb: 1,
+                                    backgroundColor: Colors.red,
+                                    textColor: Colors.white,
+                                    fontSize: 16.0,
+                                  );
+                                }
+                              },
+                              child: const Text('Continue'),
+                            ),
                           ),
                         ],
                       ),

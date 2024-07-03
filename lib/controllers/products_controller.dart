@@ -24,7 +24,7 @@ class ProductController extends GetxController {
   Future<dynamic> fetchProducts() async {
     try {
       isLoading.value = true;
-      Map storedUserData=box!.get('userData');
+      Map storedUserData = box!.get('userData');
       var responseData = await NetworkRepository.getProducts(
         category: categoryId.toString(),
         status: 'Active',

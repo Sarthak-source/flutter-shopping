@@ -7,6 +7,7 @@ import 'package:sutra_ecommerce/screens/paymentScreen/paymentScreen.dart';
 import 'package:sutra_ecommerce/screens/product_detail.dart/product_detail.dart';
 import 'package:sutra_ecommerce/screens/select_time/select_time.dart';
 import 'package:sutra_ecommerce/screens/sign_up/sign_message_screen.dart';
+import 'package:sutra_ecommerce/screens/sign_up/sign_wait_screen.dart';
 
 import '../screens/add_address/add_address_screen.dart';
 import '../screens/cart/cart_screen.dart';
@@ -26,10 +27,8 @@ import '../screens/product_grid_screen/produts_grid_screen.dart';
 import '../screens/search_screen/search_fruit_screen.dart';
 import '../screens/search_screen/search_screen.dart';
 import '../screens/sign_up/signup_screen.dart';
-import '../screens/special_deal_child_screen.dart';
 import '../screens/special_deal_screen.dart';
 import '../screens/tab_screen/tab_screen.dart';
-import '../screens/vegetable_screen.dart';
 
 List<GetPage> pages = [
   GetPage(name: IntroScreen.routeName, page: () => const IntroScreen()),
@@ -44,18 +43,14 @@ List<GetPage> pages = [
       page: () => const TabScreen(),
       binding: StoreBinding()),
   GetPage(name: SearchScreen.routeName, page: () => const SearchScreen()),
-  GetPage(name: VegetableScreen.routeName, page: () => const VegetableScreen()),
   GetPage(name: FruitScreen.routeName, page: () => const FruitScreen()),
   GetPage(name: CategoryScreen.routeName, page: () => const CategoryScreen()),
   GetPage(name: Notification.routeName, page: () => const Notification()),
   GetPage(
       name: PoductsListScreen.routeName, page: () => const PoductsListScreen()),
-  GetPage(name: SelectTime.routeName, page: () =>  SelectTime()),
+  GetPage(name: SelectTime.routeName, page: () => SelectTime()),
   GetPage(
       name: SpecialDealScreen.routeName, page: () => const SpecialDealScreen()),
-  GetPage(
-      name: SpecialDealChildScreen.routeName,
-      page: () => const SpecialDealChildScreen()),
   GetPage(
       name: SearchFruitScreen.routeName, page: () => const SearchFruitScreen()),
   GetPage(
@@ -71,12 +66,14 @@ List<GetPage> pages = [
   GetPage(name: MyProfileScreen.routeName, page: () => MyProfileScreen()),
   GetPage(name: OtpScreen.routeName, page: () => const OtpScreen()),
   GetPage(name: MyOrders.routeName, page: () => const MyOrders()),
-  GetPage(name: CartScreen.routeName, page: () => CartScreen()),
+  GetPage(name: CartScreen.routeName, page: () => const CartScreen()),
   GetPage(name: PaymentScreen.routeName, page: () => const PaymentScreen()),
   //GetPage(name: FlutterPayUPI.routeName, page: () => FlutterPayUPI()),
   GetPage(
       name: SelectPaymentMethod.routeName, page: () => SelectPaymentMethod()),
   GetPage(name: SignUpSuccess.routeName, page: () => const SignUpSuccess()),
+
+  GetPage(name: SignUpWait.routeName, page: () => const SignUpWait())
 
   // MyOrders.routeName: (ctx) => const MyOrders(),
 ];

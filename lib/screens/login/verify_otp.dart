@@ -1,13 +1,25 @@
 // ignore_for_file: unused_local_variable
 
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:get/get.dart';
+import 'package:otp_autofill/otp_autofill.dart';
 import 'package:sutra_ecommerce/constants/colors.dart';
 import 'package:sutra_ecommerce/controllers/login_controller.dart';
 import 'package:sutra_ecommerce/utils/screen_utils.dart';
+
+class SampleStrategy extends OTPStrategy {
+  @override
+  Future<String> listenForCode() {
+    return Future.delayed(
+      const Duration(seconds: 4),
+      () => 'Your code is 54321',
+    );
+  }
+}
 
 class OtpScreenArguments {
   final String phoneNumber;
@@ -29,13 +41,17 @@ class _OtpScreenState extends State<OtpScreen> {
   bool isLoadingButton = false;
   bool showOtp = false;
   TextEditingController otpController = TextEditingController(text: "");
-  //FirebaseMessaging messaging = FirebaseMessaging.instance;
   LoginController loginController = LoginController();
+  late OTPTextEditController otpTextEditController;
+  final otpFieldController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
     startCountdown();
+    if (Platform.isAndroid) {
+      _startListeningForOtp();
+    }
   }
 
   void startCountdown() {
@@ -50,9 +66,36 @@ class _OtpScreenState extends State<OtpScreen> {
     });
   }
 
+  void _startListeningForOtp() {
+    otpTextEditController = OTPTextEditController(
+      codeLength: 4,
+      onCodeReceive: (code) {
+        setState(() {
+          otpFieldController.text = code;
+        });
+        loginController.verifyOtpCode(
+            ModalRoute.of(context)?.settings.arguments as OtpScreenArguments,
+            otpController,
+            context,
+            null,
+            null,
+            null,
+            null);
+      },
+    )..startListenUserConsent(
+        (code) {
+          return RegExp(r'\d{4}').stringMatch(code ?? '') ?? '';
+        },
+        strategies: [
+          SampleStrategy(),
+        ],
+      );
+  }
+
   @override
   void dispose() {
     timer.cancel();
+    otpTextEditController.stopListen();
     super.dispose();
   }
 
@@ -71,9 +114,7 @@ class _OtpScreenState extends State<OtpScreen> {
         return false;
       },
       child: Scaffold(
-        //appBar: AppBar(),
         body: SizedBox(
-          // color: Colors.red,
           height: Get.height / 2 + 180,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -96,14 +137,13 @@ class _OtpScreenState extends State<OtpScreen> {
                 textAlign: TextAlign.center,
                 text: TextSpan(
                   style: DefaultTextStyle.of(context).style.copyWith(
-                        fontSize: 16.0, // Set the font size to 14
+                        fontSize: 16.0,
                       ),
                   children: <TextSpan>[
                     TextSpan(
                       text: 'We have sent verification code\nto ',
                       style:
                           Theme.of(context).textTheme.headlineMedium?.copyWith(
-                                // fontWeight: FontWeight.w700,
                                 color: Colors.grey,
                                 fontSize: getProportionateScreenWidth(20),
                               ),
@@ -116,8 +156,6 @@ class _OtpScreenState extends State<OtpScreen> {
                                 color: kPrimaryBlue,
                                 fontSize: getProportionateScreenWidth(16),
                               ),
-
-                      
                     ),
                   ],
                 ),
@@ -125,7 +163,6 @@ class _OtpScreenState extends State<OtpScreen> {
               const SizedBox(
                 height: 20,
               ),
-              //ElevatedButton(onPressed: (){}, child: Text('data')),
               OtpTextField(
                 numberOfFields: 4,
                 borderRadius: const BorderRadius.all(Radius.circular(15)),
@@ -162,7 +199,7 @@ class _OtpScreenState extends State<OtpScreen> {
                 textAlign: TextAlign.center,
                 text: TextSpan(
                   style: DefaultTextStyle.of(context).style.copyWith(
-                        fontSize: 16.0, // Set the font size to 14
+                        fontSize: 16.0,
                       ),
                   children: <TextSpan>[
                     TextSpan(

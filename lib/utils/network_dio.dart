@@ -10,6 +10,7 @@ import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:flutter/foundation.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hive/hive.dart';
+import 'package:sutra_ecommerce/utils/api_constants.dart';
 import 'package:sutra_ecommerce/utils/generic_exception.dart';
 import 'package:sutra_ecommerce/utils/network_repository.dart';
 
@@ -50,7 +51,13 @@ class NetworkDioHttp {
       connectTimeout: 15000,
     );
 
-    _dioCacheManager = DioCacheManager(CacheConfig());
+    _dioCacheManager = DioCacheManager(CacheConfig(
+      baseUrl: ApiAppConstants.apiEndPoint,
+      defaultRequestMethod: 'GET',
+      defaultMaxAge: const Duration(days: 30),
+      defaultMaxStale: const Duration(days: 30),
+    ));
+
     final token = await getHeaders();
     log(token.toString());
     options.headers.addAll(token);
@@ -89,9 +96,9 @@ class NetworkDioHttp {
 
       try {
         debugPrint(url);
-        Response response = await _dio!
-            .get(url, options: header ?? _cacheOptions);
-   /*         .onError((error, stackTrace) {
+        Response response =
+            await _dio!.get(url, options: header ?? _cacheOptions);
+        /*         .onError((error, stackTrace) {
           throw error.toString();
         });*/
 
@@ -113,15 +120,13 @@ class NetworkDioHttp {
           //
 
           return data;
-        }
-        else if (response.statusCode == 500) {
+        } else if (response.statusCode == 500) {
           return {
             'body': "Something Went Wrong",
             'headers': null,
             'error_description': "Something Went Wrong",
           };
-        }
-        else {
+        } else {
           if (response.statusCode == 500) {
             // Handle 500 status code error here
             return {
@@ -146,13 +151,11 @@ class NetworkDioHttp {
           print("message in get api ${e.response?.statusMessage}");
           print(e.response?.requestOptions);
           throw AppException(
-            error: e,
-            type: ErrorType.dioError,
-            statusCode: e.response?.statusCode,
-             res:  e.response
-          );
-        }
-        else {
+              error: e,
+              type: ErrorType.dioError,
+              statusCode: e.response?.statusCode,
+              res: e.response);
+        } else {
           // Something happened in setting up or sending the request that triggered an Error
           print(e.requestOptions);
           print("aswswdasd${e.message}");
@@ -160,7 +163,7 @@ class NetworkDioHttp {
 
         return Future.error(e.response?.data);
       }
-   /*   catch (error, stacktrace) {
+      /*   catch (error, stacktrace) {
         print('stacktrace::: $error');
         throw AppException(
           error: error,
@@ -273,7 +276,6 @@ class NetworkDioHttp {
   }) async {
     var internet = await check();
     if (internet) {
-      null;
       Response? response;
       try {
         debugPrint("URL :$url");
@@ -284,11 +286,9 @@ class NetworkDioHttp {
         );
 
         log(response.toString());
-        // ignore: prefer_typing_uninitialized_variables
+
         var responseBody;
         if (response.statusCode == 200 || response.statusCode == 201) {
-          //
-
           try {
             responseBody = json.decode(json.encode(response.data));
           } catch (error) {
@@ -299,6 +299,14 @@ class NetworkDioHttp {
             'body': responseBody,
             'headers': response.headers,
             'error_description': null,
+          };
+        } else if (response.statusCode == 400) {
+          // Handle 400 status code error here
+          debugPrint("Client Error: ${response.data}");
+          return {
+            'body': response.data,
+            'headers': null,
+            'error_description': response.data,
           };
         } else {
           if (response.statusCode == 500) {
@@ -311,7 +319,11 @@ class NetworkDioHttp {
           }
 
           Fluttertoast.showToast(msg: "${response.data}");
-          return response.data;
+          return {
+            'body': response.data,
+            'headers': response.headers,
+            'error_description': "Error occurred",
+          };
         }
       } on DioError catch (e) {
         if (e.response!.statusCode == 500) {
@@ -321,13 +333,21 @@ class NetworkDioHttp {
             'headers': null,
             'error_description': "Server Error",
           };
+        } else if (e.response!.statusCode == 400) {
+          log(e.response.toString());
+          return {
+            'body': e.response?.data,
+            'headers': null,
+            'error_description': e.response?.data['error'] ?? "Client Error",
+          };
         }
 
+        log(e.toString());
         log(e.error.toString());
         log(e.message.toString());
         log(e.response!.statusMessage.toString());
         log(e.response!.statusCode.toString());
-        // log(e.message.toString());
+
         Map<String, dynamic> responseData = {
           'body': e.response?.data,
           'headers': null,
@@ -335,8 +355,7 @@ class NetworkDioHttp {
               ? e.response?.data['detail'] != null
                   ? await _handleError(e, message: e.response?.data['detail'])
                   : await _handleError(e, message: e.response?.data['error'])
-              : ""
-          // await _handleError(e, message: e.response?.data['detail']),
+              : "",
         };
 
         return Future.error(responseData);
@@ -581,5 +600,76 @@ class NetworkDioHttp {
     }
 
     return errorDescription;
+  }
+
+  static Future<Map<String, dynamic>> patchDioHttpMethod({
+    required String url,
+    required data,
+    final header,
+  }) async {
+    var internet = await check();
+    if (internet) {
+      try {
+        Response response = await _dio!.patch(
+          url,
+          data: data,
+          options: header ?? _cacheOptions,
+        );
+
+        if (response.statusCode == 200) {
+          var responseBody;
+          try {
+            responseBody = json.decode(json.encode(response.data));
+          } catch (e) {
+            responseBody = response.data;
+            debugPrint('catch...');
+          }
+
+          return {
+            'body': responseBody,
+            'headers': response.headers,
+            'error_description': null,
+          };
+        } else if (response.statusCode == 500) {
+          return {
+            'body': "Server Error",
+            'headers': null,
+            'error_description': "Something Went Wrong",
+          };
+        } else {
+          return {
+            'body': null,
+            'headers': null,
+            'error_description': "Something Went Wrong",
+          };
+        }
+      } on DioError catch (e) {
+        if (e.response!.statusCode == 500) {
+          // Handle 500 status code error here
+          return {
+            'body': "Server Error",
+            'headers': null,
+            'error_description': "Server Error",
+          };
+        }
+
+        Map<String, dynamic> responseData = {
+          'body': e.response?.data,
+          'headers': null,
+          'error_description':
+              await _handleError(e, message: e.response?.data['message']),
+        };
+
+        return responseData;
+      }
+    } else {
+      Map<String, dynamic> responseData = {
+        'body': null,
+        'headers': null,
+        'error_description': "Internet Error",
+      };
+      internetError.addOverlayEntry();
+      return responseData;
+    }
   }
 }
