@@ -51,7 +51,7 @@ class _SignUpWaitState extends State<SignUpWait> {
                         'The number is already registered, we are processing your request',
                         textAlign: TextAlign.center,
                         maxLines: 2,
-                        style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                        style: Theme.of(context).textTheme.bodyText2!.copyWith(
                               color: kTextColorAccent,
                             ),
                       ),

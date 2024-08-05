@@ -110,7 +110,7 @@ class IntroWidget extends StatelessWidget {
                 Expanded(
                   child: Text(
                     'Welcome to Dilicia',
-                    style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                    style: Theme.of(context).textTheme.headline6!.copyWith(
                           color: kTextColor,
                           fontWeight: FontWeight.w600,
                           fontSize: 25,

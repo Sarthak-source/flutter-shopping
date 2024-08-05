@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:lottie/lottie.dart';
+import 'package:sutra_ecommerce/constants/colors.dart';
 import 'package:sutra_ecommerce/utils/screen_utils.dart';
 
+import '../../config/common.dart';
 import '../../controllers/payment_controller.dart';
 import '../../utils/common_functions.dart';
 
@@ -49,7 +52,7 @@ String? pendingAmnt="";
 
                   Text(
                     'Total Pending Amount :    ₹ ${ twodecimalDigit(double.parse( controller.pendingPayment.value==null?"0.000":controller.pendingPayment.value.toString()))}',
-                    style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                    style: Theme.of(context).textTheme.headline6!.copyWith(
                       fontWeight: FontWeight.bold,
                       fontSize: 18
                     ),
@@ -65,7 +68,7 @@ String? pendingAmnt="";
                       'New Order Placement Is Not Allowed.',
                       textAlign: TextAlign.center,
                       maxLines: 2,
-                      style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                      style: Theme.of(context).textTheme.bodyText2!.copyWith(
                        // color: kTextColorAccent,
                         color: Colors.red,
                           fontWeight: FontWeight.bold,
