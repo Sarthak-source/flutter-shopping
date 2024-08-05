@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sutra_ecommerce/controllers/add_to_cart_controller.dart';
@@ -74,7 +73,7 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
                       ),
                       Text(
                         'Order Successfully Placed!',
-                        style: Theme.of(context).textTheme.headline6!.copyWith(
+                        style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                               fontWeight: FontWeight.bold,
                             ),
                       ),
@@ -87,7 +86,7 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
                           'Thank you for the order. Your order will be Processed.',
                           textAlign: TextAlign.center,
                           style:
-                              Theme.of(context).textTheme.bodyText2!.copyWith(
+                              Theme.of(context).textTheme.headlineMedium!.copyWith(
                                     color: kTextColorAccent,
                                   ),
                         ),
@@ -248,7 +247,7 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
                                 "Total :",
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline6!
+                                    .headlineMedium!
                                     .copyWith(
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -260,7 +259,7 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
                                 "₹ ${twodecimalDigit(double.parse(setTotalValue(createOrderCtlr.myOrderItems).toString()))}",
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline6!
+                                    .headlineMedium!
                                     .copyWith(
                                       fontWeight: FontWeight.bold,
                                     ),
