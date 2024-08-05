@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
@@ -7,6 +8,7 @@ import 'package:sutra_ecommerce/controllers/common_controller.dart';
 import 'package:sutra_ecommerce/controllers/user_controller.dart';
 import 'package:sutra_ecommerce/screens/term_and_conditions/terms_and_conditions.dart';
 import 'package:sutra_ecommerce/widgets/go_cart/go_to_cart.dart';
+import 'package:sutra_ecommerce/widgets/loading_widgets/loader.dart';
 
 import '../../controllers/catagories_controller.dart';
 import '../../controllers/explore_more_poducts_controller.dart';
@@ -54,7 +56,9 @@ class TabScreenState extends State<TabScreen> {
   void initState() {
     super.initState();
 
-    print('tab screen:::');
+    if (kDebugMode) {
+      print('tab screen:::');
+    }
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       //curTab = commonController.commonCurTab.value;
       //= widget.pageIndex ?? 0;
@@ -86,7 +90,7 @@ class TabScreenState extends State<TabScreen> {
       UserScreen(),
     ];
 
-    bool routeEnabled = (usercontroller.partyConfig['party']?['route_code']
+    bool routeEnabled = !(usercontroller.partyConfig['party']?['route_code']
             ['is_route_started'] ==
         'NO');
 
@@ -101,11 +105,11 @@ class TabScreenState extends State<TabScreen> {
         return true;
       },
       child: Obx(() {
-        log("userControllerDataTab ${usercontroller.partyConfig['link']}");
+        log("userControllerDataTab ${usercontroller.partyConfig['party']?['route_code']['is_route_started']}");
 
         return (usercontroller.user['party']?['conditions_accepted']
                     ?.toString() ==
-                "NO")
+                "YES")
             ? Scaffold(
                 bottomSheet:
                     (routeEnabled || commonController.commonCurTab.value == 3)
@@ -117,18 +121,16 @@ class TabScreenState extends State<TabScreen> {
                           body: Center(
                             child: SizedBox(
                               height: 500,
-                              
-                                child: Column(
-                                  children: [
-                                    const Text(
-                                        'The route has not been started yet.'),
-                                    Lottie.asset('assets/lotties/routes.json',repeat: false),
-                                  ],
-                                ),
-                                
+                              child: Column(
+                                children: [
+                                  const Text(
+                                      'The route has not been started yet.'),
+                                  Lottie.asset('assets/lotties/routes.json',
+                                      repeat: false),
+                                ],
                               ),
                             ),
-                          
+                          ),
                         )
                       : pages[commonController.commonCurTab.value],
                 ),
@@ -139,8 +141,12 @@ class TabScreenState extends State<TabScreen> {
                         commonController.update();
                       }, commonController.commonCurTab.value),
               )
-            : TermsOfServiceScreen(
-                url: usercontroller.partyConfig['link'].toString());
+            : usercontroller.partyConfig['link'] != null
+                ? TermsOfServiceScreen(
+                    url: usercontroller.partyConfig['link'].toString())
+                : const Scaffold(
+                    body: Loader(),
+                  );
       }),
     );
   }

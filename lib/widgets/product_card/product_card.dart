@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sutra_ecommerce/controllers/add_to_cart_controller.dart';
@@ -50,8 +51,10 @@ class _ProductCardState extends State<ProductCard> {
   void initState() {
     super.initState();
     Map storedUserData = box!.get('userData');
-    print(
+    if (kDebugMode) {
+      print(
         'userdata in popularcard ${storedUserData['party']['orders_milk'].toString()}');
+    }
     ordersMilk = storedUserData['party']['orders_milk']?.toString() ?? "";
 
     String multipackQtyStr = widget.product['multipack_qty'] ?? '0.0';

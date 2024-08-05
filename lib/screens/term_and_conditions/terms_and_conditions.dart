@@ -35,7 +35,13 @@ class TermsOfServiceScreenState extends State<TermsOfServiceScreen> {
   @override
   void initState() {
     super.initState();
-    _initializeWebView();
+    if (widget.url != null && widget.url!.isNotEmpty) {
+      _initializeWebView();
+    } else {
+      // Handle the case where the URL is null or empty
+      log("URL is null or empty");
+      // Optionally, you can show an error message to the user or load default content
+    }
   }
 
   void _initializeWebView() {
@@ -79,10 +85,11 @@ class TermsOfServiceScreenState extends State<TermsOfServiceScreen> {
     log("herewego ${widget.url!}");
 
     if (widget.url != null && widget.url!.isNotEmpty) {
-    _webViewController.loadRequest(Uri.parse(widget.url!));
-  } else {
-    _webViewController.loadHtmlString(termsAndConditionsHtml);
-  }
+      log("data here ${widget.url.toString()}");
+      _webViewController.loadRequest(Uri.parse(widget.url!));
+    } else {
+      _webViewController.loadHtmlString(termsAndConditionsHtml);
+    }
   }
 
   void _scrollToBottom() async {

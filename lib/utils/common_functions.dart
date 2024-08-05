@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
 
 import '../exceptions/data_exceptions.dart';
@@ -15,10 +16,14 @@ String convertTimestampToDateString(String? timestampString) {
 
     // Format the DateTime object as dd/mm/yy
     String formattedDate = DateFormat('dd/MM/yy').format(dateTime);
-    print('valid date format: $timestampString');
+    if (kDebugMode) {
+      print('valid date format: $timestampString');
+    }
     return formattedDate;
   } catch (e) {
-    print('Invalid date format: $timestampString');
+    if (kDebugMode) {
+      print('Invalid date format: $timestampString');
+    }
     return ''; // Return an empty string if the date format is invalid
   }
 }
@@ -34,10 +39,14 @@ String convertTimestampToDateString2(String? timestampString) {
 
     // Format the DateTime object as dd/mm/yy
     String formattedDate = DateFormat('dd-MMM-yy').format(dateTime);
-    print('valid date format: $timestampString');
+    if (kDebugMode) {
+      print('valid date format: $timestampString');
+    }
     return formattedDate;
   } catch (e) {
-    print('Invalid date format: $timestampString');
+    if (kDebugMode) {
+      print('Invalid date format: $timestampString');
+    }
     return ''; // Return an empty string if the date format is invalid
   }
 }
@@ -85,7 +94,9 @@ String errorHandler(AppException appException) {
     //Status code error
     errorMsg = DataException.handleError(appException.statusCode!);
   }
-  print('errorMsg:: $errorMsg');
+  if (kDebugMode) {
+    print('errorMsg:: $errorMsg');
+  }
   return errorMsg;
 }
 
@@ -93,6 +104,8 @@ twodecimalDigit(double? v) {
   double? value = v ?? 0.000;
   String formattedValue = value
       .toStringAsFixed(2); // This will format the value to two decimal places
-  print("Decimal :: ${formattedValue}"); // Output will be "123.46"
+  if (kDebugMode) {
+    print("Decimal :: $formattedValue");
+  } // Output will be "123.46"
   return formattedValue;
 }

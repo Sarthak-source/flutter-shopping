@@ -144,12 +144,20 @@ class NetworkDioHttp {
           };
         }
       } on DioError catch (e) {
-        print('DioError::: $e');
+        if (kDebugMode) {
+          print('DioError::: $e');
+        }
 
         if (e.response != null) {
-          print("status code in get api ${e.response?.statusCode}");
-          print("message in get api ${e.response?.statusMessage}");
-          print(e.response?.requestOptions);
+          if (kDebugMode) {
+            print("status code in get api ${e.response?.statusCode}");
+          }
+          if (kDebugMode) {
+            print("message in get api ${e.response?.statusMessage}");
+          }
+          if (kDebugMode) {
+            print(e.response?.requestOptions);
+          }
           throw AppException(
               error: e,
               type: ErrorType.dioError,
@@ -157,8 +165,12 @@ class NetworkDioHttp {
               res: e.response);
         } else {
           // Something happened in setting up or sending the request that triggered an Error
-          print(e.requestOptions);
-          print("aswswdasd${e.message}");
+          if (kDebugMode) {
+            print(e.requestOptions);
+          }
+          if (kDebugMode) {
+            print("aswswdasd${e.message}");
+          }
         }
 
         return Future.error(e.response?.data);

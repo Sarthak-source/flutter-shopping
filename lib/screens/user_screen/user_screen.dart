@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -23,7 +24,9 @@ class UserScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(userController?.user.toString() ?? "sss");
+    if (kDebugMode) {
+      print(userController?.user.toString() ?? "sss");
+    }
     return Obx(() {
       return Center(
         child: Padding(
