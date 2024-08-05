@@ -36,7 +36,7 @@ class _SignUpSuccessState extends State<SignUpSuccess> {
                     ),
                     Text(
                       'Registered Successfully',
-                      style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                      style: Theme.of(context).textTheme.headline6!.copyWith(
                             fontWeight: FontWeight.bold,
                           ),
                     ),
@@ -51,7 +51,7 @@ class _SignUpSuccessState extends State<SignUpSuccess> {
                         'Our Sales person will get in touch with you.',
                         textAlign: TextAlign.center,
                         maxLines: 2,
-                        style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                        style: Theme.of(context).textTheme.bodyText2!.copyWith(
                               color: kTextColorAccent,
                             ),
                       ),
